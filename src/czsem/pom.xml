@@ -9,6 +9,10 @@
 
 	<modules>
 		<module>czsem-common</module>
+		<module>netgraph-tree-viewer</module>
+		<module>netgraph-client</module>
+		<module>czsem-gate-plugin</module>
+		<module>netgraph-query</module>
 	</modules>
 
 	<properties>
