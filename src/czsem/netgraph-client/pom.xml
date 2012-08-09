@@ -1,0 +1,15 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>czsem</artifactId>
+		<groupId>czsem</groupId>
+		<version>2.0</version>
+	</parent>
+	<groupId>cz.cuni.mff.mirovsky</groupId>
+	<artifactId>netgraph-client</artifactId>
+	<version>1.94</version>
+	<name>Netgraph Client</name>
+	<description>Netgraph is a client-server application for searching in linguistically annotated treebanks, developed primarily for searching in the Prague Dependency Treebank 2.0. Nevertheless, Netgraph can work with other corpora too, as long as they are converted to FS format.</description>
+	<url>http://quest.ms.mff.cuni.cz/netgraph/</url>
+</project>
