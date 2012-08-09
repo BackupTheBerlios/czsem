@@ -1,0 +1,100 @@
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+	<!-- TODO: a jarjar format would be better -->
+	<id>jar-with-dependencies</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<useProjectArtifact>true</useProjectArtifact>
+			<unpack>true</unpack>
+			<includes>
+				<include>${groupId}:${artifactId}:${packaging}:${version}</include>
+			</includes>
+		</dependencySet>
+		<dependencySet>
+			<outputDirectory>/</outputDirectory>
+			<useProjectArtifact>false</useProjectArtifact>
+			<unpack>true</unpack>
+			<includes>
+				<include>*:gate-core</include>
+				<include>*:mimir-client-tools</include>
+				<include>*:log4j</include>
+				<include>*:jdom</include>
+				<include>*:ant</include>
+				<include>*:ivy</include>
+				<include>*:jaxen</include>
+				<include>*:xercesImpl</include>
+				<include>*:commons-io</include>	
+				<include>*:commons-lang</include>								 
+			</includes>
+			<unpackOptions>
+				<includes>
+					<include>*.*</include>
+
+					<include>czsem/**</include>
+
+					<include>gate/*.*</include>
+					<include>gate/event/*.*</include>
+					<include>gate/util/*.*</include>
+					<include>gate/util/ant/ExpandIvy.*</include>
+					<include>gate/gui/Handle.*</include>
+					<include>gate/gui/ActionsPublisher.*</include>
+					<include>gate/gui/FeaturesSchemaEditor**</include>
+					<include>gate/gui/ResizableVisualResource.*</include>
+					<include>gate/gui/MainFrame**</include>					
+					<include>gate/gui/LogArea**</include>					
+					<include>gate/gui/annedit/**</include>
+					<include>gate/gui/docview/**</include>
+					<include>gate/xml/SimpleErrorHandler.*</include>
+					<include>gate/swing/**</include>
+					<include>gate/annotation/**</include>
+					<include>gate/security/**</include>
+					<include>gate/creole/*.*</include>
+					<include>gate/creole/ontology/ONodeID.*</include>
+					<include>gate/creole/ir/lucene/LuceneIREngine.*</include>
+					<include>gate/creole/ir/*.*</include>
+					<include>gate/corpora/DocumentImpl.*</include>
+					<include>gate/corpora/DocumentContentImpl.*</include>
+					<include>gate/corpora/RepositioningInfo.*</include>
+					<include>gate/creole/ontology/*.*</include>
+					<include>gate/creole/metadata/*.*</include>
+					<include>gate/persist/PersistenceException.*</include>
+					<include>gate/jape/parser/ParseCpsl.*</include>
+					<include>gate/jape/JapeConstants.*</include>
+					<include>gate/jape/parser/ParseCpslConstants.*</include>
+					<include>gate/jape/constraint/*.*</include>
+					<include>gate/resources/img/*.*</include>					
+					
+					<include>gate/mimir/**</include>
+
+					<include>org/apache/log4j/**</include>
+					
+					<include>org/jdom/**</include>
+					
+					<include>org/apache/tools/ant/*.*</include>
+					
+					<include>org/apache/ivy/util/*.*</include>
+					
+					<include>org/jaxen/**</include>
+					
+					<include>org/apache/commons/lang/**</include>
+					
+					
+				</includes>
+				<excludes>
+					<exclude>gate/resources/img/splash*.*</exclude>
+					<exclude>gate/resources/img/sponsors.*</exclude>
+					<exclude>gate/resources/img/gateS*.*</exclude>
+					<exclude>gate/resources/img/working.*</exclude>
+					<exclude>gate/corpora/NekoHtmlDocumentFormat*</exclude>
+				</excludes>
+			</unpackOptions>
+		</dependencySet>
+	</dependencySets>
+</assembly>

@@ -10,9 +10,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import cz.cuni.mff.mirovsky.trees.Attribute;
-import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.Utils;
+import czsem.utils.NetgraphConstants;
 
 public class FSFileWriter {
 	private PrintStream out = System.out;
@@ -43,14 +42,6 @@ public class FSFileWriter {
 		"Token",
 	};
 			
-//	public static final int ID_INDEX = 0;
-	public static final String ID_FEATURENAME = "ann_id";
-	public static final String ORD_FEATURENAME = "sentence_order";
-	public static final String STRING_FEATURENAME = "string";
-	public static final String HIDE_FEATURENAME = "hidden";
-
-//	public static final int DEPENDECY_INDEX = 2;
-//	public static final int STRNG_INDEX = default_attributes.length-1;
 
 	
 	public FSFileWriter(String filename) throws FileNotFoundException, UnsupportedEncodingException
@@ -68,11 +59,11 @@ public class FSFileWriter {
 		}
 		
 		out.print("@N ");
-		out.println(ORD_FEATURENAME);
+		out.println(NetgraphConstants.ORD_FEATURENAME);
 		out.print("@V ");
-		out.println(STRING_FEATURENAME);
+		out.println(NetgraphConstants.STRING_FEATURENAME);
 		out.print("@H ");
-		out.println(HIDE_FEATURENAME);
+		out.println(NetgraphConstants.HIDE_FEATURENAME);
 
 		out.println();		
 
@@ -92,7 +83,7 @@ public class FSFileWriter {
 		
 		Set<String> attr_set = new HashSet<String>();
 		
-		attr_set.add(ID_FEATURENAME);
+		attr_set.add(NetgraphConstants.ID_FEATURENAME);
 		
 		for (Annotation token : tokens)
 		{
@@ -112,23 +103,6 @@ public class FSFileWriter {
 		return attrs;
 	}
 	
-	public static NGTreeHead createTreeHead(String [] attributes)
-	{
-		NGTreeHead th = new NGTreeHead(null);
-		
-		for (int i = 0; i < attributes.length; i++)
-		{
-			th.addAttribute(new Attribute(attributes[i]));			
-//			ngf.getVybraneAtributy().add(i, Integer.toString(i));
-		}
-		
-		
-		th.N = th.W = th.getIndexOfAttribute(FSFileWriter.ORD_FEATURENAME);
-		th.H = th.getIndexOfAttribute(FSFileWriter.HIDE_FEATURENAME);
-
-		return th;
-	}
-
 	
 	public void PrintAll(AnnotationSet annotations)
 	{

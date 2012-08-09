@@ -12,7 +12,7 @@ import cz.cuni.mff.mirovsky.account.UserAccount;
 import cz.cuni.mff.mirovsky.trees.Attribute;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.net.NetgraphServerComunication.LoadTreeResult.SingleMatch;
-import czsem.utils.CZSemTree;
+import czsem.utils.CzsemTree;
 
 public class NetgraphServerComunication extends NetgraphProtocolConnection {
 	/** Constants used by the {@link #loadNextTree}	method */
@@ -62,7 +62,7 @@ public class NetgraphServerComunication extends NetgraphProtocolConnection {
 		public QueryStatistics query_statistics; 
 				
 		public NGTreeHead tree_head;
-		public CZSemTree tree;
+		public CzsemTree tree;
 	
 	}
 
@@ -312,7 +312,7 @@ public class NetgraphServerComunication extends NetgraphProtocolConnection {
         DefaultListModel model_list_actual_head = getGlobalHead().getModel();
 
         //read tree
-        res.tree = new CZSemTree();        
+        res.tree = new CzsemTree();        
         res.tree.readTree(getGlobalHead(), chars, pos, 
         		model_list_actual_head.getSize());
                                 

@@ -13,6 +13,12 @@
 		<module>netgraph-client</module>
 		<module>czsem-gate-plugin</module>
 		<module>netgraph-query</module>
+		<module>gate-applet</module>
+		<module>mimir-client-tools</module>
+		<module>gate-tools-plugin</module>
+		<module>tecto-mt-gate-plugin</module>
+		<module>fuzzy-ilp-classifier</module>
+		<module>gate-machine-learning-plugin</module>
 	</modules>
 
 	<properties>
@@ -36,12 +42,12 @@
     
     
      <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.7</version>
+			<scope>test</scope>
+		</dependency>
     </dependencies>
     
 </project>

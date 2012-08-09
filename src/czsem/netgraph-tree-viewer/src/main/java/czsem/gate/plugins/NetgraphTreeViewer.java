@@ -51,7 +51,8 @@ import cz.cuni.mff.mirovsky.trees.TNode;
 import czsem.gate.FSFileWriter;
 import czsem.gate.GateUtils;
 import czsem.gate.SentenceFSWriter;
-import czsem.utils.CZSemTree;
+import czsem.utils.CzsemTree;
+import czsem.utils.NetgraphConstants;
 
 
 @CreoleResource(name = "Netgraph TreeViewer")
@@ -79,7 +80,7 @@ public class NetgraphTreeViewer extends AbstractVisualResource implements  Owned
 			public Annotation getAnnotation()
 			{
 				NGForest forest = forestDisplay.getForest();
-				int id_index = forest.getHead().getIndexOfAttribute(FSFileWriter.ID_FEATURENAME);				
+				int id_index = forest.getHead().getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
 				String id = forest.getChosenNode().getValue(0, id_index, 0);
 				return annotation_set.get(Integer.parseInt(id)); 
 			}
@@ -253,11 +254,11 @@ public class NetgraphTreeViewer extends AbstractVisualResource implements  Owned
 		
 //		System.err.println(annotation.getId());
 				
-		NGTreeHead th = wr.createTreeHead();
+		NGTreeHead th = CzsemTree.createTreeHead(wr.getAttributes());
 		tree.readTree(th, os.toString().toCharArray(), 0, th.getSize());
 		
-		CZSemTree czstree = new CZSemTree(tree);
-		int id_index = th.getIndexOfAttribute(FSFileWriter.ID_FEATURENAME);				
+		CzsemTree czstree = new CzsemTree(tree);
+		int id_index = th.getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
 		int deep_ord = czstree.findFirstNodeByAttributeValue(id_index, annotation.getId().toString());
 		tree.setMatchingNodes(Integer.toString(deep_ord));
 		tree.setChosenNodeByDepthOrder(deep_ord+1);

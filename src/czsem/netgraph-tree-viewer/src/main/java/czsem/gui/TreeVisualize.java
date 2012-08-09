@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import cz.cuni.mff.mirovsky.trees.NGForest;
 import cz.cuni.mff.mirovsky.trees.NGForestDisplay;
 
+@SuppressWarnings("serial")
 public class TreeVisualize extends JFrame {
 	private NGForestDisplay forestDisplay; 
 	
@@ -35,7 +36,13 @@ public class TreeVisualize extends JFrame {
 		
 		forestDisplay.repaint();
 	}
-
-	private static final long serialVersionUID = 1L;
-
+	
+	public static void main(String [] args)
+	{
+		TreeVisualize tv = new TreeVisualize();
+		tv.pack();
+		tv.setVisible(true);
+		
+		System.err.println("end");
+	}
 }

@@ -12,4 +12,19 @@ public class Config extends AbstractConfig {
 		return null;
 	}
 
+	public String getPrologPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getAlephPath() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getCzsemPluginDir() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

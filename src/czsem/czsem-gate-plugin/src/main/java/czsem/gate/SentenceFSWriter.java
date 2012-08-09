@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.Utils;
 import czsem.gate.utils.TreeIndex;
+import czsem.utils.NetgraphConstants;
 
 public class SentenceFSWriter
 {
@@ -76,7 +76,7 @@ public class SentenceFSWriter
 				Object f = node.getFeatures().get(attributes[a]);
 
 				//print ID
-				if (attributes[a].equals(FSFileWriter.ID_FEATURENAME)) f = node_id;
+				if (attributes[a].equals(NetgraphConstants.ID_FEATURENAME)) f = node_id;
 								
 				if (f != null)
 				{
@@ -153,7 +153,7 @@ public class SentenceFSWriter
 			{
 				if (! token_annots[i].getType().equals(root_type))
 				{
-					token_annots[i].getFeatures().put(FSFileWriter.HIDE_FEATURENAME, true);
+					token_annots[i].getFeatures().put(NetgraphConstants.HIDE_FEATURENAME, true);
 				}
 			}			
 		}
@@ -163,7 +163,7 @@ public class SentenceFSWriter
 			Arrays.sort(token_annots, new tokenOrderComprator());
 			
 			for (int i = 0; i < token_annots.length; i++) {
-				token_annots[i].getFeatures().put(FSFileWriter.ORD_FEATURENAME, i);				
+				token_annots[i].getFeatures().put(NetgraphConstants.ORD_FEATURENAME, i);				
 			}
 		}
 
@@ -257,10 +257,8 @@ public class SentenceFSWriter
 		return true;
 	}
 
-	public NGTreeHead createTreeHead()
-	{
-		return FSFileWriter.createTreeHead(attributes);
+	public String[] getAttributes() {
+		return attributes;
 	}
-	
 	
 }

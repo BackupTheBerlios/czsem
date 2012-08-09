@@ -3,13 +3,14 @@ package czsem.utils;
 import java.util.Iterator;
 
 import cz.cuni.mff.mirovsky.ShowMessagesAble;
+import cz.cuni.mff.mirovsky.trees.Attribute;
 import cz.cuni.mff.mirovsky.trees.NGForest;
 import cz.cuni.mff.mirovsky.trees.NGTree;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import cz.cuni.mff.mirovsky.trees.TAHLine;
 import cz.cuni.mff.mirovsky.trees.TNode;
 
-public class CZSemTree {
+public class CzsemTree {
     /** Array of all tree nodes, ordered by DepthOrder */
 	private TNode [] node_array;
 	private NGTree tree;
@@ -23,15 +24,15 @@ public class CZSemTree {
 		return tree;
 	}
 	
-	public CZSemTree(ShowMessagesAble p_mess) {
+	public CzsemTree(ShowMessagesAble p_mess) {
 		tree = new NGTree(p_mess);
 	}
 
-	public CZSemTree() {
+	public CzsemTree() {
 		this((ShowMessagesAble) null);
 	}
 
-	public CZSemTree(NGTree tree) {
+	public CzsemTree(NGTree tree) {
 		this.tree = tree;
 		initNodeArray();		
 	}
@@ -167,7 +168,7 @@ public class CZSemTree {
 	{
 		int ret = 0;
 		for (NGTree tree : forest.getTrees()) {
-			CZSemTree czsem_tree = new CZSemTree(tree);
+			CzsemTree czsem_tree = new CzsemTree(tree);
 			
 			int i = czsem_tree.findFirstNodeByAttributeValue(attr_index, value);
 			if (i == -1) ret += czsem_tree.tree.getNumberOfNodes();
@@ -207,6 +208,22 @@ public class CZSemTree {
 		return root_id+ "d" +deep_ord;		
 	}
 
+	
+	public static NGTreeHead createTreeHead(String [] attributes)
+	{
+		NGTreeHead th = new NGTreeHead(null);
+		
+		for (int i = 0; i < attributes.length; i++)
+		{
+			th.addAttribute(new Attribute(attributes[i]));			
+//			ngf.getVybraneAtributy().add(i, Integer.toString(i));
+		}
+		
+		
+		th.N = th.W = th.getIndexOfAttribute(NetgraphConstants.ORD_FEATURENAME);
+		th.H = th.getIndexOfAttribute(NetgraphConstants.HIDE_FEATURENAME);
 
+		return th;
+	}
 	
 }

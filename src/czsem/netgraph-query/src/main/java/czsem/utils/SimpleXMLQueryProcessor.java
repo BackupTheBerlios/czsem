@@ -41,7 +41,7 @@ public class SimpleXMLQueryProcessor implements ResultProcessor {
 			int actual_tree = 0;
 			NGForest query_forest = nq.getQueryForest();			
 			for (NGTree tree : query_forest.getTrees()) {
-				CZSemTree czsem_tree = new CZSemTree(tree);
+				CzsemTree czsem_tree = new CzsemTree(tree);
 				int found = czsem_tree.findFirstNodeByAttributeValue(AttributeIndexes.NAME, node_name);
 				if (found != -1)
 				{
@@ -54,7 +54,7 @@ public class SimpleXMLQueryProcessor implements ResultProcessor {
 			 attribute_index = query_forest.getHead().getIndexOfAttribute(attribute_name);
 		}
 		
-		public String getMatchingValue(CZSemTree tree, SingleMatch tree_match)
+		public String getMatchingValue(CzsemTree tree, SingleMatch tree_match)
 		{
 			return tree.getFirstNodeAttributeValue(
 							tree_match.matching_node_index,
