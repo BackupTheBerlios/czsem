@@ -1,2 +1,8 @@
-*/.settings/*
-*/.metadata/*
+
+
+#eclipse
+.metadata
+.settings
+.classpath
+
+#other
