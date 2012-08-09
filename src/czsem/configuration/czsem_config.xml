@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_16" class="java.beans.XMLDecoder"> 
+ <object class="java.util.HashMap"> 
+  <void method="put"> 
+   <string>ilpProjestsPath</string> 
+   <string>C:\workspace\czsem\src\java\czsem\ILP_serializations</string> 
+  </void> 
+  <void method="put"> 
+   <string>logFileDirectoryPath</string> 
+   <string>C:\workspace\czsem\src\java\czsem\czsem_GATE_plugins\log</string> 
+  </void> 
+  <void method="put"> 
+   <string>wekaRunFuzzyILPClassPath</string> 
+   <string>C:\workspace\czsem\src\java\czsem\target\classes</string> 
+  </void> 
+  <void method="put"> 
+   <string>prologPath</string> 
+   <string>C:\Program Files\Yap\bin\yap.exe</string> 
+  </void> 
+  <void method="put"> 
+   <string>tmtSerializationDirectoryPath</string> 
+   <string>C:\workspace\czsem\src\java\czsem\czsem_GATE_plugins\TmT_serializations</string> 
+  </void> 
+  <void method="put"> 
+   <string>tmtRoot</string> 
+   <string>C:\workspace\tectomt</string> 
+  </void> 
+  <void method="put"> 
+   <string>gateHome</string> 
+   <string>C:\Program Files\gate\GATE-6.0</string> 
+  </void> 
+  <void method="put"> 
+   <string>tredRoot</string> 
+   <string>C:\tred</string> 
+  </void> 
+  <void method="put"> 
+   <string>czsemPluginDir</string> 
+   <string>C:\workspace\czsem\src\java\czsem\czsem_GATE_plugins</string> 
+  </void> 
+  <void method="put"> 
+   <string>learnigConfigDirectoryForGate</string> 
+   <string>C:\workspace\czsem\src\java\czsem\gate-learning</string> 
+  </void> 
+  <void method="put"> 
+   <string>alephPath</string> 
+   <string>C:\Program Files\aleph\aleph.pl</string> 
+  </void> 
+  <void method="put"> 
+   <string>wekaJarPath</string> 
+   <string>C:\Program Files\Weka-3-6\weka.jar</string> 
+  </void> 
+ </object> 
+</java> 

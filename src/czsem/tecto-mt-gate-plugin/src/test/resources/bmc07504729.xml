@@ -1,0 +1,1336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GateDocument>
+<!-- The document's features-->
+
+<GateDocumentFeatures>
+<Feature>
+  <Name className="java.lang.String">AUTHOR</Name>
+  <Value className="java.lang.String">pr¹è</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">meshIDs</Name>
+  <Value className="java.util.ArrayList" itemClassName="java.lang.String">D001775;D000208;D014057;D011857;D002533;D003952;D008279;D006801;D005381</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">gate.SourceURL</Name>
+  <Value className="java.lang.String">http://www.csnn.eu/pdf/nn_07_06_05.pdf</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">bmcTitle</Name>
+  <Value className="java.lang.String">Klinický pohled na výpočetní tomografii u akutní ischemie mozku</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">MimeType</Name>
+  <Value className="java.lang.String">application/pdf</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">CREATOR</Name>
+  <Value className="java.lang.String">/Bc®í%/vn`KL ;Ä·`íè /</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">TIKA_CREATOR</Name>
+  <Value className="java.lang.String">/Bc®í%/vn`KL ;Ä·`íè /</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">meshTreeNodes</Name>
+  <Value className="java.util.ArrayList" itemClassName="java.lang.String">C10.228.140.300.150;C14.907.253.092;C23.550.291.125;E01.158.600.680;E01.370.350;E01.370.350.350.700;E01.370.350.350.810;E01.370.350.500;E01.370.350.600.350.700.810;E01.370.350.700.060.180;E01.370.350.700.560.180;E01.370.350.700.700.810;E01.370.350.700.705;E01.370.350.700.810.810;E01.370.350.825.500;E01.370.350.825.810.810;E01.370.370.050.180;E01.370.376.560.180;G09.330.190.163;L01.700.508.100.158.600.680;N03.219.521</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">meshTerms</Name>
+  <Value className="java.util.ArrayList" itemClassName="java.lang.String">krevní oběh;akutní nemoc;tomografie rentgenová počítačová;rentgenový obraz - interpretace počítačová;mozková angiografie;diagnostické zobrazování;magnetická rezonance - zobrazování;lidé;financování organizované</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">TIKA_TITLE</Name>
+  <Value className="java.lang.String">~h½ê{*;×</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">TIKA_AUTHOR</Name>
+  <Value className="java.lang.String">pr¹è</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">meshArticleTypeIDs</Name>
+  <Value className="java.util.ArrayList"></Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">bmcID</Name>
+  <Value className="java.lang.String">bmc07504729</Value>
+</Feature>
+<Feature>
+  <Name className="java.lang.String">TITLE</Name>
+  <Value className="java.lang.String">~h½ê{*;×</Value>
+</Feature>
+</GateDocumentFeatures>
+<!-- The document content area with serialized nodes -->
+
+<TextWithNodes><Node id="0"/>~h½ê{*;×<Node id="9"/> <Node id="10"/>643Cesk Slov Neurol N 2007; 70/103(6): 643–652
+PŘEHLEDNÝ REFERÁT
+Klinický pohled na výpočetní tomografii
+ u akutní ischemie mozku
+A Clinical Approach to Computed Tomography in Acute 
+Cerebral Ischemia
+Klíčová slova
+akutní ischemie mozku – výpočetní 
+tomografie – mozková perfuze – per-
+fuzní výpočetní tomografie – výpočetní
+tomografická angiografie
+Key words
+acute cerebral ischemia – computed
+tomography – brain perfusion – perfu-
+sion computed tomography – computed
+tomography angiography
+Souhrn
+ S rozvojem reperfuzních metod léčby akutní ischemie mozku stoupá význam zobrazovacích me-
+ tod při výběru pacientů profitujících z této léčby. Zobrazení mozku výpočetní tomografií bez po-
+ dání kontrastní látky je dnes standardním vyšetřením pacientů s cévní mozkovou příhodou. Zdo-
+  konalení výpočetní tomografie v posledních letech umožnilo její využití k poměrně dokonalému
+  vyšetření mozkového cévního řečiště i perfuze srovnatelné s ostatními zobrazovacími metodami.
+  V článku přinášíme základní teoretické i praktické informace důležité pro správnou interpretaci
+ výsledků tohoto vyšetření. Multimodální výpočetní tomografie se při znalosti možností a limitů
+ metody může stát klinikovi cenným pomocníkem a pro svoji stále se zvyšující dostupnost, bez-
+   pečnost a jednoduchost provedení metodou volby u pacienta s akutní cévní mozkovou příhodou.
+Abstract
+Progress in reperfusion methods of treatment of acute cerebral ischemia has been reflected in
+the growing importance of imaging methods in the selection of patients profiting from the
+treatment. Unenhanced computed tomography brain imaging without the administration of
+the contrast substance is a standard examination procedure today in patients with cerebrovas-
+cular accident. Progress in computed tomography in recent years has allowed for its use for re-
+latively thorough examination of the cerebral venous bed and of perfusion comparable with
+other imaging methods. The article provides basic theoretical and practical information impor-
+tant for correct interpretation of the results of such examination. With the knowledge of the
+potential and limits of the method, multimodal computed tomography can become a valuable
+tool and assistance to the clinician and a method of choice for patients with acute cerebrovas-
+cular accident thanks to its availability, safety and simplicity of performance.
+V. Rohan1, P. Ševčík1, 
+J. Polívka1, Z. Ambler1, 
+B. Kreuzberg2, J. Ferda2
+1 Neurologická klinika LF UK 
+ a FN Plzeň
+2 Radiodiagnostická klinika LF UK 
+ a FN Plzeň
+ 
+MUDr. Vladimír Rohan
+Neurologická klinika FN Plzeň,
+Alej svobody 80, 323 00 Plzeň
+e-mail: rohan@fnplzen.cz
+ Přijato k recenzi: 8. 3. 2007
+Přijato do tisku: 9. 7. 2007
+Práce podpořena VZ MŠM 00 21620816.<Node id="2749"/>
+<Node id="2750"/>Úvod
+Cévní mozkové příhody (CMP) jsou ve vy-
+ spělých zemích po kardiovaskulárních a ná-
+dorových onemocněních třetí nejčastější pří-
+ činou smrti [1] a nejčastější příčinou invali-
+dity obyvatelstva ve věku nad 60 let. Mají
+ proto značný osobní i společenský dopad.
+ Ischemické CMP tvoří 80–85 % všech
+cévních mozkových příhod, jejich roční inci-
+ dence v ČR je přibližně 250 případů na
+ 100 000 obyvatel [2].
+ Rozvoj poznatků o patofyziologii ischemic-
+kého iktu, zejména poznání, že část mozku
+vystavená akutní ischemii, ischemická pe-
+numbra [3], se může ušetřit, změnilo pů-
+vodní klinický nihilizmus ke hledání nových
+terapeutických možností. Zavedení trombo-
+ lytické terapie v akutním stadiu [4,5,6] je
+nesporným přínosem. Dosud uznávaná in-
+ dikační kriteria jsou však s ohledem na ča-
+sový interval poněkud restriktivní, na druhé
+straně nedokáží zcela eliminovat výskyt
+intracerebrálních krvácení při reperfuzi pří-
+liš pokročilého ischemického ložiska. Proto
+ je snaha o zpřesnění časné diagnostiky iktu
+ s důrazem na získání dat prakticky využitel-
+ných pro léčbu.
+ Informace o aktuálním stavu mozkové
+perfuze lze získat celou škálou grafických
+metod: výpočetní tomografie (CT), magne-
+tické rezonance (MR) [7], xenonová CT (XeCT),
+jednofotonová emisní počítačové tomogra-
+fie (SPECT), pozitronové emisní tomografie
+(PET), sonografie nebo jejich kombinacemi.
+  Při kontaktu s pacientem s pravděpo-
+dobnou diagnózou ischemické CMP máme
+před sebou tyto základní otázky, jejichž
+správné zodpovězení značně přispěje ke
+správnému zvolení adekvátní léčby:
+ • Jedná se opravdu o ischemickou CMP?
+ • Jaká je lokalizace a velikost ischemického
+ložiska?
+• Jaký je aktuální rozsah infarktových změn
+ s ohledem na potencionálně životaschop-
+nou tkáň?
+• Jaká je příčina ischemie, je přítomen
+ cévní uzávěr nebo jde o hemodynamický
+iktus?
+ V akutním stadiu iktu má na získání
+ těchto informací klinik a hlavně pacient
+ značně omezený časový prostor, a proto je
+ třeba zvolit metodu dostupnou místně i ča-
+  sově, kterou lze provést i u pacienta ome-
+ zeně kooperujícího, mnohdy s velmi kusými
+ anamnestickými údaji. U pacienta s akutně
+vzniklým neurologickým deficitem centrál-
+ ního původu patří nativní CT mozku v na-
+šich podmínkách již ke standardnímu vyšet-
+ření [8] pro svoji velmi dobrou dostupnost,
+rychlost, minimalizující vznik pohybových
+ artefaktů u omezeně spolupracujících pa-
+cientů, suverénní odlišení intrakraniálního
+  krvácení a v neposlední řadě nízkou cenu.
+Proto byla na jeho základě stanovena kri-
+teria pro podání trombolytické terapie do
+ 3 hodin od počátku příznaků ischemického
+iktu (nepřítomnost krvácení nebo hypoden-
+zity větší než 1/3 povodí a. cerebri media).
+   I s těmito omezeními a dodržením všech
+kontraindikací podání trombolytické tera-
+pie [4,5] má tato léčba značné riziko krvá-
+civých komplikací [9]. Proto je nastolen po-
+žadavek na přesnější výběr pacientů profi-
+  tujících z této léčby, případně i nad rámec
+současně daného 3hodinového časového
+intervalu.
+Nativní CT mozku
+ Samotné nativní CT vyšetření téměř s jisto-
+tou vyloučí intracerebrální krvácení. Oproti
+tomu senzitivita pro akutní ischemii mozku
+ v prvních 6 hodinách zůstává kolem 75 %
+ ve srovnání s difuzně váženým MR zobra-
+zením (DWI) [10,11,12,13,14]. Tato hod-
+nota může být vylepšena při znalosti anam-
+ nézy a objektivního neurologického nálezu
+[14]. Mezi známky akutní ischemie mozku
+ v CT obraze patří hypodenzita, setření roz-
+  lišení šedé a bílé hmoty kortikálních a sub-
+ kortikálních struktur, zúžení sulků a vyhla-
+zení gyrifikace. Jsou to známky časného cy-
+ totoxického edému a ireverzibilního poškození
+ischemické tkáně [15]. Především hypoden-
+ zita v nativním CT zobrazení ischemie do
+ 6 hodin je značně specifická pro nevratné
+ poškození mozku [16], ačkoliv v některých
+případech, jako přítomnost vasogenního
+edému, mohou být tyto změny vratné. Dal-
+ším nálezem potvrzujícím podezření na is-
+chemické postižení může být hyperdenzní
+zobrazení kmene nebo velkých větví trom-
+bózované mozkové tepny zásobující přísluš-
+nou oblast mozku (hyperdensity media
+ sign). Ischemické změny v časných fázích
+ iktu mohou být pouze diskrétní a jejich
+hodnocení do značné míry subjektivní, zá-
+ležející na zkušenosti hodnotícího lékaře
+[17,18]. Určitého zlepšení senzitivity CT vy-
+šetření lze dosáhnout nastavením optimál-
+ních parametrů zobrazení (window width,
+center level) [19].
+Ve fázi IV severoamerické studie byl vy-
+pracován kvantitativní systém hodnocení
+časných CT změn (the Alberta Stroke Pro-
+gramme Early CT Score, ASPECTS). Podle
+této studie rozsah ischemických změn ko-
+ reloval s vyšší četností intracerebrálních kr-
+ vácení (ICH) a špatným klinickým stavem
+po 3 měsících [20]. Podobné závěry byly
+ učiněny i dalšími autory [21,22,23,24,25].
+Na druhou stranu, retrospektivní analýzou
+ dat od NINDS skupiny [4] v 3hodinovém ča-
+sovém okně po očištění od dalších faktorů
+závislost výskytu symptomatických ICH na
+výskytu časných ischemických změn nale-
+zena nebyla [26]. Shodně ani ve studii ASK
+ (The Australian Streptokinase Trial) v 4ho-
+ dinovém časovém okně a studii Proact II
+(The second Prolyse in Acute Cerebral Throm-
+  boembolism Trial ) v 6hodinovém časo-
+ vém okně tato závislost nebyla potvrzena
+[27,28]. Tyto rozdílné výsledky mohou být
+dány jednak zanedbáním dalších faktorů
+ jako krevní tlak a tíže neurologického defi-
+ citu ve studii ASPECTS, ale i nižší záchytem
+ ischemických změn ve studii NINDS a ASK
+ danou staršími CT přístroji nižší třídy s menší
+ technickou kvalitou a citlivostí zobrazení
+[29]. Recentní trombolytické studie DIAS
+(The Desmoteplase in Acute Ischemic Stro-
+ ke Trial) [30] a DEDAS (Dose Escalation of
+Desmoteplase for Acute Ischemic Stroke)
+[31] založené na výběru pacientů pomocí
+MRI ukázaly další faktory ovlivňující riziko
+ICH, jako věk, tíže neurologického deficitu,
+ hypertenze, hyperglykémie a hypofibrino-
+genemie. Uvedené informace ukazují ne-
+jednotnost názorů na možnosti nekontrast-
+ního CT detekovat akutní ischemické změny
+ a určit riziko ICH při podání trombolytické
+léčby.
+Lze shrnout, že nativní CT mozku pa-
+ cienta v akutním stadiu CMP slouží pře-
+ devším k vyloučení nitrolebního krvácení
+ a pokročilých ischemických změn jako hy-
+podenze více než 1/3 povodí a. cerebri me-
+dia, které jsou většinou autorů považovány
+za kontraindikace podání trombolytické te-
+rapie do 3 hodin od počátků příhody, ale
+ zůstává samo o sobě pro posouzení rozsahu
+ischemie postižení nedostatečné. Rozšíření
+ 644 Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU<Node id="9336"/>
+<Node id="9337"/>  CT protokolu o vyšetření s podáním kont-
+rastní látky se nabízí jako nejjednodušší
+ způsob získání dalších informací o patofy-
+ziologii ischemického postižení.
+Perfuzní CT vyšetření mozku
+Obecné principy
+Perfuzní CT (CTP) je ve své podstatě funk-
+ční vyšetření mozkové tkáně charakterizující
+stav mozkové perfuze pomocí několika pa-
+rametrových map, získaných sériovou akvi-
+zicí dat při průchodu bolu kontrastní látky
+ mozkovou tkání. I když tyto dynamické
+studie byly prováděny již od počátků CT
+[32], byly omezeny pro technickou nároč-
+nost pouze na sledování určité oblasti. Prů-
+chod bolu kontrastní látky mozkem trvající
+několik sekund umožnily kvalitně zachytit
+až moderní multidetektorové spirální CT
+ přístroje, schopné získat a zpracovat velké
+ množství dat v tomto krátkém časovém
+úseku. Během CTP vyšetření se po rychlé
+aplikaci bolu 40 ml kontrastní látky (dávko-
+vačem cca 4–7 ml/s do periferní žíly kany-
+ lou průměru alespoň 18 G (1,2 mm)) pro-
+vádí sériová akvizice dat vrstvy mozkové
+  tkáně s odstupem 0,75–1,0 s po dobu
+  40–60 s postačující k zachycení prvního prů-
+chodu kontrastní látky celým mozkovým
+  řečištěm, i s ohledem na individuální srdeční
+645Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU
+Obr. 1. 41letá pacientka s náhle vznik-
+lou dysartrií a těžkou levostrannou he-
+miparézou. CT mozku 1 h 10 min od po-
+čátku příznaků ukazuje rozvoj ischemie
+ v povodí a. cerebri media (ACM) vpravo
+(A). Snížení perfuze – CBF mapa (B), krev-
+ního objemu – CBV mapa (C) a prodlou-
+žení time to peak – TP mapa (D) v teritoriu
+ACM vpravo s maximem změn v oblasti ba-
+zálních ganglií (jádro ischemie). CTA VRT
+rekonstrukce ukazuje ACM vpravo v úseku
+M1 (E).
+1 h 30 min od počátku příznaků podán
+rtPA, výrazné zlepšení neurologického ná-
+lezu, po 24 hodinách přetrvává pouze lehká
+paréza levého ústního koutku. Kontrolní
+CT mozku po 30 hodinách bez podání kon-
+trastní látky ukazuje dokončený infarkt
+ v oblasti bazálních ganglií a pravém tem-
+porálním operkulu (F), známky luxusní per-
+fuze na CBF (G), CBV (H) a TP (I) mapách.
+CTA VRT rekonstrukce ukazuje volnou ACM
+vpravo (J).
+a
+b
+c
+d
+e
+f
+g
+h
+i
+j<Node id="11517"/>
+<Node id="11518"/> výdej a opožděný průtok leptomeningeál-
+ními anastomózami. Přesné rozsahy vyšet-
+ ření a parametry snímání se liší podle jed-
+notlivých přístrojů, moderní 64-detektorové
+CT přístroje poskytují pokrytí až 4 cm (čtyři
+10 mm nebo osm 5 mm paralelních řezů)
+mozkové tkáně na jeden bolus. Výběr 
+těchto řezů je dán očekávanou patologií
+ a nutností ortogonálního zachycení velké
+mozkové tepny pro správné nastavení vstup-
+ních parametrů pro výpočet perfuzních
+map.
+ 646 Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU
+Obr. 2. 56letý pacient s náhle vzniklou globální afázií a pravostrannou hemiplegií. CT mozku 1h 35 min po počátků příznaků
+ukazuje hyperdenzitu kmene ACM vlevo (A) s počínajícími ischemickými změnami v celém povodí.(B). Výrazné snížení perfuze – CBF
+mapa (C) i krevního objemu – CBV mapa (D) a prodloužení time to peak – TP mapa (E) v prakticky celém teritoriu ACM vlevo odpoví-
+dající rozvinuté ischemii při nedostatečném kolaterálním oběhu. CTA VRT rekonstrukce ukazuje uzávěr ACI (F) a ACM vlevo (G).
+2 h 05 min od počátku příznaků podán rtPA bez výraznějšího efektu, Kontrolní CT mozku po 15 hodinách bez podání kon-
+trastní látky ukazuje dokončený infarkt v celém povodí ACM vlevo (H) při přetrvávajícím uzávěru ACM vlevo (I).
+  a b c
+  d e f
+  g h i<Node id="12847"/>
+<Node id="12848"/> Srovnání CT a MR perfuzního 
+zobrazení (MR-PWI – perfusion
+-weighted imaging)
+  I když se CTP i MR-PWI snaží zhodnotit slo-
+žitost hemodynamiky na kapilární úrovni,
+jsou mezi těmito technikami nezanedba-
+telné rozdíly. MR-PWI DSC (dynamic sus-
+ceptibility contrast) technika je založena na
+ nepřímém T2* efektu indukovaném v okolní
+tkáni vysokou koncentrací intravaskulárního
+gadolinia. Podstatou CTP je přímá vizuali-
+zace kontrastního materiálu. Lineární vztah
+ mezi koncentrací kontrastní látky a CT ate-
+nuací lépe umožňuje kvantifikaci mozkové
+ perfuze, což u MR-PWI není možné. MR-PWI
+je náchylnější na kontaminaci velkými cév-
+  ními strukturami a je omezeno v některých
+oblastech efektem magnetické susceptibility
+okolních struktur. Tyto faktory se mohou
+podílet na lepším vizuálním zhodnocení
+ jádra a penumbry ischemie při CTP než MR
+perfuzi [33].
+Nepominutelnou výhodou CT je praktická
+ dostupnost a jednoduchost vyšetření, zvláště
+ pokud jde o nespolupracující nebo kriticky
+nemocné pacienty vyžadující monitorování,
+případně podporu vitálních funkcí. CT je také
+ volba pro pacienty s absolutní kontraindi-
+kací MR vyšetření, např. implantovaný kar-
+ diostimulátor, nebo ty, u kterých toto nelze
+vyloučit.
+Hlavní nevýhodou současné CTP techniky
+je omezený rozsah vyšetření, to je však zá-
+vislé hlavně na dostupné CT technologii. CTP
+ vyšetření vyžaduje ionizující záření a jodo-
+vou kontrastní látku. Bezpečnost se neliší
+od standardního kontrastního CT vyšetření
+  mozku a je v literatuře rozsáhle diskutová-
+ na [34]. Protokol CTP je z tohoto hlediska
+ optimalizován k dosažení maximálního roz-
+lišení při minimu radiační dávky při nižší po-
+užité voltáži.
+Neionická jodová kontrastní látka se uká-
+ zala jako bezpečná z hlediska poškození
+  mozku i v případě mozkové ischemie [35,
+ 36,37]. K samotnému CTP vyšetření je po-
+dle současných protokolů potřeba 40 ml
+jodové kontrastní látky. Dalších 60–100 ml
+aplikovaných při CT angiografii (CTA)
+ představuje celkové množství, které u sta-
+rých, většinou aktuálně ještě dehydratova-
+ ných pacientů nelze pominout z hlediska
+možného rozvoje kontrastem navozené
+nefropatie [38]. Adekvátní hydratace, pří-
+padně použití izoosmolární neionické kont-
+ rastní látky toto riziko minimalizuje. Počíta-
+ čové zpracování zdrojových CTP a CTA řezů
+ je obdobně časově náročné jako u MRA
+  a MR-PWI, a lze tak během několika minut
+ získat kvantitativní perfuzní mapy i kvalita-
+tivní 3D rekonstrukce celého mozkového
+ cévního řečiště.
+Perfuzní parametry
+Termín mozková perfuze znamená průtok
+krve mozkem na tkáňové úrovni. Tento prů-
+tok může být charakterizován různými pa-
+ rametry, z nichž nejvíce užívané jsou průtok
+krve mozkem (CBF, cerebral blood flow),
+ objem krve v mozkové tkáni (CBV, cerebral
+ blood volume) a střední čas průchodu krve
+mozkovou tkání (MTT, mean transit time),
+jejichž normální hodnoty uvádí tabulka
+(tab. 1). Porozumění dynamickým vztahům
+těchto parametrů při poklesu mozkového
+perfuzního tlaku při akutní CMP je nezbytné
+pro interpretaci perfuzních map. Definice
+těchto parametrů jsou následující:
+CBV je definován jako celkový objem kr-
+ ve v dané jednotce objemu mozku. Tato
+ definice zahrnuje krev ve tkáni i ve velkých
+kapacitních cévách jako arterie, arterioly,
+ kapiláry, venuly a vény. Jeho jednotkou je
+ ml/100 g mozkové tkáně. CBV mapa se získá
+matematickou integrací funkce koncentrace
+ kontrastní látky v čase.
+CBF je definován jako objem krve, který
+proteče daným objemem mozkové tkáně za
+danou dobu, jednotkou je ml/100 g/min.
+MTT je definován jako průměrná hodnota
+času, za který daným objemem tkáně pro-
+ teče krev z arteriální do žilní části řečiště.
+Tranzitní čas krve mozkovou tkání je závislý
+na vzdálenosti mezi arteriálním přítokem
+ a žilním odtokem. Matematická závislost
+ MTT, CBV a CBF je podle principu centrál-
+ního objemu dána vztahem MTT = CBV /
+ / CBF [39,40,41].
+ Teorie a modelování
+ I když jsou perfuzní parametry celkem jasně
+definovány, jejich kvantifikace může být
+obtížná. Při CTP vyšetření se využívá sério-
+vého snímání změny denzity mozkové tkáně
+při prvním průchodu (first-pass effect) bolu
+intravenózně podané jodové kontrastní látky.
+ Vychází se z předpokladu, že kontrastní látka
+není difuzibilní, při svém průchodu mozkem
+není ani absorbována, ani metabolizována.
+Únik kontrastní látky mimo intravaskulární
+prostor, ke kterému může dojít poruchou
+hematoencefalické bariery při nádorech
+nebo zánětech, vyžaduje odlišný, složitější
+matematický model. Jiné metody vyšetření
+ mozkové perfuze, jako např. XeCT, SPECT,
+ PET využívají model s difuzibilní značenou
+ látkou, který je vzhledem k dosažení ustá-
+leného stavu obecně jednodušší než metody
+využívající dynamický first-pass effect mo-
+ del užívaný při MR a CT perfuzním zobra-
+zení. Při výpočtech těchto modelů lze po-
+užít dvě matematické metody, dekonvoluční,
+podle modelu centrálního objemu (central
+ volume principle), a non-dekonvoluční me-
+todu, využívající maximal slope model.
+Non-dekonvoluční metoda je založena
+na aplikaci Fickova principu na danou záj-
+movou oblast (ROI, region of interest) mozku
+ v průběhu průchodu bolu kontrastní látky.
+Podle tohoto principu je změna kontrastní-
+ho zvýraznění ROI za jednotku času přímo
+úměrná průtoku danou ROI násobeným
+ rozdílem koncentrace v přívodné tepně
+ a odvodné žíle této oblasti. Matematicky je
+ vztah vyjádřen jako dCt(t)/dt = CBF × [Ca(t)
+– Cv(t)], kde Ct(t) je koncentrace kontrastní
+ látky ve tkáni v čase (také označována jako
+TDC–, time density curve), Ca(t) je TDC pří-
+vodné arterie (také AIF – arterial input
+ function) a Cv(t) je TDC pro drénující žíly
+(také VOF – venous output function). Mo-
+del vyžaduje, aby maxima AIF bylo dosaženo
+před vzestupem VOF, což vyžaduje rychlé
+647Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU
+Tab. 1. Normální hodonoty perfuzních parametrů mozkové tkáně.
+   mozková tkáň CBF CBV MTT
+   šedá hmota 60 ml/100 g/min 4 ml/100 g 4 s
+   bílá hmota 25 ml/100 g/min 2 ml/100 g 4,8 s
+Upraveno podle Calamante F, Gadaian DG, Connelly A, Delay and dispersion effect in
+dynamic susceptibility contrast MRI: simulations using singular value decompossion. 
+Magn Reson Med 2000; 44(3): 466–73.<Node id="19068"/>
+<Node id="19069"/> podání bolu kontrastní látky a dobrý srdeč-
+ní výdej pacienta. Klinicky bylo ověřeno, že
+hodnoty CBF byly jinak systematicky pod-
+ hodnocovány [42]. V praxi však postačují
+rychlosti aplikace 5–6 ml/s.
+CBV, definovaný jako poměr objemu krve
+ v daném objemu tkáně, může být vyjádřen
+jako maximální enhancement dané tkáně
+ vztažený k maximálnímu enhancementu
+ v čistém cévním objemu. To lze jednoduše
+  určit z maxima TDC dané tkáně a TDC sinus
+sagitalis sup. (VOF). Výhoda této metody
+   spočívá v tom, že k výpočtu CBV i CBF vy-
+užívá pouze krátký úsek TDC do prvního ma-
+ xima a není tudíž zapotřebí gama-variantní
+ úpravy. To činí metodu méně citlivou k po-
+ hybovým artefaktům a zároveň výrazně zrych-
+luje matematické zpracování. Na druhou
+stranu, tato metoda poskytuje pouze rela-
+tivní údaje, nikoliv přesná kvantitativní data.
+ Současné CTP software, které nepočítají s re-
+ cirkulační korekcí a dekonvolučním algorit-
+mem jsou závislé na časových parametrech
+ jako TP (time to peak perfusion) a TS (time
+to start perfusion) místo MTT. TP je defino-
+ván jako doba vzestupné části TDC dané
+části tkáně, TS zpoždění počátku vzestupné
+části TDC tkáně oproti počátku vzestupu
+AIF.
+Dekonvoluční metoda poskytuje jak kva-
+ litativní, tak kvantitativní data o průtoku krve
+ a narozdíl od non-dekonvoluční metody
+připouští pomalejší aplikaci bolu kontrastu
+[43]. Tato metoda je matematicky vyjád-
+ řena jako Ct(t) = CBF × [Ca(t) R(t)], kde Ct(t)
+TDC mozkové tkáně, Ca(t) je TDC přívodné
+ arterie, ⊗ představuje matematický dekon-
+voluční operátor. R(t) – impulse residue func-
+ tion, je definována jako teoretická ideální
+TDC mozkové tkáně, která by byla získána,
+pokud by byl bolus kontrastní látky apliko-
+ván najednou do přívodné tepny. Trvání pla-
+teau funkce R(t) odráží délku času, po který
+ je aplikovaná kontrastní látka v kapilárním
+řečišti (tj. MTT). Použitím dekonvolučního
+procesu může být určen jak R(t), tak CBF.
+Protože je dekonvoluční proces značně cit-
+livý na přítomnost šumu snímků, vyžaduje
+pro analýzu dat speciální matematické al-
+goritmy, např. Fourierovu transformaci nebo
+metodu singular value decomposition. Tyto
+metody se liší svou citlivostí na faktory jako
+přesná cévní anatomie vyšetřované mozkové
+  tkáně a míra zpoždění a rozložení bolu
+kontrastní látky mezi TDC přívodné cévy
+  a mozkové tkáně [44]. V současnosti klinický
+software používá častěji metodu singular
+value decomposition, která je právě více cit-
+ livá k faktorům časové disperze kontrastu
+než specifické lokální cévní anatomii. De-
+konvoluční metoda výpočtu CBF je ověřena
+  a úspěšně užívána pro perfuzní CT i MR
+zobrazení [45,46].
+Zpracování zdrojových CTP snímků
+ V urgentních případech lze změny perfuze
+odhadovat okamžitě po snímkování vizuál-
+ním hodnocením zdrojových řezů na moni-
+toru CT přístroje, případně na monitoru ne-
+mocniční počítačové sítě pomocí některého
+ z grafických systémů (např. Picture Archi-
+ving and Communication System – PACS).
+Sledováním nástupu kontrastu lze zhruba
+ identifikovat oblasti s výrazným prodlouže-
+  ním TTP a snížením CBV. K přesnějšímu zhod-
+ nocení jemných změn a kvantifikaci je však
+zapotřebí počítačová analýza sériově nasní-
+maných zdrojových snímků. Výpočet kvan-
+titativních perfuzních map obvykle vyžadu-
+je zadání následujících vstupů:
+Arteriální oblast (arterial input ROI) – ve
+středu ortogonálně zachycené velké tepny
+  k výpočtu AIF s maximální vrcholovou hod-
+notou, většinou a. cerebri media nebo a.
+cerebri anterior.
+Žilní oblast (venous outflow ROI) – ve
+středu zachyceného žilního splavu, větši-
+nou sinus sagitalis sup.
+Základní linie (baseline) – plochá část AIF
+před vzestupem daným přítomností kont-
+rastní látky.
+Koncový bod analýzy TDC před opětov-
+ným vzestupem daným recirkulací kont-
+rastní látky.
+ Zadání těchto hodnot je u moderních pro-
+ gramů poloautomatické a vyžaduje pouze
+případnou korekci, stejně jako nastavení
+ ostatních parametrů k dosažení validního
+výsledku [41].
+CT angiografie
+Podstatou CT angiografie (CTA) je akvizice
+ dat z objemu dané tkáně obsahující intra-
+ vaskulárně kontrastní látku. V případě CMP
+se provádí vyšetření od aortálního oblouku
+po vertex. Primárním cílem CT angiografie
+ u akutní ischemické CMP je přímé zobrazení
+tepenného uzávěru, zhodnocení cévního
+ řečiště a identifikace případného zdroje em-
+ bolizace, hlavně při patologii v oblasti karo-
+  tické bifurkace. CTA má v porovnání s digi-
+tální subtrakční angiografií (DSA) jako zlatým
+ standardem výbornou senzitivitu (98,4 %)
+  i specifitu (98,1 %) v detekci intrakraniál-
+ ních stenóz a okluzí velkých cév [47], odli-
+ šení okluze a vlasové stenózy extrakraniální
+   krkavice je o něco horší (95 % a 85 %)
+[48].
+ Vzhledem k tomu, že vyšetření CTA vy-
+užívá snímkování za ustáleného stavu kont-
+ rastní látky v arteriálním řečišti, lze zdrojové
+řezy (CTA-SI – source images) hodnotit ta-
+  ké z hlediska CBV. I když CTA-SI poskytují
+ informaci pouze o snížení aktuálního objemu
+ krve, nikoliv o životaschopnosti tkáně, při
+ srovnání s DWI nebyly nalezeny statisticky
+ významné rozdíly v objemu postižené tkáně
+[49]. Stupeň snížení denzity tkáně se uká-
+zal jako rizikový faktor pro rozvoj hemorha-
+gické transformace po intraarteriální trom-
+bolýze [50].
+ Vyšetření se provádí v návaznosti na na-
+tivní CT, případně CTP vyšetření. Bolus ne-
+ionické jodové kontrastní látky je podán do
+periferní žíly (preferenčně pravé kubitální
+  žíly) kanylou minimálně 20 G v množství
+ většinou 60 ml rychlostí 4 ml/s po dobu 40 s
+pokračující aplikací 50 ml fyziologického
+ roztoku stejnou rychlostí k dosažení maxi-
+ mální opacifikace v celém průběhu současné
+akvizice dat. Získávány jsou 0,6mm řezy od
+aortálního oblouku po vertex, při použití
+moderních multidetektorových spirálních pří-
+strojů trvá akvizice dat cca 5 s.
+Zpracování zdrojových CTA snímků
+Již bezprostředně při snímkování lze při lis-
+tování CTA-SI identifikovat výpad opacifi-
+kace velkých cévních kmenů, případně vý-
+ pad sycení mozkové tkáně v povodí uzavřené
+mozkové tepny. Pro podrobnější zhodnocení
+  zvláště v oblasti vinutých cév a periferie je
+však zapotřebí počítačové zpracování.
+Nejrychlejším způsobem je poloautoma-
+tická rekonstrukce ve formě MIP (maximal
+ intensity projection), kdy v daném objemu
+jsou promítnuty do požadované roviny ob-
+  lasti s maximální intenzitou. I při použití sub-
+trakce kostních struktur toto zobrazení je
+ částečně limitováno v zobrazení kalcifiko-
+ vaných stenóz a kostních úseků cév. Obdo-
+ bou MIP s lepším rozlišením kalcifikovaných
+ 648 Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU<Node id="25680"/>
+<Node id="25681"/>plátů je rekonstrukce MPR (multiplanar re-
+format) pracující se střední hodnotou ate-
+ nuace, ukazující v tenkých řezech lépe rezi-
+ duální lumen v oblasti kalcifikované stenózy.
+ V případě zobrazení vinutých cév je výhod-
+ nější rekonstrukce v rovině kopírující osu
+  cévy, která umožňuje i přesná měření v dané
+rovině CR, CPR (curved reformat, curved pla-
+nar reconstruction). Poloautomatická 3D re-
+konstrukce VRT (volume rendering techni-
+que) zobrazující prostorově pouze cévní
+  a kostní struktury slouží k rychlému pře-
+ hlédnutí celého cévního řečiště a vyhledání
+patologie, kterou však nutno hodnotit na
+základě studia zdrojových řezů, případně
+výše uvedených cílených rekonstrukcí [41].
+Klinické využití multimodálního CT
+Přínosem multimodálních zobrazovacích vy-
+ šetření u akutní ischemické CMP je výběr
+ pacientů profitujících z trombolytické tera-
+  pie a naopak těch, u kterých je vysoké rizi-
+ko krvácivých komplikací, prodloužení tří-
+hodinového časového okna pro intrave-
+ nózní a šestihodinového pro intraarteriální
+trombolýzu, ověření pokročilosti ischemic-
+ kých změn u iktu bez přesného časového
+určení, jako ikty vzniklé ve spánku nebo
+  s epileptickým záchvatem v úvodu [50,51,
+52]. Dosud publikované studie jsou založeny
+ převážně na identifikaci penumbry a jádra
+infarktu pomocí MRI [30,31].
+Na rozdíl od MR-DWI, které detekuje jádro
+infarktu na základě snížení pohyblivosti vo-
+ díkových jader v extracelulárním prostoru
+při cytotoxickém edému, CTA-SI ukazuje sní-
+ žení CBV pod hranici minima k zachování
+integrity mozkové tkáně. Řada studií pro-
+kázala, že jak MR-DWI, CBV mapy, tak
+CTA-SI jsou použitelné pro zobrazení jádra
+ischemie bez ohledu na případnou úspěš-
+nou rekanalizaci [52,53,54]. Na druhou stranu
+jiní autoři zjistili, že při časné úplné rekana-
+lizaci, stejně tak jako DWI, ani CTA-SI hy-
+podenzita nemusí zcela odpovídat koneč-
+nému infarktu [55,56]. Jedna studie porov-
+návající velikost finálního infarktu pomocí
+MR FLAIR (fluid-attenuated inversion reco-
+ very) sekvencí ukázala lepší korelaci s čas-
+ nými CBV mapami než s MR-DWI [57]. Při
+konstrukci kvantitativních CBV map se pro
+identifikaci jádra infarktu jako optimální
+ ukázala hodnota 2 ml/100 g mozkové tkáně
+[58].
+ K definování penumbry na základě CTP
+parametrů jsou různé koncepty založené jed-
+nak na absolutním CBF prahu [59,60], nebo
+na základě cerebrální vaskulární autoregu-
+  lace s kombinací CBF a CBV hodnot [49,
+53,54,61,62,63,64].
+ V oblasti ischemické penumbry je průtok
+ krve snížen pod hranici nutnou k udržení
+ funkce, ale dostatečný k alespoň dočasnému
+zachování integrity mozkové tkáně. Vzhle-
+ dem k zachování cévní autoregulace do-
+ chází k vasodilataci, otevření případných ko-
+ laterál, a tím zvýšení objemu krve tekoucí
+nižší rychlostí. Proto penumbra může být
+charakterizována kromě snížení CBF zvýše-
+ ním CVB a prodloužením MTT. Prodloužení
+průtoku kontrastní látky je nejvýraznějším
+znakem snížené perfuze. Na druhou stranu,
+ absolutní prodloužení MTT a TP může být
+ dáno i extracerebrálními faktory jako nízký
+srdeční výdej nebo hypotenze. Regionální
+ prodloužení pak může nastat v případě
+proximální cévní obstrukce, kde dostatečná
+perfuze může být zachována prostřednic-
+tvím kolaterálního zásobení. Na časových
+mapách je objem ischemické oblasti největší.
+Snížení CBF je pro ischemii mozkové tkáně
+ specifičtější ale, vzhledem k tomu, že nor-
+  mální hodnoty CBF v šedé a bílé hmotě se
+  značně liší (tab. 1) a jsou i věkově závislé
+[65], nejsou absolutní hodnoty CBF pro iden-
+tifikaci penumbry ideálním parametrem.
+  I když hodnoty MTT se mezi šedou a bílou
+hmotou liší méně, absolutní hodnota MTT
+  může být značně prodloužena i u reverzi-
+bilní ischemie. To vysvětluje, proč pro-
+ dloužení MTT musí být k identifikaci ohro-
+žené tkáně značné (MTT &gt; 7 s, relativní
+ MTT &gt; 145 %) [58].
+ Vzhledem k ne zcela dořešeným teore-
+tickým problémům matematického mode-
+ lování mozkové perfuze a technické pro-
+blematice získávání zdrojových dat (optima-
+lizace kinetiky kontrastní látky, nastavení
+technických parametrů přístroje, filtrace šumu,
+pohybových artefaktů,…) se zatím jeví oče-
+kávání přesných kvantitativních hodnot per-
+ fuze jako nerealistické. Z praktického po-
+hledu se za současného stavu zdá optimální
+hodnocení relativních hodnot perfuzních
+  parametrů vzhledem k okolní i kontralate-
+rální mozkové tkáni. Parametrem nejvíce
+odpovídajícím jádru mozkového infarktu je
+  regionální pokles CBV, zvláště v korelaci s pro-
+dloužením časových parametrů (TP, MTT).
+Ohroženou, potencionálně zachovatelnou
+tkáň charakterizuje prodloužení MTT pří-
+padně TP bez výraznějšího poklesu CBV,
+ který může být i zvýšen. CBF je sekundární
+  parametr vypočtený z hodnot CBV a MTT,
+což dále zvyšuje jeho možnou nepřesnost.
+ Hodnocení samotných CBF map k identifi-
+ kaci penumbry a jádra ischemie je nevhodné
+ [58,67]. Z hlediska rutinního použití je zají-
+mavá práce australských autorů aplikující
+hodnocení ASPECTS kromě nekontrastního
+   CT na CTP a CTA-SI u pacientů v 6hodino-
+ vém časovém okně. S velikostí finálního in-
+farktu nejlépe koreloval CBV ASPECTS. Ide-
+ální kandidát trombolýzy se ukázal pacient
+   s CTA-SI &gt; 6, CBV &gt; 6, MTT a CBF &lt; CBV
+ASPECTS, zvláště při CTA prokázaném cév-
+ním uzávěru [68].
+Přínos multimodálního CT pro indikaci intra-
+venózní trombolýzy lze shrnout následovně:
+• Nekontrastní CT bezpečně odliší krváci-
+vou cévní mozkovou příhodu.
+• Riziko hemorhagické transformace se zvy-
+ šuje s velikostí časné hypodenzity mozkové
+ tkáně v postiženém cévním teritoriu.
+• Jádru ischemie nejlépe odpovídá defekt na
+CBV mapách. Riziko krvácení po trombo-
+lýze se zvyšuje při velikosti defektu CBV
+ &gt; 100 ml, případně CBV ASPECTS &lt; 7.
+• Efekt trombolýzy závisí na rozsahu pe-
+numbry, které nejlépe odpovídá oblast
+ s prodloužením MTT ev. TP bez součas-
+ného výpadu CBV.
+• Proximální uzávěr na CTA (a. carotis in-
+terna, úsek M1 a. cerebri media) má menší
+šanci na rekanalizaci, při které má vyšší ri-
+ziko hemorhagické transformace, zvláště
+při absenci kolaterálního cévního zásobení
+(zpětného plnění periferních větví).
+• Absence cévního uzávěru na CTA spolu
+ se snížením perfuze v interteritoriálních ob-
+lastech ukazuje na hemodynamický iktus,
+ a tedy svědčí proti indikaci trombolýzy.
+Závěr
+ Vyšetření mozkové perfuze u akutní ische-
+mické CMP může přinést významné infor-
+  mace k rozhodnutí o dalším postupu léčby
+ a prognóze nemocného. Samotné nativní CT
+   mozku se z tohoto hlediska i vzhledem k po-
+stupně se rozvíjejícím dalším rekanalizačním
+649Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU<Node id="32301"/>
+<Node id="32302"/> metodám (intraarteriální trombolýza a trom-
+botrypse, sonotrypse…) stává insuficientní.
+ Rozšíření nativního CT vyšetření o kontrastní
+ vyšetření kombinací CTP a CTA se jeví
+ v současné době jako optimální vzhledem ke
+stále širší dostupnosti multidetektorových
+ CT přístrojů, jednoduchosti, rychlosti a re-
+  lativní bezpečnosti provedení i u polymor-
+bidních, omezeně kooperujících nemoc-
+ných bez nutnosti delší sedace nebo intu-
+ bace. I když zpracování zdrojových řezů je
+ poněkud časově i personálně náročnější,
+lze první informace získat okamžitě vizuál-
+ním hodnocením zdrojových řezů. Během
+cca 15 min získáme konečné výsledky, re-
+lativně přesně charakterizující stav mozko-
+ vého cévního řečiště a tkáňové perfuze
+  s ohledem na jádro infarktu a penumbru,
+ srovnatelné s informacemi poskytnutými MR
+[53]. Tyto informace pak mohou rozhodnout
+ o indikaci trombolytické terapie nad rámec
+ v současné době přijatého tříhodinového
+ časového okna, v případě nálezu prokaza-
+telně nového cévního uzávěru relativizovat
+časové omezení pro opětovné podání
+trombolýzy, případně indikovat razantnější
+endovaskulární způsob léčby. Na druhou
+ stranu, ušetří nemocné s dokonanými, la-
+kunárními nebo border zone infarkty této
+přece jen potencionálně rizikové terapie.
+Literatura
+1. 1999 World Health Organization. Interna-
+tional society of hypertension guidelines for
+the management of hypertension. Guidelines
+ subcommitee. J Hypertens 1999; 17:
+151–183. 
+ 2. Cerebrovaskulární sekce České lékařské spo-
+lečnosti JEP. Národní cerebrovaskulární pro-
+gram. Available from: URL: http://www.cmp.cz/
+ncp.doc
+3. Astrup J, Siesjo BK, Simon L. Thresholds in
+cerebral ischemia: the ischemic penumbra.
+Stroke 1981; 12: 723–725. 
+4. The National Institute of Neurological Di-
+sorders and Stroke rt-PA Stroke Study Group.
+Tissue plasminogen activator for acute ische-
+  mic stroke. N Engl J Med 1995; 333:
+1581–1587.
+5. Furlan A, Higashida R, Wechsler L, Gent M,
+ Rowley H, Kase C et al. Intra-arterial prouro-
+kinase for acute ischemic stroke: The PROACT
+ II Study: A randomized controlled trial. JAMA
+1999; 282: 2003–2011. 
+6. Marler JR, Tilley BC, Lu M, Brott TG, Lyden
+PC, Grotta JC, et al. Early stroke treatment
+associated with better outcome: the NINDS
+rt–PA stroke study. Neurology 2000; 55(11):
+1649–1655. 
+7. Kalvach P, Keller J. Variace mozkového
+ průtoku v zobrazovacích metodách. Česk
+ Slov Neurol N 2007; 70/103: 118–128. 
+8. Mikulík R, Neumann J, Školoudík D, Václa-
+ vík D. Standard pro diagnostiku a léčbu pa-
+ cientů s mozkovým infarktem. Česk Slov
+ Neurol N 2006; 69/102: 320–325. 
+9. Mayer TE, Schulte-Altedorneburg G,
+Dorste DW, Brückmann H. Serial CT and MRI
+of ischemic cerebrál infarcts: frequency and
+clinical impact of haemorrhagic transforma-
+tion. Neuroradiology 2000; 42: 233–239. 
+10. Barber PA, Darby DG, Desmond PM,
+ Gerraty RP, Zang O, Li T et al. Identification of
+major ischemic change. Diffusion-weighted
+imaging versus computed tomography. Stro-
+ke 1999; 30: 2059–2065. 
+11. Feibach J, Jansen O, Schellinger P, Knauth
+ M, Hartmann M, Heiland S et. al. Compari-
+son of CT with diffusion-weighted MRI in pa-
+tients with hyperacute stroke. Neuroradiolo-
+gy 2001; 43: 628–632. 
+12. Jaillard A, Hommel M, Baird AE, Linfante
+I, Llinas RH, Caplan LR et al. Significance of
+ early CT signs in acute stroke – a CT scan-
+diffusion MR study. Cerebrovasc Dis 2002;
+13: 47–56. 
+13. Lansberg MG, Albers GW, Beaulieu C,
+Marks MP. Comparison of diffusion-weigh-
+ted MRI and CT in acute stroke. Neurology
+2000; 54: 1557–1561. 
+14. Mullins ME, Lev MH, Schellingerhout D,
+Koroshetz WJ, Gonzalez RG. Influence of
+availability of clinical history on detection of
+early stroke using unenhanced CT and diffu-
+ sion-weighted MR imaging. AJNR Am J Neu-
+roradiol 2002; 179: 223–228. 
+ 15. Del Zoppo GJ, von Kummer R, Hamann GF.
+Ischemic damage of brain microvessels: inhe-
+rent risks for trombolytic treatment in stroke.
+ J Neurol Neurosurg Psychiatry 1998; 65: 1–9. 
+16. von Kummer R, Bourquain H, Bastianello
+S, Bozzao L, Manelfe C, Meier D, et al. Early
+prediction of irreversible brain damage after
+ischemic stroke at CT. Radiology 2001; 219:
+95–100. 
+17. Von Kummer R. Effect of training in rea-
+ding CT scans on patient selection for ECASS
+II. Neurology 1998; 51: 850–852. 
+18. Grotta JC, Chiu D, Lu M, Patel S, Levine
+SR, Tilley BC et al. Agreement and variability
+in the interpretation of early CT changes in
+stroke patients qualifying for intravenous
+rtPA therapy. Stroke 1999; 30: 1528–1533. 
+19. Lev MH, Farkas J, Gemmete JJ, Hossain
+ST, Hunter GJ, Koroshetz WJ et al. Acute stro-
+ke: improved nonenhanced CT detection: be-
+nefits of soft-copy interpretation by using va-
+riable window width and center level set-
+tings. Radiology 1999; 213: 150–155. 
+20. Barber PA, Demchuk AM, Zhang J, Bu-
+ chan AM. Validity and reliability of a quanti-
+tative computed tomography score in predic-
+ting outcome of hyperacute stroke before
+thrombolytic therapy. ASPECTS Study Group.
+Alberta Stroke Programme Early CT Score.
+Lancet 2000; 355: 1670–1674. 
+21. Levy DE, Brott TG, Haley EC Jr, Marler JR,
+ Sheppard GL, Barsan W et al. Factors related
+to intracranial hematoma formation in pa-
+tients receiving tissue-type plasminogen acti-
+vator for acute ischemic stroke. Stroke 1994;
+25: 291–297. 
+22. Hacke W, Kaste M, Fieschi C, Toni D, Le-
+ saffre E, von Kummer R et al. Intravenous
+thrombolysis with recombinant tissue plasmi-
+nogen activator for acute hemispheric stroke:
+the European Cooperative Acute Stroke Stu-
+dy (ECASS). JAMA 1995; 274: 1017–1025. 
+23. Larrue V, von Kummer RR, Muller A,
+Bluhmki E. Risk factors for severe hemorrha-
+gic transformation in ischemic stroke patients
+treated with recombinant tissue plasminogen
+ activator: a secondary analysis of the Euro-
+pean-Australasian Acute Stroke Study (ECASS
+II). Stroke 2001; 32: 438–441. 
+24. Jaillard A, Cornu C, Durieux A, Moulin T,
+Boutitie F, Lees KR et al. Hemorrhagic trans-
+formation in acute ischemic stroke: the
+MAST-E study. MAST-E Group. Stroke 1999;
+30: 1326–1332. 
+ 25. Tanne D, Kasner SE, Demchuk AM, Koren-
+ Morag N, Hanson S, Grond M et al. Markers of
+increased risk of intracerebral hemorrhage
+after intravenous recombinant tissue plasmino-
+gen activator therapy for acute ischemic stroke
+in clinical practice: the Multicenter rt-PA Stroke
+Survey. Circulation 2002; 105: 1679–1685. 
+26. Patel SC, Levine SR, Tilley BC, Grotta JC,
+ Lu M, Frankel M et al. Lack of clinical signifi-
+cance of early ischemic changes on compu-
+ted tomography in acute stroke. JAMA 2001;
+286: 2830–2838. 
+ 650 Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU<Node id="38973"/>
+<Node id="38974"/>27. Gilligan A, Markus R, Read S, Srikanth V,
+ Hirano T, Fitt G et al. Baseline blood pressure
+and not early CT changes predict major he-
+morrhage after streptokinase in acute ische-
+mic stroke. Stroke 2002; 33: 2236–2242. 
+28. Roberts HC, Dillon WP, Furlan AJ, Wech-
+sler LR, Rowley HA, Fischbein NJ et al. Com-
+puted tomographic findings in patients un-
+dergoing intra-arterial thrombolysis for acute
+ischemic stroke due to middle cerebral artery
+occlusion: results from the PROACT-II trial.
+Stroke 2002; 33: 1557–1565. 
+29. Donnan GA, Davis SM. Neuroimaging,
+the ischemic penumbra, and selection of pa-
+tients for acute stroke therapy. Lancet Neuro-
+logy 2002; 1: 417–425. 
+30. Hacke W, Albers G, Al-Rawi Y, Bo-
+ gousslavsky J, Davalos A, Eliasziw M et al. The
+Desmoteplase in Acute Ischemic Stroke Trial
+ (DIAS): a phase II MRI-based 9-hour window
+acute stroke thrombolysis trial with intrave-
+nous desmoteplase. Stroke 2005; 36: 66–73. 
+31. Furlan AJ, Eyding D, Albers GW, Al–Rawi
+Y, Lees KR, Rowley HA et al. Dose Escalation
+of Desmoteplase for Acute Ischemic Stroke
+(DEDAS): evidence of safety and efficacy 3-9-
+-hours after stroke onset. Stroke 2006;
+37:1227–1231. 
+32. Traupe H, Heiss WD, Hoeffken W, Zulch
+KJ. Hyperperfusion and enhancement in dy-
+namic computed tomography of ischemic
+ stroke patients. J Comput Assist Tomogr
+1979; 3: 627–632. 
+33. Coutts SB, Simon JE, Tomanek AI, Barber
+PA, Chan J, Hudon ME et al. Reliability of
+assessing percentage of diffusion-perfusion
+mismatch. Stroke 2003; 34(7): 1681–3.
+34. Cohnen M, Wittsack HJ, Assadi S, Mus-
+ kalla K, Ringelstein A et al. Radiation Exposu-
+re of Patients in Comprehensive Computed
+Tomography of the Head in Acute Stroke.
+ AJNR Am J Neuroradiol 2006; 27: 1741–1745. 
+35. Kendell B, Pullicono P. Intravascular con-
+trast injection in ischemic lesions, II. Effect on
+prognosis. Neuroradiology 1980; 19:
+241–243. 
+36. Doerfler A, Engelhorn T, von Kummer R,
+ Weber J, Knauth M, Sartor K et al. Are iodi-
+nated contrast agents detrimental in acute
+cerebral ischemia? An experimental study in
+rats. Radiology 1998; 206: 211–217. 
+37. Palomaki H, Muuronen A, Raininko R,
+Piilonen A, Kaste M. Administration of nonio-
+nic iodinated contrast medium does not influ-
+ence the outcome of patients with ischemic
+brain infarction. Cerebrovasc Dis 2003;
+15(1–2):45–50. 
+38. Aspelin P, Aubry P, Fransson SG, Strasser
+R, Willenbrock R, Lundkvist J. Nephrotoxic
+effects in high-risk patients undergoing an-
+  giography. N Engl J Med 2003; 348(6):
+491–499. 
+39. Meier P, Zieler K. On the theory of the
+indicator dilution method for measurement
+ of blood flow and volume. J Appl Physiol
+1954; 6: 731–744. 
+40. Roberts G, Larson K. The interpretation of
+mean transit time measurements for multi-
+ phase tissue systems. J Theor Biol 1973;
+39:447–75. 
+41. Ferda J. CT angiografie. 1st ed. Praha:
+Galén 2004. 
+42. König M, Klotz E, Heuser L. Cerebral
+perfusion CT: theoretical aspects, practical
+implementation and clinical experience in
+acute ischemic stroke (German). Fortschr Rön-
+tgenstr 2000; 172: 210–218. 
+43. Wintermark M, Maeder P, Thiran JP,
+Schnyder P, Meuli R. Quantitative assessment
+of regional cerebral blood flows by perfusion
+ CT studies at low injection rates: a critical re-
+view of the underlying theoretical models.
+Eur Radiol 2001; 11(7): 1220–1230. 
+44. Wirestam R, Andersson L, Ostergaard L,
+ Bowling M, Aunola JP, Lindgren A et al. Asses-
+sment of regional cerebral blood flow by dy-
+namic susceptibility contrast MRI using diffe-
+rent deconvolution techniques. Magn Reson
+Med 2000; 43(5): 691–700. 
+45. Cenic A, Nabavi DG, Craen RA, Gelb AW,
+Lee TY. Dynamic CT measurement of cerebral
+ blood flow: a validation study. AJNR Am
+ J Neuroradiol 1999; 20(1): 63–73. 
+46. Nabavi DG, Cenic A, Craen RA, Gelb AW,
+ Bennett JD, Kozak R et al. CT assessment of
+cerebral perfusion: experimental validation and
+initial clinical experience. Radiology 1999;
+213(1): 141–149. 
+47. Lev MH, Farkas J, Rodriguez VR, Sch-
+wamm LH, Hunter GJ, Gonzalez RG et al. CT
+angiography in the rapid triage of patients
+with hyperacute stroke to intraarterial throm-
+bolysis accuracy in the detection of large ves-
+ sel thrombus. J Comput Assist Tomogr 2001;
+25(4): 520–528. 
+48. Lev MH, Romero JM, Goodman DNF,
+Bagga R, Kim HYK, Gonzalez RG. Total occlu-
+sion versus hairline residual lumen of the
+internal carotid arteries accuracy of single sec-
+tion helical CT angiography. AJNR Am
+ J Neuroradiol 2003 24: 1123–1129. 
+49. Schramm P, Schellinger PD, Klotz E,
+ Maeder P, Thiran JP, Schnyder P et al. Com-
+parison of perfusion computed tomography
+and computed tomography angiography
+source images with perfusion-weighted ima-
+ging and diffusion-weighted imaging in pa-
+tients with acute stroke of less than 6 hours’
+duration. Stroke 2004; 35: 1652–1658. 
+ 50. Schwamm LH, Rosenthal ES, Swap CJ, Ro-
+sand J, Rordorf G, Lev HM et al. Hypoattenua-
+tion on CT Angiographic Source Images Predicts
+Risk of Intracerebral Hemorrhage and Outcome
+after Intra-Arterial Reperfusion Therapy. AJNR
+ Am J Neuroradiol 2005; 26: 1798–1803. 
+51. Sylaja PN, Dzialowski I, Krol A, Roy J, Fe-
+derico P, Demchuk AM, and Calgary Stroke
+Program. Role of CT Angiography in Throm-
+bolysis Decision-Making for Patients With
+Presumed Seizure at Stroke Onset. Stroke
+2006; 37(3): 915–917. 
+52. Lev MH, Segal AZ, Farkas J, Hossain ST,
+Putman C, Hunter GJ et al. Utility of perfu-
+sion-weighted CT imaging in acute middle
+cerebral artery stroke treated with intraarte-
+rial thrombolysis: prediction of final infarct
+volume and clinical outcome. Stroke 2001;
+32(9): 2021–2028. 
+53. Schramm P, Schellinger PD, Fiebach JB,
+ Heiland S, Jansen O, Knauth M et al. Compa-
+rison of CT and CT angiography source ima-
+ges with diffusion-weighted imaging in pa-
+tients with acute stroke within 6 hours after
+onset. Stroke 2002; 33(10): 2426–2432. 
+54. Wintermark M, Fischbein NJ, Smith WS,
+Ko NU, Quist M, Dillon WP. Accuracy of dy-
+namic perfusion CT with deconvolution in de-
+tecting acute hemispheric stroke. AJNR Am
+ J Neuroradiol 2005; 26(1): 104–112. 
+ 55. Kidwell CS, Saver JL, Mattiello J, Starkman
+ S, Vinuela F, Duckwiler G et al. Thrombolytic
+reversal of acute human cerebral ischemic
+injury shown by diffusion/perfusion magnetic
+resonance imaging. Ann Neurol 2000; 47(4):
+462–469. 
+56. Hunter GJ, Silvennoinen HM, Hamberg
+LM, Koroshetz WJ, Buonanno FS, Schwamm
+LH et al. Whole-brain CT perfusion measure-
+ment of perfused cerebral blood volume in
+acute ischemic stroke: probability curve for
+regional infarction. Radiology 2003; 227(3):
+725–730. 
+651Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU<Node id="45648"/>
+<Node id="45649"/>57. Bisdas S, Donnerstag F, Ahl B, Bohrer I,
+ Weissenborn K, Becker H et al. Comparison
+of perfusion computed tomography with
+diffusion-weighted magnetic resonance ima-
+ ging in hyperacute ischemic stroke. J Comput
+Assist Tomogr 2004; 28(6): 747–755. 
+58. Wintermark M, Flanders AE, Velthuis B,
+ Meuli R, van Leeuwen M, Goldsher D et al.
+Perfusion-CT Assessment of Infarct Core and
+Penumbra. Stroke 2006; 37: 979–985. 
+ 59. Eastwood JD, Lev MH, Wintermark M,
+Fitzek C, Barboriak DP, Delong DM et al.
+Correlation of early dynamic CT perfusion ima-
+ging with whole-brain MR diffusion and perfu-
+sion imaging in acute hemispheric stroke.
+ AJNR Am J Neuroradiol 2003; 24: 1869–1875. 
+60. Eastwood JD, Lev MH, Azhari T, Lee TY,
+Barboriak DP, Delong DM et al. CT perfusion
+scanning with deconvolution analysis: pilot
+study in patients with acute middle cerebral
+artery stroke. Radiology 2002; 222: 227–236. 
+61. Wintermark M, Reichhart M, Cuisenaire
+ O, Maeder P, Thiran JP, Schnyder P et al.
+Comparison of admission perfusion compu-
+ted tomography and qualitative diffusion-
+and perfusion-weighted magnetic resonance
+imaging in acute stroke patients. Stroke
+2002; 33: 2025–2031. 
+62. Wintermark M, Reichhart M, Thiran JP,
+ Maeder P, Chalaron M, Schnyder P et al.
+Prognostic accuracy of cerebral blood flow
+measurement by perfusion computed to-
+mography, at the time of emergency room
+admission, in acute stroke patients. Ann Neu-
+rol 2002; 51: 417–432. 
+63. Mayer TE, Hamann GF, Baranczyk J, Ro-
+ sengarten B, Klotz E, Wiesmann M et al. Dy-
+namic CT perfusion imaging of acute stroke.
+ AJNR Am J Neuroradiol 2000; 21:
+1441–1449. 
+64. Reichenbach JR, Rother J, Jonetz-Mentzel
+ L, Rosengarten B, Klotz E, Wiesmann M et al.
+Acute stroke evaluated by time-to-peak map-
+ping during initial and early follow-up perfu-
+ sion CT studies. AJNR Am J Neuroradiol
+1999; 20: 1842–1850. 
+65. Schaefer PW, Roccatagliata L, Ledezma
+ C, Hoh B, Schwamm LH, Koroshetz W et al.
+First-pass quantitative CT perfusion identifies
+thresholds for salvageable penumbra in acu-
+te stroke patients treated with intra-arterial
+ therapy. AJNR Am J Neuroradiol 2006; 27:
+20–25. 
+66. Marchal G, Rioux P, Petit-Taboue MC,
+ Sette G, Travere JM, Le Poec C et al. Regional
+cerebral oxygen consumption, blood flow,
+and blood volume in healthy human aging.
+Arch Neurol 1992; 49: 1013–1020. 
+67. Murphy BD, Fox AJ, Lee DH, Sahlas DJ,
+Black SE, Hogan MJ et al. Identification of pe-
+numbra and infarct in acute ischemic stroke
+using computed tomography perfusion–deri-
+ved blood flow and blood volume measure-
+ments. Stroke 2006; 37: 1771–1777. 
+68. Parsons MW, Pepper EM, Chan V, Siddi-
+que S, Rajaratnam S, Bateman GA et al.
+Perfusion Computed Tomography: Prediction
+of Final Infarct Extent and Stroke Outcome.
+Ann Neurol 2005; 58: 672–679.
+ 652 Cesk Slov Neurol N 2007; 70/103(6): 643–652
+ KLINICKÝ POHLED NA VÝPOČETNÍ TOMOGRAFII U AKUTNÍ ISCHEMIE MOZKU
+www.kardiologickarevue.cz<Node id="48585"/>
+</TextWithNodes>
+<!-- The default annotation set -->
+
+<AnnotationSet>
+</AnnotationSet>
+
+<!-- Named annotation set -->
+
+<AnnotationSet Name="Original markups">
+<Annotation Id="0" Type="html" StartNode="0" EndNode="48585">
+</Annotation>
+<Annotation Id="1" Type="head" StartNode="0" EndNode="9">
+</Annotation>
+<Annotation Id="2" Type="title" StartNode="0" EndNode="9">
+</Annotation>
+<Annotation Id="3" Type="body" StartNode="10" EndNode="48585">
+</Annotation>
+<Annotation Id="4" Type="div" StartNode="10" EndNode="2749">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="5" Type="p" StartNode="10" EndNode="2749">
+</Annotation>
+<Annotation Id="6" Type="div" StartNode="2750" EndNode="9336">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="7" Type="p" StartNode="2750" EndNode="9336">
+</Annotation>
+<Annotation Id="8" Type="div" StartNode="9337" EndNode="11517">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="9" Type="p" StartNode="9337" EndNode="11517">
+</Annotation>
+<Annotation Id="10" Type="div" StartNode="11518" EndNode="12847">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="11" Type="p" StartNode="11518" EndNode="12847">
+</Annotation>
+<Annotation Id="12" Type="div" StartNode="12848" EndNode="19068">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="13" Type="p" StartNode="12848" EndNode="19068">
+</Annotation>
+<Annotation Id="14" Type="div" StartNode="19069" EndNode="25680">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="15" Type="p" StartNode="19069" EndNode="25680">
+</Annotation>
+<Annotation Id="17" Type="p" StartNode="25681" EndNode="32301">
+</Annotation>
+<Annotation Id="16" Type="div" StartNode="25681" EndNode="32301">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="19" Type="p" StartNode="32302" EndNode="38973">
+</Annotation>
+<Annotation Id="18" Type="div" StartNode="32302" EndNode="38973">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="21" Type="p" StartNode="38974" EndNode="45648">
+</Annotation>
+<Annotation Id="20" Type="div" StartNode="38974" EndNode="45648">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+<Annotation Id="23" Type="p" StartNode="45649" EndNode="48585">
+</Annotation>
+<Annotation Id="22" Type="div" StartNode="45649" EndNode="48585">
+<Feature>
+  <Name className="java.lang.String">class</Name>
+  <Value className="java.lang.String">page</Value>
+</Feature>
+</Annotation>
+</AnnotationSet>
+
+</GateDocument>

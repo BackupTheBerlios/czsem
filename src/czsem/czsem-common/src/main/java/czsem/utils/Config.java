@@ -1,30 +1,48 @@
 package czsem.utils;
 
-public class Config extends AbstractConfig {
+import java.io.IOException;
+import java.net.URISyntaxException;
 
-	public static Config getConfig() {
-		// TODO Auto-generated method stub
-		return null;
+
+public class Config extends AbstractConfig {
+	
+	public static synchronized Config getConfig() throws IOException, URISyntaxException
+	{
+		if (config == null) {
+			config = new Config();
+			config.loadConfig();
+		}
+		return (Config) config;
 	}
 
-	public String getIlpProjestsPath() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public String getAlephPath() {
+		return get("alephPath");
+	}
+
+	public void setAlephPath(String alephPath) {
+		set("alephPath", alephPath);
 	}
 
 	public String getPrologPath() {
-		// TODO Auto-generated method stub
-		return null;
+		return get("prologPath");
 	}
 
-	public String getAlephPath() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setPrologPath(String prologPath) {
+		set("prologPath", prologPath);
 	}
 
-	public String getCzsemPluginDir() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getIlpProjestsPath() {
+		return get("ilpSerialProjestsPath");
 	}
 
+	public void setIlpProjestsPath(String ilpProjestsPath) {
+		set("ilpProjestsPath", ilpProjestsPath);
+	}
+
+
+	public String getPrologRuleXmlSerializer() {
+		// TODO Auto-generated method stub
+		return 	 "/rule_xml_serializer.yap";
+	}
 }

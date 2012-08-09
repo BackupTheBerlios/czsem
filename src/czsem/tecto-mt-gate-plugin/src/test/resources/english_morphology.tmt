@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tmt_document xmlns="http://ufal.mff.cuni.cz/pdt/pml/">
+  <head>
+    <schema href="tmt_schema.xml" />
+  </head>
+  <meta>
+    <english_source_text>The BBC's Bethany Bell in Jerusalem says many people face shortages of food, medicine and fuel.</english_source_text>
+  </meta>
+  <bundles>
+    <LM id="s1">
+      <english_source_sentence>The BBC's Bethany Bell in Jerusalem says many people face shortages of food, medicine and fuel.</english_source_sentence>
+      <trees>
+        <SEnglishM id="SEnglishM-s1">
+          <children>
+            <LM id="SEnglishM-s1w1">
+              <form>The</form>
+              <lemma>the</lemma>
+              <tag>DT</tag>
+            </LM>
+            <LM id="SEnglishM-s1w2">
+              <form>BBC</form>
+              <lemma>BBC</lemma>
+              <tag>NNP</tag>
+            </LM>
+            <LM id="SEnglishM-s1w3">
+              <form>'s</form>
+              <lemma>'s</lemma>
+              <tag>POS</tag>
+            </LM>
+            <LM id="SEnglishM-s1w4">
+              <form>Bethany</form>
+              <lemma>Bethany</lemma>
+              <tag>NNP</tag>
+            </LM>
+            <LM id="SEnglishM-s1w5">
+              <form>Bell</form>
+              <lemma>Bell</lemma>
+              <tag>NNP</tag>
+            </LM>
+            <LM id="SEnglishM-s1w6">
+              <form>in</form>
+              <lemma>in</lemma>
+              <tag>IN</tag>
+            </LM>
+            <LM id="SEnglishM-s1w7">
+              <form>Jerusalem</form>
+              <lemma>Jerusalem</lemma>
+              <tag>NNP</tag>
+            </LM>
+            <LM id="SEnglishM-s1w8">
+              <form>says</form>
+              <lemma>say</lemma>
+              <tag>VBZ</tag>
+            </LM>
+            <LM id="SEnglishM-s1w9">
+              <form>many</form>
+              <lemma>many</lemma>
+              <tag>JJ</tag>
+            </LM>
+            <LM id="SEnglishM-s1w10">
+              <form>people</form>
+              <lemma>people</lemma>
+              <tag>NNS</tag>
+            </LM>
+            <LM id="SEnglishM-s1w11">
+              <form>face</form>
+              <lemma>face</lemma>
+              <tag>VBP</tag>
+            </LM>
+            <LM id="SEnglishM-s1w12">
+              <form>shortages</form>
+              <lemma>shortage</lemma>
+              <tag>NNS</tag>
+            </LM>
+            <LM id="SEnglishM-s1w13">
+              <form>of</form>
+              <lemma>of</lemma>
+              <tag>IN</tag>
+            </LM>
+            <LM id="SEnglishM-s1w14">
+              <form>food</form>
+              <lemma>food</lemma>
+              <tag>NN</tag>
+            </LM>
+            <LM id="SEnglishM-s1w15">
+              <form>,</form>
+              <lemma>,</lemma>
+              <tag>,</tag>
+            </LM>
+            <LM id="SEnglishM-s1w16">
+              <form>medicine</form>
+              <lemma>medicine</lemma>
+              <tag>NN</tag>
+            </LM>
+            <LM id="SEnglishM-s1w17">
+              <form>and</form>
+              <lemma>and</lemma>
+              <tag>CC</tag>
+            </LM>
+            <LM id="SEnglishM-s1w18">
+              <form>fuel</form>
+              <lemma>fuel</lemma>
+              <tag>NN</tag>
+            </LM>
+            <LM id="SEnglishM-s1w19">
+              <form>.</form>
+              <lemma>.</lemma>
+              <tag>.</tag>
+            </LM>
+          </children>
+        </SEnglishM>
+      </trees>
+    </LM>
+  </bundles>
+</tmt_document>

@@ -450,6 +450,12 @@ public class GateUtils
 		Gate.runInSandbox(true);
 		Gate.init();				
 	}
+	
+	public static boolean isPrCalssRegisteredInCreole(Class<? extends ProcessingResource> clazz)
+	{
+		Set<String> types = Gate.getCreoleRegister().getPrTypes();
+		return types.contains(clazz.getCanonicalName());		
+	}
 
 
 }

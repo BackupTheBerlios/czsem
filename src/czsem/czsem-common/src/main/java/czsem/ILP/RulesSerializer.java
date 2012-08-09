@@ -9,7 +9,6 @@ import czsem.utils.Config;
 public class RulesSerializer extends ILPExec
 {
 	private String output_rules_file_name;
-	protected String prolog_serialzation_script = "/rule_xml_serializer.yap";
 	protected String ontologyURI = null;
 	
 	
@@ -18,7 +17,7 @@ public class RulesSerializer extends ILPExec
 	
 	public void serializeToSwrlx(String [] objectProperties) throws IOException, URISyntaxException
 	{
-		startPrologProcess(Config.getConfig().getCzsemPluginDir() + prolog_serialzation_script);
+		startPrologProcess(Config.getConfig().getPrologRuleXmlSerializer());
 		startReaderThreads("RulesSerializer");
 //		startStdoutReaderThreads();
 		

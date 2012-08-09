@@ -13,30 +13,13 @@ import java.util.Iterator;
 import java.util.Set;
 
 import czsem.Utils;
-import czsem.utils.AbstractConfig;
 
 
-public class Config extends AbstractConfig
+public class Config extends czsem.utils.Config
 {
 	private static Config config = null;
 	public static ClassLoader classLoader = null;
-	private static final String config_filename = "czsem_config.xml";
-	private static final String czsem_plugin_dir_name = "czsem_GATE_plugins";
-	
-	private String wekaJarPath;
-	private String alephPath;
-	private String prologPath;
-	private String ilpSerialProjestsPath;
-	private String wekaRunFuzzyILPClassPath;
-	private String tmtRoot;
-	private String tredRoot;
-	private String gateHome;
-	private String tmtSerializationDirectoryPath;
-	private String logFileDirectoryPath;
-	private String czsemPluginDir;
-	private String learnigConfigDirectoryForGate;
-
-
+	private static final String czsem_plugin_dir_name = "czsem-gate-plugin";
 	
 	public static void main(String[] args) throws IOException, GateException, URISyntaxException
 	{
@@ -52,9 +35,10 @@ public class Config extends AbstractConfig
 /**/
 		Config ps = new Config();
 		ps.setMyWinValues();
+		ps.save();
 //		ps.setInstallDefaults();
 //		ps.saveToFile(czsem_plugin_dir_name+ '/' +config_filename_install);
-		ps.saveToFile(czsem_plugin_dir_name+ '/' +config_filename);
+//		ps.saveToFile(czsem_plugin_dir_name+ '/' +config_filename);
 		
 /*				
 		Config ps2 = new Config();
@@ -62,7 +46,7 @@ public class Config extends AbstractConfig
 /**/				
 	}
 
-	
+
 	protected static URL findCzesemPluginDirectoryURL()
 	{
 		@SuppressWarnings("unchecked")
@@ -76,60 +60,39 @@ public class Config extends AbstractConfig
 		return null;		
 	}
 	
-	public static void loadConfig(ClassLoader classLoader) throws IOException, URISyntaxException
-	{
-		try
-		{
-			try
-			{
-				config = loadFromFile(czsem_plugin_dir_name+ '/' +config_filename, classLoader);
-			} 
-			catch (FileNotFoundException e)
-			{
-				try
-				{
-					config = loadFromFile("../../czsem/"+czsem_plugin_dir_name+ '/' +config_filename, classLoader);
-				} 
-				catch (FileNotFoundException e2)
-				{
-					config = loadFromFile(config_filename, classLoader);				
-				}
-			}
-		} 
-		catch (FileNotFoundException e)
-		{
-			if (Gate.isInitialised())
-			{
-				URL url = findCzesemPluginDirectoryURL();
-				config = loadFromFile(
-						Utils.URLToFilePath(url)+ '/' +config_filename, classLoader);
-			}
-			else throw e; 
-		}
-	}
 
-	public static void loadConfig() throws IOException, URISyntaxException
+	public void loadConfig() throws IOException, URISyntaxException
 	{
 		if (Gate.isInitialised() && Config.classLoader == null)
 			Config.classLoader = Gate.getClassLoader();
 		
 		loadConfig(classLoader);
 	}
-		
-	public static Config getConfig() throws URISyntaxException, IOException
-	{
-		if (config == null) loadConfig();
 
-/*
-		if (config == null)
-			try {
-				loadConfig();
-			} catch (IOException e) {
-				System.err.println(new File(".").getAbsolutePath());
-				e.printStackTrace();
+	@Override
+	public void loadConfig(ClassLoader classLoader) throws IOException, URISyntaxException
+	{
+		try {
+			super.loadConfig(classLoader);
+		} catch (FileNotFoundException e){
+			if (Gate.isInitialised())
+			{
+				URL url = findCzesemPluginDirectoryURL();
+				super.loadConfig(
+						Utils.URLToFilePath(url)+ '/' +config_filename, classLoader);
 			}
-*/			
-		return config;
+			else throw e;
+		}
+	}
+
+		
+	public static synchronized Config getConfig() throws IOException, URISyntaxException
+	{
+		if (config == null) {
+			config = new Config();
+			config.loadConfig();
+		}
+		return (Config) config;
 	}
 			
 	public void setInstallDefaults()
@@ -155,83 +118,59 @@ public class Config extends AbstractConfig
 		setLogFileDirectoryPath("C:\\workspace\\czsem\\src\\java\\czsem\\czsem_GATE_plugins\\log");
 		setIlpProjestsPath(		"C:\\workspace\\czsem\\src\\java\\czsem\\ILP_serializations");
 		setLearnigConfigDirectoryForGate(	"C:\\workspace\\czsem\\src\\java\\czsem\\gate-learning");
+		setCzsemPluginDir("C:\\workspace\\czsem\\src\\java\\czsem\\czsem_GATE_plugins");
 	}
 
-	public static Config loadFromFile(String filename, ClassLoader classLoader) throws IOException
-	{
-		Config c = (Config) loadAbstaractConfigFromFile(filename, classLoader);
-		c.czsemPluginDir = new File(new File(filename).getParent()).getCanonicalPath();
-		return c;
+	public void setCzsemPluginDir(String czsemPluginDir) {
+		set("czsemPluginDir", czsemPluginDir);
 	}
-	
+
+
 	public String getCzsemPluginDir() {
-		return czsemPluginDir;
+		return get("czsemPluginDir");
 	}
 
 	public String getWekaJarPath() {
-		return wekaJarPath;
+		return get("wekaJarPath");
 	}
 
 	public void setWekaJarPath(String wekaJarPath) {
-		this.wekaJarPath = wekaJarPath;
+		set("wekaJarPath", wekaJarPath);
 	}
 
-	public String getAlephPath() {
-		return alephPath;
-	}
-
-	public void setAlephPath(String alephPath) {
-		this.alephPath = alephPath;
-	}
-
-	public String getPrologPath() {
-		return prologPath;
-	}
-
-	public void setPrologPath(String prologPath) {
-		this.prologPath = prologPath;
-	}
-
-	public String getIlpProjestsPath() {
-		return ilpSerialProjestsPath;
-	}
-
-	public void setIlpProjestsPath(String ilpProjestsPath) {
-		this.ilpSerialProjestsPath = ilpProjestsPath;
-	}
 
 	public String getWekaRunFuzzyILPClassPath() {
-		return wekaRunFuzzyILPClassPath;
+		return get("wekaRunFuzzyILPClassPath");
 	}
 
 	public void setWekaRunFuzzyILPClassPath(String myClassPath) {
-		this.wekaRunFuzzyILPClassPath = myClassPath;
+		set("wekaRunFuzzyILPClassPath", myClassPath);
 	}
 	
 	public String getTmtRoot() {
-		return tmtRoot;
+		return get("tmtRoot");
 	}
 
 	public void setTmtRoot(String tmtRoot) {
-		this.tmtRoot = tmtRoot;
+		set("tmtRoot", tmtRoot);
 	}
 
 	public String getTredRoot() {
-		return tredRoot;
+		return get("tredRoot");
 	}
 
 	public void setTredRoot(String tredRoot) {
-		this.tredRoot = tredRoot;
+		set("tredRoot", tredRoot);
 	}
 
 
 	public void setGateHome(String gateHome) {
-		this.gateHome = gateHome;
+		set("gateHome", gateHome);
 	}
 
 
 	public String getGateHome() {
-		return gateHome;
+		return get("gateHome");
 	}
 
 	public void setGateHome()
@@ -242,7 +181,7 @@ public class Config extends AbstractConfig
 
 
 	public void setTmtSerializationDirectoryPath(String tmtSerializationDirectoryPath) {
-		this.tmtSerializationDirectoryPath = tmtSerializationDirectoryPath;
+		set("tmtSerializationDirectoryPath", tmtSerializationDirectoryPath);
 	}
 
 
@@ -252,27 +191,27 @@ public class Config extends AbstractConfig
 	}
 
 	public String getTmtSerializationDirectoryPath() {
-		return tmtSerializationDirectoryPath;
+		return get("tmtSerializationDirectoryPath");
 	}
 
 
 	public void setLogFileDirectoryPath(String logFileDirectoryPath) {
-		this.logFileDirectoryPath = logFileDirectoryPath;
+		set("logFileDirectoryPath", logFileDirectoryPath);
 	}
 
 
 	public String getLogFileDirectoryPath() {
-		return logFileDirectoryPath;
+		return get("logFileDirectoryPath");
 	}
 
 
 	public void setLearnigConfigDirectoryForGate(String learnigConfigDirectoryForGate) {
-		this.learnigConfigDirectoryForGate = learnigConfigDirectoryForGate;
+		set("learnigConfigDirectoryForGate", learnigConfigDirectoryForGate);
 	}
 
 
 	public String getLearnigConfigDirectoryForGate() {
-		return learnigConfigDirectoryForGate;
+		return get("learnigConfigDirectoryForGate");
 	}
 
 }
