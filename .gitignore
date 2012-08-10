@@ -10,3 +10,4 @@ target
 
 #other
 test-output
+*.class
