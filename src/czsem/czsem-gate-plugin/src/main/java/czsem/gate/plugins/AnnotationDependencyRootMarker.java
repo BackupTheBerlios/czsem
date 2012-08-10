@@ -16,6 +16,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 
+import czsem.Utils;
 import czsem.gate.AbstractAnnotationDependencyMarker;
 
 @CreoleResource(name = "czsem AnnotationDependencyRootMarker", comment = "Finds a nearest common father annotation for all 'tokens' inside a given annotation.")
@@ -132,7 +133,7 @@ public class AnnotationDependencyRootMarker extends AbstractAnnotationDependency
 //		logger.debug("RootMarker: " + document.getName());
 		initBeforeExecute();
 		
-		AnnotationSet inputAnnotations = inputAS.get(new HashSet<String>(inputAnnotationTypeNames));
+		AnnotationSet inputAnnotations = inputAS.get(Utils.setFromList(inputAnnotationTypeNames));
 		for (Annotation annotation : inputAnnotations)
 		{			
 //			logger.debug(String.format("ann root: %s, id: %d", annotation.getType(), annotation.getId()));

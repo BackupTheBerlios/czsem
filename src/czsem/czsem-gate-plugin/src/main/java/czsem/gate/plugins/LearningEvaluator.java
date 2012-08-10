@@ -146,7 +146,10 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 			NumDocsAndTrainInst entry = train_inst_stats.get(new PrNameAndFold(trainPRName, fold_number));
 			return entry == null ? -1 : entry.numDocs;
 		}
-		
+
+		public List<DocumentDiff> getDocumentDiffs(LearningEvaluator evaluator) {
+			return repository_map.get(evaluator);			
+		}		
 	}
 	
 	public static class DocumentDiff
@@ -295,7 +298,7 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 	}
 
 	@RunTime
-	@CreoleParameter
+	@CreoleParameter(defaultValue="Key")	
 	public void setKeyASName(String keyASName) {
 		this.keyASName = keyASName;
 	}
@@ -305,7 +308,7 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 	}
 
 	@RunTime
-	@CreoleParameter
+	@CreoleParameter(defaultValue="")
 	public void setResponseASName(String responseASName) {
 		this.responseASName = responseASName;
 	}
@@ -315,7 +318,7 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 	}
 
 	@RunTime
-	@CreoleParameter
+	@CreoleParameter(defaultValue="Mention")
 	public void setAnnotationTypes(List<String> annotationTypes) {
 		this.annotationTypes = annotationTypes;
 	}
