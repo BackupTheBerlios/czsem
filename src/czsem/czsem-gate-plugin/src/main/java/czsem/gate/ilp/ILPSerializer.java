@@ -1,5 +1,5 @@
 
-package czsem.gate;
+package czsem.gate.ilp;
 
 import gate.Annotation;
 import gate.AnnotationSet;
@@ -34,7 +34,7 @@ public class ILPSerializer extends AbstractLanguageAnalyser
 
 //	protected String [] class_attribute_values;
 	
-	protected MultiSet<String> instanceClassTypes = new MultiSet<String>();
+	private MultiSet<String> instanceClassTypes = new MultiSet<String>();
 	
 	
 	protected String [] token_types =
@@ -306,7 +306,7 @@ public class ILPSerializer extends AbstractLanguageAnalyser
 							"Instance ID is null. docName: '%s', instanceTypeName: '%s'",
 							docName, instanceTypeName));
 		
-		instanceClassTypes.add(class_attribute_vlaue);
+		getInstanceClassTypes().add(class_attribute_vlaue);
 		
 		String instance_id = renderID(instanceGateId);
 		
@@ -443,5 +443,13 @@ public class ILPSerializer extends AbstractLanguageAnalyser
 
 	public void closeBackgroundSerializer() {
 		lingSer.closeBackgroundSerializer();
+	}
+
+	public void setInstanceClassTypes(MultiSet<String> instanceClassTypes) {
+		this.instanceClassTypes = instanceClassTypes;
+	}
+
+	public MultiSet<String> getInstanceClassTypes() {
+		return instanceClassTypes;
 	}
 }

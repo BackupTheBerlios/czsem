@@ -252,19 +252,19 @@ public class GateUtils
 	{
 		protected Corpus copus;
 		protected Set<String> seenDocuments;
-		protected int numDocs; 
+		private int numDocs; 
 
 		public CorpusDocumentCounter(Corpus corpus) {
 			this.copus = corpus;
-			numDocs = corpus.size();
+			setNumDocs(corpus.size());
 			
-			seenDocuments = new HashSet<String>(numDocs);
+			seenDocuments = new HashSet<String>(getNumDocs());
 		}
 		
 		public boolean isLastDocument()
 		{
 //			System.err.format("%d %d\n", numDocs, seenDocuments.size());
-			return numDocs <= seenDocuments.size();			
+			return getNumDocs() <= seenDocuments.size();			
 		}
 
 		/**
@@ -285,6 +285,14 @@ public class GateUtils
 		public Set<String> getDocumentSet()		
 		{
 			return seenDocuments;
+		}
+
+		public void setNumDocs(int numDocs) {
+			this.numDocs = numDocs;
+		}
+
+		public int getNumDocs() {
+			return numDocs;
 		}
 
 		
@@ -451,10 +459,15 @@ public class GateUtils
 		Gate.init();				
 	}
 	
-	public static boolean isPrCalssRegisteredInCreole(Class<? extends ProcessingResource> clazz)
+	public static boolean isPrCalssRegisteredInCreole(String classname)
 	{
 		Set<String> types = Gate.getCreoleRegister().getPrTypes();
-		return types.contains(clazz.getCanonicalName());		
+		return types.contains(classname);				
+	}
+
+	public static boolean isPrCalssRegisteredInCreole(Class<? extends ProcessingResource> clazz)
+	{
+		return isPrCalssRegisteredInCreole(clazz.getCanonicalName());
 	}
 
 

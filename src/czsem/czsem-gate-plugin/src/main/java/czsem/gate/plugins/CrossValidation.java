@@ -31,7 +31,7 @@ import org.apache.log4j.Logger;
 
 import czsem.Utils;
 import czsem.gate.GateUtils;
-import czsem.gate.ILPWrapper;
+import czsem.gate.learning.ILPWrapper;
 
 @CreoleResource(name = "czsem CrossValidation", comment = "Does k-fold cross validation - training / testing on a corpus")
 public class CrossValidation extends AbstractProcessingResource

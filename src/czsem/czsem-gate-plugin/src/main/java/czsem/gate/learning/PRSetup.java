@@ -15,21 +15,31 @@ public abstract class PRSetup
 {
 	public static class SinglePRSetup extends PRSetup 
 	{
-		private Class<?> pr_class;
-		FeatureMap fm;
+		private String pr_className;
+		private FeatureMap fm;
 		private String name = null;
 	
-		public SinglePRSetup(Class<?> cl, String name)
+		public SinglePRSetup(String className, String name)
 		{
-			pr_class = cl;
+			pr_className = className;
 			fm = Factory.newFeatureMap();
 			this.name = name;
 			
 		}
 
+		public SinglePRSetup(Class<?> cl, String name)
+		{
+			this(cl.getCanonicalName(), name);			
+		}
+
 		public SinglePRSetup(Class<?> cl)
 		{
 			this(cl, null);
+		}
+
+		public SinglePRSetup(String classneme)
+		{
+			this(classneme, null);
 		}
 				
 		public SinglePRSetup putFeature(Object key, Object value)
@@ -48,7 +58,7 @@ public abstract class PRSetup
 	
 		public ProcessingResource createPR() throws ResourceInstantiationException
 		{
-			return(ProcessingResource) Factory.createResource(pr_class.getCanonicalName(), fm, null, name);			
+			return(ProcessingResource) Factory.createResource(pr_className, fm, null, name);			
 		}				
 	}
 	

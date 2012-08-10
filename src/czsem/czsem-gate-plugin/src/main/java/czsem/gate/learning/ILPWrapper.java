@@ -1,4 +1,4 @@
-package czsem.gate;
+package czsem.gate.learning;
 
 import gate.CreoleRegister;
 import gate.Document;
@@ -27,6 +27,7 @@ import org.apache.log4j.Logger;
 import org.jdom.Element;
 
 import czsem.gate.GateUtils.CorpusDocumentCounter;
+import czsem.gate.ilp.ILPSerializer;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
 
@@ -88,16 +89,16 @@ public class ILPWrapper implements AdvancedMLEngine
 		if (! triningInProgress) return;
 		
 		ilpSer.flushAndClose();
-		logger.info(String.format("ILP training on %d documents...", docCounter.numDocs));
-		logger.info("Learning instace types: " + ilpSer.instanceClassTypes.toFormatedString(", "));
+		logger.info(String.format("ILP training on %d documents...", docCounter.getNumDocs()));
+		logger.info("Learning instace types: " + ilpSer.getInstanceClassTypes().toFormatedString(", "));
 		
 		CrossValidation cv = findparentCrossValidationInstatnce();
 		if (cv != null)
 		{
 			LearningEvaluator.CentralResultsRepository.repository.
 				addNumberDocsAndTrainingInstances(
-						pr.getName(), docCounter.numDocs,
-						cv.actual_fold_number, ilpSer.instanceClassTypes);			
+						pr.getName(), docCounter.getNumDocs(),
+						cv.actual_fold_number, ilpSer.getInstanceClassTypes());			
 		}
 		
 		ilpSer.train();

@@ -37,7 +37,7 @@ public class Config extends AbstractConfig {
 	}
 
 	public void setIlpProjestsPath(String ilpProjestsPath) {
-		set("ilpProjestsPath", ilpProjestsPath);
+		set("ilpSerialProjestsPath", ilpProjestsPath);
 	}
 
 

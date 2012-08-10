@@ -6,7 +6,10 @@ import gate.creole.AbstractLanguageAnalyser;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
+import gate.creole.metadata.Optional;
+import gate.creole.metadata.RunTime;
 import gate.persist.PersistenceException;
 import gate.util.GateException;
 
@@ -26,7 +29,7 @@ import czsem.gate.utils.Config;
 @CreoleResource(name = "czsem CustomPR", comment = "Usable within GETE embeded only.")
 public class CustomPR extends AbstractLanguageAnalyser {
 	private static final long serialVersionUID = -1412485629846167332L;
-	protected AnalyzeDocDelegate delegate;
+	private AnalyzeDocDelegate executionDelegate;
 	private DataSet ds;
 	private List<PRSetup> preprocess = new ArrayList<PRSetup>();
 	
@@ -37,8 +40,8 @@ public class CustomPR extends AbstractLanguageAnalyser {
 	
 	@Override
 	public void execute() throws ExecutionException
-	{
-		delegate.analyzeDoc(getDocument());				
+	{			
+		getExecutionDelegate().analyzeDoc(getDocument());
 	}
 
 	public void executeAnalysis(DataSet data) throws PersistenceException, ResourceInstantiationException, ExecutionException
@@ -55,7 +58,7 @@ public class CustomPR extends AbstractLanguageAnalyser {
     
 	public static CustomPR createInstance(AnalyzeDocDelegate delegate) throws ResourceInstantiationException {
 		CustomPR ret = (CustomPR) new PRSetup.SinglePRSetup(CustomPR.class).createPR();
-		ret.delegate = delegate;
+		ret.setExecutionDelegate(delegate);
 		return ret;		
 	}
 
@@ -101,6 +104,17 @@ public class CustomPR extends AbstractLanguageAnalyser {
 
 	public DataSet getDataset() {
 		return ds;
+	}
+
+	@Optional
+	@RunTime
+	@CreoleParameter
+	public void setExecutionDelegate(AnalyzeDocDelegate executionDelegate) {
+		this.executionDelegate = executionDelegate;
+	}
+
+	public AnalyzeDocDelegate getExecutionDelegate() {
+		return executionDelegate;
 	}
 
 
