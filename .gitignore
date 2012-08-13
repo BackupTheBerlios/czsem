@@ -11,3 +11,4 @@ target
 #other
 test-output
 *.class
+.svn
