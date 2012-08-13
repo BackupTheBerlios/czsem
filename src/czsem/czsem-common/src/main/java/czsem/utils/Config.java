@@ -45,4 +45,22 @@ public class Config extends AbstractConfig {
 		// TODO Auto-generated method stub
 		return 	 "/rule_xml_serializer.yap";
 	}
+	
+	public String getWekaJarPath() {
+		return get("wekaJarPath");
+	}
+
+	public void setWekaJarPath(String wekaJarPath) {
+		set("wekaJarPath", wekaJarPath);
+	}
+
+
+	public String getWekaRunFuzzyILPClassPath() {
+		return get("wekaRunFuzzyILPClassPath");
+	}
+
+	public void setWekaRunFuzzyILPClassPath(String myClassPath) {
+		set("wekaRunFuzzyILPClassPath", myClassPath);
+	}
+
 }

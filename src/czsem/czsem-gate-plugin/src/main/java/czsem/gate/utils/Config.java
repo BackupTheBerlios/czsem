@@ -130,22 +130,6 @@ public class Config extends czsem.utils.Config
 		return get("czsemPluginDir");
 	}
 
-	public String getWekaJarPath() {
-		return get("wekaJarPath");
-	}
-
-	public void setWekaJarPath(String wekaJarPath) {
-		set("wekaJarPath", wekaJarPath);
-	}
-
-
-	public String getWekaRunFuzzyILPClassPath() {
-		return get("wekaRunFuzzyILPClassPath");
-	}
-
-	public void setWekaRunFuzzyILPClassPath(String myClassPath) {
-		set("wekaRunFuzzyILPClassPath", myClassPath);
-	}
 	
 	public String getTmtRoot() {
 		return get("tmtRoot");
