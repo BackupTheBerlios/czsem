@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Set;
 
@@ -62,7 +63,22 @@ public class MainFrame {
 		Gate.getCreoleRegister().registerComponent(SchemaAnnotationEditor.class);		
 	}
 
-	public static void initGate() throws GateException {
+	public static void initGate() throws GateException, MalformedURLException {
+		/*
+		URL creoleUrl = MainFrame.class.getClassLoader().getResource("gate/resources/creole/creole.xml");
+		System.err.println(creoleUrl);
+		
+		String urlStr = creoleUrl.toString();
+		String base = urlStr.substring(0, urlStr.lastIndexOf('/')+1)	;
+		System.err.println(base);
+		
+		Gate.setBuiltinCreoleDir(new URL(base));
+
+		System.err.println(MainFrame.class.getClassLoader().getResource("gate/resources/creole/"));
+		
+		System.err.println(Files.getGateResource("/creole/"));
+
+		*/
 		if (Gate.isInitialised()) return;
 		
 		Logger logger = Logger.getRootLogger();

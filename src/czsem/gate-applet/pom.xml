@@ -21,7 +21,7 @@
 					</descriptors>
 					<archive>
 						<manifest>
-							<addClasspath>true</addClasspath>
+							<addClasspath>false</addClasspath>
 							<mainClass>czsem.gate.applet.GateApplet</mainClass>
 						</manifest>
 					</archive>
@@ -36,6 +36,58 @@
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>com.pyx4me</groupId>
+				<artifactId>proguard-maven-plugin</artifactId>
+				<version>2.0.4</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>proguard</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<options>
+						<option>-ignorewarnings</option>
+						<option>-allowaccessmodification</option>
+						<option>-keep public class * extends java.applet.Applet { *; }</option>
+						<option>-keep public class org.apache.ivy.Ivy { *; }</option>
+						<option>-keep public class org.apache.xerces.parsers.SAXParser  { *; }</option>
+						<option>-keep public class org.apache.xerces.parsers.XIncludeAwareParserConfiguration  { *; }</option>
+						<option>-keep public class org.apache.xerces.util.SymbolTable  { *; }</option>
+						<option>-keep public class org.apache.xerces.xni.grammars.XMLGrammarPool  { *; }</option>						
+						<option>-keep public class org.apache.xerces.xni.grammars.XMLGrammarDescription { *; }</option>						
+						<option>-keep public class org.apache.log4j.xml.DOMConfigurator { *; }</option>
+						<option>-keep public class org.apache.log4j.** { *; }</option>
+						
+						<option>-adaptresourcefilenames **.gif,**.png,**.xml</option>
+						<option>-adaptresourcefilecontents **.xml</option>
+						<option>-dontobfuscate</option>
+						
+<!-- 
+						<option>-printmapping out.map</option>
+						<option>-keep class ** {*;}</option>
+						<option>-keep interface ** {*;}</option>
+						<option>-keep enum ** {*;}</option>
+<option>-dontshrink</option>
+<option>-dontoptimize</option>
+<option>-dontpreverify</option>
+<option>-printusage</option>
+ -->						
+					</options>
+					<includeDependency>false</includeDependency>
+					<libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                        <lib>C:\Users\dedek\.m2\repository\xerces\xercesImpl\2.9.1\xercesImpl-2.9.1.jar</lib>
+                    </libs>
+					<mamaxMemory>1024m</mamaxMemory>
+					<injar>${project.artifactId}-${project.version}-jar-with-dependencies.${project.packaging}</injar>
+					<outjar>${project.artifactId}-${project.version}-proguard.${project.packaging}</outjar>
+				</configuration>
+			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jarsigner-plugin</artifactId>

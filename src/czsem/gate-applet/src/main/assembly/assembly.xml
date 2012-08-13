@@ -29,9 +29,11 @@
 				<include>*:ant</include>
 				<include>*:ivy</include>
 				<include>*:jaxen</include>
-				<include>*:xercesImpl</include>
-				<include>*:commons-io</include>	
-				<include>*:commons-lang</include>								 
+				
+<!-- 				<include>*:xercesImpl</include> -->
+				
+				<include>*:commons-io</include>
+				<include>*:commons-lang</include>
 			</includes>
 			<unpackOptions>
 				<includes>
@@ -47,8 +49,8 @@
 					<include>gate/gui/ActionsPublisher.*</include>
 					<include>gate/gui/FeaturesSchemaEditor**</include>
 					<include>gate/gui/ResizableVisualResource.*</include>
-					<include>gate/gui/MainFrame**</include>					
-					<include>gate/gui/LogArea**</include>					
+					<include>gate/gui/MainFrame**</include>
+					<include>gate/gui/LogArea**</include>
 					<include>gate/gui/annedit/**</include>
 					<include>gate/gui/docview/**</include>
 					<include>gate/xml/SimpleErrorHandler.*</include>
@@ -69,30 +71,39 @@
 					<include>gate/jape/JapeConstants.*</include>
 					<include>gate/jape/parser/ParseCpslConstants.*</include>
 					<include>gate/jape/constraint/*.*</include>
-					<include>gate/resources/img/*.*</include>					
-					
+					<include>gate/resources/img/*.*</include>
+
 					<include>gate/mimir/**</include>
 
 					<include>org/apache/log4j/**</include>
-					
+
 					<include>org/jdom/**</include>
-					
+
 					<include>org/apache/tools/ant/*.*</include>
-					
+
 					<include>org/apache/ivy/util/*.*</include>
-					
+					<include>org/apache/ivy/Ivy.*</include>
+
 					<include>org/jaxen/**</include>
-					
-					<include>org/apache/commons/lang/**</include>
-					
-					
+
+					<include>org/apache/commons/lang/*.*</include>
+<!-- 					
+					<include>org/apache/xerces/**</include>
+ -->
 				</includes>
 				<excludes>
+					<exclude>**.tcl</exclude>
 					<exclude>gate/resources/img/splash*.*</exclude>
 					<exclude>gate/resources/img/sponsors.*</exclude>
 					<exclude>gate/resources/img/gateS*.*</exclude>
 					<exclude>gate/resources/img/working.*</exclude>
 					<exclude>gate/corpora/NekoHtmlDocumentFormat*</exclude>
+					<exclude>gate/util/CorpusBenchmarkTool*.*</exclude>
+					<exclude>**/Test*.*</exclude>
+
+					<exclude>org/apache/log4j/jdbc**</exclude>
+					<exclude>org/apache/log4j/lf5**</exclude>
+
 				</excludes>
 			</unpackOptions>
 		</dependencySet>
