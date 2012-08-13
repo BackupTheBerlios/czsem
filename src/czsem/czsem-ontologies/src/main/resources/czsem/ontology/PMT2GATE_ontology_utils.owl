@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY swrl "http://www.w3.org/2003/11/swrl#" >
+    <!ENTITY pml "http://ufal.mff.cuni.cz/pdt/pml/" >
+    <!ENTITY swrlb "http://www.w3.org/2003/11/swrlb#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+    <!ENTITY PMT2GATE_ontology_utils "http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#" >
+]>
+
+
+<rdf:RDF xmlns="http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#"
+     xml:base="http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl"
+     xmlns:pml="http://ufal.mff.cuni.cz/pdt/pml/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:swrl="http://www.w3.org/2003/11/swrl#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:swrlb="http://www.w3.org/2003/11/swrlb#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:PMT2GATE_ontology_utils="http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#">
+    <owl:Ontology rdf:about="http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl">
+    <!-- 
+
+        <owl:imports rdf:resource="http://czsem.berlios.de/ontologies/czech_fireman/rules/learned_rules_test1.owl"/>
+        <owl:imports rdf:resource="http://czsem.berlios.de/ontologies/czech_fireman/tmt_files/jihomoravsky47443.txt.xml_00034.tmt.owl"/>
+        -->
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#hasChild -->
+
+    <owl:ObjectProperty rdf:about="&PMT2GATE_ontology_utils;hasChild">
+        <rdfs:label>hasChild</rdfs:label>
+        <owl:inverseOf rdf:resource="&pml;hasParent"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/hasParent -->
+
+    <owl:ObjectProperty rdf:about="&pml;hasParent"/>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/tDependency -->
+
+    <owl:ObjectProperty rdf:about="&pml;tDependency">
+        <rdfs:subPropertyOf rdf:resource="&PMT2GATE_ontology_utils;hasChild"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/functor -->
+
+    <owl:DatatypeProperty rdf:about="&pml;functor">
+        <rdfs:domain rdf:resource="&PMT2GATE_ontology_utils;TNode"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/mention_root -->
+
+    <owl:DatatypeProperty rdf:about="&pml;mention_root">
+        <rdfs:domain rdf:resource="&PMT2GATE_ontology_utils;MentionRoot"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/sempos -->
+
+    <owl:DatatypeProperty rdf:about="&pml;sempos">
+        <rdfs:domain rdf:resource="&PMT2GATE_ontology_utils;TNode"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/t_lemma -->
+
+    <owl:DatatypeProperty rdf:about="&pml;t_lemma">
+        <rdfs:domain rdf:resource="&PMT2GATE_ontology_utils;TNode"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#MentionRoot -->
+
+    <owl:Class rdf:about="&PMT2GATE_ontology_utils;MentionRoot">
+        <rdfs:label>MentionRoot</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Node"/>
+    </owl:Class>
+    
+
+
+    <!-- http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#TNode -->
+
+    <owl:Class rdf:about="&PMT2GATE_ontology_utils;TNode">
+        <rdfs:label>TNode</rdfs:label>
+        <rdfs:subClassOf rdf:resource="&pml;Node"/>
+    </owl:Class>
+    
+
+
+    <!-- http://ufal.mff.cuni.cz/pdt/pml/Node -->
+
+    <owl:Class rdf:about="&pml;Node"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Rules
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <swrl:Variable rdf:about="urn:swrl#ch"/>
+    <swrl:Variable rdf:about="urn:swrl#p"/>
+    <swrl:Imp>
+        <swrl:head>
+            <swrl:AtomList>
+                <rdf:rest rdf:resource="&rdf;nil"/>
+                <rdf:first>
+                    <swrl:IndividualPropertyAtom>
+                        <swrl:propertyPredicate rdf:resource="&pml;tDependency"/>
+                        <swrl:argument2 rdf:resource="urn:swrl#ch"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#p"/>
+                    </swrl:IndividualPropertyAtom>
+                </rdf:first>
+            </swrl:AtomList>
+        </swrl:head>
+        <swrl:body>
+            <swrl:AtomList>
+                <rdf:rest>
+                    <swrl:AtomList>
+                        <rdf:rest>
+                            <swrl:AtomList>
+                                <rdf:rest rdf:resource="&rdf;nil"/>
+                                <rdf:first>
+                                    <swrl:IndividualPropertyAtom>
+                                        <swrl:propertyPredicate rdf:resource="&pml;hasParent"/>
+                                        <swrl:argument1 rdf:resource="urn:swrl#ch"/>
+                                        <swrl:argument2 rdf:resource="urn:swrl#p"/>
+                                    </swrl:IndividualPropertyAtom>
+                                </rdf:first>
+                            </swrl:AtomList>
+                        </rdf:rest>
+                        <rdf:first>
+                            <swrl:ClassAtom>
+                                <swrl:classPredicate rdf:resource="&PMT2GATE_ontology_utils;TNode"/>
+                                <swrl:argument1 rdf:resource="urn:swrl#p"/>
+                            </swrl:ClassAtom>
+                        </rdf:first>
+                    </swrl:AtomList>
+                </rdf:rest>
+                <rdf:first>
+                    <swrl:ClassAtom>
+                        <swrl:classPredicate rdf:resource="&PMT2GATE_ontology_utils;TNode"/>
+                        <swrl:argument1 rdf:resource="urn:swrl#ch"/>
+                    </swrl:ClassAtom>
+                </rdf:first>
+            </swrl:AtomList>
+        </swrl:body>
+    </swrl:Imp>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.1.0.20069) http://owlapi.sourceforge.net -->
+

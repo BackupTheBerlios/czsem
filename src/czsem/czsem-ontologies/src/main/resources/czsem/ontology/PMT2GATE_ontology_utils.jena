@@ -1,0 +1,9 @@
+
+    [rule-1:  
+            ( ?ch  http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#TNode )
+            ( ?p  http://www.w3.org/1999/02/22-rdf-syntax-ns#type http://czsem.berlios.de/ontologies/PMT2GATE_ontology_utils.owl#TNode )
+            ( ?ch http://ufal.mff.cuni.cz/pdt/pml/hasParent ?p )
+         -> 
+            ( ?p http://ufal.mff.cuni.cz/pdt/pml/tDependency ?ch )
+        ]
+  

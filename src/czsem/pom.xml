@@ -20,6 +20,7 @@
 		<module>ie-experiments</module>
 		<module>gate-plugins</module>
 		<module>javacsv</module>
+		<module>czsem-ontologies</module>
 	</modules>
 
 	<properties>
