@@ -15,10 +15,11 @@
 		<module>netgraph-query</module>
 		<module>gate-applet</module>
 		<module>mimir-client-tools</module>
-		<module>gate-tools-plugin</module>
 		<module>tecto-mt-gate-plugin</module>
 		<module>fuzzy-ilp-classifier</module>
-		<module>gate-machine-learning-plugin</module>
+		<module>ie-experiments</module>
+		<module>gate-plugins</module>
+		<module>javacsv</module>
 	</modules>
 
 	<properties>
