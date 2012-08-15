@@ -64,6 +64,8 @@
 			<description>Common binaries</description>
 			<file src="../../../czsem-common/target/czsem-common-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 			<file src="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue"/>
+			<file src="configuration" targetdir="$INSTALL_PATH/configuration" />
+			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
 		</pack>
 		<pack name="czsem-gate-plugin" preselected="yes" required="no">
 			<description>Contains Czsem utility processing resources and ILP wrapper for machine learning.

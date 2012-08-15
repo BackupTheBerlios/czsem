@@ -58,6 +58,7 @@
 								<goal>single</goal>
 							</goals>
 							<configuration>
+								<attach>false</attach>
 								<descriptors>
 									<descriptor>${basedir}/../installer/src/assembly/install-zip.xml</descriptor>
 								</descriptors>
