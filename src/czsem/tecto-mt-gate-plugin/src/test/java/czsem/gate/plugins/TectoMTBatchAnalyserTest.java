@@ -590,7 +590,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		AnnotationSet as = document.getAnnotations();		
 		assertEquals(1703, as.size());
 		
-		saveDocumentToFile("test_out.xml");
+		//saveDocumentToFile("test_out.xml");
 
 
 		
@@ -609,7 +609,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		executeTmtOnCurrentCorpus("english", english_full_blocks);
 
 		
-		saveDocumentToFile("test_film_out.xml");
+		//saveDocumentToFile("test_film_out.xml");
 
 		AnnotationSet as = document.getAnnotations();		
 		assertEquals(1364, as.size());
