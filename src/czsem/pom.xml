@@ -7,8 +7,8 @@
 	<name>Czsem Root</name>
 	
 	<scm>
-		<connection>csm:git:git://git.berlios.de/czsem/src/czsem</connection>
-		<developerConnection>csm:git:ssh://git.berlios.de/gitroot/czsem/src/czsem</developerConnection>
+		<connection>csm:git:git://git.berlios.de/czsem</connection>
+		<developerConnection>csm:git:ssh://dedej1am@git.berlios.de/gitroot/czsem</developerConnection>
 	</scm>
 	
 	<distributionManagement>
