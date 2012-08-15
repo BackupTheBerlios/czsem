@@ -1,0 +1,101 @@
+#!btred -e run()
+# -*- cperl -*-
+
+#  btred/ntred script for easy application of tmt-blocks on tmt-files
+#  this script is only needed by brunblocks and nrunblocks
+#  written by Zdenek Zabokrtsky
+#  modyfied by Jan Dedek 
+
+#ifdef NTRED
+$main::is_in_ntred = 1;
+#endif
+
+use strict;
+use vars qw($grp);
+use TectoMT::Scenario;
+use Frontier::Daemon;
+
+my $scenario;
+
+my $port_number = 9090;
+
+#the first argument must be server port number
+
+$port_number = $ARGV[0];
+shift(@ARGV);
+
+my $hanshake_hash = $ARGV[0];
+shift(@ARGV);
+
+
+if ($ARGV[0] eq '--scen') {
+    if (@ARGV < 2) {
+        die "Error: --scen must be followed by a scenario file name\n";
+    }
+    $scenario = TectoMT::Scenario->new({'from_file'=> $ARGV[1]});
+}
+
+else {
+    $scenario = TectoMT::Scenario->new({'from_string'=> (join " ",@ARGV)});
+}
+
+
+#necesary to avoid memory leaks, but it si not solved yet :-(
+sub btredCloseFile
+{
+  $grp->{root}=undef;
+  $grp->{FSFile}=undef;
+  $grp->{treeNo}=undef;
+
+  delete $grp->{'currentNode'} if (exists $grp->{'currentNode'});
+}
+
+sub analyzeFile
+{
+    my ( $file ) = @_;
+    Open($file);
+    $scenario->apply_on_fsfile_objects($grp->{FSFile});
+    Save;
+#    main::closeFile($grp);
+    btredCloseFile;
+    
+    return "succes"; 
+}
+
+sub handshake
+{
+    my ( $param ) = @_;
+    
+    print STDERR "ok".$param."ok_".$hanshake_hash."\n";
+    
+    return "ok".$param."ok_".$hanshake_hash;
+}
+
+
+sub terminate
+{
+    exit;
+}
+
+
+sub start_server
+{
+    my $methods;
+    $methods = {
+      'tectoMT.handshake' => \&handshake,
+      'tectoMT.analyzeFile' => \&analyzeFile,
+      'tectoMT.terminate' => \&terminate };
+    
+    my $server;
+    $server = Frontier::Daemon->new(LocalPort => $port_number, methods => $methods)
+        or die "Couldn't start HTTP server: $!";
+}
+
+sub run {
+    #analyzeFile;
+    #start_server;
+    print STDERR "dedek: run end\n";
+}
+
+
+start_server;

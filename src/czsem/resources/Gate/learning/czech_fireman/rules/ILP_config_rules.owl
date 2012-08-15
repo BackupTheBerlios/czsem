@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Ontology [ <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+ <!ENTITY pml "http://ufal.mff.cuni.cz/pdt/pml/" > ]>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+ ontologyIRI="http://czsem.berlios.de/ontologies/czech_fireman/rules/ILP_config_rules.owl">
+<DLSafeRule>
+<Body>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;lex.rf"/>
+<Variable IRI="urn:swrl#b"/>
+<Variable IRI="urn:swrl#a"/>
+</ObjectPropertyAtom>
+<DataPropertyAtom><DataProperty IRI="&pml;sempos"/>
+<Variable IRI="urn:swrl#b"/>
+<Literal>n.quant.def</Literal>
+</DataPropertyAtom>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;tDependency"/>
+<Variable IRI="urn:swrl#c"/>
+<Variable IRI="urn:swrl#b"/>
+</ObjectPropertyAtom>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;tDependency"/>
+<Variable IRI="urn:swrl#c"/>
+<Variable IRI="urn:swrl#d"/>
+</ObjectPropertyAtom>
+<DataPropertyAtom><DataProperty IRI="&pml;t_lemma"/>
+<Variable IRI="urn:swrl#d"/>
+<Literal>předběžně</Literal>
+</DataPropertyAtom>
+</Body>
+<Head>
+<DataPropertyAtom><DataProperty IRI="&pml;mention_root"/>
+<Literal>damage</Literal>
+<Variable IRI="urn:swrl#a"/>
+</DataPropertyAtom>
+</Head>
+</DLSafeRule>
+
+<DLSafeRule>
+<Body>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;lex.rf"/>
+<Variable IRI="urn:swrl#b"/>
+<Variable IRI="urn:swrl#a"/>
+</ObjectPropertyAtom>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;tDependency"/>
+<Variable IRI="urn:swrl#b"/>
+<Variable IRI="urn:swrl#c"/>
+</ObjectPropertyAtom>
+<DataPropertyAtom><DataProperty IRI="&pml;t_lemma"/>
+<Variable IRI="urn:swrl#c"/>
+<Literal>tisíc</Literal>
+</DataPropertyAtom>
+<ObjectPropertyAtom><ObjectProperty IRI="&pml;tDependency"/>
+<Variable IRI="urn:swrl#c"/>
+<Variable IRI="urn:swrl#d"/>
+</ObjectPropertyAtom>
+<DataPropertyAtom><DataProperty IRI="&pml;formeme"/>
+<Variable IRI="urn:swrl#d"/>
+<Literal>v:fin</Literal>
+</DataPropertyAtom>
+</Body>
+<Head>
+<DataPropertyAtom><DataProperty IRI="&pml;mention_root"/>
+<Literal>damage</Literal>
+<Variable IRI="urn:swrl#a"/>
+</DataPropertyAtom>
+</Head>
+</DLSafeRule>
+
+</Ontology>

@@ -1,0 +1,85 @@
+<?xml version="1.0"?>  
+<ML-CONFIG>  
+  <VERBOSITY level="0"/>
+  <SURROUND value="true"/>  
+  <PARAMETER name="thresholdProbabilityEntity" value="0.2"/>  
+  <PARAMETER name="thresholdProbabilityBoundary" value="0.4"/>  
+<!--
+  <multiClassification2Binary method="one-vs-others"/>
+  <EVALUATION method="holdout" ratio="0.66"/>  
+-->    
+  <EVALUATION method="kfold" runs="5"/>  
+  <ENGINE nickname="PAUM" implementationName="PAUM"  
+        options="-p 50 -n 5 -optB 0.3"/>  
+  <DATASET>
+    <INSTANCE-TYPE>Token</INSTANCE-TYPE>  
+<!--
+    <ATTRIBUTELIST>  
+       <NAME>Form</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>category</FEATURE>  
+       <RANGE from="-2" to="2"/>  
+    </ATTRIBUTELIST>  
+    <ATTRIBUTELIST>  
+       <NAME>Orthography</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>orth</FEATURE>  
+       <RANGE from="-2" to="2"/>  
+    </ATTRIBUTELIST>  
+    <ATTRIBUTELIST>  
+       <NAME>Tokenkind</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>kind</FEATURE>  
+       <RANGE from="-4" to="4"/>  
+     </ATTRIBUTELIST>
+-->      
+     <ATTRIBUTE>  
+       <NAME>Gaz</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Lookup</TYPE>  
+       <FEATURE>majorType</FEATURE>  
+       <POSITION>0</POSITION>
+     </ATTRIBUTE> 
+     <ATTRIBUTE>  
+       <NAME>Num</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Numeral</TYPE>  
+       <FEATURE>rule</FEATURE>  
+       <POSITION>0</POSITION>
+     </ATTRIBUTE> 
+<!--
+-->      
+     <ATTRIBUTE>  
+       <NAME>Afun</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>afun</FEATURE>  
+       <POSITION>0</POSITION>
+     </ATTRIBUTE>
+    <ATTRIBUTELIST>  
+       <NAME>Root</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>lemma</FEATURE> 
+       <RANGE from="-2" to="2"/>  
+    </ATTRIBUTELIST>  
+    <ATTRIBUTELIST>  
+       <NAME>Tag</NAME>  
+       <SEMTYPE>NOMINAL</SEMTYPE>  
+       <TYPE>Token</TYPE>  
+       <FEATURE>tag</FEATURE> 
+       <RANGE from="-2" to="2"/>  
+    </ATTRIBUTELIST>  
+     <ATTRIBUTE>
+       <SEMTYPE>NOMINAL</SEMTYPE>
+       <NAME>MentionPaum</NAME>
+       <TYPE>MentionPaum</TYPE>
+       <FEATURE>class</FEATURE> 
+       <POSITION>0</POSITION>
+       <CLASS/>
+     </ATTRIBUTE>
+   </DATASET>  
+</ML-CONFIG> 

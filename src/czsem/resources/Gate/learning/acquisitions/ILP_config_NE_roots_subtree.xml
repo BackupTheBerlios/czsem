@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<ML-CONFIG>  
+  <DATASET>  
+    <INSTANCE-TYPE>NamedEntity_root</INSTANCE-TYPE>  
+  
+    <ATTRIBUTE>  
+      <CLASS/>    
+      <NAME>Mention</NAME>  
+      <TYPE>Mention</TYPE>  
+      <FEATURE>class</FEATURE>  
+<!--  <TYPE>damage_root</TYPE> -->  
+      <POSITION>0</POSITION>
+      <SEMTYPE>NOMINAL</SEMTYPE>
+    </ATTRIBUTE>  
+   
+   
+    <ATTRIBUTE>  
+      <NAME>id</NAME>  
+      <TYPE>NamedEntity_root</TYPE>  
+      <FEATURE>ann_id</FEATURE>  
+      <POSITION>0</POSITION>  
+      <SEMTYPE>NOMINAL</SEMTYPE>
+    </ATTRIBUTE>   
+
+    <ATTRIBUTE>  
+      <NAME>last</NAME>  
+      <TYPE>NamedEntity_root</TYPE>  
+      <POSITION>1</POSITION>  
+      <SEMTYPE>NOMINAL</SEMTYPE>
+    </ATTRIBUTE>   
+
+  </DATASET>  
+
+ 
+  <ENGINE>  
+    <WRAPPER>czsem.gate.ILPWrapper</WRAPPER>
+    <BATCH-MODE-CLASSIFICATION />
+    <OPTIONS>
+        <ilp>
+            <learning_settings>
+				:- set(verbosity,1).
+				:- set(verbosity,0).
+				:- set(noise,30).
+				:- set(depth,300).
+				:- set(clauselength,35).
+				:- set(i,10).
+            </learning_settings>
+        </ilp>
+
+        <serializer>
+<!-- 
+	        <class_attribute_values>
+		        <value>acquired</value>
+		        <value>acqabr</value>
+				<value>purchaser</value>
+				<value>purchabr</value>
+				<value>seller</value>
+				<value>sellerabr</value>
+				<value>dlramt</value>
+	        </class_attribute_values>	        
+ -->				
+            <tokens>
+                <token typename="NamedEntity_root">
+                    <features/>
+                </token>  
+
+                <token typename="Token">
+                    <features>
+<!--                      
+                        <feature>form</feature>  
+                        <feature>lemma</feature>  
+                        <feature>tag</feature>  
+                        <feature>afun</feature>  
+                        <feature>ord</feature>
+-->                          
+                    </features>  
+                </token>  
+                <token typename="tToken">  
+                    <features>  
+                        <feature>t_lemma</feature>
+                        <feature>functor</feature>
+                        <feature>sempos</feature>
+                        <feature>negation</feature>
+                        <feature>nodetype</feature>
+                        <feature>formeme</feature>
+                        <feature>gender</feature>
+                        <feature>number</feature>
+                        <feature>degcmp</feature>
+                        <feature>verbmod</feature>
+                        <feature>deontmod</feature>
+                        <feature>tense</feature>
+                        <feature>aspect</feature>
+                        <feature>resultative</feature>
+                        <feature>dispmod</feature>
+                        <feature>iterativeness</feature>
+<!--
+                        <feature>deepord</feature>
+-->                        
+                    </features>  
+                </token>  
+            </tokens>
+            <tree_dependecies>
+                <dependecy typename="tDependency" parent_typename="tToken" child_typename="tToken"/>
+<!--
+                <dependecy typename="Dependency" parent_typename="Token" child_typename="Token"/>
+                <dependecy typename="aDependency" parent_typename="Token" child_typename="Token"/>
+                <dependecy typename="auxRfDependency" parent_typename="tToken" child_typename="Token"/>
+-->                
+            </tree_dependecies>
+            <one2one_dependecies>
+
+                <dependecy typename="lex.rf" parent_typename="tToken" child_typename="Token"/>
+                <dependecy typename="rootID" parent_typename="NamedEntity_root" child_typename="Token"/>
+<!--
+-->                
+            </one2one_dependecies>
+        </serializer>  
+    </OPTIONS>  
+  </ENGINE>  
+</ML-CONFIG>

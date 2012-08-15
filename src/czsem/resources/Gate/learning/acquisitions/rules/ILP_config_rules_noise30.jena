@@ -1,0 +1,1088 @@
+
+    [rule-1:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Waterman' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-2:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'v:fin' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Bank' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-3:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'EFF' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-4:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Ltd' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Monier' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-5:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'president' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-6:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Row' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-7:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?e http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Division' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-8:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Railway' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'and' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-9:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'and' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'W' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-10:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:poss' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number '22' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-11:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Automation' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-12:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '20' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-13:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Store' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-14:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '32' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-15:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Co' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-16:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'KMG' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-17:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'product' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-18:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Southwest' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-19:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?e http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'NO' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-20:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'maker' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-21:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:subj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'World' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-22:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Bancorp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-23:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/nodetype 'complex' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'station' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-24:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'America' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-25:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'ACT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '26' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-26:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:with+X' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'ACT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-27:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'center' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-28:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-29:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Charmglow' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-30:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'or' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-31:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '26' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-32:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj2' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'office' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-33:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'division' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'sell' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-34:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Industry' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-35:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:in+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Co' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-36:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'restaurant' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-37:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number 'pl' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-38:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:for+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-39:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?e )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'stock' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-40:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '12' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'say' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma '-' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-41:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'and' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Yale' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-42:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:attr' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'National' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-43:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'GenCorp' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-44:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Ltd' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'acquire' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-45:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Property' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-46:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?e )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/number '36' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-47:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'International' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Allegheny' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-48:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'KOAQ-FM' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-49:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'BEN' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-50:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'ACT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Bank' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-51:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Service' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma '.' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-52:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'division' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-53:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Ltd' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Petroleum' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-54:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'CORP' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'LONDON' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-55:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Hotel' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-56:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma '#PersPron' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-57:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:subj' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.quant.def' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-58:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Engineering' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-59:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'LOC' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/nodetype 'complex' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Plc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-60:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?e http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?e http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'System' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-61:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Co' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Taft' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-62:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Bank' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'and' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-63:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'CONJ' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'american' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-64:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:from+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '18' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-65:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Systems' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-66:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '14' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'June' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-67:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number '30' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'business' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-68:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Vernitron' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-69:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Agency' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-70:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Laboratory' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-71:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '34' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-72:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Association' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-73:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'AG' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-74:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/negation 'neg0' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'store' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-75:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.quant.def' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Co' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-76:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '27' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-77:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Ltd' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Industry' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-78:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Pacific' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-79:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Ltd' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-80:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:subj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '8' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-81:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/sempos 'v' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'plant' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-82:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'and' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-83:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma '-' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Oil' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-84:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '24' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tense 'ant' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-85:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'ACT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tense 'nil' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-86:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'DIR1' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/number '41' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-87:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Fund`' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-88:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'EFF' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '25' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-89:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Advocate' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-90:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Fund' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-91:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '26' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-92:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Beach' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-93:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'steel' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-94:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '15' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tense 'post' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-95:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'RSTR' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '34' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-96:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'AB' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Biopool' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-97:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Co`' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-98:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:in+X' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'interest' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-99:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'APP' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'portfolio' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-100:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number '26' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/number '30' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-101:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'ACT' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'cable' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-102:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'v:fin' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'property' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-103:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Plc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Norcros' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-104:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/formeme 'v:to+inf' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'branch' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-105:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Service' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-106:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/nodetype 'complex' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-107:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:obj' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'South' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-108:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?e http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:in+X' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Inc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-109:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/functor 'PAT' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/number 'sg' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'privately-held' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-110:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/formeme 'n:of+X' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/negation 'neg0' )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-111:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'operation' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'agreement' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-112:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.denot' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'AB`' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  
+    [rule-113:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Corp' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'Cyclops' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'acquired' )
+        ]
+  

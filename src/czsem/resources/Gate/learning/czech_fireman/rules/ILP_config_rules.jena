@@ -1,0 +1,21 @@
+
+    [rule-1:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?b )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/sempos 'n.quant.def' )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'předběžně' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'damage' )
+        ]
+  
+    [rule-2:  
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/lex.rf ?a )
+            ( ?b http://ufal.mff.cuni.cz/pdt/pml/tDependency ?c )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/tDependency ?d )
+            ( ?d http://ufal.mff.cuni.cz/pdt/pml/formeme 'v:fin' )
+            ( ?c http://ufal.mff.cuni.cz/pdt/pml/t_lemma 'tisíc' )
+         -> 
+            ( ?a http://ufal.mff.cuni.cz/pdt/pml/mention_root 'damage' )
+        ]
+  
