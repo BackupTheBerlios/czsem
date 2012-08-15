@@ -2,6 +2,7 @@ package czsem.utils;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -43,6 +44,7 @@ public class AbstractConfig {
 	public void saveToFile(String filename) throws IOException
 	{
 		// Create output stream.
+		new File(filename).getParentFile().mkdirs();
 		FileOutputStream fos = new FileOutputStream(filename);
 
 		// Create XML encoder.

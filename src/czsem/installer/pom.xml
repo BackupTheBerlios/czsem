@@ -23,8 +23,32 @@
 				<targetPath>${staging.dir}</targetPath>
 				<filtering>true</filtering>
 			</resource>
+			<resource>
+				<directory>${project.build.directory}/configuration</directory>
+				<targetPath>${staging.dir}/configuration</targetPath>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>czsem.gate.utils.Config</mainClass>
+							<arguments>
+								<argument>${project.build.directory}/configuration</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.izpack</groupId>
 				<artifactId>izpack-maven-plugin</artifactId>
@@ -52,4 +76,13 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>czsem</groupId>
+			<artifactId>czsem-gate-plugin</artifactId>
+			<version>2.0</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 </project>

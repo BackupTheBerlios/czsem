@@ -23,6 +23,18 @@ public class Config extends czsem.utils.Config
 	
 	public static void main(String[] args) throws IOException, GateException, URISyntaxException
 	{
+		
+		if (args.length <= 0)
+		{
+			Config ps = new Config();
+			ps.setMyWinValues();
+			ps.save();			
+		} else {
+			Config ps = new Config();
+			ps.setMyWinValues();
+			ps.setInstallDefaults();
+			ps.saveToFile(args[0]+ '/' +ps.config_filename);
+		}
 		/*
 		Config cfg = getConfig();
 //		cfg.setMyWinValues();
@@ -33,9 +45,6 @@ public class Config extends czsem.utils.Config
 		/**/
 
 /**/
-		Config ps = new Config();
-		ps.setMyWinValues();
-		ps.save();
 //		ps.setInstallDefaults();
 //		ps.saveToFile(czsem_plugin_dir_name+ '/' +config_filename_install);
 //		ps.saveToFile(czsem_plugin_dir_name+ '/' +config_filename);
@@ -101,7 +110,7 @@ public class Config extends czsem.utils.Config
 		setIlpProjestsPath("$projects/ILP_serial_projects");
 		setPrologPath("$prolog");
 		setWekaJarPath("$weka");
-		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/FuzzyILP.jar");
+		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/bin/fuzzy-ilp-classifier-${project.version}.jar");
 	}
 
 	public void setMyWinValues()
