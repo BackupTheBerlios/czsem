@@ -26,7 +26,6 @@ import org.apache.log4j.Logger;
 import org.testng.annotations.Test;
 
 import czsem.gate.GateUtils;
-import czsem.gate.utils.Config;
 
 public class TectoMTOnlineAnalyserTest //extends TestCase
 {
@@ -63,8 +62,7 @@ public class TectoMTOnlineAnalyserTest //extends TestCase
 
 		if (! Gate.isInitialised())
 	    {
-			Config.getConfig().setGateHome();
-			Gate.init();
+			GateUtils.initGateInSandBox();
 	    }
 	    
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TectoMTOnlineAnalyser.class))

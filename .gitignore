@@ -12,3 +12,4 @@ target
 test-output
 *.class
 .svn
+temp

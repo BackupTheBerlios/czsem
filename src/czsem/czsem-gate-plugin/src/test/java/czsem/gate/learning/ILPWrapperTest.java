@@ -11,8 +11,11 @@ import gate.creole.ml.MachineLearningPR;
 import gate.util.AnnotationDiffer;
 import gate.util.GateException;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,6 +25,7 @@ import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
+import czsem.Utils;
 import czsem.gate.GateUtils;
 import czsem.gate.plugins.CustomPR;
 import czsem.gate.plugins.LearningEvaluator;
@@ -93,7 +97,7 @@ public class ILPWrapperTest {
 	}
 
 	@Test
-	public void ilpWrapperTest() throws ResourceInstantiationException, ExecutionException, IOException
+	public void ilpWrapperTest() throws ResourceInstantiationException, ExecutionException, IOException, URISyntaxException
 	{		
 		analyzeTestDocument(createTestDocument(20), true);
 		analyzeTestDocument(createTestDocument(20), false);
@@ -101,7 +105,18 @@ public class ILPWrapperTest {
 		CentralResultsRepository repo = LearningEvaluator.CentralResultsRepository.repository;
 		List<DocumentDiff> difs = repo.getDocumentDiffs(repo.getContent().iterator().next());
 		AnnotationDiffer diff = difs.iterator().next().diff[0];
+
+		URL rules_dir = ILPWrapperTest.class.getClassLoader().getResource("rules/");
+		File rules_file = 
+		Utils.URLToFile(rules_dir).listFiles(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.endsWith(".owl");
+			}
+		})[0];
 		
+		long l = rules_file.length();
+		AssertJUnit.assertTrue(String.format("rules file too small %d (%s)", l, rules_file.getAbsolutePath() ), l > 2000);
 		
 		AssertJUnit.assertTrue(String.format("fmeasure too small %f", diff.getFMeasureStrict(1.0)),
 				diff.getFMeasureStrict(1.0) >= 0.5);

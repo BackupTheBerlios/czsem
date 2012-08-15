@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import czsem.Utils;
 import czsem.ILP.Serializer.Relation;
 import czsem.utils.ProjectSetup;
 
@@ -258,6 +259,7 @@ public class LinguisticSerializer
 		//Rule serialization
 		//TODO: missing support for overlap dependencies
 		RulesSerializer rs = new RulesSerializer(workingDirectory, projectName);
+		Utils.mkdirsIfNotExists(workingDirectory + "/../rules/");
 		rs.setOutputRulesFileName("../rules/" + projectName + ProjectSetup.makeTimeStamp() +"_rules.owl");
 		rs.setOntologyURIFromOutpuRulesFileNameAndWorkingDir();
 

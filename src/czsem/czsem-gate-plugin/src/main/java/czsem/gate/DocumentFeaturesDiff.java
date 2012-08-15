@@ -61,7 +61,7 @@ public class DocumentFeaturesDiff
 		Config cfg = Config.getConfig();
 		cfg.setGateHome();
 		Gate.init();
-		GateUtils.registerPluginDirectory(new File(cfg.getCzsemPluginDir()));
+		GateUtils.registerCzsemPlugin();
 		
 		ProcessingResource eval = 
 			new PRSetup.SinglePRSetup(LearningEvaluator.class)

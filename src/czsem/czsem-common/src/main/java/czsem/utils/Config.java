@@ -42,8 +42,7 @@ public class Config extends AbstractConfig {
 
 
 	public String getPrologRuleXmlSerializer() {
-		// TODO Auto-generated method stub
-		return 	 "/rule_xml_serializer.yap";
+		return 	getCzsemResourcesDir()+ "/ILP/rule_xml_serializer.yap";
 	}
 	
 	public String getWekaJarPath() {
@@ -62,5 +61,14 @@ public class Config extends AbstractConfig {
 	public void setWekaRunFuzzyILPClassPath(String myClassPath) {
 		set("wekaRunFuzzyILPClassPath", myClassPath);
 	}
+	
+	public void setCzsemResourcesDir(String czsemResourcesDir) {
+		set("czsemResourcesDir", czsemResourcesDir);
+	}
+
+	public String getCzsemResourcesDir() {
+		return get("czsemResourcesDir");
+	}
+
 
 }

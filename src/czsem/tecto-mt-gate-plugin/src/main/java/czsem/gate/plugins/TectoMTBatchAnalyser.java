@@ -164,7 +164,7 @@ public class TectoMTBatchAnalyser extends TectoMTAbstractAnalyser
 
 		ProcessExec tmt_proc = new ProcessExec();
 		tmt_proc.exec(cmd_list.toArray(new String[0]), getTredEnvp());
-		tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPath() + "/TMT_GATE_");
+		tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TMT_GATE_");
 		return tmt_proc.waitFor();		
 	}
 	
@@ -188,13 +188,13 @@ public class TectoMTBatchAnalyser extends TectoMTAbstractAnalyser
 		Config cfg = Config.getConfig();
 		cfg.setGateHome();
 		Gate.init();
-		GateUtils.registerPluginDirectory(new File(cfg.getCzsemPluginDir()));
+		GateUtils.registerCzsemPlugin();
 				
 		FeatureMap fm = Factory.newFeatureMap();
 		fm.put("scenarioFilePath", 
 				new File(
-						cfg.getCzsemPluginDir() + 
-						"/tmt_analysis_scenarios/english_full_blocks.scen")
+						cfg.getCzsemResourcesDir() + 
+						"/TectoMT/analysis_scenarios/english_full_blocks.scen")
 				.toURI().toURL());
 		
 		ProcessingResource tmtBA = (ProcessingResource) Factory.createResource(TectoMTBatchAnalyser.class.getCanonicalName(), fm);

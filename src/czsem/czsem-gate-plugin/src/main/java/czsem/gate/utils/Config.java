@@ -28,12 +28,15 @@ public class Config extends czsem.utils.Config
 		{
 			Config ps = new Config();
 			ps.setMyWinValues();
-			ps.save();			
+			ps.save();
+			System.err.format("MyWinValues saved to '%s' !", ps.getDefaultLoc());
 		} else {
 			Config ps = new Config();
 			ps.setMyWinValues();
 			ps.setInstallDefaults();
-			ps.saveToFile(args[0]+ '/' +ps.config_filename);
+			String target = args[0]+ '/' +ps.config_filename;
+			ps.saveToFile(target);
+			System.err.format("InstallDefaults saved to '%s' !", target);
 		}
 		/*
 		Config cfg = getConfig();
@@ -106,8 +109,9 @@ public class Config extends czsem.utils.Config
 			
 	public void setInstallDefaults()
 	{
+		setCzsemProjectRelativePaths("$INSTALL_PATH");
+		setTempRelativePaths("$projects");
 		setAlephPath("$aleph");
-		setIlpProjestsPath("$projects/ILP_serial_projects");
 		setPrologPath("$prolog");
 		setWekaJarPath("$weka");
 		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/bin/fuzzy-ilp-classifier-${project.version}.jar");
@@ -118,27 +122,33 @@ public class Config extends czsem.utils.Config
 		setAlephPath("C:\\Program Files\\aleph\\aleph.pl");
 		setPrologPath("C:\\Program Files\\Yap\\bin\\yap.exe");
 		setWekaJarPath("C:\\Program Files\\Weka-3-6\\weka.jar");
-		setWekaRunFuzzyILPClassPath("C:\\workspace\\czsem\\src\\java\\czsem\\target\\classes");
 		setTmtRoot("C:\\workspace\\tectomt");
 		setTredRoot("C:\\tred");
 		setGateHome("C:\\Program Files\\gate\\GATE-6.0");
-		setTmtSerializationDirectoryPath(
-								"C:\\workspace\\czsem\\src\\java\\czsem\\czsem_GATE_plugins\\TmT_serializations");
-		setLogFileDirectoryPath("C:\\workspace\\czsem\\src\\java\\czsem\\czsem_GATE_plugins\\log");
-		setIlpProjestsPath(		"C:\\workspace\\czsem\\src\\java\\czsem\\ILP_serializations");
-		setLearnigConfigDirectoryForGate(	"C:\\workspace\\czsem\\src\\java\\czsem\\gate-learning");
-		setCzsemPluginDir("C:\\workspace\\czsem\\src\\java\\czsem\\czsem_GATE_plugins");
+		setCzsemProjectRelativePaths("C:\\workspace\\czsem_git\\src\\czsem");
+		setTempRelativePaths(        "C:\\workspace\\czsem_git\\src\\czsem\\temp");
+	}
+
+	protected void setCzsemProjectRelativePaths(String projPath) {
+		setLearnigConfigDirectoryForGate(projPath + "/resources/Gate/learning");
+		setCzsemPluginDir(projPath + "/czsem-gate-plugin");
+		setCzsemResourcesDir(projPath + "/resources");
+		setWekaRunFuzzyILPClassPath(projPath + "/fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-2.0.jar");
+	}
+
+	protected void setTempRelativePaths(String tempPath) {
+		setTmtSerializationDirectoryPath(tempPath + "/TmT_serializations");
+		setLogFileDirectoryPath(tempPath + "/log");
+		setIlpProjestsPath(tempPath + "/ILP_serializations");		
 	}
 
 	public void setCzsemPluginDir(String czsemPluginDir) {
 		set("czsemPluginDir", czsemPluginDir);
 	}
 
-
 	public String getCzsemPluginDir() {
 		return get("czsemPluginDir");
 	}
-
 	
 	public String getTmtRoot() {
 		return get("tmtRoot");
@@ -192,11 +202,20 @@ public class Config extends czsem.utils.Config
 		set("logFileDirectoryPath", logFileDirectoryPath);
 	}
 
+	public String getLogFileDirectoryPathExisting() {
+		String ret = getLogFileDirectoryPath();
+		File f = new File(ret);
+		if (! f.exists())
+		{
+			f.mkdirs();
+		}
+		return ret;
+	}
+
 
 	public String getLogFileDirectoryPath() {
 		return get("logFileDirectoryPath");
 	}
-
 
 	public void setLearnigConfigDirectoryForGate(String learnigConfigDirectoryForGate) {
 		set("learnigConfigDirectoryForGate", learnigConfigDirectoryForGate);
@@ -206,5 +225,4 @@ public class Config extends czsem.utils.Config
 	public String getLearnigConfigDirectoryForGate() {
 		return get("learnigConfigDirectoryForGate");
 	}
-
 }

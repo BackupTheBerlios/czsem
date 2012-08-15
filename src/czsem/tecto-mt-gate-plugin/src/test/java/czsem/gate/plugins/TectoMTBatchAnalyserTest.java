@@ -115,8 +115,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		
 	    if (! Gate.isInitialised())
 	    {
-			Config.getConfig().setGateHome();
-			Gate.init();
+	    	GateUtils.initGateInSandBox();
 	    }
 	    
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TectoMTBatchAnalyser.class))
@@ -423,7 +422,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 
 		initCorpusAndDocFromSentences(czech_sentences, 1);
 //		executeTmtOnCurrentCorpus("czech", czech_full_blocks);
-		executeTmtOnCurrentCorpus("czech", Config.getConfig().getCzsemPluginDir() + "/tmt_analysis_scenarios/czech_full_blocks.scen");
+		executeTmtOnCurrentCorpus("czech", Config.getConfig().getCzsemResourcesDir() + "/TectoMT/analysis_scenarios/czech_full_blocks.scen");
 
 
 		AnnotationSet as = document.getAnnotations();
@@ -574,7 +573,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 	{
 		
 		initCorpusAndDocFromSentences(english_sentences, 1);
-		executeTmtOnCurrentCorpus("english", Config.getConfig().getCzsemPluginDir() + "/tmt_analysis_scenarios/english_full_blocks.scen");
+		executeTmtOnCurrentCorpus("english", Config.getConfig().getCzsemResourcesDir() + "/TectoMT/analysis_scenarios/english_full_blocks.scen");
 				
 		AnnotationSet as = document.getAnnotations();
 		

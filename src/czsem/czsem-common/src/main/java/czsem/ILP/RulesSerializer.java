@@ -55,7 +55,9 @@ public class RulesSerializer extends ILPExec
 
 	public static void main(String[] args) throws IOException, URISyntaxException, InterruptedException
 	{
-		RulesSerializer rs = new RulesSerializer(new File("gate-learning/czech_fireman/savedFiles"), "RulesSerializer");
+		RulesSerializer rs = new RulesSerializer(				
+				new File(Config.getConfig().getCzsemResourcesDir() + 
+						"/Gate/learning/czech_fireman/savedFiles"), "RulesSerializer");
 //		rs.setRulesFileName("acquisitions-v1.1/rules/learned_rules");
 		rs.setRulesFileName("learned_rules");
 		rs.setOutputRulesFileName("../rules/learned_rules_test1.owl");

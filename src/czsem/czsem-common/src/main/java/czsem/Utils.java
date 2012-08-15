@@ -308,6 +308,14 @@ public class Utils {
 
 	}
 
+	public static void mkdirsIfNotExists(String path) {
+		File f = new File(path);
+		if (! f.exists())
+		{
+			f.mkdirs();
+		}		
+	}
+
 
 
 }

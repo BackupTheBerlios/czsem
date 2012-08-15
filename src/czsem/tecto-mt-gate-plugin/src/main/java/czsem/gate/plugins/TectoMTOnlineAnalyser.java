@@ -47,7 +47,7 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 	{
 		Config cfg = Config.getConfig();
 //		return cfg.getTmtRoot()+ "/tools/general/runblocks.btred";
-		return cfg.getCzsemPluginDir() + "/Perl/online_runblocks.btred";
+		return cfg.getCzsemResourcesDir() + "/TectoMT/online_runblocks.btred";
 
 	}
 
@@ -75,7 +75,7 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 		
 		tmtProcess = new ProcessExec();
 		tmtProcess.exec(cmd_list.toArray(new String[0]), getTredEnvp());
-		tmtProcess.startReaderThreads(Config.getConfig().getLogFileDirectoryPath() + "/TMT_GATE_");
+		tmtProcess.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TMT_GATE_");
 		
 		for (int i = 0; i < 30; i++)
 		{
