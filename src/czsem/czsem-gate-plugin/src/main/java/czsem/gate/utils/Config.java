@@ -115,6 +115,9 @@ public class Config extends czsem.utils.Config
 		setPrologPath("$prolog");
 		setWekaJarPath("$weka");
 		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/bin/fuzzy-ilp-classifier-${project.version}.jar");
+		setTmtRoot("$tmtRoot");
+		setTredRoot("$tredRoot");
+		setGateHome("$gateHome");
 	}
 
 	public void setMyWinValues()
