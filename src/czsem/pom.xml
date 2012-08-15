@@ -21,6 +21,7 @@
 		<module>gate-plugins</module>
 		<module>javacsv</module>
 		<module>czsem-ontologies</module>
+		<module>installer</module>
 	</modules>
 
 	<properties>
@@ -45,6 +46,24 @@
 					<configuration>
 						<excludedGroups>slow</excludedGroups>
 					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-assembly-plugin</artifactId>
+					<version>2.3</version>
+					<executions>
+						<execution>
+							<id>install-assembly</id>
+							<phase>package</phase>
+							<goals>
+								<goal>single</goal>
+							</goals>
+							<configuration>
+								<descriptors>
+									<descriptor>${basedir}/../installer/src/assembly/install-zip.xml</descriptor>
+								</descriptors>
+							</configuration>
+						</execution>
+					</executions>
 				</plugin>
 			</plugins>
 		</pluginManagement>
