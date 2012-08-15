@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>czsem</groupId>
 	<artifactId>czsem</artifactId>
@@ -8,8 +7,8 @@
 	<name>Czsem Root</name>
 	
 	<scm>
-		<connection>git://git.berlios.de/czsem/src/czsem</connection>
-		<developerConnection>ssh://git.berlios.de/gitroot/czsem/src/czsem</developerConnection>
+		<connection>scm:git:git://git.berlios.de/czsem/src/czsem</connection>
+		<developerConnection>scm:git:ssh://git.berlios.de/gitroot/czsem/src/czsem</developerConnection>
 	</scm>
 	
 	<distributionManagement>
