@@ -1,0 +1,72 @@
+<userInput>
+    <panel order="0">
+        <field size="2" txt="Gate integration setup" type="title"/>
+        
+        <field align="left" txt="GATE home path" type="staticText"/>
+        <field align="left" type="dir" variable="gateHome">
+            <spec set="C:\Program Files\GATE-7.0" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="GATE can be obtained at: http://gate.ac.uk/" type="staticText"/>
+    </panel>
+    
+    <panel order="1">
+        <field size="2" txt="TectoMT integration setup" type="title"/>
+
+        <field align="left" txt="TectoMT root path" type="staticText"/>
+        <field align="left" type="dir" variable="tmtRoot">
+            <spec set="C:\workspace\tectomt" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="TectoMT can be obtained at: http://ufal.mff.cuni.cz/tectomt/ or https://wiki.ufal.ms.mff.cuni.cz/external:tectomt:tutorial#installation-and-setup" type="staticText"/>
+        <field align="top" type="divider"/>
+
+
+        <field align="left" txt="Tred root path" type="staticText"/>
+        <field align="left" type="dir" variable="tredRoot">
+            <spec set="C:\workspace\tectomt\share\tred" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="Tred is usually a parat of TectoMT instalation (TMT_ROOT/share/tred) but can be also obtained separately at: http://ufal.mff.cuni.cz/~pajas/tred/" type="staticText"/>
+    </panel>
+    
+    <panel order="2">
+        <field size="2" txt="ILP integration setup" type="title"/>
+
+        <field align="left" txt="Yap prolog executable path" type="staticText"/>
+        <field align="left" type="file" variable="prolog">
+            <spec set="C:\Program Files\Yap\bin\yap.exe" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="Yap prolog can be obtained at: http://yap.sourceforge.net/" type="staticText"/>
+        <field align="top" type="divider"/>
+
+        <field align="left" txt="Aleph path" type="staticText"/>
+        <field align="left" type="file" variable="aleph">
+            <spec set="C:\Program Files\aleph\aleph.pl" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="Aleph can be obtained at: http://www.comlab.ox.ac.uk/activities/machinelearning/Aleph/" type="staticText"/>
+    </panel>
+
+    <panel order="3">
+        <field size="2" txt="Weka integration setup" type="title"/>
+
+        <field align="left" txt="Weka JAR path" type="staticText"/>
+        <field align="left" type="file" variable="weka">
+            <spec set="C:\Program Files\Weka-3-6\weka.jar" size="25" txt=""/>
+        </field>
+        <field align="left"
+            txt="WEKA can be obtained at: http://www.cs.waikato.ac.nz/ml/weka/" type="staticText"/>
+    </panel>
+    
+    <panel order="4">
+        <field size="2" txt="Temporary serialization setup" type="title"/>
+
+        <field align="left"
+            txt="Where to place the temporary serialized projects directory (used for temporary TMT and ILP files)" type="staticText"/>
+        <field align="left" type="dir" variable="projects">
+            <spec set="$SYSTEM_java_io_tmpdir" size="25" txt=""/>
+        </field>
+    </panel>
+</userInput>
