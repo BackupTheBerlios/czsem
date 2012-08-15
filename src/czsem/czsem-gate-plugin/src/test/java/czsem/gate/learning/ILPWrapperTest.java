@@ -104,13 +104,13 @@ public class ILPWrapperTest {
 		
 		
 		AssertJUnit.assertTrue(String.format("fmeasure too small %f", diff.getFMeasureStrict(1.0)),
-				diff.getFMeasureStrict(1.0) > 0.5);
+				diff.getFMeasureStrict(1.0) >= 0.5);
 		AssertJUnit.assertTrue(String.format("recall too small %f", diff.getRecallStrict()),
-				diff.getRecallStrict() > 0.5);
+				diff.getRecallStrict() >= 0.5);
 		AssertJUnit.assertTrue(String.format("precision too small %f", diff.getPrecisionStrict()),
-				diff.getPrecisionStrict() > 0.5);
+				diff.getPrecisionStrict() >= 0.5);
 		AssertJUnit.assertTrue(String.format("correctly classifed too small %d", diff.getCorrectMatches()),
-				diff.getCorrectMatches() > 3);
+				diff.getCorrectMatches() >= 4);
 	}
 	
 	
