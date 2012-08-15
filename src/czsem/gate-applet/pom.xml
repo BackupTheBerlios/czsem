@@ -42,7 +42,9 @@
 				<version>2.0.4</version>
 				<executions>
 					<execution>
+						<!-- 
 						<phase>package</phase>
+						 -->
 						<goals>
 							<goal>proguard</goal>
 						</goals>

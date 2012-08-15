@@ -6,6 +6,19 @@
 	<version>2.0</version>
 	<packaging>pom</packaging>
 	<name>Czsem Root</name>
+	
+	<scm>
+		<connection>git://git.berlios.de/czsem/src/czsem</connection>
+		<developerConnection>ssh://git.berlios.de/gitroot/czsem/src/czsem</developerConnection>
+	</scm>
+	
+	<distributionManagement>
+      <repository>  
+        <id>czsem-repo</id>  
+        <name>Czsem Maven2 Repository</name> 
+        <url>scp://shell.berlios.de/net/nfs-bd/vol1/home/groups/czsem/htdocs/maven2/repo/</url>  
+      </repository>  
+	</distributionManagement>
 
 	<modules>
 		<module>czsem-common</module>
