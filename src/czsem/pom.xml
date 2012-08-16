@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>czsem</groupId>
 	<artifactId>czsem</artifactId>
-	<version>2.0</version>
+	<version>2.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Czsem Root</name>
 
@@ -17,7 +17,7 @@
 		<connection>scm:git:git://git.berlios.de/czsem</connection>
 		<developerConnection>scm:git:ssh://git.berlios.de/gitroot/czsem</developerConnection>
 		<url>http://git.berlios.de/cgi-bin/gitweb.cgi?p=czsem</url>
-	  <tag>czsem-2.0</tag>
+	  <tag>HEAD</tag>
   </scm>
 
 	<distributionManagement>
