@@ -8,7 +8,7 @@
 	
 	<scm>
 		<connection>scm:git:git://git.berlios.de/czsem</connection>
-		<developerConnection>scm:git:ssh://dedej1am@git.berlios.de/gitroot/czsem</developerConnection>
+		<developerConnection>scm:git:ssh://developername@git.berlios.de/gitroot/czsem</developerConnection>
 		<url>http://git.berlios.de/cgi-bin/gitweb.cgi?p=czsem</url>
 	</scm>
 	
