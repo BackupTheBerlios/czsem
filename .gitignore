@@ -13,3 +13,4 @@ test-output
 *.class
 .svn
 temp
+src/workspace/RemoteSystemsTempFiles

@@ -1,23 +1,30 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>czsem</groupId>
 	<artifactId>czsem</artifactId>
 	<version>2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Czsem Root</name>
-	
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.scm.id>czsem-git</project.scm.id>
+	</properties>
+
+
 	<scm>
 		<connection>scm:git:git://git.berlios.de/czsem</connection>
 		<developerConnection>scm:git:ssh://git.berlios.de/gitroot/czsem</developerConnection>
 		<url>http://git.berlios.de/cgi-bin/gitweb.cgi?p=czsem</url>
 	</scm>
-	
+
 	<distributionManagement>
-      <repository>  
-        <id>czsem-repo</id>  
-        <name>Czsem Maven2 Repository</name> 
-        <url>scp://shell.berlios.de/net/nfs-bd/vol1/home/groups/czsem/htdocs/maven2/repo/</url>  
-      </repository>  
+		<repository>
+			<id>czsem-repo</id>
+			<name>Czsem Maven2 Repository</name>
+			<url>scp://shell.berlios.de/net/nfs-bd/vol1/home/groups/czsem/htdocs/maven2/repo/</url>
+		</repository>
 	</distributionManagement>
 
 	<modules>
@@ -36,10 +43,6 @@
 		<module>czsem-ontologies</module>
 		<module>installer</module>
 	</modules>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 
 	<build>
 		<pluginManagement>
