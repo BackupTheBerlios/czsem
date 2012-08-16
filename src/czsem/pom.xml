@@ -8,7 +8,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<local_git_repo>/C:/workspace/czsem_git</local_git_repo>
+		<local_git_repo>/c/workspace/czsem_git</local_git_repo>
 	</properties>
 
 	
