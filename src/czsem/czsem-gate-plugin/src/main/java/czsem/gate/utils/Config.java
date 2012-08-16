@@ -36,7 +36,7 @@ public class Config extends czsem.utils.Config
 			ps.setInstallDefaults();
 			String target = args[0]+ '/' +ps.config_filename;
 			ps.saveToFile(target);
-			System.err.format("InstallDefaults saved to '%s' !", target);
+			System.err.format("InstallDefaults saved to '%s' !\n", target);
 		}
 		/*
 		Config cfg = getConfig();
