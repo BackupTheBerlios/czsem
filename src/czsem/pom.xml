@@ -13,9 +13,9 @@
 
 	
 	<scm>
-		<connection>scm:git:file://${local_git_repo}</connection>
+		<connection>scm:git:file://${local_git_repo}/src/czsem</connection>
 		<developerConnection>scm:git:file://${local_git_repo}</developerConnection>
-		<url>scm:git:file://${local_git_repo}</url>
+		<url>scm:git:file://${local_git_repo}/src/czsem</url>
 	</scm>
 	
 	<distributionManagement>
