@@ -7,6 +7,7 @@
 	<packaging>pom</packaging>
 	<name>Czsem Root</name>
 
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.scm.id>czsem-git</project.scm.id>
