@@ -62,7 +62,7 @@
 	<packs>
 		<pack name="czsem-common" preselected="yes" required="yes">
 			<description>Common binaries</description>
-			<file src="../../../czsem-common/target/czsem-common-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<file src="../../../czsem-common/target/czsem-common-${dependency.czsem.czsem-common.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 			<file src="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue"/>
 			<file src="configuration" targetdir="$INSTALL_PATH/configuration" />
 			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
@@ -71,25 +71,30 @@
 			<description>Contains Czsem utility processing resources and ILP wrapper for machine learning.
 If you want to use the ILP wrapper, it is necessary to select also the "Select ILP location" option!</description>
 			<depends packname="czsem-common" />
-			<file src="../../../czsem-gate-plugin/target/czsem-gate-plugin-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<file src="../../../czsem-gate-plugin/target/czsem-gate-plugin-${dependency.czsem.czsem-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="fuzzy-ilp-classifier" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-common" />
 			<depends packname="Select ILP location" />
 			<depends packname="Weka integration" />			
-			<file src="../../../fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<file src="../../../fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="netgraph-tree-viewer" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-gate-plugin" />
-			<file src="../../../netgraph-tree-viewer/target/netgraph-tree-viewer-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<file src="../../../netgraph-tree-viewer/target/netgraph-tree-viewer-${dependency.czsem.netgraph-tree-viewer.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="tecto-mt-gate-plugin" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-gate-plugin" />
 			<depends packname="Select TectoMT location" />
-			<file src="../../../tecto-mt-gate-plugin/target/tecto-mt-gate-plugin-${project.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<file src="../../../tecto-mt-gate-plugin/target/tecto-mt-gate-plugin-${dependency.czsem.tecto-mt-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+		</pack>
+		<pack name="intlib-gate-plugin" preselected="yes" required="no">
+			<description>Gate plugin developped within </description>
+			<depends packname="czsem-gate-plugin" />
+			<file src="../../../intlib/target/intlib-${dependency.cuni.mff.intlib.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="Select Gate location" required="no" preselected="yes"
 			id="gate">

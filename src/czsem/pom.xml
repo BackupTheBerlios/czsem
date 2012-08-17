@@ -46,6 +46,7 @@
 		<module>czsem-ontologies</module>
 		<module>installer</module>
 		<module>intlib</module>
+		<module>custom-properties-maven-plugin</module>
 	</modules>
 
 	<build>
