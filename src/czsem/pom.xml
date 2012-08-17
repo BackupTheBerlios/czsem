@@ -45,6 +45,7 @@
 		<module>javacsv</module>
 		<module>czsem-ontologies</module>
 		<module>installer</module>
+		<module>intlib</module>
 	</modules>
 
 	<build>

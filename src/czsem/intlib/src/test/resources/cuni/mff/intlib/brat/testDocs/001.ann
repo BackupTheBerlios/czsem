@@ -1,0 +1,68 @@
+T1	Rozhodnuti_soudu 735 753	1 Ko 12/2008 - 293
+T2	Zakon 2374 2409	§ 28 odst. 2 zákona č. 328/1991 Sb.
+T4	Zakon 2450 2453	ZKV
+T5	Zakon 2817 2829	586/1992 Sb.
+T6	Zakon 3107 3123	§ 28 odst. 2 ZKV
+T7	Zakon 3272 3295	§ 238a odst. 1 písm. a/
+T8	Zakon 3309 3353	§ 237 odst. 1 písm. c/ zákona č. 99/1963 Sb.
+T9	Zakon 3395 3403	o. s. ř.
+T10	Zakon 3463 3478	§ 241a o. s. ř.
+T11	Zakon 3574 3593	odstavec 2 písm. a/
+T12	Zakon 3665 3684	odstavec 2 písm. b/
+T13	Zakon 3802 3812	odstavec 3
+T14	Zakon 4163 4179	§ 28 odst. 2 ZKV
+T15	Zakon 4099 4124	§ 31 odst. 2 písm. d/ ZKV
+T16	Zakon 4389 4405	§ 28 odst. 2 ZKV
+T17	Zakon 7916 7939	§ 241a odst. 3 o. s. ř.
+T18	Zakon 8027 8049	§ 242 odst. 3 o. s. ř.
+T19	Zakon 7810 7841	§ 237 odst. 1 písm. c/ o. s. ř.
+T20	Zakon 7390 7417	§ 241a odst. 2 a 3 o. s. ř.
+T21	Zakon 7620 7643	§ 241a odst. 3 o. s. ř.
+T22	Zakon 7155 7177	§ 237 odst. 1 písm. c/
+T23	Zakon 7191 7223	§ 238a odst. 1 písm. a/ o. s. ř.
+T24	Zakon 7449 7481	§ 241a odst. 2 písm. a/ o. s. ř.
+T25	Zakon 8461 8469	§ 28 ZKV
+T28	Zakon 9086 9096	odstavec 4
+T29	Zakon 9115 9131	§ 31 odst. 2 ZKV
+T30	Zakon 4635 4663	zákon o konkursu a vyrovnání
+T31	Zakon 6620 6633	182/2006 Sb.,
+T32	Zakon 6760 6783	(§ 433 bod 1. a § 434),
+T33	Zakon 6801 6814	§ 432 odst. 1
+T35	Zakon 9440 9467	§ 40 zákona č. 337/1992 Sb.
+T36	Zakon 9981 10016	§ 18 odst. 1 zákona č. 586/1992 Sb.
+T37	Zakon 10767 10783	§ 28 odst. 2 ZKV
+T38	Zakon 11437 11453	§ 28 odst. 2 ZKV
+T39	Zakon 11479 11504	§ 31 odst. 2 písm. b/ ZKV
+T40	Zakon 11638 11664	§ 31 odst. 2 písm. b/ ZKV,
+T41	Zakon 13943 13977	§ 243a odst. 1 věta první o. s. ř.
+T42	Zakon 14004 14053	§ 243b odst. 2 část věty před středníkem o. s. ř.
+T43	Zakon 13030 13073	§ 4 odst. 1 písm. y/ zákona č. 586/1992 Sb.
+T44	Zakon 9951 9962	odstavec 12
+T45	Zakon 9767 9778	odstavec 11
+T46	Zakon 12387 12423	§ 40 odst. 12 zákona č. 337/1992 Sb.
+T47	Rozhodnuti_soudu 11981 11995	29 Odo197/2003
+T48	Zakon 12479 12506	§ 31 odst. 1 věty první ZKV
+T49	Rozhodnuti_soudu 855 872	88 K 3/2002 - 273
+T50	Zakon 6668 6688	insolvenčním zákonem
+T51	Zakon 6801 6835	§ 432 odst. 1 insolvenčního zákona
+T52	Zakon 8847 8864	§ 20 (odstavec 2)
+T3	Zakon 2411 2433	o konkursu a vyrovnání
+R1	Definuje_zkratku Arg1:T3 Arg2:T4	
+T55	Ucinnost 9486 9506	do 31. prosince 2007
+T56	Ucinnost 10035 10055	do 31. prosince 2007
+T57	Ucinnost 13091 13111	do 31. prosince 2000
+T58	Rozhodnuti_soudu 399 410	88 K 3/2002
+T59	Zakon 3355 3379	občanského soudního řádu
+R2	Definuje_zkratku Arg1:T59 Arg2:T9	
+T60	Zakon 7033 7052	občanský soudní řád
+T54	Ucinnost 8488 8508	do 31. prosince 2007
+T61	Ucinnost 7071 7091	do 31. prosince 2007
+T53	Ucinnost 7009 7029	do 31. prosince 2007
+T26	Zakon 6961 6990	zákona o konkursu a vyrovnání
+T27	Zakon 6908 6914	zákona
+R3	Identita Arg1:T32 Arg2:T27	
+T34	Zakon 10240 10250	ustanovení
+R4	Identita Arg1:T36 Arg2:T34	
+T62	Zakon 10904 10914	ustanovení
+T64	Zakon 6731 6759	zákon o konkursu a vyrovnání
+R5	Definuje_zkratku Arg1:T60 Arg2:T22	
