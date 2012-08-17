@@ -22,7 +22,7 @@
   <fileSets>
   	<fileSet>
   		<filtered>true</filtered>
-  		<directory>src/main/creole</directory>
+  		<directory>src/main/installation</directory>
   		<outputDirectory>${artifactId}</outputDirectory>
   	</fileSet>
   </fileSets>

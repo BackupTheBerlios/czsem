@@ -1,0 +1,1 @@
+java -jar ../bin/${project.artifactId}-${project.version}.${project.packaging}

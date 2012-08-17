@@ -71,6 +71,7 @@
 			<description>Contains Czsem utility processing resources and ILP wrapper for machine learning.
 If you want to use the ILP wrapper, it is necessary to select also the "Select ILP location" option!</description>
 			<depends packname="czsem-common" />
+			<depends packname="Gate integration" />
 			<file src="../../../czsem-gate-plugin/target/czsem-gate-plugin-${dependency.czsem.czsem-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="fuzzy-ilp-classifier" preselected="yes" required="no">
@@ -83,22 +84,23 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 		<pack name="netgraph-tree-viewer" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-gate-plugin" />
+			<depends packname="Gate integration" />
 			<file src="../../../netgraph-tree-viewer/target/netgraph-tree-viewer-${dependency.czsem.netgraph-tree-viewer.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="tecto-mt-gate-plugin" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-gate-plugin" />
+			<depends packname="Gate integration" />
 			<depends packname="Select TectoMT location" />
 			<file src="../../../tecto-mt-gate-plugin/target/tecto-mt-gate-plugin-${dependency.czsem.tecto-mt-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="intlib-gate-plugin" preselected="yes" required="no">
-			<description>Gate plugin developped within </description>
+			<description>Gate plugin developped within the project Intelligent Library (TA02010182)</description>
 			<depends packname="czsem-gate-plugin" />
 			<file src="../../../intlib/target/intlib-${dependency.cuni.mff.intlib.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
-		<pack name="Select Gate location" required="no" preselected="yes"
-			id="gate">
-			<description>Configures Czsem to work with GATE. Necessary in cases when Czsem Gate dependent modules are called form command line.</description>
+		<pack name="Gate integration" required="no" preselected="yes" id="gate">
+			<description>Regiters plugins directories and makes it possible to run Czsem Gate dependent modules from command line.</description>
 		</pack>
 		<pack name="Select TectoMT location" required="no" preselected="yes"
 			id="tmt">
@@ -108,7 +110,7 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			id="ilp">
 			<description>Configures Czsem to work with an ILP system. It is necesary for the induction tasks: IE learning and Fuzzy ILP Classifier</description>
 		</pack>
-		<pack name="Weka integration" preselected="no" required="no" id="weka">
+		<pack name="Weka integration" preselected="yes" required="no" id="weka">
 			<description>Adds ILP Classifier to Weka. Crisp ILP Classifier and Fuzzy ILP Classifier can then be used inside the Weka (including GUI).</description>
 			<file override="asktrue" src="GenericPropertiesCreator.props"
 				targetdir="$USER_HOME/" />
