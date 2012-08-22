@@ -96,13 +96,12 @@
 				<version>1.2</version>
 				<executions>
 					<execution>
-					<!-- 
 						<goals>
 							<goal>sign</goal>
 						</goals>
 						<phase>package</phase>
-					 -->	
 						<configuration>
+							<archive>${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.${project.packaging}</archive>
 							<alias>czsem</alias>
 							<keystore>${basedir}/src/main/keystore/czsem.keystore</keystore>
 							<arguments>

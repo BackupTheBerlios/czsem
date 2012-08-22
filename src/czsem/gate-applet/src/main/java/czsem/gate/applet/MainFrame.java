@@ -4,6 +4,7 @@ import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
+import gate.Resource;
 import gate.creole.AnnotationSchema;
 import gate.creole.ResourceInstantiationException;
 import gate.gui.annedit.SchemaAnnotationEditor;
@@ -14,12 +15,10 @@ import java.awt.Container;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Set;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
@@ -43,7 +42,22 @@ public class MainFrame {
 		this.parent = parent;
 		this.loadSchemas = loadSchemas == null ? null : loadSchemas.split("\\|");
 	}
+	
+	public static void unloadAllSchemas() throws GateException {
+		List<Resource> instances = 
+			Gate.getCreoleRegister().getAllInstances(
+					AnnotationSchema.class.getCanonicalName());
+		for (Resource r : instances)
+		{
+			Factory.deleteResource(r);
+		}
+	}
 
+	public static void disableGateSchemaEditor() {
+		Gate.getCreoleRegister().remove(SchemaAnnotationEditor.class.getCanonicalName());		
+	}
+
+	
 	public static boolean loadGateSchema(String schemaUrlStr) throws ResourceInstantiationException
 	{
 		try {
@@ -62,6 +76,8 @@ public class MainFrame {
 	{
 		Gate.getCreoleRegister().registerComponent(SchemaAnnotationEditor.class);		
 	}
+	
+
 
 	public static void initGate() throws GateException, MalformedURLException {
 		/*
@@ -140,18 +156,22 @@ public class MainFrame {
 	
 	public void initDocuemtEditor() throws IOException, GateException
 	{												
+		unloadAllSchemas();
+		disableGateSchemaEditor();			
+		
 		if (loadSchemas != null)
 		{
 			enableGateSchemaEditor();
 			for (int i = 0; i < loadSchemas.length; i++) {
 				loadGateSchema(loadSchemas[i]);
 			}
-		}
+		} 
 		
 		documentEditor = new DefaultDocumentEditor();
 	
 		Document doc = downloadGateDocument(documentUrl);
 		documentEditor.setTarget(doc);
+		documentEditor.setDefaultAsName(asName);
 		
 		documentEditor.setSize(parent.getSize());
 		documentEditor.setPreferredSize(parent.getSize());
@@ -159,31 +179,38 @@ public class MainFrame {
 				
 		parent.add(new JTabbedPane().add(documentEditor));
 		
-		parent.addComponentListener(new ComponentListener() {			
-			public void componentShown(ComponentEvent e) {
-				Set<String> types = documentEditor.getDocument().getAnnotations(asName).getAllTypes();
-				for (String annType : types) {
-					documentEditor.selectAnnotationType(asName, annType, true);
+		documentEditor.addSaveButtonListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {
+				try {
+					saveDocuemnt();
+				} catch (IOException exception) {
+					throw new RuntimeException(exception);
 				}
-			
-				documentEditor.addSaveButtonListener(new ActionListener() {			
-					public void actionPerformed(ActionEvent e) {
-						try {
-							saveDocuemnt();
-						} catch (IOException exception) {
-							throw new RuntimeException(exception);
-						}
-					}
-				});
-			}			
-			public void componentResized(ComponentEvent e) {}			
-			public void componentMoved(ComponentEvent e) {}			
-			public void componentHidden(ComponentEvent e) {}
+			}
 		});
 		
 	}
 
+	/*
+	protected void saveDocuemnt() throws IOException {
+		System.err.println("---save start---");
+		
+		//DefaultDocumentEditor.initAndSaveAnnotationSetsSettings();
 
+		//documentEditor.selectDefaultAS();
+		LinkedHashSet<String> set = Gate.getUserConfig().getSet(
+			      AnnotationSetsView.class.getName() + ".types");
+		System.err.println(set);
+		
+		for (Object o : set)
+		{
+			System.err.println(o.getClass().getCanonicalName());
+		}
+		
+		documentEditor.restoreSettings();
+		System.err.println("---save end---");
+	}
+	/*****/
 
 	protected void saveDocuemnt() throws IOException {
 		

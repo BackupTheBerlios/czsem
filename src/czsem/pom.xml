@@ -47,6 +47,7 @@
 		<module>installer</module>
 		<module>intlib</module>
 		<module>custom-properties-maven-plugin</module>
+		<module>detect-content</module>
 	</modules>
 
 	<build>
@@ -104,6 +105,7 @@
 				<configuration>
 					<pushChanges>false</pushChanges>
 					<localCheckout>true</localCheckout>
+					<arguments>-Djarsigner.storepass=${jarsigner.storepass}</arguments>
 				</configuration>
 			</plugin>
 		</plugins>
