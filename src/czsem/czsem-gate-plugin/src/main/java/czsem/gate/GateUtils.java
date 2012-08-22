@@ -19,6 +19,7 @@ import gate.persist.PersistenceException;
 import gate.util.AnnotationDiffer;
 import gate.util.Benchmark;
 import gate.util.GateException;
+import gate.util.InvalidOffsetException;
 import gate.util.reporting.PRTimeReporter;
 import gate.util.reporting.exceptions.BenchmarkReportInputFileFormatException;
 
@@ -448,6 +449,22 @@ public class GateUtils
 
 	}
 
+	public static void initGate() throws GateException, IOException, URISyntaxException {
+		initGate(Level.OFF);
+	}
+
+	public static void initGate(Level logLevel) throws GateException, IOException, URISyntaxException {
+		if (Gate.isInitialised()) return;
+		
+		Logger logger = Logger.getRootLogger();
+	    logger.setLevel(logLevel);
+		BasicConfigurator.configure();
+		
+		Config.getConfig().setGateHome();
+
+		Gate.init();						
+	}
+
 	public static void initGateInSandBox() throws GateException {
 		if (Gate.isInitialised()) return;
 		
@@ -468,6 +485,10 @@ public class GateUtils
 	public static boolean isPrCalssRegisteredInCreole(Class<? extends ProcessingResource> clazz)
 	{
 		return isPrCalssRegisteredInCreole(clazz.getCanonicalName());
+	}
+
+	public static String getAnnotationContent(Annotation annotation, Document doc) throws InvalidOffsetException {
+		return doc.getContent().getContent(annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset()).toString();
 	}
 
 

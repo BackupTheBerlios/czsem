@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.DatagramSocket;
+import java.net.MalformedURLException;
 import java.net.ServerSocket;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -163,6 +164,11 @@ public class Utils {
 		return new File(url.toURI());		
 	}
 
+	public static URL filePathToUrl(String filepath) throws MalformedURLException
+	{
+		return new File(filepath).toURI().toURL();
+	}
+
 	public static String URLToFilePath(URL url) throws IOException, URISyntaxException
 	{
 		return URLToFile(url).getCanonicalPath();		
@@ -314,6 +320,10 @@ public class Utils {
 		{
 			f.mkdirs();
 		}		
+	}
+
+	public static String strTrimTo(String str, int maxLength) {
+		return str.substring(0, Math.min(maxLength, str.length()));
 	}
 
 

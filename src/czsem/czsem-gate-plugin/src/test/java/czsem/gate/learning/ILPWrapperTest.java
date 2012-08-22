@@ -116,7 +116,7 @@ public class ILPWrapperTest {
 		})[0];
 		
 		long l = rules_file.length();
-		AssertJUnit.assertTrue(String.format("rules file too small %d (%s)", l, rules_file.getAbsolutePath() ), l > 2000);
+		AssertJUnit.assertTrue(String.format("rules file too small %d (%s)", l, rules_file.getAbsolutePath() ), l > 1000);
 		
 		AssertJUnit.assertTrue(String.format("fmeasure too small %f", diff.getFMeasureStrict(1.0)),
 				diff.getFMeasureStrict(1.0) >= 0.4);
