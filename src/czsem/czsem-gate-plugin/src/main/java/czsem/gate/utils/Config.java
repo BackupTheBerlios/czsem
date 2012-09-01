@@ -90,8 +90,12 @@ public class Config extends czsem.utils.Config
 			if (Gate.isInitialised())
 			{
 				URL url = findCzesemPluginDirectoryURL();
+				if (url == null)
+				{
+					throw e;					
+				}
 				super.loadConfig(
-						Utils.URLToFilePath(url)+ '/' +config_filename, classLoader);
+						Utils.URLToFilePath(url)+ "/../configuration/" +config_filename, classLoader);
 			}
 			else throw e;
 		}
@@ -126,6 +130,7 @@ public class Config extends czsem.utils.Config
 		setPrologPath("C:\\Program Files\\Yap\\bin\\yap.exe");
 		setWekaJarPath("C:\\Program Files\\Weka-3-6\\weka.jar");
 		setTmtRoot("C:\\workspace\\tectomt");
+		setTreexDir("C:\\workspace\\treex\\svn\\treex");
 		setTredRoot("C:\\tred");
 		setGateHome("C:\\Program Files\\gate\\GATE-6.0");
 		setCzsemProjectRelativePaths("C:\\workspace\\czsem_git\\src\\czsem");
@@ -227,5 +232,14 @@ public class Config extends czsem.utils.Config
 
 	public String getLearnigConfigDirectoryForGate() {
 		return get("learnigConfigDirectoryForGate");
+	}
+
+
+	public String getTreexDir() {
+		return get("treexDir");
+	}
+
+	public void setTreexDir(String treeDir) {
+		set("treexDir", treeDir);
 	}
 }

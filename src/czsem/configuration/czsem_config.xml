@@ -18,6 +18,10 @@
    <string>C:\workspace\czsem_git\src\czsem\temp/ILP_serializations</string> 
   </void> 
   <void method="put"> 
+   <string>treexDir</string> 
+   <string>C:\workspace\treex\svn\treex</string> 
+  </void> 
+  <void method="put"> 
    <string>tredRoot</string> 
    <string>C:\tred</string> 
   </void> 
