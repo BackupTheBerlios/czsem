@@ -120,8 +120,14 @@ sub processNode
       if (UNIVERSAL::isa($value,'ARRAY'))
       {
         my @arr_value = $value->values;
+        my $finall_value = [];
         debugPrint  "$path = @arr_value ($valueAll)\n";
-        $ret->{$path} = @arr_value;           
+        foreach my $v (@arr_value)
+        {
+          push(@$finall_value, $v);
+        }
+        
+        $ret->{$path} = $finall_value;           
       } else {
         debugPrint  "$path = $value ($valueAll)\n";
         $ret->{$path} = $value; 
