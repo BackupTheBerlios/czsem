@@ -80,10 +80,12 @@ sub backup {
 
 sub analyzeDoc
 {
+  my $lang = shift;
+  my $text = shift;
   my $doc = Treex::Core::Document->new;
   
-  my $zone = $doc->create_zone('en');
-  $zone->set_text("Hallo world! Life is great, isn't it? John is the man who died in London recently."); 	
+  my $zone = $doc->create_zone($lang);
+  $zone->set_text($text); 	
  
 	
 	$Treex::Block::CzsemRpcReader::dataQueue->enqueue($doc);  
@@ -93,6 +95,8 @@ sub analyzeDoc
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
  	$doc->save('C:\workspace\demo.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  return encodeLoadedDoc($doc);
 }
 
 
@@ -141,10 +145,10 @@ sub encodeDoc
 {
   my $filename = shift;
   my $doc = Treex::Core::Document->new( { filename => $filename } ); 
-  return encodeDocInMemory($doc); 
+  return encodeLoadedDoc($doc); 
 }
 
-sub encodeDocInMemory
+sub encodeLoadedDoc
 {
   my $doc = shift;
   
@@ -172,11 +176,11 @@ sub encodeDocInMemory
         }
       }
       my $zone = {         
-        language => $language, 
-        selector => $selector, 
-        roots    => $roots,
-        nodes    => $nodes,
-        sentence => $sentence };
+        language    => $language, 
+        selector    => $selector, 
+        roots  => $roots,
+        nodes  => $nodes,
+        sentence    => $sentence };
       
       push (@$zones, $zone);
     }
@@ -185,7 +189,7 @@ sub encodeDocInMemory
   return $zones;
 }
  
-#initScenario;
+initScenario;
 
 #analyzeDoc;
 

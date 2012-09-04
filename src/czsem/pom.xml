@@ -48,6 +48,7 @@
 		<module>intlib</module>
 		<module>custom-properties-maven-plugin</module>
 		<module>detect-content</module>
+		<module>treex-gate-plugin</module>
 	</modules>
 
 	<build>

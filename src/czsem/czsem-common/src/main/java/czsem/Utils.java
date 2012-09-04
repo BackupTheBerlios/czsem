@@ -1,9 +1,15 @@
 package czsem;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.DatagramSocket;
 import java.net.MalformedURLException;
 import java.net.ServerSocket;
@@ -325,7 +331,19 @@ public class Utils {
 	public static String strTrimTo(String str, int maxLength) {
 		return str.substring(0, Math.min(maxLength, str.length()));
 	}
+	
+	public static void serializeToFile(Object obj, String fileName) throws IOException {
+		ObjectOutputStream out = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(fileName)));
+		out.writeObject(obj);
+		out.close();
+	}
 
+	public static Object deserializeFromFile(String fileName) throws IOException, ClassNotFoundException {
+		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileName)));
+		Object ret = in.readObject();
+		in.close();
+		return ret;
+	}
 
 
 }

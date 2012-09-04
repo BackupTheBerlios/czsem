@@ -182,6 +182,20 @@ public class ProcessExec {
 		error_reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));		
 	}
 
+	public static interface ProcessSetup
+	{
+		void processSetup(ProcessBuilder pb);		
+	}
+	
+	public void execWithProcessBuilder(ProcessSetup setup, String ... command) throws IOException
+	{
+		ProcessBuilder pb = new ProcessBuilder(command);
+		setup.processSetup(pb);
+		process = pb.start();
+		initBuffers();
+	}
+
+	
 	public void exec(String[] cmdarray) throws IOException
 	{
 		process = Runtime.getRuntime().exec(cmdarray);		
@@ -190,7 +204,12 @@ public class ProcessExec {
 
 	public void exec(String[] exec_args, File working_directory) throws IOException
 	{
-		process = Runtime.getRuntime().exec(exec_args, null, working_directory);
+		exec(exec_args, null, working_directory);		
+	}
+
+	public void exec(String[] exec_args, String[] envp, File working_directory) throws IOException
+	{
+		process = Runtime.getRuntime().exec(exec_args, envp, working_directory);
 		initBuffers();
 	}
 
