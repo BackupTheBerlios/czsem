@@ -1,6 +1,10 @@
 package czsem.gate.treex;
 
-import java.util.Set;
+import gate.Annotation;
+import gate.AnnotationSet;
+import gate.Document;
+import gate.FeatureMap;
+import gate.util.InvalidOffsetException;
 
 import org.apache.log4j.Logger;
 
@@ -8,11 +12,6 @@ import czsem.gate.GateUtils;
 import czsem.gate.tectomt.SequenceAnnotator;
 import czsem.gate.tectomt.SequenceAnnotator.CannotAnnotateCharacterSequence;
 import czsem.gate.treex.RecursiveEntityAnnotator.SecondaryEntity;
-import gate.Annotation;
-import gate.AnnotationSet;
-import gate.Document;
-import gate.FeatureMap;
-import gate.util.InvalidOffsetException;
 
 public class Annotator implements AnnotatorInterface {
 	private static Logger logger = Logger.getLogger(Annotator.class);

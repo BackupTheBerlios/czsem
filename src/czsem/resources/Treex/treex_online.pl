@@ -4,14 +4,14 @@ use warnings;
 
 use Treex::Core;
 use Treex::Block::CzsemRpcReader;
-use Frontier::Daemon;
+use RPC::XML::Server; # The server
 use Net::Address::IP::Local;
 use Sys::Hostname;
 use Treex::Core::Log;
 
 
 sub debugPrint {
-  #print STDERR @_;
+#  print STDERR @_;
 }
 
 debugPrint "treex online start\n";
@@ -24,23 +24,38 @@ my $port_number = 9090;
 my $isReady = 0;
 my $scenario = undef;
 
-
 sub startServer
 {
-    my $methods = {
-      'treex.isReady' => \&isReady,
-      'treex.analyzeDoc' => \&analyzeDoc,
-      'treex.encodeDoc' => \&encodeDoc,
-      'treex.terminate' => \&terminate };
+  my $srv = RPC::XML::Server->new(port => $port_number); #server object
+  
+  $srv->add_method(
+   {
+    "name"      => "treex.analyzeDoc", # calling this function will throw fault aka exception
+    "signature" => ['array string string'], #what are the return type and call parameters beware of the spaces!
+    "code"      => \&analyzeDocSrv
+   }
+  );
 
-    my $host = hostname;
-    
-    print "Starting Treex RPC server at http://$host:$port_number/RPC2 ( http://" . Net::Address::IP::Local->public . ":$port_number/RPC2 )\n";
-
-    
-    my $server;
-    $server = Frontier::Daemon->new(LocalPort => $port_number, methods => $methods, use_objects => 0)
-        or die "Couldn't start HTTP server: $!";
+  $srv->add_method(
+   {
+    "name"      => "treex.encodeDoc", # calling this function will throw fault aka exception
+    "signature" => ['array string'], #what are the return type and call parameters beware of the spaces!
+    "code"      => \&encodeDocSrv
+   }
+  );
+  
+  $srv->add_method(
+   {
+    "name"      => "treex.terminate", # calling this function will throw fault aka exception
+    "signature" => ['string'], #what are the return type and call parameters beware of the spaces!
+    "code"      => \&terminate
+   }
+  );
+  
+  my $host = hostname;  
+  print "Starting Treex RPC server at http://$host:$port_number ( http://" . Net::Address::IP::Local->public . ":$port_number )\n";
+  
+  $srv->server_loop; # Just work
 }
 
 
@@ -56,35 +71,22 @@ sub terminate
 
 sub initScenario
 {
-  $scenario = Treex::Core::Scenario->new(from_string => 'Util::SetGlobal language=en CzsemRpcReader W2A::EN::Segment devel\analysis\en\s_w2t.scen');
+  $scenario = Treex::Core::Scenario->new(from_string => 'Util::SetGlobal language=cs CzsemRpcReader W2A::CS::Segment devel\analysis\cs\s_w2t.scen');
 }
 
-
-
-sub backup {
-  my $doc = Treex::Core::Document->new;
-	my $bundle = $doc->create_bundle;
-	my $zone   = $bundle->create_zone('en');
-	my $atree  = $zone->create_atree;
-	 
-	my $predicate = $atree->create_child({form=>'loves'});
-	 
-	foreach my $argument (qw(John Mary)) {
-  		my $child = $atree->create_child( { form=>$argument } );
-  		$child->set_parent($predicate);
-  	}
-	
-	$doc->save('C:\workspace\demo.treex');
-
-}
 
 sub analyzeDoc
 {
+  debugPrint  "--analyzeDoc--\n";
+
   my $lang = shift;
   my $text = shift;
   my $doc = Treex::Core::Document->new;
   
+  debugPrint  "--analyzeDoc set text in--\n";
   my $zone = $doc->create_zone($lang);
+  debugPrint  "--analyzeDoc set text out--\n";
+
   $zone->set_text($text); 	
  
 	
@@ -93,7 +95,7 @@ sub analyzeDoc
   $scenario->run;
   
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
- 	$doc->save('C:\workspace\demo.treex');
+ 	$doc->save('C:\workspace\demo_cz.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   return encodeLoadedDoc($doc);
@@ -134,6 +136,7 @@ sub processNode
         $ret->{$path} = $finall_value;           
       } else {
         debugPrint  "$path = $value ($valueAll)\n";
+        utf8::encode($value); 
         $ret->{$path} = $value; 
       } 
     } 
@@ -158,10 +161,12 @@ sub encodeLoadedDoc
     foreach my $bundlezone ( $bundle->get_all_zones ) {
       my $nodes = [];
       my $roots = [];
-      my $sentence = $bundlezone->sentence; 
+      my $sentence = $bundlezone->sentence;
       my $language = $bundlezone->language; 
-      my $selector = $bundlezone->selector; 
-
+      my $selector = $bundlezone->selector;
+      
+      utf8::encode($sentence); 
+ 
       debugPrint  "-----------sentence--------\n";      
       debugPrint  $bundlezone->sentence . "\n";      
       foreach my $root ( $bundlezone->get_all_trees ) {
@@ -178,8 +183,8 @@ sub encodeLoadedDoc
       my $zone = {         
         language    => $language, 
         selector    => $selector, 
-        roots  => $roots,
-        nodes  => $nodes,
+        roots       => $roots,
+        nodes       => $nodes,
         sentence    => $sentence };
       
       push (@$zones, $zone);
@@ -188,6 +193,24 @@ sub encodeLoadedDoc
   	
   return $zones;
 }
+
+
+sub analyzeDocSrv
+{
+  shift; #server context
+  my $lang = shift;
+  my $text = shift;
+     
+  return analyzeDoc($lang, $text); 
+}
+
+sub encodeDocSrv
+{
+  shift; #server context
+  my $file = shift; 
+  return encodeDoc($file);
+}
+
  
 initScenario;
 
