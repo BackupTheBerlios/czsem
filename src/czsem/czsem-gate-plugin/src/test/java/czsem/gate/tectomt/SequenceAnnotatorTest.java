@@ -1,4 +1,4 @@
-package czsem.gate;
+package czsem.gate.tectomt;
 
 import org.testng.annotations.Test;
 
