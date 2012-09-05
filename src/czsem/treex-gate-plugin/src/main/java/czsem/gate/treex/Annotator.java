@@ -1,9 +1,13 @@
 package czsem.gate.treex;
 
+import java.util.Set;
+
 import org.apache.log4j.Logger;
 
+import czsem.gate.GateUtils;
 import czsem.gate.tectomt.SequenceAnnotator;
 import czsem.gate.tectomt.SequenceAnnotator.CannotAnnotateCharacterSequence;
+import czsem.gate.treex.RecursiveEntityAnnotator.SecondaryEntity;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Document;
@@ -17,6 +21,30 @@ public class Annotator implements AnnotatorInterface {
 		public String getAnnotationType();
 		public FeatureMap getFeatures();
 		public void setGateAnnId(Integer gate_annotation_id);
+	}
+	
+	public static abstract class AnnotableDependency implements SecondaryEntity {
+
+		public abstract Integer getParentGateId();
+		public abstract Integer getChildGateId();
+
+		@Override
+		public FeatureMap getFeatures() {
+			return GateUtils.createDependencyArgsFeatureMap(
+					getParentGateId(), 
+					getChildGateId());
+		}
+
+		@Override
+		public boolean annotate(AnnotatorInterface annotator) throws InvalidOffsetException {
+			if (getParentGateId() == null) return false;
+			if (getChildGateId() == null) return false;
+			annotator.annotateDependecy(this);
+			return true;
+		}
+		
+		@Override
+		public void setGateAnnId(Integer gate_annotation_id) {}
 	}
 	
 	public static interface SeqAnnotable extends Annotable {
@@ -80,19 +108,37 @@ public class Annotator implements AnnotatorInterface {
 	}
 
 	@Override
-	public void annotate(Annotable seqAnn, Long startOffset, Long endOffset) throws InvalidOffsetException {
+	public void annotate(Annotable ann, Long startOffset, Long endOffset) throws InvalidOffsetException {
     	Integer gate_annotation_id = as.add(
     			startOffset,
     			endOffset,
-    			seqAnn.getAnnotationType(),
-    			seqAnn.getFeatures());
+    			ann.getAnnotationType(),
+    			ann.getFeatures());
     	
-    	seqAnn.setGateAnnId(gate_annotation_id);    	
+    	ann.setGateAnnId(gate_annotation_id);    	
 	}
 
 	@Override
 	public Annotation getAnnotation(Integer id) {
 		return as.get(id);
+	}
+
+	@Override
+	public void annotateDependecy(AnnotableDependency dAnn) throws InvalidOffsetException {
+		Integer gate_parent_id = dAnn.getParentGateId();
+		Integer gate_child_id = dAnn.getChildGateId();
+
+		
+		Annotation a1 = as.get(gate_parent_id);
+		Annotation a2 = as.get(gate_child_id);
+		
+		if (a1 == null || a2 == null) return;
+		
+		Long ix1 = Math.min(a1.getStartNode().getOffset(), a2.getStartNode().getOffset());
+		Long ix2 = Math.max(a1.getEndNode().getOffset(), a2.getEndNode().getOffset());
+		
+		annotate(dAnn, ix1, ix2);
+		
 	}
 
 }
