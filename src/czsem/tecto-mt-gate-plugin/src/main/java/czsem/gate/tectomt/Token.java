@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.commons.lang.NotImplementedException;
 
+import czsem.gate.externalannotator.SequenceAnnotator;
 import czsem.gate.plugins.AnnotationDependencySubtreeMarker.SubtreeMarkInfo;
 import czsem.gate.tectomt.SentenceInfoManager.Layer;
 import czsem.gate.tectomt.TMTAnnotation.SeqAnnotation;

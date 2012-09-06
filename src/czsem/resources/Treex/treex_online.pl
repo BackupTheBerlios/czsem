@@ -95,7 +95,7 @@ sub analyzeDoc
   $scenario->run;
   
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
- 	$doc->save('C:\workspace\demo_cz.treex');
+ 	#$doc->save('C:\workspace\demo_cz.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   return encodeLoadedDoc($doc);

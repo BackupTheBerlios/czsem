@@ -1,8 +1,8 @@
-package czsem.gate.tectomt;
+package czsem.gate.externalannotator;
 
 import org.testng.annotations.Test;
 
-import czsem.gate.tectomt.SequenceAnnotator;
+import czsem.gate.externalannotator.SequenceAnnotator;
 
 import static org.testng.AssertJUnit.*;
 

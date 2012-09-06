@@ -3,7 +3,8 @@ package czsem.gate.tectomt;
 import org.apache.commons.lang.NotImplementedException;
 import org.apache.log4j.Logger;
 
-import czsem.gate.tectomt.SequenceAnnotator.CannotAnnotateCharacterSequence;
+import czsem.gate.externalannotator.SequenceAnnotator;
+import czsem.gate.externalannotator.SequenceAnnotator.CannotAnnotateCharacterSequence;
 
 import gate.AnnotationSet;
 import gate.FeatureMap;

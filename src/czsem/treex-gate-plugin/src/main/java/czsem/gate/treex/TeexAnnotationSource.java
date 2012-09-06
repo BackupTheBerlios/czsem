@@ -13,12 +13,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import czsem.gate.treex.Annotator.Annotable;
-import czsem.gate.treex.Annotator.AnnotableDependency;
-import czsem.gate.treex.Annotator.AnnotationSource;
-import czsem.gate.treex.Annotator.Sentence;
-import czsem.gate.treex.Annotator.SeqAnnotable;
-import czsem.gate.treex.RecursiveEntityAnnotator.SecondaryEntity;
+import czsem.gate.externalannotator.Annotator;
+import czsem.gate.externalannotator.AnnotatorInterface;
+import czsem.gate.externalannotator.RecursiveEntityAnnotator;
+import czsem.gate.externalannotator.Annotator.Annotable;
+import czsem.gate.externalannotator.Annotator.AnnotableDependency;
+import czsem.gate.externalannotator.Annotator.AnnotationSource;
+import czsem.gate.externalannotator.Annotator.Sentence;
+import czsem.gate.externalannotator.Annotator.SeqAnnotable;
+import czsem.gate.externalannotator.RecursiveEntityAnnotator.SecondaryEntity;
 
 public class TeexAnnotationSource implements AnnotationSource {
 	protected static class TreexNode implements Annotable {
@@ -72,6 +75,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 		@Override
 		public boolean annotate(AnnotatorInterface annotator)	throws InvalidOffsetException {
 			Annotation gAnn = annotator.getAnnotation((Integer) parent.get("gateAnnId"));
+			if (gAnn == null) return false;
 			annotator.annotate(this, gAnn.getStartNode().getOffset(), gAnn.getEndNode().getOffset());		
 			return true;
 		}
@@ -93,6 +97,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 			Map<String, Object> ref_node = nodeMap.get(parentId);
 			Annotation gAnn = annotator.getAnnotation((Integer) ref_node.get("gateAnnId"));
+			if (gAnn == null) return false;
 			annotator.annotate(this, gAnn.getStartNode().getOffset(), gAnn.getEndNode().getOffset());
 			
 			return true;
@@ -117,9 +122,12 @@ public class TeexAnnotationSource implements AnnotationSource {
 			{
 				Map<String, Object> ref_node = nodeMap.get(parentId);
 				Annotation gAnn = annotator.getAnnotation((Integer) ref_node.get("gateAnnId"));
+				if (gAnn == null) continue;
 				startOffset = Math.min(gAnn.getStartNode().getOffset(), startOffset);
 				endOffset = Math.max(gAnn.getEndNode().getOffset(), endOffset);
 			}
+			
+			if (startOffset == Long.MAX_VALUE || endOffset == Long.MIN_VALUE) return false;
 
 			annotator.annotate(this, startOffset, endOffset);
 			

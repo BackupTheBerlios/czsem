@@ -1,4 +1,4 @@
-package czsem.gate.treex;
+package czsem.gate.externalannotator;
 
 import gate.util.InvalidOffsetException;
 
@@ -6,7 +6,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 
-import czsem.gate.treex.Annotator.Annotable;
+import czsem.gate.externalannotator.Annotator.Annotable;
 
 public class RecursiveEntityAnnotator {
 	

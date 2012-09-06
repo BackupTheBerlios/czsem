@@ -1,4 +1,4 @@
-package czsem.gate.tectomt;
+package czsem.gate.externalannotator;
 
 import org.apache.log4j.Logger;
 
@@ -55,7 +55,10 @@ public class SequenceAnnotator
 
 		public CannotAnnotateCharacterSequence(String token, String annotator_content, int last_start_index)
 		{
-			super(annotator_content.substring(last_start_index, last_start_index + token.length()));
+			super(annotator_content.substring(last_start_index, 
+					Math.min(
+							annotator_content.length(), 
+							last_start_index + token.length())));
 			this.token = token;
 			this.annotator_content = annotator_content;
 			this.last_start_index = last_start_index;

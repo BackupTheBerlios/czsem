@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -339,11 +340,14 @@ public class Utils {
 	}
 
 	public static Object deserializeFromFile(String fileName) throws IOException, ClassNotFoundException {
-		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(new FileInputStream(fileName)));
+		return deserializeFromStram(new FileInputStream(fileName));
+	}
+
+	public static Object deserializeFromStram(InputStream inputStram) throws IOException, ClassNotFoundException {
+		ObjectInputStream in = new ObjectInputStream(new BufferedInputStream(inputStram));
 		Object ret = in.readObject();
 		in.close();
 		return ret;
 	}
-
 
 }
