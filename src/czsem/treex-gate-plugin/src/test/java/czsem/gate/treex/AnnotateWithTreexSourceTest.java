@@ -94,7 +94,6 @@ public class AnnotateWithTreexSourceTest {
 	private void annotateUsingTeexFileTest(String treexFileName, String gateXmlResourceName) throws Exception {
 		TreexServerExecution tse = new TreexServerExecution();
 		tse.start();
-		Thread.sleep(1300);
 		
 		TreexServerConnection tsConn = tse.getConnection();
 

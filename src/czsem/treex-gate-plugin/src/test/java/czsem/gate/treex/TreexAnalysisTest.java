@@ -14,9 +14,7 @@ public class TreexAnalysisTest {
 	public void segmentAndTokenizeTest() throws Exception {
 		TreexServerExecution tse = new TreexServerExecution();
 		tse.start();
-		
-		Thread.sleep(1300);
-		
+				
 		TreexServerConnection conn = tse.getConnection();
 		
 		conn.initScenario("cs", "W2A::Segment", "W2A::Tokenize");

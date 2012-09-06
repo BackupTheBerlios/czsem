@@ -12,7 +12,7 @@ public class TreexServerExecution {
 
 	private int portNumber = 9090;
 
-	public void start() throws IOException, URISyntaxException {
+	public void start() throws IOException, URISyntaxException, InterruptedException {
 		String path_sep = System.getProperty( "path.separator" );
 		
 		Config cfg = Config.getConfig();
@@ -32,7 +32,10 @@ public class TreexServerExecution {
 		ProcessExec tmt_proc = new ProcessExec();
 //		String[] env3 = getTredEnvp();
 		tmt_proc.exec(cmdarray, env, new File(cfg.getTreexDir()));
-		tmt_proc.startStdoutReaderThreads();		
+		tmt_proc.startStdoutReaderThreads();
+		
+		//TODO reimplent
+		Thread.sleep(1300);
 	}
 
 	public TreexServerConnection getConnection() {

@@ -51,7 +51,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 
 	@CreoleParameter(comment="List of blocks to be used in the analysis. Each element can be either a Treex block or a .scen file.",
-			defaultValue="W2A::EN::Tokenize;W2A::EN::NormalizeForms;W2A::EN::FixTokenization;W2A::EN::TagMorce;W2A::EN::FixTags;W2A::EN::Lemmatize")
+			defaultValue="W2A::EN::Segment;W2A::EN::Tokenize;W2A::EN::NormalizeForms;W2A::EN::FixTokenization;W2A::EN::TagMorce;W2A::EN::FixTags;W2A::EN::Lemmatize")
 	public void setScenarioSetup(List<String> scenarioSetup) {
 		this.scenarioSetup = scenarioSetup;
 	}
@@ -62,11 +62,11 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	}
 
 	@CreoleParameter(defaultValue="9090")
-	public void setServerPortNumber(int serverPortNumber) {
+	public void setServerPortNumber(Integer serverPortNumber) {
 		this.serverPortNumber = serverPortNumber;
 	}
 
-	public int getServerPortNumber() {
+	public Integer getServerPortNumber() {
 		return serverPortNumber;
 	}
 }
