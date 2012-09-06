@@ -8,6 +8,7 @@ import gate.creole.metadata.CreoleResource;
 import java.util.List;
 
 import czsem.Utils;
+import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
 
 @CreoleResource(name = "TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )")
@@ -21,7 +22,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	@Override
 	public void cleanup() {
 		if (serverConnection == null) return;
-		serverConnection.terminateServerSafe();
+		serverConnection.terminateServer();
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 			exec.start();
 			serverConnection.initScenario(getLanguageCode(), getScenarioSetup().toArray(new String[0]));
 		} catch (Exception e) {
-			serverConnection.terminateServerSafe();
+			serverConnection.terminateServer();
 			serverConnection = null;
 			throw new ResourceInstantiationException(e);
 		}

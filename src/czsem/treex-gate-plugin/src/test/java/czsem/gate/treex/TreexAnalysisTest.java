@@ -6,12 +6,17 @@ import java.util.Map;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import czsem.Utils;
+
 public class TreexAnalysisTest {
 	
 	@Test
 	public void segmentAndTokenizeTest() throws Exception {
 		TreexServerExecution tse = new TreexServerExecution();
 		tse.start();
+		
+		Thread.sleep(1300);
+		
 		TreexServerConnection conn = tse.getConnection();
 		
 		conn.initScenario("cs", "W2A::Segment", "W2A::Tokenize");
@@ -20,16 +25,13 @@ public class TreexAnalysisTest {
 		
 		conn.terminateServer();
 		
-		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> treexRet = (List<Map<String, Object>>) ret;		
+		List<Map<String, Object>> treexRet = Utils.objectArrayToGenericList(ret);		
 		Assert.assertEquals(treexRet.size(), 2);
 		
-		@SuppressWarnings("unchecked")
-		List<Object> nodes1 = (List<Object>) treexRet.get(0).get("nodes");		
+		List<Object> nodes1 = Utils.objectArrayToGenericList(treexRet.get(0).get("nodes"));		
 		Assert.assertEquals(nodes1.size(), 3);
 
-		@SuppressWarnings("unchecked")
-		List<Object> nodes2 = (List<Object>) treexRet.get(1).get("nodes");		
+		List<Object> nodes2 = Utils.objectArrayToGenericList(treexRet.get(1).get("nodes"));		
 		Assert.assertEquals(nodes2.size(), 3);
 		
 	}

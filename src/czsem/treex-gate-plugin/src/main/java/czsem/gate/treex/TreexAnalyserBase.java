@@ -1,4 +1,4 @@
-package czsem.gate.plugins;
+package czsem.gate.treex;
 
 import gate.Document;
 import gate.creole.ExecutionException;
@@ -6,8 +6,6 @@ import gate.creole.ExecutionException;
 import java.util.List;
 
 import czsem.gate.AbstractLanguageAnalyserWithInputOutputAS;
-import czsem.gate.treex.TreexReturnAnalysis;
-import czsem.gate.treex.TreexServerConnection;
 
 @SuppressWarnings("serial")
 public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInputOutputAS {

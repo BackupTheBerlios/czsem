@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
+import czsem.Utils;
 import czsem.gate.externalannotator.Annotator;
 
 public class TreexReturnAnalysis {
@@ -19,15 +20,16 @@ public class TreexReturnAnalysis {
 	protected Set<String> idAttributes;
 	protected Set<String> listAttributes;
 
-	@SuppressWarnings("unchecked")
 	public TreexReturnAnalysis(Object treex_ret_param) {		
-		zones = (List<Map<String, Object>>) treex_ret_param;
+		zones = Utils.objectArrayToGenericList(treex_ret_param);
 		
 		nodeMap = new HashMap<String, Map<String,Object>>();
 
 		for (Map<String, Object> zone : zones) {
-			extractNodesFromList((List<Map<String, Object>>) zone.get("roots"), true);
-			extractNodesFromList((List<Map<String, Object>>) zone.get("nodes"), false);			
+			List<Map<String, Object>> roots = Utils.objectArrayToGenericList(zone.get("roots"));
+			extractNodesFromList(roots, true);
+			List<Map<String, Object>> nodes = Utils.objectArrayToGenericList(zone.get("nodes"));
+			extractNodesFromList(nodes, false);			
 		}
 		
 		idAttributes = findIdAttributes();
@@ -71,7 +73,7 @@ public class TreexReturnAnalysis {
 		{
 			for (Entry<String, Object> entry : node.entrySet())
 			{
-				if (entry.getValue() instanceof List)
+				if (entry.getValue() instanceof Object[])
 				{
 					keys.add(entry.getKey());
 				}

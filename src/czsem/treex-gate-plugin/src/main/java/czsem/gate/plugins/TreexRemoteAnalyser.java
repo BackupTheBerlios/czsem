@@ -9,6 +9,7 @@ import gate.creole.metadata.Optional;
 import java.net.URL;
 import java.util.List;
 
+import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerConnection;
 
 @CreoleResource(name = "TreexRemoteAnalyser", comment = "Alyses givem corpus by Treex remote (or local) server.")
@@ -24,7 +25,7 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 	public void cleanup() {
 		if (getTerminateServerOnCleanup() && serverConnection != null)
 		{
-			serverConnection.terminateServerSafe();			
+			serverConnection.terminateServer();			
 		}
 	}
 

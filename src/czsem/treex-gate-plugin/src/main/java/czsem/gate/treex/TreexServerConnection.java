@@ -7,35 +7,31 @@ import java.util.Arrays;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
-import org.apache.xmlrpc.XmlRpcClientLite;
 import org.apache.xmlrpc.XmlRpcException;
+import org.apache.xmlrpc.client.XmlRpcClient;
+import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
 
 public class TreexServerConnection {
 	static Logger logger = Logger.getLogger(TreexServerConnection.class); 
 
-	XmlRpcClientLite rpcClient;
+	XmlRpcClient rpcClient;
 	
 	public TreexServerConnection(String hostname, int portNumber) throws MalformedURLException {
-		rpcClient = new XmlRpcClientLite("localhost", 9090);
+		this(new URL("http", hostname, portNumber, "/RPC2"));
 	}
 
 	public TreexServerConnection(URL treexServerUrl) {
-		rpcClient = new XmlRpcClientLite(treexServerUrl);
+		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+		config.setServerURL(treexServerUrl);
+		
+		rpcClient = new XmlRpcClient();
+		rpcClient.setConfig(config);
 	}
 
-	public void terminateServerSafe() {
-		try {
-			terminateServer();
-		} catch (XmlRpcException e) {
-			logger.error("Treex server termination problem.", e);
-		}
-	}
-
-	public void terminateServer() throws XmlRpcException {
+	public void terminateServer() {
 		try {
 			rpcClient.execute("treex.terminate", new Vector<Object>());
-		} catch (IOException e)
-		{
+		} catch (XmlRpcException e) {
 			logger.info("Treex server termination rigistered.");
 		}		
 	}

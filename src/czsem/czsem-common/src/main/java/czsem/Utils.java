@@ -64,6 +64,12 @@ public class Utils {
 		};
 	}
 
+	@SuppressWarnings("unchecked")
+	public static <RetType> List<RetType> objectArrayToGenericList(Object array)
+	{
+		if (array == null) return null;
+		return Arrays.asList((RetType[]) array);
+	}
 	
 	public static <ElementType> Evidence<ElementType>[] createRandomPermutation(Collection<ElementType> collection)
 	{

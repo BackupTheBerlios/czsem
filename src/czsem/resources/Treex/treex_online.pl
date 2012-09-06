@@ -4,11 +4,11 @@ use warnings;
 
 use Treex::Core;
 use Treex::Block::CzsemRpcReader;
-use RPC::XML::Server; # The server
+use RPC::XML::Server; 
+use RPC::XML; 
 use Net::Address::IP::Local;
 use Sys::Hostname;
 use Treex::Core::Log;
-
 
 sub debugPrint {
 #  print STDERR @_;
@@ -29,6 +29,9 @@ my @scenarioSetup = (
   'CzsemRpcReader',
   'W2A::CS::Segment',
   'devel\analysis\cs\s_w2t.scen');
+
+
+$RPC::XML::ENCODING = "UTF-8";
 
 
 sub startServer

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import czsem.Utils;
 import czsem.gate.externalannotator.Annotator;
 import czsem.gate.externalannotator.AnnotatorInterface;
 import czsem.gate.externalannotator.RecursiveEntityAnnotator;
@@ -111,8 +112,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		@Override
 		public boolean annotate(AnnotatorInterface annotator) throws InvalidOffsetException {
-			@SuppressWarnings("unchecked")
-			List<String> parentIds = (List<String>) node.get(relName);			
+			List<String> parentIds = Utils.objectArrayToGenericList(node.get(relName));			
 			if (parentIds.isEmpty()) return true;
 			
 			Long startOffset = Long.MAX_VALUE;
@@ -156,8 +156,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		public List<TreexDependency> createListIdAttrDependencies(Map<String, Object> node, String depName) {
 			
-			@SuppressWarnings("unchecked")
-			List<String> parentIds = (List<String>) node.get(depName);
+			List<String> parentIds = Utils.objectArrayToGenericList(node.get(depName));
 			
 			List<TreexDependency> ret = new ArrayList<TreexDependency>(parentIds.size());
 			String childId = (String) node.get("id");
@@ -221,10 +220,9 @@ public class TeexAnnotationSource implements AnnotationSource {
 		protected List<Map<String, Object>> nodes; 
 
 
-		@SuppressWarnings("unchecked")
 		public TreexSentence(Map<String, Object> zone) {
 			super(zone);
-			nodes = (List<Map<String, Object>>) zone.get("nodes");
+			nodes = Utils.objectArrayToGenericList(zone.get("nodes"));
 		}
 
 		@Override
@@ -297,8 +295,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 				rea.storeForLater(new TreexRelationDependentEntity(nodeParam, "a/lex.rf"));
 			else {
 				
-				@SuppressWarnings("unchecked")
-				List<String> arf = (List<String>) nodeParam.get("a.rf");
+				List<String> arf = Utils.objectArrayToGenericList(nodeParam.get("a.rf"));
 				
 				if (arf != null && arf.size() > 0) { 
 					//arf n-nodes
