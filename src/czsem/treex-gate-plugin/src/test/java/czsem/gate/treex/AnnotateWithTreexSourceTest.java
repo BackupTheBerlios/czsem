@@ -3,43 +3,16 @@ package czsem.gate.treex;
 import gate.Document;
 import gate.Factory;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import org.apache.xmlrpc.XmlRpcException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
 import czsem.gate.GateUtils;
-import czsem.gate.externalannotator.Annotator;
 
 public class AnnotateWithTreexSourceTest {
 	
-	static Document annotate(
-			List<Map<String,Object>> zones,
-			Map<String,Map<String, Object>> nodeMap,
-			Set<String> exclude_attrs,
-			String text,
-			Set<String> listAttrs,
-			Set<String> idAttrs) throws Exception {
-		
-		
-		Document doc = Factory.newDocument(text);
-		
-		Annotator annotator = new Annotator();
-//		listAttrs.remove("a.rf");
-		idAttrs.remove("id");
-		idAttrs.remove("parent_id");
-//		idAttrs.remove("a/lex.rf");
-		annotator.annotate(new TeexAnnotationSource(zones, nodeMap, exclude_attrs, listAttrs, idAttrs), doc, "treex");
-		
-		return doc;
-	}
 
 	void annotateUsingTeexReturnTest(Object treex_ret, URL gateXmlUrl) throws Exception
 	{
@@ -50,14 +23,11 @@ public class AnnotateWithTreexSourceTest {
 
 		
 		String text = doc.getContent().toString();
-		Document retDoc = annotate(
-				tra.getZones(), 
-				tra.getNodeMap(), 
-				tra.getExcludeAttributes(), 
-				text, 
-				tra.getListAttributes(), 
-				tra.getIdAttributes());
-		
+
+		Document retDoc = Factory.newDocument(text);
+
+		tra.annotate(retDoc, "treex");
+
 		assertDocumentsAreSame(retDoc, doc);
 		
 	}

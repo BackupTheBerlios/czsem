@@ -8,13 +8,27 @@ extends 'Treex::Block::Read::BaseReader';
 
 has '+from' => ( default => '' );
 
+has language      => ( isa => 'Treex::Type::LangCode', is => 'ro', required => 1 );
+
+
 
 our $dataQueue = new Thread::Queue; 
     
 sub next_document {
-  my $dataElement = $dataQueue->dequeue;
+  my ($self) = @_;
+   
+  my $docParams = $dataQueue->dequeue;
   
-  return $dataElement;
+  return if !defined $docParams;
+  
+  my $doc = $docParams->{doc}; 
+  my $text = $docParams->{text}; 
+
+  my $zone = $doc->create_zone($self->language, $self->selector);
+  $zone->set_text($text); 	
+
+  
+  return $doc;
 }
 
 1;

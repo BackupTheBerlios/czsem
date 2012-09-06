@@ -24,22 +24,37 @@ my $port_number = 9090;
 my $isReady = 0;
 my $scenario = undef;
 
+my @scenarioSetup = (
+  'Util::SetGlobal language=cs',
+  'CzsemRpcReader',
+  'W2A::CS::Segment',
+  'devel\analysis\cs\s_w2t.scen');
+
+
 sub startServer
 {
   my $srv = RPC::XML::Server->new(port => $port_number); #server object
   
   $srv->add_method(
    {
-    "name"      => "treex.analyzeDoc", # calling this function will throw fault aka exception
-    "signature" => ['array string string'], #what are the return type and call parameters beware of the spaces!
-    "code"      => \&analyzeDocSrv
+    "name"      => "treex.initScenario", 
+    "signature" => ['string string array'], 
+    "code"      => \&initScenarioSrv
    }
   );
 
   $srv->add_method(
    {
-    "name"      => "treex.encodeDoc", # calling this function will throw fault aka exception
-    "signature" => ['array string'], #what are the return type and call parameters beware of the spaces!
+    "name"      => "treex.analyzeText", 
+    "signature" => ['array string'], 
+    "code"      => \&analyzeTextSrv
+   }
+  );
+
+  $srv->add_method(
+   {
+    "name"      => "treex.encodeDoc", 
+    "signature" => ['array string'], 
     "code"      => \&encodeDocSrv
    }
   );
@@ -71,26 +86,24 @@ sub terminate
 
 sub initScenario
 {
-  $scenario = Treex::Core::Scenario->new(from_string => 'Util::SetGlobal language=cs CzsemRpcReader W2A::CS::Segment devel\analysis\cs\s_w2t.scen');
+  my $lang = shift;
+  my $blocks = shift;
+  my $scenStr = "Util::SetGlobal language=$lang CzsemRpcReader " . join(' ', @$blocks);  
+  $scenario = Treex::Core::Scenario->new(from_string => $scenStr);
 }
 
 
-sub analyzeDoc
+sub analyzeText
 {
-  debugPrint  "--analyzeDoc--\n";
-
-  my $lang = shift;
   my $text = shift;
   my $doc = Treex::Core::Document->new;
   
-  debugPrint  "--analyzeDoc set text in--\n";
-  my $zone = $doc->create_zone($lang);
-  debugPrint  "--analyzeDoc set text out--\n";
-
-  $zone->set_text($text); 	
- 
-	
-	$Treex::Block::CzsemRpcReader::dataQueue->enqueue($doc);  
+  my $docParams = {
+     doc => $doc,
+     text => $text
+  };
+ 	
+	$Treex::Block::CzsemRpcReader::dataQueue->enqueue($docParams);  
   $Treex::Block::CzsemRpcReader::dataQueue->enqueue(undef);  
   $scenario->run;
   
@@ -153,8 +166,7 @@ sub encodeDoc
 
 sub encodeLoadedDoc
 {
-  my $doc = shift;
-  
+  my $doc = shift;  
   my $zones = [];
 
   foreach my $bundle ( $doc->get_bundles ) {
@@ -195,33 +207,27 @@ sub encodeLoadedDoc
 }
 
 
-sub analyzeDocSrv
+sub analyzeTextSrv
 {
-  shift; #server context
-  my $lang = shift;
-  my $text = shift;
-     
-  return analyzeDoc($lang, $text); 
+  shift; #server context    
+  return analyzeText(@_); 
 }
 
 sub encodeDocSrv
 {
   shift; #server context
-  my $file = shift; 
-  return encodeDoc($file);
+  return encodeDoc(@_);
+}
+
+sub initScenarioSrv
+{
+  shift; #server context
+  return initScenario(@_);
 }
 
  
-initScenario;
-
-#analyzeDoc;
+#initScenario(@scenarioSetup);
 
 startServer;
-
-#encodeDoc('C:\workspace\demo.treex');
-
-debugPrint  "treex online end\n";
-
-exit;
 
 

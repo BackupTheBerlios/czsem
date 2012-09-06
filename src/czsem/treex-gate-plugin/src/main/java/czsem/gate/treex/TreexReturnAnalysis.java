@@ -1,11 +1,16 @@
 package czsem.gate.treex;
 
+import gate.Document;
+import gate.util.InvalidOffsetException;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
+
+import czsem.gate.externalannotator.Annotator;
 
 public class TreexReturnAnalysis {
 
@@ -100,5 +105,23 @@ public class TreexReturnAnalysis {
 		
 	}
 
-
+	public void annotate(Document doc, String asName) throws InvalidOffsetException {
+				
+		Set<String> idAttrs = getIdAttributes(); 
+		Set<String> listAttrs = getListAttributes(); 
+//		listAttrs.remove("a.rf");
+		idAttrs.remove("id");
+		idAttrs.remove("parent_id");
+//		idAttrs.remove("a/lex.rf");
+		
+		
+		Annotator annotator = new Annotator();
+		annotator.annotate(
+				new TeexAnnotationSource(
+						getZones(),
+						getNodeMap(),
+						getExcludeAttributes(),
+						listAttrs, idAttrs),
+				doc, asName);			
+	}
 }

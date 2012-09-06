@@ -35,8 +35,20 @@ public class TreexServerExecution {
 		tmt_proc.startStdoutReaderThreads();		
 	}
 
-	public TreexServerConnection getConnection() throws MalformedURLException {
-		return new TreexServerConnection("localhost", portNumber);
+	public TreexServerConnection getConnection() {
+		try {
+			return new TreexServerConnection("localhost", getPortNumber());
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void setPortNumber(int portNumber) {
+		this.portNumber = portNumber;
+	}
+
+	public int getPortNumber() {
+		return portNumber;
 	}
 
 }
