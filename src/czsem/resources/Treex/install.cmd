@@ -1,0 +1,1 @@
+cpan Net::Address::IP::Local RPC::XML RPC::XML::Server Sys::Hostname Treex::Block::CzsemRpcReader Treex::Core Treex::Core::Log strict warnings
