@@ -11,7 +11,7 @@ use Sys::Hostname;
 use Treex::Core::Log;
 
 sub debugPrint {
-#  print STDERR @_;
+  print STDERR @_;
 }
 
 debugPrint "treex online start\n";
@@ -111,7 +111,7 @@ sub analyzeText
   $scenario->run;
   
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
- 	#$doc->save('C:\workspace\demo_cz.treex');
+  $doc->save('demo_cz.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   return encodeLoadedDoc($doc);
@@ -121,6 +121,7 @@ sub analyzeText
 sub processNode
 {
   my $node  = shift;
+  my $schema = shift;
   my $ret = {};
   
   if ($node->parent) {
@@ -133,8 +134,17 @@ sub processNode
   debugPrint  $node->get_pml_type_name . "\n";
   $ret->{"pml_type_name"} = $node->get_pml_type_name; 
 
+
+
+  #debugPrint $schema->get_type_names;
+  my $nodeType = $schema->get_type_by_name($node->get_pml_type_name);
+  debugPrint $nodeType . "\n";
+  my $nodePaths = $schema->get_paths_to_atoms([$nodeType]);
+  debugPrint  "nodePaths: $nodePaths\n";
+
   
-  foreach my $path ( $node->attribute_paths ) {
+#  foreach my $path ( $node->attribute_paths ) {
+  foreach my $path ( $schema->get_paths_to_atoms([$nodeType]) ) {
     my $value = $node->attr($path);
     my $valueAll = $node->all($path);
     
@@ -172,6 +182,8 @@ sub encodeLoadedDoc
   my $doc = shift;  
   my $zones = [];
 
+  debugPrint  "-------------encodeLoadedDoc-$doc---------\n";      
+ 
   foreach my $bundle ( $doc->get_bundles ) {
     foreach my $bundlezone ( $bundle->get_all_zones ) {
       my $nodes = [];
@@ -188,11 +200,11 @@ sub encodeLoadedDoc
         debugPrint  "--root--\n";
         debugPrint  $root->id;
         debugPrint  "\n";
-        push(@$roots, processNode($root));          
+        push(@$roots, processNode($root, $root->type->schema));          
         foreach my $node ( $root->get_descendants({}) ) {
           debugPrint  "----node------\n";
           
-          push(@$nodes, processNode($node));          
+          push(@$nodes, processNode($node, $root->type->schema));          
         }
       }
       my $zone = {         

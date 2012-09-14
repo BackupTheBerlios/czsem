@@ -1,0 +1,53 @@
+package czsem.gate.plugins;
+
+import gate.Corpus;
+import gate.Document;
+import gate.Factory;
+import gate.Gate;
+import gate.creole.SerialAnalyserController;
+
+import java.net.URL;
+import java.util.Arrays;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import czsem.gate.GateUtils;
+import czsem.gate.learning.PRSetup;
+import czsem.gate.learning.PRSetup.SinglePRSetup;
+
+public class TreexRemoteAnalyserTest {
+
+	@Test
+	public void englishSimpleTest() throws Exception {
+    	GateUtils.initGateInSandBox();
+    
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexRemoteAnalyser.class)
+	    			.putFeature("treexServerUrl", new URL("http://192.168.167.12:9090"))
+	    			.putFeature("resetServerScenario", true)
+	    			.putFeature("terminateServerOnCleanup", true)
+	    			.putFeatureList("scenarioSetup", 
+	    					"W2A::EN::Segment",
+	    					"W2A::EN::Tokenize")//,
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		Corpus corpus = Factory.newCorpus("englishSimpleTest");
+		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
+		corpus.add(doc);
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		
+		int annsNum = doc.getAnnotations().size();
+		
+		GateUtils.deleteAllPublicGateResources();
+
+		Assert.assertEquals(annsNum, 13);
+	}
+}
