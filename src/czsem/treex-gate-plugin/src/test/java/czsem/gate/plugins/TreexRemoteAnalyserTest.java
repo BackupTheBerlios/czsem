@@ -18,7 +18,7 @@ import czsem.gate.learning.PRSetup.SinglePRSetup;
 
 public class TreexRemoteAnalyserTest {
 
-	@Test
+	@Test(groups = { "treexRemote" })
 	public void englishSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();
     
