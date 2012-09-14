@@ -11,7 +11,7 @@ use Sys::Hostname;
 use Treex::Core::Log;
 
 sub debugPrint {
-  print STDERR @_;
+#  print STDERR @_;
 }
 
 debugPrint "treex online start\n";
@@ -111,7 +111,7 @@ sub analyzeText
   $scenario->run;
   
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  $doc->save('demo_cz.treex');
+  #$doc->save('demo_cz.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   return encodeLoadedDoc($doc);
