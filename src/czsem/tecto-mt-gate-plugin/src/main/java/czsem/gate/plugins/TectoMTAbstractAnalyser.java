@@ -95,7 +95,7 @@ public class TectoMTAbstractAnalyser extends AbstractLanguageAnalyserWithInputOu
 	}
 
 	
-	protected String [] getTredEnvp() throws URISyntaxException, IOException, InterruptedException
+	protected static String [] getTredEnvp() throws URISyntaxException, IOException, InterruptedException
 	{
 		Config cfg = Config.getConfig();
 		String path_sep = System.getProperty( "path.separator" );
