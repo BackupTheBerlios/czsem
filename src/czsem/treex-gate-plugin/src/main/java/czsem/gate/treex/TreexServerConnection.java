@@ -61,4 +61,9 @@ public class TreexServerConnection {
 		return ret;
 	}
 
+	public String handshake() throws XmlRpcException {
+		Object ret = rpcClient.execute("treex.handshake", new Object[0]);
+		return (String) ret;
+	}
+
 }

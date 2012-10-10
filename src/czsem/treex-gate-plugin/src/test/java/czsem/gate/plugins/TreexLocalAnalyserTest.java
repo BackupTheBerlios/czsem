@@ -1,13 +1,12 @@
 package czsem.gate.plugins;
 
-import java.util.Arrays;
-import java.util.List;
-
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
+
+import java.util.Arrays;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -29,7 +28,8 @@ public class TreexLocalAnalyserTest {
 	    
 	    PRSetup[] prs= {
 	    		new SinglePRSetup(TreexLocalAnalyser.class)
-	    			.putFeatureList("scenarioSetup", 
+	    		.putFeature("serverPortNumber", 9999)	
+	    		.putFeatureList("scenarioSetup", 
 	    					"W2A::EN::Segment",
 	    					"W2A::EN::Tokenize")//,
 	    };
