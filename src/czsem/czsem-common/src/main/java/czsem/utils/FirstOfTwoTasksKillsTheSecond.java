@@ -1,9 +1,17 @@
 package czsem.utils;
 
 
-public class FirstOfTwoTasksTerminatesTheSecond<ReturnType>
+public class FirstOfTwoTasksKillsTheSecond<ReturnType>
 {
-	public interface Task<ReturnType>
+	public static enum HandShakeResult
+	{
+		HandShakeOK,
+		HandShakeKO,
+		ProcessTrminated,
+		TimeOut
+	}
+
+	public static interface Task<ReturnType>
 	{
 		ReturnType run() throws Exception;
 	}
@@ -15,7 +23,7 @@ public class FirstOfTwoTasksTerminatesTheSecond<ReturnType>
 	protected ReturnType ret = null;
 	protected Exception exception = null;
 	
-	public FirstOfTwoTasksTerminatesTheSecond(Task<ReturnType> task1, Task<ReturnType> task2)
+	public FirstOfTwoTasksKillsTheSecond(Task<ReturnType> task1, Task<ReturnType> task2)
 	{
 		this.tasks[0] = task1; 
 		this.tasks[1] = task2; 
@@ -102,7 +110,7 @@ public class FirstOfTwoTasksTerminatesTheSecond<ReturnType>
 			}
 		};
 		
-		FirstOfTwoTasksTerminatesTheSecond<Integer> tt = new FirstOfTwoTasksTerminatesTheSecond<Integer>(task1, task2); 
+		FirstOfTwoTasksKillsTheSecond<Integer> tt = new FirstOfTwoTasksKillsTheSecond<Integer>(task1, task2); 
 		System.err.println(
 				tt.executeWithTimeout(500));
 

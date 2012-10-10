@@ -25,9 +25,10 @@ import org.apache.xmlrpc.XmlRpcException;
 import czsem.Utils;
 import czsem.gate.tectomt.TMTDocumentHelper;
 import czsem.gate.utils.Config;
+import czsem.utils.FirstOfTwoTasksKillsTheSecond.HandShakeResult;
 import czsem.utils.ProcessExec;
-import czsem.utils.FirstOfTwoTasksTerminatesTheSecond;
-import czsem.utils.FirstOfTwoTasksTerminatesTheSecond.Task;
+import czsem.utils.FirstOfTwoTasksKillsTheSecond;
+import czsem.utils.FirstOfTwoTasksKillsTheSecond.Task;
 
 @CreoleResource(name = "czsem TectoMTOnlineAnalyser", comment = "Alyses givem corpus by TMT tools")
 public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
@@ -103,14 +104,6 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 	}
 
 		
-	public enum HandShakeResult
-	{
-		HandShakeOK,
-		HandShakeKO,
-		ProcessTrminated,
-		TimeOut
-	}
-	
 	protected void doHandShake() throws Exception
 	{
 		
@@ -131,8 +124,8 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 			}
 		};
 		
-		FirstOfTwoTasksTerminatesTheSecond<HandShakeResult> tt
-			= new FirstOfTwoTasksTerminatesTheSecond<HandShakeResult>(
+		FirstOfTwoTasksKillsTheSecond<HandShakeResult> tt
+			= new FirstOfTwoTasksKillsTheSecond<HandShakeResult>(
 					taskHandShake, taskWaitProc);  
 
 		HandShakeResult result = tt.executeWithTimeout(1000 * getServerTimeOut());

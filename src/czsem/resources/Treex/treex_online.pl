@@ -20,8 +20,15 @@ debugPrint "treex online start\n";
 Treex::Core::Log::log_set_error_level('INFO');
 
 
-my $port_number = 9090;
-my $isReady = 0;
+my $port_number = shift(@ARGV);
+my $handshake_hash = shift(@ARGV);
+
+$port_number = 9090 unless defined $port_number;
+$handshake_hash = '#default' unless defined $handshake_hash;
+
+
+
+
 my $scenario = undef;
 
 my @scenarioSetup = (
@@ -38,6 +45,15 @@ sub startServer
 {
   my $srv = RPC::XML::Server->new(port => $port_number); #server object
   
+  $srv->add_method(
+   {
+    "name"      => "treex.handshake", 
+    "signature" => ['string'], 
+    "code"      => \&handshake
+   }
+  );
+
+
   $srv->add_method(
    {
     "name"      => "treex.initScenario", 
@@ -64,7 +80,7 @@ sub startServer
   
   $srv->add_method(
    {
-    "name"      => "treex.terminate", # calling this function will throw fault aka exception
+    "name"      => "treex.terminate", 
     "signature" => ['string'], #what are the return type and call parameters beware of the spaces!
     "code"      => \&terminate
    }
@@ -72,14 +88,15 @@ sub startServer
   
   my $host = hostname;  
   print "Starting Treex RPC server at http://$host:$port_number ( http://" . Net::Address::IP::Local->public . ":$port_number )\n";
+  print "Handshake hash: $handshake_hash\n";
   
   $srv->server_loop; # Just work
 }
 
 
-sub isReady
+sub handshake
 {
-   return eval $isReady;
+   return $handshake_hash;
 }
 
 sub terminate
