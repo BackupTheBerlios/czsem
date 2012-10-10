@@ -182,15 +182,8 @@ public class ProcessExec {
 		error_reader = new BufferedReader(new InputStreamReader(process.getErrorStream()));		
 	}
 
-	public static interface ProcessSetup
+	public void execWithProcessBuilder(ProcessBuilder pb) throws IOException
 	{
-		void processSetup(ProcessBuilder pb);		
-	}
-	
-	public void execWithProcessBuilder(ProcessSetup setup, String ... command) throws IOException
-	{
-		ProcessBuilder pb = new ProcessBuilder(command);
-		setup.processSetup(pb);
 		process = pb.start();
 		initBuffers();
 	}

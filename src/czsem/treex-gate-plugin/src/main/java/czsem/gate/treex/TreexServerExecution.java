@@ -10,6 +10,7 @@ import java.util.Random;
 import org.apache.xmlrpc.XmlRpcException;
 
 import czsem.gate.utils.Config;
+import czsem.utils.EnvMapHelper;
 import czsem.utils.FirstOfTwoTasksKillsTheSecond;
 import czsem.utils.FirstOfTwoTasksKillsTheSecond.HandShakeResult;
 import czsem.utils.FirstOfTwoTasksKillsTheSecond.Task;
@@ -107,7 +108,7 @@ public class TreexServerExecution {
 				cfg.getCzsemResourcesDir()+"/Treex/treex_online.pl",
 				Integer.toString(getPortNumber()),
 				handshake_code};
-		
+/*		
 		String[] env = {
 				"PERL5LIB="+cfg.getCzsemResourcesDir()+"/Treex" + path_sep +
 				cfg.getTreexDir() + "/lib" + path_sep +
@@ -116,11 +117,24 @@ public class TreexServerExecution {
 				"Path="+System.getenv("Path"),
 				"TMT_ROOT="+cfg.getTmtRoot(),
 				"JAVA_HOME="+System.getProperty("java.home"),};
+*/				
 //				Map<String, String> env2 = System.getenv();
 		
-		ProcessExec tmt_proc = new ProcessExec();
 //		String[] env3 = getTredEnvp();
-		tmt_proc.exec(cmdarray, env, new File(cfg.getTreexDir()));
+		
+		
+		ProcessBuilder pb = new ProcessBuilder(cmdarray);
+		pb.directory(new File(cfg.getTreexDir()));
+		EnvMapHelper eh = new EnvMapHelper(pb.environment());
+		eh.append("PERL5LIB", path_sep + cfg.getCzsemResourcesDir()+"/Treex"); 
+		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/lib"); 
+		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/oldlib");
+		eh.setIfEmpty("TMT_ROOT", cfg.getTmtRoot());
+		eh.setIfEmpty("JAVA_HOME", System.getProperty("java.home"));
+
+		ProcessExec tmt_proc = new ProcessExec();
+		//tmt_proc.exec(cmdarray, env, new File(cfg.getTreexDir()));
+		tmt_proc.execWithProcessBuilder(pb);
 		
 		//tmt_proc.startStdoutReaderThreads();
 		tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
