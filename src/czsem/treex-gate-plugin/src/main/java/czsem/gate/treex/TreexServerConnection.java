@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Vector;
 
 import org.apache.log4j.Logger;
@@ -64,6 +65,15 @@ public class TreexServerConnection {
 	public String handshake() throws XmlRpcException {
 		Object ret = rpcClient.execute("treex.handshake", new Object[0]);
 		return (String) ret;
+	}
+
+	public Object analyzePreprocessedDoc(String docText, Map<String, Object>[] inputDocData) throws XmlRpcException {
+		Vector<Object> params = new Vector<Object>(2);
+		params.add(docText);
+		params.add(inputDocData);
+		Object ret = rpcClient.execute("treex.analyzePreprocessedDoc", params);
+
+		return ret;		
 	}
 
 }

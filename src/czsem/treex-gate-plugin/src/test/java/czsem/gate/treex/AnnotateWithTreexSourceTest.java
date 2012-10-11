@@ -20,7 +20,7 @@ import czsem.gate.GateUtils;
 public class AnnotateWithTreexSourceTest {
 	
 
-	void compareSentencesAndZones(Document doc, Object treex_ret) throws InvalidOffsetException
+	static void compareSentencesAndZones(Document doc, Object treex_ret) throws InvalidOffsetException
 	{
 		List<Map<String, Object>> zones = Utils.objectArrayToGenericList(treex_ret);
 		AnnotationSet sents = doc.getAnnotations("treex").get("Sentence");
@@ -34,7 +34,13 @@ public class AnnotateWithTreexSourceTest {
 		}
 	}
 	
-	void annotateUsingTeexReturnTest(Object treex_ret, URL gateXmlUrl) throws Exception
+
+	public static void annotateUsingTeexReturnTest(Object treex_ret, URL gateXmlUrl) throws Exception
+	{
+		assertDocumentsAreSame(annotateUsingTeexReturn(treex_ret, gateXmlUrl), Factory.newDocument(gateXmlUrl, "utf8"));		
+	}
+
+	public static Document annotateUsingTeexReturn(Object treex_ret, URL gateXmlUrl) throws Exception
 	{
 		TreexReturnAnalysis tra = new TreexReturnAnalysis(treex_ret);
 		
@@ -49,9 +55,8 @@ public class AnnotateWithTreexSourceTest {
 		Document retDoc = Factory.newDocument(text);
 
 		tra.annotate(retDoc, "treex");
-
-		assertDocumentsAreSame(retDoc, doc);
 		
+		return retDoc;
 	}
 	
 	public static void assertDocumentsAreSame(Document actual, Document expected) {
@@ -61,12 +66,12 @@ public class AnnotateWithTreexSourceTest {
 
 		Assert.assertEquals(actual.getContent().toString(), expected.getContent().toString());
 
-		Assert.assertEquals(asAct.get("Sentence"), asExpect.get("Sentence"));
 
 		Assert.assertEquals(asAct.getAllTypes(), asExpect.getAllTypes());
 
 		Assert.assertEquals(asAct.size(), asExpect.size());
 		
+		Assert.assertEquals(asAct.get("Sentence"), asExpect.get("Sentence"));
 		
 				
 	}

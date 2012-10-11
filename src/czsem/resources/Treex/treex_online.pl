@@ -11,7 +11,7 @@ use Sys::Hostname;
 use Treex::Core::Log;
 
 sub debugPrint {
-#  print STDERR @_;
+  print STDERR @_;
 }
 
 debugPrint "treex online start\n";
@@ -72,6 +72,14 @@ sub startServer
 
   $srv->add_method(
    {
+    "name"      => "treex.analyzePreprocessedDoc", 
+    "signature" => ['array string array'], 
+    "code"      => \&analyzePreprocessedDocSrv
+   }
+  );
+
+  $srv->add_method(
+   {
     "name"      => "treex.encodeDoc", 
     "signature" => ['array string'], 
     "code"      => \&encodeDocSrv
@@ -115,23 +123,7 @@ sub initScenario
 
 sub analyzeText
 {
-  my $text = shift;
-  my $doc = Treex::Core::Document->new;
-  
-  my $docParams = {
-     doc => $doc,
-     text => $text
-  };
- 	
-	$Treex::Block::CzsemRpcReader::dataQueue->enqueue($docParams);  
-  $Treex::Block::CzsemRpcReader::dataQueue->enqueue(undef);  
-  $scenario->run;
-  
-  # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  #$doc->save('demo_cz.treex');
-  # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  
-  return encodeLoadedDoc($doc);
+  return analyzePreprocessedDoc(shift, []);
 }
 
 
@@ -238,6 +230,51 @@ sub encodeLoadedDoc
   return $zones;
 }
 
+sub debugPrintPreprocessedDoc 
+{
+  my $zones = shift;
+
+  foreach my $zone ( @$zones ) {
+    debugPrint  "--- ZONE ---\n";
+    debugPrint  $zone->{'sentence'};
+    debugPrint  "\n";
+    
+    my $tocs = $zone->{'tokens'};  
+    foreach my $toc ( @$tocs ) {
+      debugPrint $toc->{'lemma'};    
+      debugPrint " ";    
+    }
+    debugPrint  "\n";
+  }
+}
+
+sub analyzePreprocessedDoc
+{
+  my $text = shift;
+  my $zones = shift;
+  
+  debugPrintPreprocessedDoc($zones);
+  
+  
+  my $doc = Treex::Core::Document->new;
+  
+  my $docParams = {
+     doc => $doc,
+     text => $text,
+     zones => $zones 
+  };
+ 	
+	$Treex::Block::CzsemRpcReader::dataQueue->enqueue($docParams);  
+  $Treex::Block::CzsemRpcReader::dataQueue->enqueue(undef);  
+  $scenario->run;
+  
+  # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  #$doc->save('demo_cz.treex');
+  # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  
+  return encodeLoadedDoc($doc);
+}
+
 
 sub analyzeTextSrv
 {
@@ -255,6 +292,12 @@ sub initScenarioSrv
 {
   shift; #server context
   return initScenario(@_);
+}
+
+sub analyzePreprocessedDocSrv
+{
+  shift; #server context    
+  return analyzePreprocessedDoc(@_); 
 }
 
  
