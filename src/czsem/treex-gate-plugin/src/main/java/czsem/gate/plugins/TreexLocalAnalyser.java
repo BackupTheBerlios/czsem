@@ -7,7 +7,6 @@ import gate.creole.metadata.CreoleResource;
 
 import java.util.List;
 
-import czsem.Utils;
 import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
 
@@ -27,11 +26,6 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 	@Override
 	public Resource init() throws ResourceInstantiationException {
-		if (! Utils.portAvailable(getServerPortNumber()))
-		{
-			throw new ResourceInstantiationException("Filed to start TectoMT server, port nuber: "+getServerPortNumber()+" is not available.");						
-		}
-
 		TreexServerExecution exec = new TreexServerExecution();
 		exec.setPortNumber(getServerPortNumber());
 		

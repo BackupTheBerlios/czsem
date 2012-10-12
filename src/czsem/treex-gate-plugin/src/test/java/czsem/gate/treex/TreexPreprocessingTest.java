@@ -1,7 +1,6 @@
 package czsem.gate.treex;
 
 import gate.Annotation;
-import gate.AnnotationSet;
 import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
@@ -22,6 +21,7 @@ public class TreexPreprocessingTest {
 	public TreexPreprocessingTest() throws Exception
 	{
 		TreexServerExecution tse = new TreexServerExecution();
+		tse.setPortNumber(9097);
 		tse.start();
 
 		tsConn = tse.getConnection();
@@ -91,9 +91,12 @@ public class TreexPreprocessingTest {
 	}
 
 	public static void compareFeatures(FeatureMap aFM, FeatureMap eFM) {
+		Assert.assertEquals(aFM, eFM);
+		/*
 		System.err.println(aFM);
 		System.err.println(eFM);
 		System.err.println();
+		*/
 	}
 
 

@@ -108,12 +108,13 @@ public class TreexReturnAnalysis {
 	}
 
 	public void annotate(Document doc, String asName) throws InvalidOffsetException {
-				
-		Set<String> idAttrs = getIdAttributes(); 
+										//Make a copy! Don't modify original ones!
+		Set<String> idDependencyAttrs = new HashSet<String>(getIdAttributes()); 
+		
 		Set<String> listAttrs = getListAttributes(); 
 //		listAttrs.remove("a.rf");
-		idAttrs.remove("id");
-		idAttrs.remove("parent_id");
+		idDependencyAttrs.remove("id");
+		idDependencyAttrs.remove("parent_id");
 //		idAttrs.remove("a/lex.rf");
 		
 		
@@ -123,7 +124,7 @@ public class TreexReturnAnalysis {
 						getZones(),
 						getNodeMap(),
 						getExcludeAttributes(),
-						listAttrs, idAttrs),
+						listAttrs, idDependencyAttrs),
 				doc, asName);			
 	}
 }

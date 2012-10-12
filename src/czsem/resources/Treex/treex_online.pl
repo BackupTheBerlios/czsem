@@ -11,7 +11,7 @@ use Sys::Hostname;
 use Treex::Core::Log;
 
 sub debugPrint {
-  print STDERR @_;
+#  print STDERR @_;
 }
 
 debugPrint "treex online start\n";

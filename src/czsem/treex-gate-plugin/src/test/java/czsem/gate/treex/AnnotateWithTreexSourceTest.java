@@ -42,7 +42,6 @@ public class AnnotateWithTreexSourceTest {
 
 	public static Document annotateUsingTeexReturn(Object treex_ret, URL gateXmlUrl) throws Exception
 	{
-		TreexReturnAnalysis tra = new TreexReturnAnalysis(treex_ret);
 		
 		GateUtils.initGateInSandBox();
 		Document doc = Factory.newDocument(gateXmlUrl, "utf8");
@@ -54,6 +53,7 @@ public class AnnotateWithTreexSourceTest {
 
 		Document retDoc = Factory.newDocument(text);
 
+		TreexReturnAnalysis tra = new TreexReturnAnalysis(treex_ret);
 		tra.annotate(retDoc, "treex");
 		
 		return retDoc;

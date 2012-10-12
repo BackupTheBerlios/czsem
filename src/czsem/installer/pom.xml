@@ -111,6 +111,12 @@
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
+			<artifactId>treex-gate-plugin</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>czsem</groupId>
 			<artifactId>netgraph-tree-viewer</artifactId>
 			<version>2.1-SNAPSHOT</version>
 			<scope>compile</scope>

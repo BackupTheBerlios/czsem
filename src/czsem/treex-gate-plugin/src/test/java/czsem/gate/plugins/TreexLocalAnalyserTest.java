@@ -40,6 +40,7 @@ public class TreexLocalAnalyserTest {
 		corpus.add(doc);
 		analysis.setCorpus(corpus);
 		analysis.execute();
+		analysis.cleanup();
 		
 		Assert.assertEquals(doc.getAnnotations().size(), 13);
 		
@@ -71,6 +72,8 @@ public class TreexLocalAnalyserTest {
 		corpus.add(doc);
 		analysis.setCorpus(corpus);
 		analysis.execute();
+		
+		analysis.cleanup();
 		
 		Assert.assertEquals(doc.getAnnotations().size(), 11);
 		

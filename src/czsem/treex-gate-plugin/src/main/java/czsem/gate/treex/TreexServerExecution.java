@@ -9,6 +9,7 @@ import java.util.Random;
 
 import org.apache.xmlrpc.XmlRpcException;
 
+import czsem.Utils;
 import czsem.gate.utils.Config;
 import czsem.utils.EnvMapHelper;
 import czsem.utils.FirstOfTwoTasksKillsTheSecond;
@@ -24,6 +25,7 @@ public class TreexServerExecution {
 		protected ProcessExec process;
 		protected TreexServerConnection connection;
 		protected String handshake_code;
+		protected String handshake_return = null;
 
 		public TreexHandShake(ProcessExec process, TreexServerConnection connection, String handshake_code) {
 			this.process = process;
@@ -35,9 +37,9 @@ public class TreexServerExecution {
 			for (long sleep = 1 ;; sleep *= 2) {
 				try {
 					
-					String retCode = connection.handshake();
+					handshake_return = connection.handshake();
 //					System.err.println(sleep);
-					return handshake_code.equals(retCode);
+					return handshake_code.equals(handshake_return);
 					
 				} catch (XmlRpcException e) {
 					
@@ -82,7 +84,12 @@ public class TreexServerExecution {
 				
 				switch (result) {
 				case HandShakeKO:
-					throw new ResourceInstantiationException("Handshake with Treex server failed (Another server already running on the same port?), see also '"+logPath);			
+					throw new ResourceInstantiationException(
+							String.format("Handshake with Treex server failed!\n" +
+									"Another server already running on the same port?\n" +
+									"Expected hash: '%s'\n" +
+									"Returned hash: '%s'\n" +
+									"See also '"+logPath, handshake_code, handshake_return));			
 				case ProcessTrminated:
 					throw new ResourceInstantiationException("Error during run of Treex server, see '"+logPath);			
 				case TimeOut:
@@ -97,6 +104,11 @@ public class TreexServerExecution {
 	private int portNumber = 9090;
 
 	public void start() throws Exception {
+		if (! Utils.portAvailable(getPortNumber()))
+		{
+			throw new ResourceInstantiationException("Filed to start Treex server, port nuber: "+getPortNumber()+" is not available.");						
+		}
+		
 		String path_sep = System.getProperty( "path.separator" );
 		
 		Config cfg = Config.getConfig();
