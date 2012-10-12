@@ -175,15 +175,6 @@ public class Config extends czsem.utils.Config
 	}
 
 
-	public void setGateHome(String gateHome) {
-		set("gateHome", gateHome);
-	}
-
-
-	public String getGateHome() {
-		return get("gateHome");
-	}
-
 	public void setGateHome()
 	{
 		if (Gate.getGateHome() == null)

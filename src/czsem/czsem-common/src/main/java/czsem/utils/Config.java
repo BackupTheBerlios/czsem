@@ -70,5 +70,12 @@ public class Config extends AbstractConfig {
 		return get("czsemResourcesDir");
 	}
 
+	public void setGateHome(String gateHome) {
+		set("gateHome", gateHome);
+	}
+
+	public String getGateHome() {
+		return get("gateHome");
+	}
 
 }
