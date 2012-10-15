@@ -13,6 +13,7 @@
 	<properties>
 		<project.build.finalName>${project.groupId}-${project.artifactId}</project.build.finalName>
 		<staging.dir>${project.build.directory}/staging</staging.dir>
+		<izpack.standalone-compiler.version>4.3.5</izpack.standalone-compiler.version>
 	</properties>
 
 
@@ -74,7 +75,7 @@
 					<dependency>
 						<groupId>org.codehaus.izpack</groupId>
 						<artifactId>izpack-standalone-compiler</artifactId>
-						<version>4.3.5</version>
+						<version>${izpack.standalone-compiler.version}</version>
 					</dependency>
 				</dependencies>
 			</plugin>
@@ -82,6 +83,12 @@
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.codehaus.izpack</groupId>
+			<artifactId>izpack-standalone-compiler</artifactId>
+			<version>${izpack.standalone-compiler.version}</version>
+		</dependency>
+
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>czsem-common</artifactId>

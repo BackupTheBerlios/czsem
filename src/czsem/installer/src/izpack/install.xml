@@ -33,10 +33,17 @@
     	<res id="Heading.image" src="logo_czsem.png"/>
         <res id="userInputSpec.xml" src="install_userInputSpec.xml" />
         <res id="ProcessPanel.Spec.xml" src="ProcessPanel.Spec.xml" />
+        <res id="shortcutSpec.xml" src="install_shortcutSpec.xml"/>
+        <res id="Unix_shortcutSpec.xml" src="install_Unix_shortcutSpec.xml"/>        
     </resources>
+	<native type="izpack" name="ShellLink.dll"/>
+	<native type="izpack" name="ShellLink_x64.dll"/>    
 	<conditions>
 		<condition type="packselection" id="gate.pack.selected">
 			<packid>gate</packid>
+		</condition>
+		<condition type="packselection" id="treex.pack.selected">
+			<packid>treex</packid>
 		</condition>
 		<condition type="packselection" id="tmt.pack.selected">
 			<packid>tmt</packid>
@@ -55,6 +62,7 @@
 		<panel classname="TreePacksPanel" />
 
 		<panel classname="UserInputPanel" id="GATE_userinput" condition="gate.pack.selected" />
+		<panel classname="UserInputPanel" id="Treex_userinput" condition="treex.pack.selected" />
 		<panel classname="UserInputPanel" id="TMT_userinput" condition="tmt.pack.selected" />
 		<panel classname="UserInputPanel" id="ILP_userinput" condition="ilp.pack.selected" />
 		<panel classname="UserInputPanel" id="WEKA_userinput" condition="weka.pack.selected" />
@@ -70,8 +78,8 @@
 		<pack name="czsem-common" preselected="yes" required="yes">
 			<description>Common binaries</description>
 			<file src="../../../czsem-common/target/czsem-common-${dependency.czsem.czsem-common.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
-			<file src="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue"/>
-			<file src="configuration" targetdir="$INSTALL_PATH/configuration" />
+			<file src="../../../resources" targetdir="$INSTALL_PATH" override="asktrue"/>
+			<file src="configuration" targetdir="$INSTALL_PATH" />
 			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
 		</pack>
 		<pack name="GATE Plugins" required="no">
@@ -97,7 +105,6 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			<description />
 			<depends packname="czsem-gate-plugin" />
 			<depends packname="Gate integration" />
-			<depends packname="Select TectoMT location" />
 			<file src="../../../tecto-mt-gate-plugin/target/tecto-mt-gate-plugin-${dependency.czsem.tecto-mt-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
 		<pack name="treex-gate-plugin" preselected="yes" required="no" parent="Treex Integration">
@@ -118,7 +125,7 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			<depends packname="Weka integration" />			
 			<file src="../../../fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
-		<pack name="Gate Integration" required="no" preselected="yes" id="gate">
+		<pack name="Gate integration" required="no" preselected="yes" id="gate">
 			<description>Regiters plugins directories and makes it possible to run Czsem Gate dependent modules from command line.</description>
 		</pack>
 		<pack name="Select TectoMT location" required="no" preselected="no"

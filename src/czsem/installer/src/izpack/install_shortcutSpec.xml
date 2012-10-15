@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<shortcuts>
+    <skipIfNotSupported/>
+    <programGroup defaultName="Czsem" location="applications"/>
+    <shortcut applications="no"
+        commandLine="-jar &quot;$INSTALL_PATH/bin/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}.jar&quot;"
+        desktop="no" initialState="noShow"
+        name="Run Weka with Fuzzy ILP" programGroup="yes" startMenu="no"
+        startup="no" target="java" workingDirectory="$INSTALL_PATH">
+        <createForPack name="Weka integration"/>
+    </shortcut>
+    <shortcut applications="no"
+        desktop="no" initialState="normal" name="Czsem Website online"
+        programGroup="yes" startMenu="no" startup="no" target="http://czsem.berlios.de/" url="http://czsem.berlios.de/" type="Link"/>
+    <shortcut applications="no"
+        commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/Uninstaller.jar&quot;"
+        desktop="no" initialState="noShow" name="Uninstall Czsem"
+        programGroup="yes" startMenu="no" startup="no" target="java"/>
+</shortcuts>

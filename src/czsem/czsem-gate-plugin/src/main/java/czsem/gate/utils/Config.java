@@ -121,6 +121,7 @@ public class Config extends czsem.utils.Config
 		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/bin/fuzzy-ilp-classifier-${project.version}.jar");
 		setTmtRoot("$tmtRoot");
 		setTredRoot("$tredRoot");
+		setTreexDir("$treexRoot");
 		setGateHome("$gateHome");
 	}
 
