@@ -32,7 +32,7 @@
     <resources>
     	<res id="Heading.image" src="logo_czsem.png"/>
         <res id="userInputSpec.xml" src="install_userInputSpec.xml" />
-        <res id="ProcessPanel.Spec.xml" src="installer/ProcessPanel.Spec.xml" />
+        <res id="ProcessPanel.Spec.xml" src="ProcessPanel.Spec.xml" />
     </resources>
 	<conditions>
 		<condition type="packselection" id="gate.pack.selected">
@@ -51,11 +51,7 @@
 
 	<panels>
 		<panel classname="HelloPanel" />
-		
-		<!-- 
 		<panel classname="TargetPanel"/>
-		 -->
-		 
 		<panel classname="TreePacksPanel" />
 
 		<panel classname="UserInputPanel" id="GATE_userinput" condition="gate.pack.selected" />

@@ -33,16 +33,7 @@
 			<plugin>
 				<groupId>czsem</groupId>
 				<artifactId>custom-properties-maven-plugin</artifactId>
-				<version>1.0-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>setproperties</goal>
-						</goals>
-						<phase>generate-resources</phase>
-					</execution>
-				</executions>
-			</plugin>
+			</plugin>					
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
