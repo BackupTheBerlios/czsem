@@ -32,6 +32,7 @@
     <resources>
     	<res id="Heading.image" src="logo_czsem.png"/>
         <res id="userInputSpec.xml" src="install_userInputSpec.xml" />
+        <res id="ProcessPanel.Spec.xml" src="installer/ProcessPanel.Spec.xml" />
     </resources>
 	<conditions>
 		<condition type="packselection" id="gate.pack.selected">
@@ -50,6 +51,11 @@
 
 	<panels>
 		<panel classname="HelloPanel" />
+		
+		<!-- 
+		<panel classname="TargetPanel"/>
+		 -->
+		 
 		<panel classname="TreePacksPanel" />
 
 		<panel classname="UserInputPanel" id="GATE_userinput" condition="gate.pack.selected" />
@@ -57,6 +63,11 @@
 		<panel classname="UserInputPanel" id="ILP_userinput" condition="ilp.pack.selected" />
 		<panel classname="UserInputPanel" id="WEKA_userinput" condition="weka.pack.selected" />
 		<panel classname="UserInputPanel" id="TMP_userinput" />
+		
+		<panel classname="InstallPanel"/>
+		<panel classname="ProcessPanel"/>
+		<panel classname="ShortcutPanel"/>
+		<panel classname="SimpleFinishPanel"/>
 	</panels>
 
 	<packs>
@@ -111,7 +122,7 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			<depends packname="Weka integration" />			
 			<file src="../../../fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
 		</pack>
-		<pack name="Gate integration" required="no" preselected="yes" id="gate">
+		<pack name="Gate Integration" required="no" preselected="yes" id="gate">
 			<description>Regiters plugins directories and makes it possible to run Czsem Gate dependent modules from command line.</description>
 		</pack>
 		<pack name="Select TectoMT location" required="no" preselected="no"
@@ -121,7 +132,7 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 		<pack name="Select Treex location" required="no" preselected="yes"
 			id="treex" parent="Treex Integration">
 			<depends packname="treex-gate-plugin" />
-			<description>Configures Czsem to work with localy installed Treex (required by TreexLocalAnalyser).</description>
+			<description>Configures Czsem to work with localy installed Treex (required by TreexLocalAnalyser)</description>
 		</pack>
 		<pack name="Select ILP location" required="no" preselected="yes"
 			id="ilp">

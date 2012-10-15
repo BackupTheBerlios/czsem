@@ -1,0 +1,10 @@
+<processing>
+  <job name="register GATE plugins">
+  	<executeForPack name="Gate Integration"/>
+    <executefile name="java" workingDir="$INSTALL_PATH">
+      <arg>-jar</arg>
+      <arg>bin/czsem-gate-plugin-${dependency.czsem.czsem-gate-plugin.version}.jar</arg>
+      <arg>czsem.gate.utils.RegisterGatePluginDirectories</arg>
+    </executefile>
+  </job>
+</processing>
