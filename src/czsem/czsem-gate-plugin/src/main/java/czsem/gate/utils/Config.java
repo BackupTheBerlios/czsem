@@ -4,7 +4,6 @@ import gate.Gate;
 import gate.util.GateException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
@@ -19,7 +18,7 @@ public class Config extends czsem.utils.Config
 {
 	private static Config config = null;
 	public static ClassLoader classLoader = null;
-	private static final String czsem_plugin_dir_name = "czsem-gate-plugin";
+	public static String czsem_plugin_dir_name = "czsem-gate-plugin";
 	
 	public static void main(String[] args) throws IOException, GateException, URISyntaxException
 	{
@@ -66,6 +65,7 @@ public class Config extends czsem.utils.Config
 		for (Iterator<URL> iterator = dirs.iterator(); iterator.hasNext();)
 		{
 			URL url = iterator.next();
+			System.err.println(url);
 			if (url.toString().endsWith(czsem_plugin_dir_name + '/'))
 				return url;
 		}
@@ -82,23 +82,28 @@ public class Config extends czsem.utils.Config
 	}
 
 	@Override
-	public void loadConfig(ClassLoader classLoader) throws IOException, URISyntaxException
+	public void loadConfig(ClassLoader classLoader) throws ConfigLoadEception
 	{
+		ConfigLoadEception fe;
 		try {
 			super.loadConfig(classLoader);
-		} catch (FileNotFoundException e){
+			return;
+		} catch (ConfigLoadEception e) {fe = e;}
+		
+		try {
 			if (Gate.isInitialised())
 			{
 				URL url = findCzesemPluginDirectoryURL();
-				if (url == null)
+				if (url != null)
 				{
-					throw e;					
+					super.loadConfig(
+							Utils.URLToFilePath(url)+ "/../configuration/" +config_filename, classLoader);
+					return;
 				}
-				super.loadConfig(
-						Utils.URLToFilePath(url)+ "/../configuration/" +config_filename, classLoader);
 			}
-			else throw e;
-		}
+		} catch (Exception e) {fe.add(e);}
+		
+		throw fe;
 	}
 
 		

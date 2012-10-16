@@ -8,7 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AbstractConfig {
@@ -19,6 +21,7 @@ public class AbstractConfig {
 	protected Map<String, Object> property_map = new HashMap<String, Object>();
 	protected String config_filename = "czsem_config.xml";
 	protected String config_dir = "configuration";
+	protected String config_envp = "CZSEM_CONFIG";
 
 	
 	protected void save() throws IOException {
@@ -73,18 +76,58 @@ public class AbstractConfig {
 		property_map = loadFromFile(filename, classLoader);		
 	}
 
-	public void loadConfig(ClassLoader classLoader) throws IOException, URISyntaxException
+	public void loadConfig(ClassLoader classLoader) throws ConfigLoadEception
 	{
+		ConfigLoadEception fe = new ConfigLoadEception();
+		
+		//first: try env
 		try {
-			loadConfig(getDefaultLoc(), classLoader);
-		} catch (FileNotFoundException e)
-		{
-			loadConfig("../" +getDefaultLoc(), classLoader);			
+			String env = System.getenv(config_envp);
+			if (env == null) throw new FileNotFoundException(String.format("Environment property  '%s' not set.", config_envp));
+			loadConfig(env, classLoader);
+			return;
 		}
+		catch (Exception e)	{fe.add(e);}
+
+		//second: try default loc
+		try {
+			loadConfig(getDefaultLoc(), classLoader);				
+			return;
+		} catch (Exception e) {fe.add(e);}
+
+		//third: try ../default loc
+		try {
+			loadConfig("../" +getDefaultLoc(), classLoader);			
+			return;
+		} catch (Exception e) {fe.add(e);}
+		
+		throw fe;
 	}
 
 	protected String getDefaultLoc() {
 		return "../" +config_dir+ '/' +config_filename;
+	}
+	
+	public static class ConfigLoadEception extends FileNotFoundException
+	{
+		private static final long serialVersionUID = -5616178151757529473L;
+		
+		protected List<Exception> causes = new ArrayList<Exception>();
+		
+		public void add(Exception e) {
+			causes.add(e);
+		}
+
+		@Override
+		public String getMessage() {
+			StringBuilder sb = new StringBuilder(String.format("Configuration file could not be loaded for following (%d) reasons:\n", causes.size()));
+			for (int a=0; a<causes.size(); a++)
+			{
+				sb.append(String.format("%d: %s\n", a+1, causes.get(a).toString()));
+			}
+			return sb.toString();
+		}
+		
 	}
 
 

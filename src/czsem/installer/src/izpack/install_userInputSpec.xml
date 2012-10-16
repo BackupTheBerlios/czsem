@@ -4,7 +4,7 @@
         
         <field align="left" txt="GATE home path" type="staticText"/>
         <field align="left" type="dir" variable="gateHome">
-            <spec set="C:\Program Files\GATE-7.0" size="25" txt=""/>
+            <spec set="C:\Program Files\gate\GATE-7.0" size="25" txt=""/>
         </field>
         <field align="left"
             txt="GATE can be obtained at: http://gate.ac.uk/" type="staticText"/>
