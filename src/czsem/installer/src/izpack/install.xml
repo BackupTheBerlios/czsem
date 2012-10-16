@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<installation version="1.0">
+<installation version="5.0"
+              xmlns:izpack="http://izpack.org/schema/installation"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://izpack.org/schema/installation http://izpack.org/schema/5.0/izpack-installation-5.0.xsd">
 	<info>
 		<appname>Czsem Mining Suite</appname>
-		<appversion>${project.version}</appversion>
+		<appversion>${project.parent.version}</appversion>
 		<authors>
 			<author email="dedekj@gmail.com" name="Jan Dedek" />
 		</authors>
@@ -11,8 +14,8 @@
 		<requiresjdk>no</requiresjdk>
 		<writeinstallationinformation>no</writeinstallationinformation>
 		<pack200 />
-		<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7" />
-		<appsubpath>czsem_suite_${project.version}</appsubpath>
+		<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7" uninstaller="yes" />
+		<appsubpath>czsem_suite_${project.parent.version}</appsubpath>
 	</info>
 	<guiprefs height="480" resizable="no" width="640">
 		<modifier key="useFlags" value="yes" />
@@ -36,23 +39,25 @@
         <res id="shortcutSpec.xml" src="install_shortcutSpec.xml"/>
         <res id="Unix_shortcutSpec.xml" src="install_Unix_shortcutSpec.xml"/>        
     </resources>
-	<native type="izpack" name="ShellLink.dll"/>
-	<native type="izpack" name="ShellLink_x64.dll"/>    
+    <natives>
+		<native type="izpack" name="ShellLink.dll"/>
+		<native type="izpack" name="ShellLink_x64.dll"/>    
+    </natives>
 	<conditions>
 		<condition type="packselection" id="gate.pack.selected">
-			<packid>gate</packid>
+			<name>Gate integration</name>
 		</condition>
 		<condition type="packselection" id="treex.pack.selected">
-			<packid>treex</packid>
+			<name>Select Treex location</name>
 		</condition>
 		<condition type="packselection" id="tmt.pack.selected">
-			<packid>tmt</packid>
+			<name>Select TectoMT location</name>
 		</condition>
 		<condition type="packselection" id="ilp.pack.selected">
-			<packid>ilp</packid>
+			<name>Select ILP location</name>
 		</condition>
 		<condition type="packselection" id="weka.pack.selected">
-			<packid>weka</packid>
+			<name>Weka integration</name>
 		</condition>
 	</conditions>
 
@@ -69,7 +74,9 @@
 		<panel classname="UserInputPanel" id="TMP_userinput" />
 		
 		<panel classname="InstallPanel"/>
+		<!-- 
 		<panel classname="ProcessPanel"/>
+		 -->
 		<panel classname="ShortcutPanel"/>
 		<panel classname="SimpleFinishPanel"/>
 	</panels>
@@ -77,76 +84,93 @@
 	<packs>
 		<pack name="czsem-common" preselected="yes" required="yes">
 			<description>Common binaries</description>
-			<file src="../../../czsem-common/target/czsem-common-${dependency.czsem.czsem-common.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
-			<file src="../../../resources" targetdir="$INSTALL_PATH" override="asktrue"/>
-			<file src="configuration" targetdir="$INSTALL_PATH" />
+			<fileset dir="../../../czsem-common/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>
+			<fileset dir="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue" />
+			<fileset dir="configuration" targetdir="$INSTALL_PATH/configuration" override="asktrue" />
 			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
 		</pack>
+
 		<pack name="GATE Plugins" required="no">
 			<description>Contains all provided GATE plugins.</description>
 		</pack>
+
 		<pack name="czsem-gate-plugin" preselected="yes" required="no" parent="GATE Plugins">
 			<description>Contains Czsem utility processing resources and ILP wrapper for machine learning.
 If you want to use the ILP wrapper, it is necessary to select also the "Select ILP location" option!</description>
 			<depends packname="czsem-common" />
 			<depends packname="Gate integration" />
-			<file src="../../../czsem-gate-plugin/target/czsem-gate-plugin-${dependency.czsem.czsem-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../czsem-gate-plugin/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
-		<pack name="Treex Integration" required="no" parent="GATE Plugins">
+
+		<pack name="Treex integration" required="no" parent="GATE Plugins">
 			<description/>
 		</pack>
+
 		<pack name="netgraph-tree-viewer" preselected="yes" required="no" parent="GATE Plugins">
 			<description />
 			<depends packname="czsem-gate-plugin" />
 			<depends packname="Gate integration" />
-			<file src="../../../netgraph-tree-viewer/target/netgraph-tree-viewer-${dependency.czsem.netgraph-tree-viewer.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../netgraph-tree-viewer/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
+
 		<pack name="tecto-mt-gate-plugin" preselected="no" required="no" parent="GATE Plugins">
 			<description />
 			<depends packname="czsem-gate-plugin" />
 			<depends packname="Gate integration" />
-			<file src="../../../tecto-mt-gate-plugin/target/tecto-mt-gate-plugin-${dependency.czsem.tecto-mt-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../tecto-mt-gate-plugin/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
-		<pack name="treex-gate-plugin" preselected="yes" required="no" parent="Treex Integration">
+
+		<pack name="treex-gate-plugin" preselected="yes" required="no" parent="Treex integration">
 			<description />
 			<depends packname="czsem-gate-plugin" />
 			<depends packname="Gate integration" />
-			<file src="../../../treex-gate-plugin/target/treex-gate-plugin-${dependency.czsem.treex-gate-plugin.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../treex-gate-plugin/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
+
 		<pack name="intlib-gate-plugin" preselected="yes" required="no" parent="GATE Plugins">
 			<description>Gate plugin developped within the project Intelligent Library (TA02010182)</description>
 			<depends packname="czsem-gate-plugin" />
-			<file src="../../../intlib/target/intlib-${dependency.cuni.mff.intlib.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../intlib/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
+
 		<pack name="fuzzy-ilp-classifier" preselected="yes" required="no">
 			<description />
 			<depends packname="czsem-common" />
 			<depends packname="Select ILP location" />
 			<depends packname="Weka integration" />			
-			<file src="../../../fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}-install-zip.zip" targetdir="$INSTALL_PATH" unpack="true" override="true"/>
+			<fileset dir="../../../fuzzy-ilp-classifier/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
+
 		<pack name="Gate integration" required="no" preselected="yes" id="gate">
 			<description>Regiters plugins directories and makes it possible to run Czsem Gate dependent modules from command line.</description>
 		</pack>
+
 		<pack name="Select TectoMT location" required="no" preselected="no"
 			id="tmt" parent="tecto-mt-gate-plugin">
 			<description>Configures Czsem to work with TectoMT</description>
 		</pack>
+
 		<pack name="Select Treex location" required="no" preselected="yes"
-			id="treex" parent="Treex Integration">
+			id="treex" parent="Treex integration">
 			<depends packname="treex-gate-plugin" />
 			<description>Configures Czsem to work with localy installed Treex (required by TreexLocalAnalyser)</description>
 		</pack>
+
+		<pack name="Aditional Perl modules" required="no" preselected="yes"
+			parent="Treex integration">
+			<description>Install aditional Perl modules (e.g. XML-RPC) allowing Treex to run as local server.</description>
+		</pack>
+
 		<pack name="Select ILP location" required="no" preselected="yes"
 			id="ilp">
 			<description>Configures Czsem to work with an ILP system. It is necesary for the induction tasks: IE learning and Fuzzy ILP Classifier</description>
 		</pack>
+
 		<pack name="Weka integration" preselected="yes" required="no" id="weka">
 			<description>Adds ILP Classifier to Weka. Crisp ILP Classifier and Fuzzy ILP Classifier can then be used inside the Weka (including GUI).</description>
 			<file override="asktrue" src="GenericPropertiesCreator.props"
 				targetdir="$USER_HOME/" />
 		</pack>
-
 
 	</packs>
 
