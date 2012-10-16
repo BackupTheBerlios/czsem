@@ -74,9 +74,7 @@
 		<panel classname="UserInputPanel" id="TMP_userinput" />
 		
 		<panel classname="InstallPanel"/>
-		<!-- 
 		<panel classname="ProcessPanel"/>
-		 -->
 		<panel classname="ShortcutPanel"/>
 		<panel classname="SimpleFinishPanel"/>
 	</panels>
