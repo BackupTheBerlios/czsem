@@ -36,8 +36,9 @@ public class TectoMTAbstractAnalyser extends AbstractLanguageAnalyserWithInputOu
 
 	
 	@Optional
-	@CreoleParameter(defaultValue="file:tmt_analysis_scenarios/english_full_blocks.scen")
+	@CreoleParameter(defaultValue="file:../resources/TectoMT/analysis_scenarios/english_full_blocks.scen")
 	public void setScenarioFilePath (URL scenarioFilePath ) {
+		
 		this.scenarioFilePath  = scenarioFilePath ;
 	}
 
@@ -47,7 +48,7 @@ public class TectoMTAbstractAnalyser extends AbstractLanguageAnalyserWithInputOu
 
 	
 	@Optional
-	@CreoleParameter(comment="List of blocks to be used in the analysis", defaultValue="SCzechW_to_SCzechM::Sentence_segmentation;SCzechW_to_SCzechM::Tokenize_joining_numbers")
+	@CreoleParameter(comment="List of blocks to be used in the analysis", defaultValue="SEnglishW_to_SEnglishM::Sentence_segmentation;SEnglishW_to_SEnglishM::Tokenization")
 	public void setBlocks(List<String> blocks) {
 		this.blocks = blocks;
 	}
@@ -61,7 +62,7 @@ public class TectoMTAbstractAnalyser extends AbstractLanguageAnalyserWithInputOu
 	}
 
 
-	@CreoleParameter(defaultValue="true")
+	@CreoleParameter(defaultValue="false")
 	public void setLoadScenarioFromFile(Boolean loadScenarioFromFile) {
 		this.loadScenarioFromFile = loadScenarioFromFile;
 	}

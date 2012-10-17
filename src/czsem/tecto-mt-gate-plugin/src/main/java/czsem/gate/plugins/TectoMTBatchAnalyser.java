@@ -51,7 +51,7 @@ public class TectoMTBatchAnalyser extends TectoMTAbstractAnalyser
 		int ret = executeTMTAnalysis();
 		logger.info(
 				String.format("External TMT analysis ended, return code: %d (%s!!!)",
-						ret, ret == 0 ? "Success" : "Error - see TMT_GATE_err.log"));
+						ret, ret == 0 ? "Success" : "Error - see " + Config.getConfig().getLogFileDirectoryPath() + "/TMT_GATE_err.log"));
 
 						
 		Corpus corpus = getCorpus();

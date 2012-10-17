@@ -89,7 +89,7 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 		}
 		if (! isServerRunning())
 		{
-			throw new ResourceInstantiationException("Filed to start TectoMT server, see 'czsem_GATE_plugins/log/TMT_GATE_err.log'.");			
+			throw new ResourceInstantiationException("Filed to start TectoMT server, see " + Config.getConfig().getLogFileDirectoryPath()+"/TMT_GATE_err.log.");			
 		}		
 
 		serverConnection = new TectMTServerConnection(getServerPortNumber(), handshake_code);

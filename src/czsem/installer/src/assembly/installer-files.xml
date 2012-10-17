@@ -15,7 +15,8 @@
       <scope>runtime</scope>
       <excludes>
       	<exclude>uk.ac.gate:*</exclude>
-      	<exclude>nz.ac.waikato.cms.weka:*</exclude>      	
+      	<exclude>nz.ac.waikato.cms.weka:*</exclude>
+      	<exclude>junit:*</exclude>      	
       </excludes>
     </dependencySet>
   </dependencySets>

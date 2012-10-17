@@ -53,15 +53,6 @@ public class Config extends AbstractConfig {
 		set("wekaJarPath", wekaJarPath);
 	}
 
-
-	public String getWekaRunFuzzyILPClassPath() {
-		return get("wekaRunFuzzyILPClassPath");
-	}
-
-	public void setWekaRunFuzzyILPClassPath(String myClassPath) {
-		set("wekaRunFuzzyILPClassPath", myClassPath);
-	}
-	
 	public void setCzsemResourcesDir(String czsemResourcesDir) {
 		set("czsemResourcesDir", czsemResourcesDir);
 	}

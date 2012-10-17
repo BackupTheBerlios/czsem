@@ -65,7 +65,7 @@ public class Config extends czsem.utils.Config
 		for (Iterator<URL> iterator = dirs.iterator(); iterator.hasNext();)
 		{
 			URL url = iterator.next();
-			System.err.println(url);
+			//System.err.println(url);
 			if (url.toString().endsWith(czsem_plugin_dir_name + '/'))
 				return url;
 		}
@@ -123,7 +123,6 @@ public class Config extends czsem.utils.Config
 		setAlephPath("$aleph");
 		setPrologPath("$prolog");
 		setWekaJarPath("$weka");
-		setWekaRunFuzzyILPClassPath("$INSTALL_PATH/bin/fuzzy-ilp-classifier-${project.version}.jar");
 		setTmtRoot("$tmtRoot");
 		setTredRoot("$tredRoot");
 		setTreexDir("$treexRoot");
@@ -148,7 +147,6 @@ public class Config extends czsem.utils.Config
 		setLearnigConfigDirectoryForGate(projPath + "/resources/Gate/learning");
 		setCzsemPluginDir(projPath + "/czsem-gate-plugin");
 		setCzsemResourcesDir(projPath + "/resources");
-		setWekaRunFuzzyILPClassPath(projPath + "/fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-2.0.jar");
 	}
 
 	protected void setTempRelativePaths(String tempPath) {

@@ -23,7 +23,7 @@ public class WekaRun
 				"-classpath",
 				Config.getConfig().getWekaJarPath() + 
 					System.getProperty( "path.separator" ) +
-					Config.getConfig().getWekaRunFuzzyILPClassPath(),
+					System.getProperty("java.class.path", ""),
 				"weka.gui.GUIChooser"
 		};		
 		//java -classpath "./weka.jar;." weka.gui.GUIChooser
