@@ -140,12 +140,13 @@ public class Config extends czsem.utils.Config
 		setTredRoot("C:\\tred");
 		setGateHome("C:\\Program Files\\gate\\GATE-7.0");
 		setCzsemProjectRelativePaths("C:\\workspace\\czsem_git\\src\\czsem");
+		setCzsemPluginDir("C:\\workspace\\czsem_git\\src\\czsem" + "/czsem-gate-plugin/target/prepared-installer-files/czsem-gate-plugin");
 		setTempRelativePaths(        "C:\\workspace\\czsem_git\\src\\czsem\\temp");
 	}
 
 	protected void setCzsemProjectRelativePaths(String projPath) {
 		setLearnigConfigDirectoryForGate(projPath + "/resources/Gate/learning");
-		setCzsemPluginDir(projPath + "/czsem-gate-plugin/target/prepared-installer-files/czsem-gate-plugin");
+		setCzsemPluginDir(projPath + "/czsem-gate-plugin");
 		setCzsemResourcesDir(projPath + "/resources");
 		setWekaRunFuzzyILPClassPath(projPath + "/fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-2.0.jar");
 	}
