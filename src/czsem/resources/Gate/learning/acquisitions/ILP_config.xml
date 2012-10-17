@@ -33,7 +33,7 @@
 
  
   <ENGINE>  
-    <WRAPPER>czsem.gate.ILPWrapper</WRAPPER>
+    <WRAPPER>czsem.gate.learning.ILPWrapper</WRAPPER>
     <BATCH-MODE-CLASSIFICATION />
     <OPTIONS>
         <ilp>
