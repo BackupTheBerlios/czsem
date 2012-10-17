@@ -456,9 +456,7 @@ public class GateUtils
 	public static void initGate(Level logLevel) throws GateException, IOException, URISyntaxException {
 		if (Gate.isInitialised()) return;
 		
-		Logger logger = Logger.getRootLogger();
-	    logger.setLevel(logLevel);
-		BasicConfigurator.configure();
+		czsem.Utils.loggerSetup(logLevel);		
 		
 		Config.getConfig().setGateHome();
 

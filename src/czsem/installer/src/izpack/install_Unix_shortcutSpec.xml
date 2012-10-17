@@ -6,7 +6,7 @@
         commandLine="-jar &quot;$INSTALL_PATH/bin/fuzzy-ilp-classifier-${dependency.czsem.fuzzy-ilp-classifier.version}.jar&quot;"
         desktop="no" encoding="UTF-8" initialState="normal"
         name="Run Weka with Fuzzy ILP" programGroup="yes" startMenu="no"
-        startup="no" target="java" type="Application" workingDirectory="$INSTALL_PATH">
+        startup="no" target="java" type="Application" workingDirectory="$INSTALL_PATH/bin">
         
         <createForPack name="Weka integration"/>
     </shortcut>
@@ -14,6 +14,8 @@
     <shortcut KdeUsername="root" applications="no"
         desktop="no" initialState="normal" name="Czsem Website online"
         programGroup="yes" startMenu="no" startup="no" target="http://czsem.berlios.de/" url="http://czsem.berlios.de/" type="Link"/>
+    
+    
     <shortcut KdeUsername="root" applications="no"
         commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/Uninstaller.jar&quot;"
         desktop="no" encoding="UTF-8" initialState="normal"

@@ -105,7 +105,7 @@
 								<finalName>prepared</finalName>
 								<attach>false</attach>
 								<descriptors>
-									<descriptor>${basedir}/../installer/src/assembly/install-zip.xml</descriptor>
+									<descriptor>${basedir}/../installer/src/assembly/installer-files.xml</descriptor>
 								</descriptors>
 							</configuration>
 						</execution>

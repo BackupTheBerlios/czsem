@@ -26,6 +26,9 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.uncommons.maths.combinatorics.PermutationGenerator;
 
 public class Utils {
@@ -354,6 +357,13 @@ public class Utils {
 		Object ret = in.readObject();
 		in.close();
 		return ret;
+	}
+
+	public static void loggerSetup(Level logLevel)
+	{
+		Logger logger = Logger.getRootLogger();
+	    logger.setLevel(logLevel);
+		BasicConfigurator.configure();		
 	}
 
 }

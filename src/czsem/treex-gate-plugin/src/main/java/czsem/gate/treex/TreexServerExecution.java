@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Random;
 
+import org.apache.log4j.Logger;
 import org.apache.xmlrpc.XmlRpcException;
 
 import czsem.Utils;
@@ -18,6 +19,8 @@ import czsem.utils.FirstOfTwoTasksKillsTheSecond.Task;
 import czsem.utils.ProcessExec;
 
 public class TreexServerExecution {
+	
+	static Logger logger = Logger.getLogger(TreexServerExecution.class);
 	
 	protected static class TreexHandShake
 	{
@@ -156,6 +159,8 @@ public class TreexServerExecution {
 		TreexHandShake th = new TreexHandShake(tmt_proc, getConnection(), handshake_code);
 		
 		th.doHandShake();
+		
+		logger.info(String.format("Treex server succsefuly started! port: %d handshake code: %s", getPortNumber(),  handshake_code));
 		
 	}
 

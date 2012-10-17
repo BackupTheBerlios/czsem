@@ -30,10 +30,14 @@ public class TreexServerConnection {
 	}
 
 	public void terminateServer() {
+		String handshake = "";
 		try {
+			handshake = handshake();
 			rpcClient.execute("treex.terminate", new Vector<Object>());
 		} catch (XmlRpcException e) {
-			logger.info("Treex server termination rigistered.");
+			logger.info(String.format("Treex server termination registered. url: %s handshake code: '%s'", 
+					((XmlRpcClientConfigImpl)rpcClient.getClientConfig()).getServerURL(),
+					handshake));
 		}		
 	}
 
