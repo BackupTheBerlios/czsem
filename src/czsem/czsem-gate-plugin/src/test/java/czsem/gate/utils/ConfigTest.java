@@ -11,7 +11,6 @@ import java.net.URISyntaxException;
 import org.junit.rules.TemporaryFolder;
 import org.testng.annotations.Test;
 
-import czsem.gate.GateUtils;
 import czsem.utils.AbstractConfig.ConfigLoadEception;
 
 public class ConfigTest {

@@ -12,9 +12,9 @@ import java.util.Arrays;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import czsem.gate.GateUtils;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
+import czsem.gate.utils.GateUtils;
 
 public class TreexRemoteAnalyserTest {
 

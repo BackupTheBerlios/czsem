@@ -9,7 +9,7 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import czsem.gate.GateUtils;
+import czsem.gate.utils.GateUtils;
 
 public class TreexInputDocPrepare {
 	private AnnotationSet inputAS;

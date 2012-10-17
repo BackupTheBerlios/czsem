@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-import czsem.gate.GateUtils;
 import czsem.gate.learning.DataSet.DataSetImpl.Acquisitions;
 import czsem.gate.plugins.AnnotationDependencyRootMarker;
 import czsem.gate.plugins.CustomPR;
 import czsem.gate.plugins.CustomPR.AnalyzeDocDelegate;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 public class AcqDlramtStatisitcs implements AnalyzeDocDelegate {
 	private CustomPR pr;

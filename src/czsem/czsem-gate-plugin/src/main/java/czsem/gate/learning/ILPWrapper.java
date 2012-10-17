@@ -26,10 +26,10 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
-import czsem.gate.GateUtils.CorpusDocumentCounter;
 import czsem.gate.ilp.ILPSerializer;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
+import czsem.gate.utils.GateUtils.CorpusDocumentCounter;
 
 public class ILPWrapper implements AdvancedMLEngine
 {

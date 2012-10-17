@@ -28,9 +28,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.apache.log4j.Logger;
 import org.xml.sax.SAXException;
 
-import czsem.gate.GateUtils;
 import czsem.gate.tectomt.TMTDocumentHelper;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 import czsem.utils.ProcessExec;
 import czsem.utils.ProjectSetup;
 

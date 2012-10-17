@@ -18,8 +18,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import czsem.gate.GateUtils;
 import czsem.gate.externalannotator.SequenceAnnotator;
+import czsem.gate.utils.GateUtils;
 
 @Deprecated
 public class TMTTreeAnnotator

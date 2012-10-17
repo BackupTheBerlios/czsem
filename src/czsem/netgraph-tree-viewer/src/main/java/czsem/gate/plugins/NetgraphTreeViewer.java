@@ -49,8 +49,8 @@ import cz.cuni.mff.mirovsky.trees.NGTree;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import cz.cuni.mff.mirovsky.trees.TNode;
 import czsem.gate.FSFileWriter;
-import czsem.gate.GateUtils;
 import czsem.gate.SentenceFSWriter;
+import czsem.gate.utils.GateUtils;
 import czsem.utils.CzsemTree;
 import czsem.utils.NetgraphConstants;
 

@@ -19,13 +19,13 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Locale;
 
-import czsem.gate.GateUtils;
 import czsem.gate.learning.DataSet.DataSetImpl.Acquisitions;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
 import czsem.gate.plugins.AnnotationDependencyRootMarker;
 import czsem.gate.plugins.AnnotationDependencySubtreeMarker;
 import czsem.gate.plugins.CreateMentionsPR;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 import czsem.utils.MultiSet;
 
 public class MeasureNamedEntityOverlap

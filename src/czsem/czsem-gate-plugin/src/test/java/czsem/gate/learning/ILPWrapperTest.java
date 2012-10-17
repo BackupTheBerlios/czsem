@@ -26,13 +26,13 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
-import czsem.gate.GateUtils;
 import czsem.gate.plugins.CustomPR;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.plugins.LearningEvaluator.CentralResultsRepository;
 import czsem.gate.plugins.LearningEvaluator.DocumentDiff;
 import czsem.gate.plugins.PutTokenIdFeaturePR;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 public class ILPWrapperTest {
 	

@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
 import cuni.mff.intlib.law.BasicAnalysis.Analyzer;
 import cuni.mff.intlib.law.LawDatabse.LawHeadAnalyssis;
 import czsem.Utils;
-import czsem.gate.GateUtils;
+import czsem.gate.utils.GateUtils;
 
 public class LawDatabse {
 

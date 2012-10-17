@@ -15,8 +15,8 @@ import java.util.List;
 import org.apache.commons.io.FileUtils;
 
 import czsem.Utils;
-import czsem.gate.GateUtils;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 public interface DataSet
 {
@@ -105,6 +105,7 @@ public interface DataSet
 		@Override
 		public void clearSevedFilesDirectory() throws IOException {
 			File dir = new File(getLearnigConfigDirectory() + "/savedFiles");
+			dir.mkdirs();
 			File[] files = dir.listFiles();
 			List<File> dirs = new ArrayList<File>(files.length);
 			for (File f : files)

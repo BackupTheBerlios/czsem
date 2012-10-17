@@ -19,12 +19,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import czsem.gate.GateUtils;
 import czsem.gate.learning.DataSet;
 import czsem.gate.learning.DataSet.DataSetImpl.Acquisitions;
 import czsem.gate.learning.DataSet.DataSetReduce;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 @CreoleResource(name = "czsem CustomPR", comment = "Usable within GETE embeded only.")
 public class CustomPR extends AbstractLanguageAnalyser {

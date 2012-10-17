@@ -22,8 +22,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
-import czsem.gate.GateUtils;
 import czsem.gate.learning.DataSet.DataSetImpl.Acquisitions;
+import czsem.gate.learning.DataSet.DataSetImpl.CzechFireman;
 import czsem.gate.learning.DataSet.DataSetReduce;
 import czsem.gate.learning.DataSet.DatasetFactory;
 import czsem.gate.learning.MLEngine.ILPEngine;
@@ -39,6 +39,8 @@ import czsem.gate.plugins.AnnotationDependencyRootMarker;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
+import czsem.gate.utils.TimeBenchmarkUtils;
 
 public class MachineLearningExperimenter
 {
@@ -323,7 +325,7 @@ public class MachineLearningExperimenter
 			for (String annot_type : eval_annot_types)
 			{
 			    LearningEvaluator.CentralResultsRepository.repository.clear();
-			    GateUtils.enableGateTimeBenchmark();
+			    TimeBenchmarkUtils.enableGateTimeBenchmark();
 			    
 				final DataSet dataset =  new DataSetReduce(
 						ds_factory.createDataset(annot_type),
@@ -372,15 +374,15 @@ public class MachineLearningExperimenter
 		
 		new File(results_file_name).delete();
 		
-/*
+/**/
 //		bigFiremanExperiment
 		performLargeExperiment(
 				CzechFireman.getFactory(),
 				1.0,
 				CzechFireman.eval_annot_types,
 				getCzechFiremanIlpEngineFactory(),
-				8, //repeats
-				8, //folds
+				2, //repeats
+				2, //folds
 				results_file_name);
 /*
 		// trin only
@@ -395,7 +397,7 @@ public class MachineLearningExperimenter
 				results_file_name);
 
 
-/**/		
+/*		
 
 		
 //		bigAcquisitionsExperiment

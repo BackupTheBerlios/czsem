@@ -25,6 +25,7 @@ import czsem.Utils;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 public class DocumentFeaturesDiff
 {

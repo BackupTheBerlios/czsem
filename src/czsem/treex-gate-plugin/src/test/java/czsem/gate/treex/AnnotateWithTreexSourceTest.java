@@ -15,7 +15,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
-import czsem.gate.GateUtils;
+import czsem.gate.utils.GateUtils;
 
 public class AnnotateWithTreexSourceTest {
 	

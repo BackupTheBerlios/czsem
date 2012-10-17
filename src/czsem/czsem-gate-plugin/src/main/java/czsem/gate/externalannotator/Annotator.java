@@ -8,9 +8,9 @@ import gate.util.InvalidOffsetException;
 
 import org.apache.log4j.Logger;
 
-import czsem.gate.GateUtils;
 import czsem.gate.externalannotator.RecursiveEntityAnnotator.SecondaryEntity;
 import czsem.gate.externalannotator.SequenceAnnotator.CannotAnnotateCharacterSequence;
+import czsem.gate.utils.GateUtils;
 
 public class Annotator implements AnnotatorInterface {
 	private static Logger logger = Logger.getLogger(Annotator.class);

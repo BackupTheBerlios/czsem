@@ -7,7 +7,7 @@ import gate.util.InvalidOffsetException;
 
 import java.io.PrintStream;
 
-import czsem.gate.GateUtils;
+import czsem.gate.utils.GateUtils;
 
 public abstract class Dependency extends TMTAnnotation
 {

@@ -37,9 +37,9 @@ import org.testng.annotations.Test;
 import org.xml.sax.SAXException;
 
 import czsem.Utils;
-import czsem.gate.GateUtils;
 import czsem.gate.plugins.TectoMTAbstractAnalyser.CannotAnnotateDocumentException;
 import czsem.gate.utils.Config;
+import czsem.gate.utils.GateUtils;
 
 import static org.testng.AssertJUnit.*;
 

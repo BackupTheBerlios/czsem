@@ -16,12 +16,12 @@ import org.apache.log4j.Logger;
 import com.csvreader.CsvReader;
 import com.csvreader.CsvWriter;
 
-import czsem.gate.GateUtils;
 import czsem.gate.TimeBenchmarkLogAnalysis;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.plugins.LearningEvaluator.CentralResultsRepository;
 import czsem.gate.plugins.LearningEvaluator.DiffCondition;
 import czsem.gate.plugins.LearningEvaluator.DocumentDiff;
+import czsem.gate.utils.TimeBenchmarkUtils;
 import czsem.utils.ProjectSetup;
 
 public class WekaResultExporter
@@ -326,7 +326,7 @@ public class WekaResultExporter
 	public void addInfoFromTimeBechmark() throws BenchmarkReportInputFileFormatException, URISyntaxException, IOException
 	{
 		TimeBenchmarkLogAnalysis a = new TimeBenchmarkLogAnalysis(
-				GateUtils.getTimeBenchmarkLogFileName());
+				TimeBenchmarkUtils.getTimeBenchmarkLogFileName());
 		a.parse();
 		
 		for (int i = 0; i < results.length; i++)
@@ -410,7 +410,7 @@ public class WekaResultExporter
 				{"data","2","2","ILP_config"},		
 		};
 		
-		System.err.println(GateUtils.createGateTimeBenchmarkReport());
+		System.err.println(TimeBenchmarkUtils.createGateTimeBenchmarkReport());
 
 		WekaResultExporter ex = new WekaResultExporter(data);
 		ex.addInfoFromTimeBechmark();
