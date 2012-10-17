@@ -94,8 +94,16 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 
 		serverConnection = new TectMTServerConnection(getServerPortNumber(), handshake_code);
 		
-		
-		doHandShake();
+		try {
+			doHandShake();
+		} catch (InstantiationError e)
+		{
+			tmtProcess.destroy();
+			throw new ResourceInstantiationException( String.format(
+					"Filed to start TectoMT server, due to InstantiationError (%s), " +
+					"this is usually caused by the presence of a different version of XML-RPC library, " +
+					"e.g. if treex-gate-plugin is loaded in the same time...", e.toString()));						
+		}
 		
 		long time_dif = Calendar.getInstance().getTime().getTime() - cal_start.getTime().getTime() ;        		
 		logger.info(String.format("TectoMT server initialization took %d:%d.%d",

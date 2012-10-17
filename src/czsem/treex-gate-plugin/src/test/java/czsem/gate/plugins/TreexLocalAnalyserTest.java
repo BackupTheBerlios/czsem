@@ -38,11 +38,14 @@ public class TreexLocalAnalyserTest {
 		Corpus corpus = Factory.newCorpus("englishSimpleTest");
 		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
 		corpus.add(doc);
+		Document doc2 = Factory.newDocument("This is the second document in the corpus.");
+		corpus.add(doc2);
 		analysis.setCorpus(corpus);
 		analysis.execute();
 		analysis.cleanup();
 		
 		Assert.assertEquals(doc.getAnnotations().size(), 13);
+		Assert.assertEquals(doc2.getAnnotations().size(), 10);
 		
 		GateUtils.deleteAllPublicGateResources();
 	}

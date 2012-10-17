@@ -18,7 +18,8 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 	public void execute() throws ExecutionException {
 		Document doc = getDocument();
 		try {
-			Object treexRet = serverConnection.analyzeText(doc.getContent().toString());
+			TreexInputDocPrepare ip = new TreexInputDocPrepare(doc, getInputASName());
+			Object treexRet = serverConnection.analyzePreprocessedDoc(doc.getContent().toString(), ip.createInputDocData());
 			TreexReturnAnalysis tra = new TreexReturnAnalysis(treexRet);
 			tra.annotate(doc, getOutputASName());
 		} catch (Exception e) {

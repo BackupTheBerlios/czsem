@@ -118,13 +118,13 @@ public class ILPWrapperTest {
 		long l = rules_file.length();
 		AssertJUnit.assertTrue(String.format("rules file too small %d (%s)", l, rules_file.getAbsolutePath() ), l > 1000);
 		
-		AssertJUnit.assertTrue(String.format("fmeasure too small %f", diff.getFMeasureStrict(1.0)),
+		AssertJUnit.assertTrue(String.format("fmeasure too small %f, try again :-)", diff.getFMeasureStrict(1.0)),
 				diff.getFMeasureStrict(1.0) >= 0.4);
-		AssertJUnit.assertTrue(String.format("recall too small %f", diff.getRecallStrict()),
+		AssertJUnit.assertTrue(String.format("recall too small %f, try again :-)", diff.getRecallStrict()),
 				diff.getRecallStrict() >= 0.4);
-		AssertJUnit.assertTrue(String.format("precision too small %f", diff.getPrecisionStrict()),
+		AssertJUnit.assertTrue(String.format("precision too small %f, try again :-)", diff.getPrecisionStrict()),
 				diff.getPrecisionStrict() >= 0.6);
-		AssertJUnit.assertTrue(String.format("correctly classifed too small %d", diff.getCorrectMatches()),
+		AssertJUnit.assertTrue(String.format("correctly classifed too small %d, try again :-)", diff.getCorrectMatches()),
 				diff.getCorrectMatches() >= 4);
 	}
 	
