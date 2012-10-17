@@ -27,7 +27,7 @@
   </void> 
   <void method="put"> 
    <string>gateHome</string> 
-   <string>C:\Program Files\gate\GATE-6.0</string> 
+   <string>C:\Program Files\gate\GATE-7.0</string> 
   </void> 
   <void method="put"> 
    <string>alephPath</string> 
@@ -51,7 +51,7 @@
   </void> 
   <void method="put"> 
    <string>czsemPluginDir</string> 
-   <string>C:\workspace\czsem_git\src\czsem/czsem-gate-plugin</string> 
+   <string>C:\workspace\czsem_git\src\czsem/czsem-gate-plugin/target/prepared-installer-files/czsem-gate-plugin</string> 
   </void> 
   <void method="put"> 
    <string>wekaJarPath</string> 
