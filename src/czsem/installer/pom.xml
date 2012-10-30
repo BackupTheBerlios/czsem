@@ -40,6 +40,7 @@
 				<version>1.2.1</version>
 				<executions>
 					<execution>
+						<id>config</id>
 						<phase>generate-resources</phase>
 						<goals>
 							<goal>java</goal>
@@ -48,6 +49,20 @@
 							<mainClass>czsem.gate.utils.Config</mainClass>
 							<arguments>
 								<argument>${project.build.directory}/configuration</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>perl install script</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>perl</executable>
+							<workingDirectory>${basedir}/../resources/Treex</workingDirectory>
+							<arguments>
+								<argument>createInstallScript.pl</argument>
 							</arguments>
 						</configuration>
 					</execution>
