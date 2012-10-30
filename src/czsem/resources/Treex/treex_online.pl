@@ -96,7 +96,7 @@ sub startServer
   );
   
   my $host = hostname;  
-  print "Starting Treex RPC server at http://$host:$port_number ( http://" . Net::Address::IP::Local->public . ":$port_number )\n";
+  print "Starting Treex RPC server at: \n  http://$host:$port_number \n  http://" . Net::Address::IP::Local->public . ":$port_number \n";
   print "Handshake hash: $handshake_hash\n";
   
   $srv->server_loop; # Just work
