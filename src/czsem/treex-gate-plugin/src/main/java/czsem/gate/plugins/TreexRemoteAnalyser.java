@@ -53,7 +53,7 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 	
 	@Optional
 	@CreoleParameter(comment="List of blocks to be used in the analysis. Each element can be either a Treex block or a .scen file.",
-			defaultValue="W2A::EN::Tokenize;W2A::EN::NormalizeForms;W2A::EN::FixTokenization;W2A::EN::TagMorce;W2A::EN::FixTags;W2A::EN::Lemmatize")
+			defaultValue="W2A::EN::Segment;W2A::EN::Tokenize;W2A::EN::NormalizeForms;W2A::EN::FixTokenization;W2A::EN::TagMorce;W2A::EN::FixTags;W2A::EN::Lemmatize")
 	public void setScenarioSetup(List<String> scenarioSetup) {
 		this.scenarioSetup = scenarioSetup;
 	}
@@ -65,7 +65,7 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 	}
 
 	@CreoleParameter(comment="The remote Treex server can already have an initialized scenario ready, do you want to replace it with the current one?",	
-			defaultValue="false")			
+			defaultValue="true")			
 	public void setResetServerScenario(Boolean resetServerScenario) {
 		this.resetServerScenario = resetServerScenario;
 	}
@@ -75,7 +75,7 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 	}
 
 
-	@CreoleParameter(defaultValue="false")			
+	@CreoleParameter(defaultValue="true")			
 	public void setTerminateServerOnCleanup(Boolean terminateServerOnCleanup) {
 		this.terminateServerOnCleanup = terminateServerOnCleanup;
 	}

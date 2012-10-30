@@ -4,6 +4,7 @@ use warnings;
 
 use Treex::Core;
 use Treex::Block::CzsemRpcReader;
+use Treex::CzsemScenario;
 use RPC::XML::Server; 
 use RPC::XML; 
 use Net::Address::IP::Local;
@@ -117,7 +118,7 @@ sub initScenario
   my $lang = shift;
   my $blocks = shift;
   my $scenStr = "Util::SetGlobal language=$lang CzsemRpcReader " . join(' ', @$blocks);  
-  $scenario = Treex::Core::Scenario->new(from_string => $scenStr);
+  $scenario = Treex::CzsemScenario->new(from_string => $scenStr);
 }
 
 

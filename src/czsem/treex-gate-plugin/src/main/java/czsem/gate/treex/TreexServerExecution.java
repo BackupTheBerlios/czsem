@@ -105,6 +105,7 @@ public class TreexServerExecution {
 	}
 
 	private int portNumber = 9090;
+	public boolean show_treex_output = false;
 
 	public void start() throws Exception {
 		if (! Utils.portAvailable(getPortNumber()))
@@ -151,8 +152,10 @@ public class TreexServerExecution {
 		//tmt_proc.exec(cmdarray, env, new File(cfg.getTreexDir()));
 		tmt_proc.execWithProcessBuilder(pb);
 		
-		//tmt_proc.startStdoutReaderThreads();
-		tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
+		if (show_treex_output)
+			tmt_proc.startStdoutReaderThreads();
+		else
+			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
 
 		
 		
