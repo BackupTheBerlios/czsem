@@ -20,16 +20,20 @@ public class TreexRemoteAnalyserTest {
 
 	@Test(groups = { "treexRemote" })
 	public void englishSimpleTest() throws Exception {
-    	GateUtils.initGateInSandBox();
+	    String sever_addr = "http://192.168.167.13:9090";
+	    
+	    System.err.println("Testing remote server at: " + sever_addr);
+
+	    GateUtils.initGateInSandBox();
     
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
 	    {
 			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
 	    }
 	    
-	    PRSetup[] prs= {
+		PRSetup[] prs= {
 	    		new SinglePRSetup(TreexRemoteAnalyser.class)
-	    			.putFeature("treexServerUrl", new URL("http://192.168.167.12:9090"))
+	    			.putFeature("treexServerUrl", new URL(sever_addr))
 	    			.putFeature("resetServerScenario", true)
 	    			.putFeature("terminateServerOnCleanup", true)
 	    			.putFeatureList("scenarioSetup", 
