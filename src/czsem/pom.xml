@@ -120,7 +120,7 @@
 				<configuration>
 					<pushChanges>false</pushChanges>
 					<localCheckout>true</localCheckout>
-					<arguments>-Djarsigner.storepass=${jarsigner.storepass}</arguments>
+					<arguments>-Djarsigner.storepass=${jarsigner.storepass} -Djarsigner.skip=false</arguments>
 				</configuration>
 			</plugin>
 		</plugins>
