@@ -101,6 +101,9 @@
 						</goals>
 						<phase>package</phase>
 						<configuration>
+							
+							<skip>true</skip>
+						
 							<archive>${project.build.directory}/${project.artifactId}-${project.version}-jar-with-dependencies.${project.packaging}</archive>
 							<alias>czsem</alias>
 							<keystore>${basedir}/src/main/keystore/czsem.keystore</keystore>

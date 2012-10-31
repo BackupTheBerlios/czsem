@@ -26,7 +26,7 @@ import czsem.gate.learning.PRSetup;
 import czsem.gate.utils.Config;
 import czsem.gate.utils.GateUtils;
 
-@CreoleResource(name = "czsem CustomPR", comment = "Usable within GETE embeded only.")
+@CreoleResource(name = "czsem CustomPR", comment = "Usable within GATE embeded only.")
 public class CustomPR extends AbstractLanguageAnalyser {
 	private static final long serialVersionUID = -1412485629846167332L;
 	private AnalyzeDocDelegate executionDelegate;

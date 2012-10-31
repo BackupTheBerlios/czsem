@@ -33,7 +33,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 		
 		try {
 			exec.start();
-			serverConnection.initScenario(getLanguageCode(), getScenarioSetup().toArray(new String[0]));
+			initScenario();
 		} catch (Exception e) {
 			serverConnection.terminateServer();
 			serverConnection = null;

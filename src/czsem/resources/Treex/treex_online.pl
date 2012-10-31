@@ -119,6 +119,9 @@ sub initScenario
   my $blocks = shift;
   my $scenStr = "Util::SetGlobal language=$lang CzsemRpcReader " . join(' ', @$blocks);  
   $scenario = Treex::CzsemScenario->new(from_string => $scenStr);
+  
+  $scenario->init;
+  $scenario->start;
 }
 
 

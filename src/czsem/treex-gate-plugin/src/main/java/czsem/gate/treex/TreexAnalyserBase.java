@@ -2,6 +2,7 @@ package czsem.gate.treex;
 
 import gate.Document;
 import gate.creole.ExecutionException;
+import gate.creole.ResourceInstantiationException;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
@@ -26,20 +27,35 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 	protected String languageCode;
 	protected List<String> scenarioSetup;
 	protected TreexServerConnection serverConnection = null;
+	
+	public static String getLogPath() {
+		try {
+			return Config.getConfig().getLogFileDirectoryPath() + "/TREEX_err.log";
+		} catch (Exception e) {
+			return "<path is not available>";
+		}
+	}
 
 	@Override
 	public void execute() throws ExecutionException {
 		Document doc = getDocument();
-		String logPath = "<path is not available>";
 		try {
-			logPath = Config.getConfig().getLogFileDirectoryPath() + "/TREEX_err.log";
-
 			TreexInputDocPrepare ip = new TreexInputDocPrepare(doc, getInputASName());
 			Object treexRet = serverConnection.analyzePreprocessedDoc(doc.getContent().toString(), ip.createInputDocData());
 			TreexReturnAnalysis tra = new TreexReturnAnalysis(treexRet);
 			tra.annotate(doc, getOutputASName());
 		} catch (Exception e) {
-			throw new ExecutionException("Error occured during run of Treex server.\nSee remote server's output, or local server's log file: " + logPath, e);
+			throw new ExecutionException("Error occured during run of Treex server.\nSee remote server's output, or local server's log file: " + getLogPath(), e);
+		}
+	}
+	
+	protected void initScenario() throws ResourceInstantiationException
+	{
+		try {
+			serverConnection.initScenario(getLanguageCode(), getScenarioSetup().toArray(new String[0]));
+		} catch (Exception e) {
+			throw new ResourceInstantiationException(
+					"Error occured during Treex server init.\nSee remote server's output, or local server's log file: " + getLogPath(), e);
 		}
 	}
 

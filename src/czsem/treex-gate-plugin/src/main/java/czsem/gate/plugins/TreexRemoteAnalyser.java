@@ -39,7 +39,9 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 				String lang = getLanguageCode();
 				List<String> scenSetup = getScenarioSetup();
 				if (lang != null && lang != "" && scenSetup != null && scenSetup.size() != 0)
-					serverConnection.initScenario(lang, scenSetup.toArray(new String[0]));				
+				{
+					initScenario();
+				}
 			}
 		} catch (Exception e) {
 			serverConnection = null;
