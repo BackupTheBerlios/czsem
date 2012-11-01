@@ -15,6 +15,19 @@
 		<module>gate-machine-learning-plugin</module>
 		<module>gate-learning-plugin</module>
 	</modules>
+	
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>				
+			</plugins>
+		</pluginManagement>
+	</build>
 
 
 	<dependencies>
