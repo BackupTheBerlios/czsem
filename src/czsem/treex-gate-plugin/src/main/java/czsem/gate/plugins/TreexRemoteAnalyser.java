@@ -12,7 +12,7 @@ import java.util.List;
 import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerConnection;
 
-@CreoleResource(name = "TreexRemoteAnalyser", comment = "Alyses givem corpus by Treex remote (or local) server.")
+@CreoleResource(name = "czsem TreexRemoteAnalyser", comment = "Alyses givem corpus by Treex remote (or local) server.")
 public class TreexRemoteAnalyser extends TreexAnalyserBase {	
 	
 	private static final long serialVersionUID = -5182317059444320543L;
