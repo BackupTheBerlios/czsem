@@ -4,7 +4,6 @@ import gate.creole.ResourceInstantiationException;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -170,7 +169,7 @@ public class TreexServerExecution {
 	public TreexServerConnection getConnection() {
 		try {
 			return new TreexServerConnection("localhost", getPortNumber());
-		} catch (MalformedURLException e) {
+		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}

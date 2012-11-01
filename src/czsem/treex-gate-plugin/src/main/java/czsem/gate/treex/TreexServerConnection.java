@@ -1,5 +1,7 @@
 package czsem.gate.treex;
 
+import gate.creole.ResourceInstantiationException;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,16 +19,24 @@ public class TreexServerConnection {
 
 	XmlRpcClient rpcClient;
 	
-	public TreexServerConnection(String hostname, int portNumber) throws MalformedURLException {
+	public TreexServerConnection(String hostname, int portNumber) throws MalformedURLException, ResourceInstantiationException {
 		this(new URL("http", hostname, portNumber, "/RPC2"));
 	}
 
-	public TreexServerConnection(URL treexServerUrl) {
-		XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-		config.setServerURL(treexServerUrl);
-		
-		rpcClient = new XmlRpcClient();
-		rpcClient.setConfig(config);
+	public TreexServerConnection(URL treexServerUrl) throws ResourceInstantiationException {
+		try {
+			XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+			config.setServerURL(treexServerUrl);
+			
+			rpcClient = new XmlRpcClient();
+			rpcClient.setConfig(config);
+		} 
+		catch (IncompatibleClassChangeError e) {
+			throw new ResourceInstantiationException( String.format(
+					"Filed to start Treex server, due to IncompatibleClassChangeError (%s), " +
+					"this is usually caused by the presence of a different version of XML-RPC library, " +
+					"e.g. if tecto-mt-gate-plugin is loaded in the same time...", e.toString()));						
+		}
 	}
 
 	public void terminateServer() {

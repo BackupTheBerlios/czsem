@@ -10,7 +10,7 @@ import java.util.List;
 import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
 
-@CreoleResource(name = "TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )")
+@CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )")
 public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 	private static final long serialVersionUID = -3111101835623696930L;

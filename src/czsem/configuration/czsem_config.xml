@@ -2,10 +2,6 @@
 <java version="1.6.0_16" class="java.beans.XMLDecoder"> 
  <object class="java.util.HashMap"> 
   <void method="put"> 
-   <string>wekaRunFuzzyILPClassPath</string> 
-   <string>C:\workspace\czsem_git\src\czsem/fuzzy-ilp-classifier/target/fuzzy-ilp-classifier-2.0.jar</string> 
-  </void> 
-  <void method="put"> 
    <string>prologPath</string> 
    <string>C:\Program Files\Yap\bin\yap.exe</string> 
   </void> 
@@ -14,12 +10,12 @@
    <string>C:\workspace\czsem_git\src\czsem\temp/TmT_serializations</string> 
   </void> 
   <void method="put"> 
-   <string>ilpSerialProjestsPath</string> 
-   <string>C:\workspace\czsem_git\src\czsem\temp/ILP_serializations</string> 
-  </void> 
-  <void method="put"> 
    <string>treexDir</string> 
    <string>C:\workspace\treex\svn\treex</string> 
+  </void> 
+  <void method="put"> 
+   <string>ilpSerialProjestsPath</string> 
+   <string>C:\workspace\czsem_git\src\czsem\temp/ILP_serializations</string> 
   </void> 
   <void method="put"> 
    <string>tredRoot</string> 

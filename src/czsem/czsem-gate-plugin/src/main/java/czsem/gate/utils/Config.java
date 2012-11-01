@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Collection;
 import java.util.Iterator;
-import java.util.Set;
 
 import czsem.Utils;
+import czsem.utils.AbstractConfig;
 
 
 public class Config extends czsem.utils.Config
 {
-	private static Config config = null;
 	public static ClassLoader classLoader = null;
 	public static String czsem_plugin_dir_name = "czsem-gate-plugin";
 	
@@ -26,14 +26,16 @@ public class Config extends czsem.utils.Config
 		if (args.length <= 0)
 		{
 			Config ps = new Config();
+			ps.initNullConfig();
 			ps.setMyWinValues();
 			ps.save();
 			System.err.format("MyWinValues saved to '%s' !", ps.getDefaultLoc());
 		} else {
 			Config ps = new Config();
+			ps.initNullConfig();
 			ps.setMyWinValues();
 			ps.setInstallDefaults();
-			String target = args[0]+ '/' +ps.config_filename;
+			String target = args[0]+ '/' +AbstractConfig.config_filename;
 			ps.saveToFile(target);
 			System.err.format("InstallDefaults saved to '%s' !\n", target);
 		}
@@ -60,8 +62,7 @@ public class Config extends czsem.utils.Config
 
 	protected static URL findCzesemPluginDirectoryURL()
 	{
-		@SuppressWarnings("unchecked")
-		Set<URL> dirs = Gate.getCreoleRegister().getDirectories();
+		Collection<URL> dirs = Gate.getKnownPlugins();
 		for (Iterator<URL> iterator = dirs.iterator(); iterator.hasNext();)
 		{
 			URL url = iterator.next();
@@ -73,7 +74,8 @@ public class Config extends czsem.utils.Config
 	}
 	
 
-	public void loadConfig() throws IOException, URISyntaxException
+	@Override
+	public void loadConfig() throws ConfigLoadEception 
 	{
 		if (Gate.isInitialised() && Config.classLoader == null)
 			Config.classLoader = Gate.getClassLoader();
@@ -107,13 +109,9 @@ public class Config extends czsem.utils.Config
 	}
 
 		
-	public static synchronized Config getConfig() throws IOException, URISyntaxException
+	public static Config getConfig() throws ConfigLoadEception 
 	{
-		if (config == null) {
-			config = new Config();
-			config.loadConfig();
-		}
-		return (Config) config;
+		return (Config) new Config().getAbstractConfig();
 	}
 			
 	public void setInstallDefaults()
