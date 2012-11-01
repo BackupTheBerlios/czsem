@@ -11,4 +11,15 @@
 	<name>Netgraph Client</name>
 	<description>Netgraph is a client-server application for searching in linguistically annotated treebanks, developed primarily for searching in the Prague Dependency Treebank 2.0. Nevertheless, Netgraph can work with other corpora too, as long as they are converted to FS format.</description>
 	<url>http://quest.ms.mff.cuni.cz/netgraph/</url>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>							
+		</plugins>
+	</build>
 </project>

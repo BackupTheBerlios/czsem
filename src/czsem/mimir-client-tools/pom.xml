@@ -8,4 +8,16 @@
   <groupId>uk.ac.gate</groupId>
   <artifactId>mimir-client-tools</artifactId>
   <version>1.0</version>
+  
+  	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>							
+		</plugins>
+	</build>
+  
 </project>
