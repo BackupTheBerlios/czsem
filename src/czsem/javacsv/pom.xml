@@ -3,7 +3,7 @@
   <parent>
     <artifactId>czsem</artifactId>
     <groupId>czsem</groupId>
-    <version>2.0</version>
+    <version>2.1-SNAPSHOT</version>
   </parent>
   <groupId>cvs.sourceforge.net</groupId>
   <artifactId>javacsv</artifactId>
