@@ -1,18 +1,10 @@
 package czsem.utils;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-
-
 public class Config extends AbstractConfig {
 	
-	public static synchronized Config getConfig() throws IOException, URISyntaxException
+	public static Config getConfig() throws ConfigLoadEception
 	{
-		if (config == null) {
-			config = new Config();
-			config.loadConfig();
-		}
-		return (Config) config;
+		return (Config) new Config().getAbstractConfig();
 	}
 
 	

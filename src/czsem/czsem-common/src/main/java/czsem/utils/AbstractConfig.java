@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,33 +14,34 @@ import java.util.Map;
 
 public class AbstractConfig {
 	
-	protected static AbstractConfig config = null; 
+	protected static Map<String,Map<String, Object>> property_map = new HashMap<String, Map<String,Object>>();
 	
-	
-	protected Map<String, Object> property_map = new HashMap<String, Object>();
-	protected String config_filename = "czsem_config.xml";
-	protected String config_dir = "configuration";
-	protected String config_envp = "CZSEM_CONFIG";
-
+	protected static String config_filename = "czsem_config.xml";
+	protected static String config_dir = "configuration";
+	protected static String config_envp = "CZSEM_CONFIG";
 	
 	protected void save() throws IOException {
 		saveToFile(getDefaultLoc());		
 	}
+	
+	protected Map<String, Object> getMap() { return property_map.get(getConfigKey());}
+	protected void setMap(Map<String, Object> map) { property_map.put(getConfigKey(), map);}
 
+	protected String getConfigKey() { return "czsem_config";}
 	
 	protected void set(String key, Object value)
 	{
-		property_map.put(key, value);
+		getMap().put(key, value);
 	}
 
 	protected String get(String key)
 	{
-		return (String) property_map.get(key);
+		return (String) getMap().get(key);
 	}
 
 	protected Object getObj(String key)
 	{
-		return property_map.get(key);
+		return getMap().get(key);
 	}
 		
 	public void saveToFile(String filename) throws IOException
@@ -54,7 +54,7 @@ public class AbstractConfig {
 		XMLEncoder xenc = new XMLEncoder(fos);
 
 		// Write object.
-		xenc.writeObject(property_map);
+		xenc.writeObject(getMap());
 		xenc.flush();
 		xenc.close();
 		fos.close();
@@ -73,7 +73,19 @@ public class AbstractConfig {
 	
 	public void loadConfig(String filename, ClassLoader classLoader) throws IOException
 	{
-		property_map = loadFromFile(filename, classLoader);		
+		setMap(loadFromFile(filename, classLoader));		
+	}
+
+	protected synchronized AbstractConfig getAbstractConfig() throws ConfigLoadEception {
+		
+		if (getMap() == null) 
+			loadConfig();
+		
+		return this;
+	}
+	
+	public void initNullConfig() {
+		setMap(new HashMap<String, Object>());
 	}
 
 	public void loadConfig(ClassLoader classLoader) throws ConfigLoadEception
@@ -131,7 +143,7 @@ public class AbstractConfig {
 	}
 
 
-	public void loadConfig() throws IOException, URISyntaxException {
+	public void loadConfig() throws ConfigLoadEception  {
 		loadConfig(null);
 	}
 
