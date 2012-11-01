@@ -15,9 +15,21 @@
 
 	<profiles>
 		<profile>
+			<id>performRelease</id>
 			<activation>
 				<property>
 					<name>performRelease</name>
+				</property>
+			</activation>
+			<properties>
+				<skipSigner>false</skipSigner>
+			</properties>
+		</profile>
+		<profile>
+			<id>jarsigner.storepass is set</id>
+			<activation>
+				<property>
+					<name>jarsigner.storepass</name>
 				</property>
 			</activation>
 			<properties>
