@@ -17,7 +17,7 @@
 		<run-privileged condition="izpack.windowsinstall.vista|izpack.windowsinstall.7" uninstaller="yes" />
 		<appsubpath>czsem_suite_${project.parent.version}</appsubpath>
 	</info>
-	<guiprefs height="480" resizable="no" width="640">
+	<guiprefs height="480" width="640" resizable="yes">
 		<modifier key="useFlags" value="yes" />
 		<modifier key="langDisplayType" value="default" />
 		<modifier key="useHeadingPanel" value="yes" />
