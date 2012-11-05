@@ -211,7 +211,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		@Override
 		public String getString() {
-			return (String) node.get("form");
+			return node.get("form").toString(); //toString is important because sometimes we obtain numbers... 
 		}
 		
 	}

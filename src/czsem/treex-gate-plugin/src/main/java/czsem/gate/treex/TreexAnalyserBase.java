@@ -6,6 +6,7 @@ import gate.creole.ResourceInstantiationException;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
+import gate.util.InvalidOffsetException;
 
 import java.util.List;
 
@@ -39,13 +40,21 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 	@Override
 	public void execute() throws ExecutionException {
 		Document doc = getDocument();
+		Object treexRet = null;
+		
 		try {
 			TreexInputDocPrepare ip = new TreexInputDocPrepare(doc, getInputASName());
-			Object treexRet = serverConnection.analyzePreprocessedDoc(doc.getContent().toString(), ip.createInputDocData());
-			TreexReturnAnalysis tra = new TreexReturnAnalysis(treexRet);
-			tra.annotate(doc, getOutputASName());
+			treexRet = serverConnection.analyzePreprocessedDoc(doc.getContent().toString(), ip.createInputDocData());
 		} catch (Exception e) {
 			throw new ExecutionException("Error occured during run of Treex server.\nSee remote server's output, or local server's log file: " + getLogPath(), e);
+		}
+			
+		TreexReturnAnalysis tra = new TreexReturnAnalysis(treexRet);
+		
+		try {
+			tra.annotate(doc, getOutputASName());
+		} catch (InvalidOffsetException e) {
+			throw new ExecutionException(e);
 		}
 	}
 	

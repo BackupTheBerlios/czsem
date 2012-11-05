@@ -70,15 +70,15 @@ public class TreexLocalAnalyserTest {
 	    };
 	    
 		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
-		Corpus corpus = Factory.newCorpus("englishSimpleTest");
-		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že?");
+		Corpus corpus = Factory.newCorpus("czechSimpleTest");
+		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012");
 		corpus.add(doc);
 		analysis.setCorpus(corpus);
 		analysis.execute();
 		
 		analysis.cleanup();
 		
-		Assert.assertEquals(doc.getAnnotations().size(), 11);
+		Assert.assertEquals(doc.getAnnotations().size(), 15);
 		
 		GateUtils.deleteAllPublicGateResources();
 	}

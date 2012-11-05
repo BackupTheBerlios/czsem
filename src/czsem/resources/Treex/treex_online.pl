@@ -136,6 +136,7 @@ sub analyzeText
 }
 
 
+#this function is no more used, it was too slow, now replaced with encodeNode  
 sub processNode
 {
   my $node  = shift;
@@ -229,11 +230,11 @@ sub encodeLoadedDoc
         debugPrint  "--root--\n";
         debugPrint  $root->id;
         debugPrint  "\n";
-        push(@$roots, processNode($root, $root->type->schema));          
+        push(@$roots, encodeNode($root));          
         foreach my $node ( $root->get_descendants({}) ) {
           debugPrint  "----node------\n";
           
-          push(@$nodes, processNode($node, $root->type->schema));          
+          push(@$nodes, encodeNode($node));          
         }
       }
       my $zone = {         
@@ -342,10 +343,12 @@ sub printPaths
  my $doc = Treex::Core::Document->new;
  
  my $bundle = $doc->create_bundle;
- my $zone   = $bundle->create_zone('en');
- my $atree  = $zone->create_atree;
- 
- my $schema = $atree->type->schema;
+ my $schema = $bundle->type->schema;
+
+ foreach my $typeName ( $schema->get_type_names ) {
+  printPathsForType($schema, $typeName);
+ }
+
  
  foreach my $typeName ( $schema->get_type_names ) {
   print "$typeName\n";
@@ -357,28 +360,15 @@ sub printPaths
   printPathsForType($schema, 'n-node.type');
   printPathsForType($schema, 'p-terminal.type');
   printPathsForType($schema, 'p-nonterminal.type');
-  
-   my $predicate = $atree->create_child({form=>'loves'});
- 
- foreach my $argument (qw(John Mary)) {
-   my $child = $atree->create_child( { form=>$argument } );
-   $child->set_parent($predicate);
- }
- 
- print "\n---\n";
- print $predicate->get_attr('form');
- print "\n---\n";
- print $predicate->{'form'};
- print "\n---\n";
- 
- foreach my $attr (keys %{$predicate}) {
-  print "attr $attr = xxx$predicate->{$attr}xxx\n"; 
-  }
+}
+
 
 
 sub testDoc {
 
   my $document = Treex::Core::Document->new( { filename => 'C:\workspace\czsem_git\src\czsem\treex-gate-plugin\src\test\resources\czsem\gate\treex\demo_en.treex' } );
+  
+  encodeLoadedDoc($document);
   
   
   foreach my $bundle ($document->get_bundles())
@@ -399,7 +389,7 @@ sub testDoc {
 }
 
 
-sub buildAttrs
+sub buildAttrSets
 {
 
   $stringAttrs = Set::Light->new; 
@@ -410,23 +400,79 @@ sub buildAttrs
   my $schema = $bundle->type->schema;
   
   foreach my $typeName ( $schema->get_type_names ) {
-    print "$typeName\n";
-    
     my $nodeType = $schema->get_type_by_name($typeName);
 
-    foreach my $path ( $schema->get_paths_to_atoms([$nodeType]) ) {
-      print "   $path\n";
-      
+    foreach my $path ( $schema->get_paths_to_atoms([$nodeType]) ) {    
       my @parts = split(/\//, $path);
       
-      $stringAttrs->insert(pop @parts);
-      
+      $stringAttrs->insert(pop @parts);      
       $hashAttrs->insert(@parts);
-      
-      print "   @parts\n";
     }
   }
+}
+
+sub encodeSubNode
+{
+  my $node  = shift;
+  my $ret = shift;
+  my $attrPrefix = shift;
   
+  foreach my $key (keys %{$node}) {
+    my $outKey = $attrPrefix . $key;
+    my $value = $node->{$key};
+
+    if ($value) {
+      if ($stringAttrs->contains($key)) {      
+        if (UNIVERSAL::isa($value,'ARRAY'))
+        {
+          my @arr_value = $value->values;
+          my $finall_value = [];
+          #debugPrint  "$path = @arr_value ($valueAll)\n";
+          foreach my $v (@arr_value)
+          {
+            push(@$finall_value, $v);
+          }
+          
+          $ret->{$outKey} = $finall_value;           
+        } else {
+          #debugPrint  "$path = $value ($valueAll)\n";
+          utf8::encode($value); 
+          $ret->{$outKey} = $value; 
+        }
+      } else {
+        if ($hashAttrs->contains($key))
+        {
+          encodeSubNode($value, $ret, $outKey . '/');
+        }
+      }
+    } 
+  }
+}
+
+
+sub encodeNode
+{
+  my $node  = shift;
+  my $ret = {};
+  
+  if ($node->parent) {
+    debugPrint  "parent: ";
+    debugPrint  $node->parent->id;
+    $ret->{"parent_id"} = $node->parent->id;
+  } 
+  
+  debugPrint  "\ntype: ";
+  debugPrint  $node->get_pml_type_name . "\n";
+  $ret->{"pml_type_name"} = $node->get_pml_type_name;
+  
+  encodeSubNode($node, $ret, '');
+  
+  return $ret;
+}
+
+
+sub printAttrSets
+{  
   print "-str-\n";
   foreach my $elem (keys %{$stringAttrs} ) {
     print "$elem\n";
@@ -435,29 +481,19 @@ sub buildAttrs
   print "-hash-\n";
   foreach my $elem (keys %{ $hashAttrs} ) {
     print "$elem\n";
+    if ($stringAttrs->contains($elem)) {
+      print "WARNING duplicit!!!\n";
+    }
   }
-
-
 }  
-
- 
-  
-  #my $nodeType = $schema->get_type_by_name($node->get_pml_type_name);
-
- 
-  #my $nodePaths = $schema->get_paths_to_atoms([$atree->type]);
-  #print  "nodePaths: $nodePaths\n";
-  
-   # foreach my $path ( $schema->get_paths_to_atoms([$nodeType]) ) {
-
-}
 
  
 #initScenario(@scenarioSetup);
 
-#startServer;
-printPaths;
+#printPaths;
+buildAttrSets;
+#printAttrSets;
 #testDoc;
-buildAttrs;
+startServer;
 
 

@@ -29,6 +29,7 @@ public class TreexServerExecution {
 		protected String handshake_code;
 		protected String handshake_return = null;
 
+
 		public TreexHandShake(ProcessExec process, TreexServerConnection connection, String handshake_code) {
 			this.process = process;
 			this.connection = connection;
@@ -105,8 +106,47 @@ public class TreexServerExecution {
 
 	private int portNumber = 9090;
 	public boolean show_treex_output = false;
+	private ProcessExec process;
+	protected String handshakeCode = Long.toHexString(new Random().nextLong());
+
+
+	public String getHandshakeCode() {
+		return handshakeCode;
+	}
+
+
+	public void setHandshakeCode(String handshakeCode) {
+		this.handshakeCode = handshakeCode;
+	}
+
 
 	public void start() throws Exception {
+		startWithoutHandshake();
+		doHandshake(handshakeCode);
+	}
+
+	
+	public void start(String[] cmdarray) throws Exception {
+		startWithoutHandshake(cmdarray);
+		
+		doHandshake(handshakeCode);
+
+		logger.info(String.format("Treex server succsefuly started! port: %d handshake code: %s", getPortNumber(),  handshakeCode));
+	}
+	
+	public void startWithoutHandshake() throws Exception {
+		String[] cmdarray = {
+				"perl", 
+				Config.getConfig().getCzsemResourcesDir()+"/Treex/treex_online.pl",
+				Integer.toString(getPortNumber()),
+				handshakeCode};
+		
+		startWithoutHandshake(cmdarray);		
+	}
+
+
+	
+	public void startWithoutHandshake(String[] cmdarray) throws Exception {
 		if (! Utils.portAvailable(getPortNumber()))
 		{
 			throw new ResourceInstantiationException("Filed to start Treex server, port nuber: "+getPortNumber()+" is not available.");						
@@ -116,13 +156,7 @@ public class TreexServerExecution {
 		
 		Config cfg = Config.getConfig();
 		
-		String handshake_code = Long.toHexString(new Random().nextLong());
 
-		String[] cmdarray = {
-				"perl", 
-				cfg.getCzsemResourcesDir()+"/Treex/treex_online.pl",
-				Integer.toString(getPortNumber()),
-				handshake_code};
 /*		
 		String[] env = {
 				"PERL5LIB="+cfg.getCzsemResourcesDir()+"/Treex" + path_sep +
@@ -151,20 +185,23 @@ public class TreexServerExecution {
 		//tmt_proc.exec(cmdarray, env, new File(cfg.getTreexDir()));
 		tmt_proc.execWithProcessBuilder(pb);
 		
+		
 		if (show_treex_output)
 			tmt_proc.startStdoutReaderThreads();
 		else
 			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
 
-		
-		
-		TreexHandShake th = new TreexHandShake(tmt_proc, getConnection(), handshake_code);
-		
-		th.doHandShake();
-		
-		logger.info(String.format("Treex server succsefuly started! port: %d handshake code: %s", getPortNumber(),  handshake_code));
-		
+		process = tmt_proc;		
 	}
+	
+	public void doHandshake(String handshake_code) throws Exception {
+		TreexHandShake th = new TreexHandShake(process, getConnection(), handshake_code);
+		
+		th.doHandShake();		
+	}
+	
+	
+	
 
 	public TreexServerConnection getConnection() {
 		try {
@@ -182,4 +219,9 @@ public class TreexServerExecution {
 		return portNumber;
 	}
 
+
+	public void waitFor() throws InterruptedException {
+		process.waitFor();
+		
+	}
 }
