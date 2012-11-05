@@ -457,7 +457,7 @@ sub buildAttrs
 
 #startServer;
 printPaths;
-testDoc;
+#testDoc;
 buildAttrs;
 
 
