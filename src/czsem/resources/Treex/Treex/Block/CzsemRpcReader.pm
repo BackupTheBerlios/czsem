@@ -34,14 +34,19 @@ sub next_document {
 
     $cur_zone->set_sentence($zone->{'sentence'});
     
-    # create a-tree
-    my $a_root = $cur_zone->create_atree();
-  
-    my $tocs = $zone->{'tokens'};  
-    foreach my $toc ( @$tocs ) {
-      # create new a-node
-      $a_root->create_child($toc);
-    }
+    my $tocs = $zone->{'tokens'};
+    
+    #This is important, we are not creating an empty atree if there are no tokens. 
+    if (@$tocs) {
+      
+      # create a-tree
+      my $a_root = $cur_zone->create_atree();
+    
+      foreach my $toc ( @$tocs ) {
+        # create new a-node
+        $a_root->create_child($toc);
+      }
+    }  
   }
   return $doc;
 }

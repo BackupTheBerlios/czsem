@@ -36,7 +36,7 @@ public class SequenceAnnotatorTest
 		}
 		catch (StringIndexOutOfBoundsException e)
 		{
-			sa.restore();
+			sa.restorePreviousAndBackupCurrent();
 			sa.nextToken("!");
 			assertEquals(sa.lastStart(), 26);
 			assertEquals(sa.lastEnd(), 27);

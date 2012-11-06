@@ -81,7 +81,7 @@ public class Annotator implements AnnotatorInterface {
 
     	safeAnnotateSeq(s);
     	    	
-    	seq_anot.restore();
+    	seq_anot.restorePreviousAndBackupCurrent();
     	
 		for (SeqAnnotable token : s.getOrderedTokens())
 		{
@@ -89,6 +89,10 @@ public class Annotator implements AnnotatorInterface {
 		}
 		
 		s.annotateSecondaryEntities(this);
+
+		//important in cases, when there are no tokens 
+		seq_anot.restorePreviousAndBackupCurrent();
+
 	}
 
 	protected void safeAnnotateSeq(SeqAnnotable seqAnn) throws InvalidOffsetException {

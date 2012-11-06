@@ -37,7 +37,7 @@ public class Annotator
 
     	sentence.annotate(as, seq_anot);
     	    	
-    	seq_anot.restore();
+    	seq_anot.restorePreviousAndBackupCurrent();
     	
     	annotateTokensSeq(sentence.getTokens(Layer.MORPHO));
     	Token[] aTokens = sentence.getTokens(Layer.ANALAYTICAL);

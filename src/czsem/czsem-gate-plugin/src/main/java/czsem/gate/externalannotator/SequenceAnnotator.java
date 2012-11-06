@@ -24,10 +24,17 @@ public class SequenceAnnotator
 		backup_last_length = last_length;		
 	}
 	
-	public void restore()
+	public void restorePreviousAndBackupCurrent()
 	{
-		last_start_index = backup_last_index ;		
-		last_length = backup_last_length;		
+		int swap;
+		
+		swap = last_start_index;
+		last_start_index = backup_last_index ;
+		backup_last_index = swap;
+		
+		swap = last_length;
+		last_length = backup_last_length;
+		backup_last_length = swap;
 	}
 	
 	public SequenceAnnotator(Document doc)

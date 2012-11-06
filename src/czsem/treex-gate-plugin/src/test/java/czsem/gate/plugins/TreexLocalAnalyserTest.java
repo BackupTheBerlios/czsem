@@ -1,5 +1,6 @@
 package czsem.gate.plugins;
 
+import gate.Annotation;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
@@ -7,6 +8,7 @@ import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.log4j.Level;
 import org.testng.Assert;
@@ -64,10 +66,11 @@ public class TreexLocalAnalyserTest {
 	    
 	    PRSetup[] prs= {
 	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    			.putFeature("serverPortNumber", 9998)	
 	    			.putFeature("languageCode", "cs")
 	    			.putFeatureList("scenarioSetup",
-	    					"W2A::CS::Segment",
-	    					"W2A::CS::Tokenize")//,
+	    					"W2A::CS::Segment")//,
+//	    					"W2A::CS::Tokenize")//,
 //	    					"W2A::CS::TagMorce",
 //	    					"W2A::CS::FixMorphoErrors")
 	    };
@@ -93,16 +96,50 @@ public class TreexLocalAnalyserTest {
 		Document doc2 = Factory.newDocument(strDoc2);
 		corpus.add(doc2);
 		
+		String strDoc3 = 
+		 "\n"
+		+"\n   Změna: 126/2008 Sb."
+		+"\n"
+		+"\n   Změna: 304/2008 Sb. (část)"
+		+"\n"
+		+"\n   Změna: 230/2009 Sb."
+		+"\n"
+		+"\n   Změna: 304/2008 Sb."
+		+"\n"
+		+"\n   Změna: 227/2009 Sb."
+		+"\n";
+		
+		Document doc3 = Factory.newDocument(strDoc3);
+		corpus.add(doc3);
 
 		
 		analysis.setCorpus(corpus);
 		analysis.execute();
 		
 		analysis.cleanup();
+
+		List<Annotation> ords = gate.Utils.inDocumentOrder(doc3.getAnnotations().get("Sentence"));
+		int index = 0;
 		
-		Assert.assertEquals(doc.getAnnotations().size(), 15);
+		long off [][] = {
+				{  5,  24},
+				{ 29,  55},
+				{ 60,  79},
+				{ 84, 103},
+				{108, 127},
+		};
+		
+		for (Annotation s : ords) {
+			System.out.format("%3d %30s %3d\n", s.getStartNode().getOffset(), GateUtils.getAnnotationContent(s, doc3), s.getEndNode().getOffset());
+			Assert.assertEquals((long) s.getStartNode().getOffset(), off[index][0]);
+			Assert.assertEquals((long) s.getEndNode().getOffset(), off[index][1]);
+			index++;
+		}
+		
+		Assert.assertEquals(doc.getAnnotations().get("Sentence").size(), 2);
 		Assert.assertTrue(doc2.getAnnotations().get("Sentence").size() > 1, 
 				String.format("Sentences should be more than 1 but was: %d", doc2.getAnnotations().get("Sentence").size()));
+		
 		
 		GateUtils.deleteAllPublicGateResources();
 	}
