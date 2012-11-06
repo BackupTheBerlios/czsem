@@ -221,4 +221,29 @@ public class SequenceAnnotatorTest
 		sa.nextToken("BUY");
 		assertEquals(26, sa.lastStart());		
 	}
+	
+	@Test
+	public void testNextTokenZakonDot()
+	{
+		String s = 
+		
+		"\n   11d)  Zákon  č.  218/2000  Sb.,  o  rozpočtových  pravidlech  a o změně"
+		+"\n   některých   souvisejících   zákonů   (rozpočtová  pravidla),  ve  znění"
+		+"\n   pozdějších předpisů."
+		+"\n"
+		+"\n   Zákon  č. 250/2000 Sb., o rozpočtových pravidlech územních rozpočtů, ve"
+		+"\n   znění pozdějších předpisů."
+		+"\n"
+		+"\n   11e) Nařízení (ES) č. 1606/2002 Evropského parlamentu a Rady ze dne 19."
+		+"\n   července 2002, o používání Mezinárodních účetních standardů."
+		+"\n";
+		
+
+		SequenceAnnotator sa = new SequenceAnnotator(s, 0);
+		sa.nextToken("11d) Zákon č. 218/2000 Sb., o rozpočtových pravidlech a o změně některých souvisejících zákonů (rozpočtová pravidla), ve znění pozdějších předpisů.");
+		assertEquals(4, sa.lastStart());
+		sa.nextToken("Zákon č. 250/2000 Sb<<<DOT>>, o rozpočtových pravidlech územních rozpočtů, ve znění pozdějších předpisů. 11e) Nařízení (ES) č. 1606/2002 Evropského parlamentu a Rady ze dne 19. července 2002, o používání Mezinárodních účetních standardů.");
+		assertEquals(179, sa.lastStart());
+	}
+
 }

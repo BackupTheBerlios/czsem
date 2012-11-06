@@ -139,6 +139,13 @@ public class SequenceAnnotator
 							 }
 							 continue;
 						}
+						
+						//<<<DOT>>
+						if ((loc_ch == '.') && (token.startsWith("<<<DOT>>", token_index)))
+						{
+								token_index+=7;
+							continue;
+						}
 
 						//quotation correction
 						if ((loc_ch == '"' || loc_ch == '\'')&& (toc_ch == '\'' || toc_ch == '`'))
