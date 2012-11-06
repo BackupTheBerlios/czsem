@@ -36,7 +36,7 @@
 <Annotation Id="1" Type="Token" StartNode="0" EndNode="3">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -70,7 +70,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_auxiliary</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">form</Name>
@@ -82,7 +82,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">2</Value>
+  <Value className="java.lang.String">2</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -90,7 +90,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">edge_to_collapse</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="3" Type="Token" StartNode="7" EndNode="14">
@@ -108,7 +108,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_member</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">tag</Name>
@@ -116,7 +116,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -134,7 +134,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_auxiliary</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">form</Name>
@@ -146,7 +146,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">4</Value>
+  <Value className="java.lang.String">4</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -156,7 +156,7 @@
 <Annotation Id="5" Type="Token" StartNode="17" EndNode="22">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">5</Value>
+  <Value className="java.lang.String">5</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -198,7 +198,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">6</Value>
+  <Value className="java.lang.String">6</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -206,13 +206,13 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">edge_to_collapse</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="7" Type="Token" StartNode="29" EndNode="30">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">7</Value>
+  <Value className="java.lang.String">7</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -250,7 +250,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_member</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">tag</Name>
@@ -258,7 +258,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">8</Value>
+  <Value className="java.lang.String">8</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -268,7 +268,7 @@
 <Annotation Id="9" Type="Token" StartNode="35" EndNode="37">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">9</Value>
+  <Value className="java.lang.String">9</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -294,7 +294,7 @@
 <Annotation Id="10" Type="Token" StartNode="38" EndNode="41">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">10</Value>
+  <Value className="java.lang.String">10</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -336,7 +336,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">11</Value>
+  <Value className="java.lang.String">11</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -344,7 +344,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">no_space_after</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="12" Type="Token" StartNode="47" EndNode="48">
@@ -358,7 +358,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_auxiliary</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">form</Name>
@@ -370,7 +370,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">12</Value>
+  <Value className="java.lang.String">12</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -378,11 +378,11 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">edge_to_collapse</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">no_space_after</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="13" Type="aDependency" StartNode="0" EndNode="30">
@@ -442,7 +442,7 @@
 <Annotation Id="23" Type="t-node" StartNode="29" EndNode="30">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">6</Value>
+  <Value className="java.lang.String">6</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -474,7 +474,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -520,7 +520,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_member</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">t_lemma</Name>
@@ -528,7 +528,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_clause_head</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/diathesis</Name>
@@ -540,7 +540,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">functor</Name>
@@ -574,7 +574,7 @@
 <Annotation Id="32" Type="t-node" StartNode="23" EndNode="28">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">5</Value>
+  <Value className="java.lang.String">5</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -608,7 +608,7 @@
 <Annotation Id="39" Type="t-node_" StartNode="0" EndNode="48">
 <Feature>
   <Name className="java.lang.String">gram/person</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/gender</Name>
@@ -628,7 +628,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">2</Value>
+  <Value className="java.lang.String">2</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -636,7 +636,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_generated</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">formeme</Name>
@@ -658,7 +658,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">4</Value>
+  <Value className="java.lang.String">4</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -708,11 +708,11 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_member</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_clause_head</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/diathesis</Name>
@@ -720,7 +720,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">8</Value>
+  <Value className="java.lang.String">8</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -744,7 +744,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">10</Value>
+  <Value className="java.lang.String">10</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -766,7 +766,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">9</Value>
+  <Value className="java.lang.String">9</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -800,7 +800,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">11</Value>
+  <Value className="java.lang.String">11</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -850,7 +850,7 @@
 <Annotation Id="53" Type="t-node_" StartNode="0" EndNode="48">
 <Feature>
   <Name className="java.lang.String">gram/person</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/gender</Name>
@@ -870,7 +870,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">7</Value>
+  <Value className="java.lang.String">7</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -878,7 +878,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_generated</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">formeme</Name>
@@ -902,7 +902,7 @@
 <Annotation Id="59" Type="Token" StartNode="61" EndNode="69">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">4</Value>
+  <Value className="java.lang.String">4</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -928,7 +928,7 @@
 <Annotation Id="58" Type="Token" StartNode="55" EndNode="60">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -954,7 +954,7 @@
 <Annotation Id="57" Type="Token" StartNode="52" EndNode="54">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">2</Value>
+  <Value className="java.lang.String">2</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -980,7 +980,7 @@
 <Annotation Id="56" Type="Token" StartNode="49" EndNode="51">
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -1026,7 +1026,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_auxiliary</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">form</Name>
@@ -1038,7 +1038,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">6</Value>
+  <Value className="java.lang.String">6</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -1046,11 +1046,11 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">edge_to_collapse</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">no_space_after</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="60" Type="Token" StartNode="70" EndNode="78">
@@ -1072,7 +1072,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">5</Value>
+  <Value className="java.lang.String">5</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -1080,7 +1080,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">no_space_after</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 </Annotation>
 <Annotation Id="68" Type="t-node" StartNode="49" EndNode="51">
@@ -1090,7 +1090,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -1124,7 +1124,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">4</Value>
+  <Value className="java.lang.String">4</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -1162,7 +1162,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_clause_head</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/diathesis</Name>
@@ -1170,7 +1170,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -1200,7 +1200,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">6</Value>
+  <Value className="java.lang.String">6</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -1246,7 +1246,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">5</Value>
+  <Value className="java.lang.String">5</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">nodetype</Name>
@@ -1276,7 +1276,7 @@
 <Annotation Id="80" Type="t-node_" StartNode="49" EndNode="79">
 <Feature>
   <Name className="java.lang.String">gram/person</Name>
-  <Value className="java.lang.Integer">3</Value>
+  <Value className="java.lang.String">3</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">gram/gender</Name>
@@ -1296,7 +1296,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">ord</Name>
-  <Value className="java.lang.Integer">2</Value>
+  <Value className="java.lang.String">2</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">pml_type_name</Name>
@@ -1304,7 +1304,7 @@
 </Feature>
 <Feature>
   <Name className="java.lang.String">is_generated</Name>
-  <Value className="java.lang.Integer">1</Value>
+  <Value className="java.lang.String">1</Value>
 </Feature>
 <Feature>
   <Name className="java.lang.String">formeme</Name>

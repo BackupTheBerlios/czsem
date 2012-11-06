@@ -211,7 +211,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		@Override
 		public String getString() {
-			return node.get("form").toString(); //toString is important because sometimes we obtain numbers... 
+			return (String) node.get("form"); //we should always obtain a string if the Perl RPC server is well configured..  
 		}
 		
 	}
@@ -375,8 +375,8 @@ public class TeexAnnotationSource implements AnnotationSource {
 	
 			@Override
 			public int compare(Map<String, Object> o1, Map<String, Object> o2) {
-				Integer ord1 = (Integer) o1.get("ord");
-				Integer ord2 = (Integer) o2.get("ord");
+				Integer ord1 = Integer.parseInt((String) o1.get("ord"));
+				Integer ord2 = Integer.parseInt((String) o2.get("ord"));
 				return  ord1.compareTo(ord2);
 			}
 		});

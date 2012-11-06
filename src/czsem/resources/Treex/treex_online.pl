@@ -45,6 +45,7 @@ my @scenarioSetup = (
 
 
 $RPC::XML::ENCODING = "UTF-8";
+$RPC::XML::FORCE_STRING_ENCODING = 1;
 
 
 sub startServer
