@@ -3,28 +3,46 @@ package czsem.utils;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class MultiSet<T> implements Iterable<T>
 {
 	private Map<T, Integer> map = new HashMap<T, Integer>();
 	
-	public String toFormatedString(String separator)
+	public String toFormatedString(String separator) {
+		return toFormatedString(map.entrySet(), separator);
+	}
+
+	public String toOrderedFormatedString(String separator) {
+		ArrayList<Entry<T, Integer>> sortedEntries = new ArrayList<Entry<T,Integer>>(map.entrySet());
+		Collections.sort(sortedEntries, new Comparator<Entry<T, Integer>>() {
+			@Override
+			public int compare(Entry<T, Integer> o1, Entry<T, Integer> o2) {
+				return o2.getValue().compareTo(o1.getValue());
+			}
+		});
+		
+		return toFormatedString(sortedEntries, separator);
+	}
+
+	public String toFormatedString(Iterable<Entry<T,Integer>> set, String separator)
 	{
 		StringBuilder sb = new StringBuilder();
 		
-		for (T k : this)
+		for (Entry<T, Integer> e : set)
 		{
-			int i = get(k);
 			String outstr = "null";
-			if (k != null) outstr = k.toString();
+			T key = e.getKey();
+			if (key != null) outstr = key.toString();
 			sb.append(outstr);
 			sb.append(": ");
-			sb.append(i);
+			sb.append(e.getValue());
 			sb.append(separator);
 		}
 		
@@ -35,6 +53,11 @@ public class MultiSet<T> implements Iterable<T>
 	{
 		out.print(toFormatedString(", "));
 	}
+	
+	public void printSorted(PrintStream out, String separator) {
+		out.print(toOrderedFormatedString(separator));
+	}
+
 
 	public int size() {
 		return map.keySet().size();
@@ -50,6 +73,7 @@ public class MultiSet<T> implements Iterable<T>
 		else return i;
 	}
 
+	@Override
 	public Iterator<T> iterator() {
 		return map.keySet().iterator();
 	}
@@ -196,5 +220,4 @@ public class MultiSet<T> implements Iterable<T>
 		
 		
 	}
-
 }

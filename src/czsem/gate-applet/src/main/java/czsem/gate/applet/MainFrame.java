@@ -34,6 +34,8 @@ public class MainFrame {
 	private String asName;
 	private Container parent;
 	private String[] loadSchemas;
+	
+	public static String defaultEncoding = "utf8";
 
 	public MainFrame(URL documentUrl, String asName, String loadSchemas, Container parent)
 			throws HeadlessException {
@@ -169,7 +171,7 @@ public class MainFrame {
 		
 		documentEditor = new DefaultDocumentEditor();
 	
-		Document doc = downloadGateDocument(documentUrl);
+		Document doc = obtainGateDocument(documentUrl);
 		documentEditor.setTarget(doc);
 		documentEditor.setDefaultAsName(asName);
 		
@@ -189,6 +191,12 @@ public class MainFrame {
 			}
 		});
 		
+	}
+
+	protected Document obtainGateDocument(URL docUrl) throws ResourceInstantiationException {
+		if (docUrl.getProtocol().equalsIgnoreCase("file"))
+			return Factory.newDocument(docUrl, defaultEncoding ); 
+		return downloadGateDocument(documentUrl);
 	}
 
 	/*

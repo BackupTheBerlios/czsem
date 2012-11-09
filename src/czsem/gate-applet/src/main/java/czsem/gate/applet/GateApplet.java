@@ -45,13 +45,27 @@ public class GateApplet extends JApplet {
 		}
 	}
 
+
+	public static void showWithDocument(URL docUrl, String defaultAnnotationSet, String schemas) {
+		JFrame frame = new JFrame("Gate Applet");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setPreferredSize(new Dimension(800, 600));
+        
+		MainFrame mf = new MainFrame(docUrl, defaultAnnotationSet, schemas , frame);
+
+		mf.initGui();                
+        
+		//Display the window.
+        frame.pack();
+        frame.setVisible(true);
+
+		
+	}
+
 	
 	public static void main(String[] args) throws GateException, MalformedURLException {
         MainFrame.initGate();
 		
-		JFrame frame = new JFrame("Gate Applet");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(800, 600));
         
 		URL docUrl;
 		String defaultAnnotationSet;
@@ -74,16 +88,8 @@ public class GateApplet extends JApplet {
         {
         	schemas = args[2];
         }
-		
-		
-		MainFrame mf = new MainFrame(docUrl, defaultAnnotationSet, schemas , frame);
-
-		mf.initGui();                
         
-		//Display the window.
-        frame.pack();
-        frame.setVisible(true);
-		
+        showWithDocument(docUrl, defaultAnnotationSet, schemas);
 	}
 
 	public static void streamReadTest(URL documentUrl, String asName) throws IOException
