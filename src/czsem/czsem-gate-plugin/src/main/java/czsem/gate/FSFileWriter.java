@@ -4,7 +4,9 @@ import gate.Annotation;
 import gate.AnnotationSet;
 
 import java.io.FileNotFoundException;
-import java.io.PrintStream;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -14,7 +16,7 @@ import czsem.Utils;
 import czsem.utils.NetgraphConstants;
 
 public class FSFileWriter {
-	private PrintStream out = System.out;
+	private PrintWriter out;
 	
 	private String[] attributes = null;
 
@@ -44,9 +46,9 @@ public class FSFileWriter {
 			
 
 	
-	public FSFileWriter(String filename) throws FileNotFoundException, UnsupportedEncodingException
+	public FSFileWriter(String filename) throws UnsupportedEncodingException, FileNotFoundException 
 	{
-		out = new PrintStream(filename, "utf8");
+		out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf8"));
 	};
 	
 
@@ -115,8 +117,8 @@ public class FSFileWriter {
 			AnnotationSet sentence_set = annotations.getContained(
 					sentence.getStartNode().getOffset(), sentence.getEndNode().getOffset());
 						
-			SentenceFSWriter wr = new SentenceFSWriter(sentence_set, out, attributes);
-			wr.printTree(0);
+			FSSentenceWriter wr = new FSSentenceWriter(sentence_set, out);
+			wr.printTree();
 		}		
 	}
 	

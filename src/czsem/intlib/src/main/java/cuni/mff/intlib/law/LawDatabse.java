@@ -8,9 +8,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,7 +16,6 @@ import java.util.regex.Pattern;
 import org.apache.log4j.Logger;
 
 import cuni.mff.intlib.law.BasicAnalysis.Analyzer;
-import cuni.mff.intlib.law.LawDatabse.LawHeadAnalyssis;
 import czsem.Utils;
 import czsem.gate.utils.GateUtils;
 

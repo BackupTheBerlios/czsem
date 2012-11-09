@@ -3,20 +3,22 @@ package cuni.mff.intlib;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Document;
-import gate.Factory;
 import gate.FeatureMap;
-import gate.SimpleDocument;
+import gate.Gate;
 import gate.creole.ResourceInstantiationException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.util.Iterator;
 
-import czsem.gate.AbstractFSFileWriter;
 import czsem.gate.FSFileWriter;
+import czsem.gate.FSSentenceStringBuilder;
 import czsem.gate.applet.GateApplet;
+import czsem.gate.plugins.NetgraphTreeViewer;
 import czsem.gate.utils.GateUtils;
+import czsem.gui.TreeVisualize;
 import czsem.utils.MultiSet;
 
 public class HistogramBuilder {
@@ -32,19 +34,43 @@ public class HistogramBuilder {
 		/*
 		System.err.println("reading doc: " + fileName);
 		Document doc = Factory.newDocument(new File(fileName).toURI().toURL(), "utf8");
+		System.err.println("reading finished");
 		
-		BuildHistogram(doc);
+		showTree(doc);
+		
+		//BuildHistogram(doc);
 		
 		//FsExport(doc);
-		*/
+		/**/
 		
 		viewAnnot(fileName);
 
 	}
 
-	private static void viewAnnot(String fileName) throws Exception {
-		GateApplet.showWithDocument(new File(fileName).toURI().toURL(), "tmt2", null);
+	public static void showTree(Document doc) {
+		AnnotationSet ss = doc.getAnnotations("tmt4").get("Sentence");
 		
+		Iterator<Annotation> i = ss.iterator();
+		
+		for (int a=0; a<32; a++)
+		{
+			i.next();
+		}
+		
+		Annotation s = i.next();
+		
+		AnnotationSet sas = doc.getAnnotations("tmt4").getContained(
+				s.getStartNode().getOffset(), 
+				s.getEndNode().getOffset());
+		
+		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
+		
+		TreeVisualize.showTree(fssb.getAttributes(), fssb.getTree());		
+	}
+
+	public static void viewAnnot(String fileName) throws Exception {
+		Gate.getCreoleRegister().registerComponent(NetgraphTreeViewer.class);
+		GateApplet.showWithDocument(new File(fileName).toURI().toURL(), "tmt2", null);
 	}
 
 	public static void BuildHistogram(Document doc) throws ResourceInstantiationException, MalformedURLException {
@@ -55,7 +81,7 @@ public class HistogramBuilder {
 	}
 
 	public static void FsExport(Document doc) throws FileNotFoundException, UnsupportedEncodingException {
-		AbstractFSFileWriter fsw = new FSFileWriter("documents/ucto.fs");
+		FSFileWriter fsw = new FSFileWriter("documents/ucto.fs");
 		fsw.PrintAll(doc.getAnnotations("tmt4"));
 		fsw.close();
 	}

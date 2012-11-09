@@ -15,6 +15,7 @@ public class TreeIndex
 {
 	private Map<Integer, Integer> parentIndex;
 	private Map<Integer, Set<Integer>> childIndex;
+	private Set<Integer> nodes = new HashSet<Integer>();
 	
 	public Integer getParent(Integer child)
 	{
@@ -31,8 +32,11 @@ public class TreeIndex
 		addDependency(dep[0], dep[1]);
 	}
 
-	protected void addDependency(Integer parent, Integer child)
+	public void addDependency(Integer parent, Integer child)
 	{
+		nodes.add(parent);
+		nodes.add(child);
+		
 		//parentIndex
 		parentIndex.put(child, parent);
 		Set<Integer> children = childIndex.get(parent);
@@ -56,7 +60,7 @@ public class TreeIndex
 		addDependency(a.getId(), child);		
 	}; 
 
-	public void fillDependecies(AnnotationSet dependenciesAS)
+	public void addDependecies(AnnotationSet dependenciesAS)
 	{
 		for (Annotation dep : dependenciesAS)
 		{
@@ -64,7 +68,7 @@ public class TreeIndex
 		}							
 	}
 	
-	public void fillTokenDependecies(AnnotationSet tokenAS, String feature_name)
+	public void addTokenDependecies(AnnotationSet tokenAS, String feature_name)
 	{
 		for (Annotation toc : tokenAS)
 		{
@@ -113,6 +117,10 @@ public class TreeIndex
 	public TreeIndex (AnnotationSet dependencyAnnotatons)
 	{
 		this();		
-		fillDependecies(dependencyAnnotatons);							
+		addDependecies(dependencyAnnotatons);							
+	}
+
+	public Set<Integer> getAllNodes() {
+		return nodes;
 	}
 }

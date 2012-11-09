@@ -23,8 +23,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Iterator;
 
 import javax.swing.DefaultListModel;
@@ -48,8 +48,7 @@ import cz.cuni.mff.mirovsky.trees.NGForestDisplay;
 import cz.cuni.mff.mirovsky.trees.NGTree;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import cz.cuni.mff.mirovsky.trees.TNode;
-import czsem.gate.FSFileWriter;
-import czsem.gate.SentenceFSWriter;
+import czsem.gate.FSSentenceWriter;
 import czsem.gate.utils.GateUtils;
 import czsem.utils.CzsemTree;
 import czsem.utils.NetgraphConstants;
@@ -73,15 +72,19 @@ public class NetgraphTreeViewer extends AbstractVisualResource implements  Owned
 	
 	protected void fireSelectedAnnotation()
 	{
+		final NGForest forest = forestDisplay.getForest();
+		final TNode choosen_node = forest.getChosenNode();
+		
+		if (choosen_node == null) return;
+
 		owner.selectAnnotation(new AnnotationData() {					
 			@Override
 			public AnnotationSet getAnnotationSet() {return annotation_set;}					
 			@Override
 			public Annotation getAnnotation()
 			{
-				NGForest forest = forestDisplay.getForest();
 				int id_index = forest.getHead().getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
-				String id = forest.getChosenNode().getValue(0, id_index, 0);
+				String id = choosen_node.getValue(0, id_index, 0);
 				return annotation_set.get(Integer.parseInt(id)); 
 			}
 		});		
@@ -236,26 +239,16 @@ public class NetgraphTreeViewer extends AbstractVisualResource implements  Owned
 		AnnotationSet sentence_set = annotation_set.getContained(
 				sentence.getStartNode().getOffset(), sentence.getEndNode().getOffset());
 		
-		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		StringWriter out = new StringWriter();
 		
-		SentenceFSWriter wr = new SentenceFSWriter(sentence_set, new PrintStream(os));
+		FSSentenceWriter wr = new FSSentenceWriter(sentence_set, new PrintWriter(out));
 		
-		boolean printed = false; 
-		for (int a=0; a<FSFileWriter.dependency_annotation_types.length; a++)
-		{
-			if (printed = wr.printTree(a)) break;
-		}
-		
-		if (!printed )
-		{
-			this.setVisible(false);
-			return;
-		}
+		wr.printTree();
 		
 //		System.err.println(annotation.getId());
 				
-		NGTreeHead th = CzsemTree.createTreeHead(wr.getAttributes());
-		tree.readTree(th, os.toString().toCharArray(), 0, th.getSize());
+		NGTreeHead th = CzsemTree.createTreeHead(wr.getAttributes().toArray(new String[0]));
+		tree.readTree(th, out.toString().toCharArray(), 0, th.getSize());
 		
 		CzsemTree czstree = new CzsemTree(tree);
 		int id_index = th.getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				

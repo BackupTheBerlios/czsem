@@ -68,21 +68,28 @@ public class TreeVisualize extends JFrame {
 		forestDisplay.repaint();
 	}
 
-	public static void main(String [] args)
-	{
+	public static void showTree(String[] attrs, String forest) {
 		TreeVisualize tv = new TreeVisualize();
 		tv.pack();
 		tv.setVisible(true);
 		
-		String attrs [] = {  
-			"form",
-			"sentence_order",
-			"string",
-			"hidden",
-		};
+		tv.setForest(attrs, forest);
+		tv.addShownAttribute("string");		
+		tv.addShownAttribute("form");		
+		tv.addShownAttribute("t_lemma");		
+	}
 
-		tv.setForest(attrs, "[string=a]([string=b])");
-		tv.addShownAttribute("string");
+	public static void main(String [] args)
+	{
+		String attrs [] = {
+				"category", "orth", "dependencies", "string", "length", "kind",
+				"form",
+				"sentence_order",
+				"hidden",
+			};
+
+		showTree(attrs, "[string=a]([string=b])");
+		showTree(attrs, "[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],orth=lowercase,category=VBN,length=10,sentence_order=4]([string=annotations,kind=word,dependencies=\\[amod(1)\\],orth=lowercase,category=NNS,length=11,sentence_order=1]([string=Dependency,kind=word,orth=upperInitial,category=JJ,length=10,sentence_order=0]),[string=can,kind=word,orth=lowercase,category=MD,length=3,sentence_order=2],[string=be,kind=word,orth=lowercase,category=VB,length=2,sentence_order=3],[string=by,kind=word,dependencies=\\[pobj(15)\\],orth=lowercase,category=IN,length=2,sentence_order=5]([string=tool,kind=word,dependencies=\\[det(13)\\],orth=lowercase,category=NN,length=4,sentence_order=7]([string=this,kind=word,orth=lowercase,category=DT,length=4,sentence_order=6])))");
 		
 		System.err.println("end");
 	}
