@@ -1,4 +1,4 @@
-package czsem.gate;
+package czsem.fs;
 
 import gate.Annotation;
 import gate.AnnotationSet;
@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import czsem.gate.FSTreeWriter.NodeAttributes;
+import czsem.fs.FSTreeWriter.NodeAttributes;
 import czsem.utils.NetgraphConstants;
 
 public class FSSentenceWriter

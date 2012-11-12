@@ -13,8 +13,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.Iterator;
 
-import czsem.gate.FSFileWriter;
-import czsem.gate.FSSentenceStringBuilder;
+import czsem.fs.FSFileWriter;
+import czsem.fs.FSSentenceStringBuilder;
 import czsem.gate.applet.GateApplet;
 import czsem.gate.plugins.NetgraphTreeViewer;
 import czsem.gate.utils.GateUtils;

@@ -16,7 +16,7 @@ import gate.creole.metadata.RunTime;
 import java.net.URL;
 
 import czsem.Utils;
-import czsem.gate.FSFileWriter;
+import czsem.fs.FSFileWriter;
 
 
 /**

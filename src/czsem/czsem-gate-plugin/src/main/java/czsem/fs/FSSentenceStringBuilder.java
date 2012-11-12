@@ -1,4 +1,4 @@
-package czsem.gate;
+package czsem.fs;
 
 import gate.AnnotationSet;
 

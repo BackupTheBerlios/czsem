@@ -1,4 +1,4 @@
-package czsem.gate;
+package czsem.fs;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import czsem.gate.FSTreeWriter.NodeAttributes;
+import czsem.fs.FSTreeWriter.NodeAttributes;
 
 public class FSTreeWriterTest {
 
