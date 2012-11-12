@@ -40,6 +40,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 			for (int i = 0; i < resultsIterators.length; i++) {
 				lastMatches[i] = resultsIterators[i].next();
 			}
+			foundNext = true;
 		}
 		
 
@@ -74,6 +75,8 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 
 
 	private boolean tryMove(int i) {
+		if (resultsIterators[i] == null) return false;
+
 		if (resultsIterators[i].hasNext())
 		{
 			lastMatches[i] = resultsIterators[i].next();
@@ -81,7 +84,6 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 		}
 		
 		resultsIterators[i] = findNewResultIterator(i);
-		if (resultsIterators[i] == null) return false;
 		
 		return tryMove(i);		
 	}

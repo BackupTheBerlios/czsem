@@ -9,7 +9,7 @@ import czsem.gate.utils.TreeIndex;
 
 public class FsQuery {
 	
-	TreeIndex index;
+	protected TreeIndex index;
 	
 	public static class NodeMatch {
 		protected int nodeId;
@@ -18,6 +18,11 @@ public class FsQuery {
 		public NodeMatch(int nodeId, QueryNode queryNode) {
 			this.nodeId = nodeId;
 			this.queryNode = queryNode;
+		}
+		
+		@Override
+		public String toString() {			
+			return queryNode.toString() + ": " + nodeId;
 		}
 	}
 
@@ -54,6 +59,11 @@ public class FsQuery {
 					new QueryMatch [] {
 							new QueryMatch(matchingNodes)}); 
 		}
+		
+		@Override
+		public String toString() {
+			return "QN_"+Integer.toHexString(hashCode());
+		}
 	}
 
 	public class ParentQueryNode extends QueryNode {
@@ -63,17 +73,29 @@ public class FsQuery {
 		public Iterable<QueryMatch> getResultsFor(final int nodeId) {
 			if (super.getResultsFor(nodeId) == null) return null;
 			
+			final Iterable<Integer> chDataNodes = index.getChildren(nodeId);
+			
+			if (chDataNodes == null && children.size() > 0) return null;
+			
 			final NodeMatch parentNodeMatch = new NodeMatch(nodeId, this);		
 			return new Iterable<QueryMatch>(){
 
 				@Override
 				public Iterator<QueryMatch> iterator() {
-					return new ParentQueryNodeIterator(parentNodeMatch, children, index.getChildren(nodeId));
+					return new ParentQueryNodeIterator(parentNodeMatch, children, chDataNodes);
 				}
 				
 			};
 		}
 
+		public void addChild(QueryNode queryNode) {
+			children.add(queryNode);			
+		}
+
+	}
+
+	public void setIndex(TreeIndex i) {
+		index = i;		
 	}
 
 
