@@ -363,6 +363,7 @@ public class Utils {
 	{
 		Logger logger = Logger.getRootLogger();
 	    logger.setLevel(logLevel);
+	    logger.removeAllAppenders();
 		BasicConfigurator.configure();		
 	}
 

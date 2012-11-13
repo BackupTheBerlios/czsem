@@ -7,6 +7,7 @@ import gate.Gate;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.SerialController;
 import gate.creole.ml.MachineLearningPR;
 import gate.util.AnnotationDiffer;
 import gate.util.GateException;
@@ -19,7 +20,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.testng.AssertJUnit;
@@ -61,9 +61,8 @@ public class ILPWrapperTest {
 
 	public static void init() throws IOException, URISyntaxException, GateException
 	{
-		Logger logger = Logger.getRootLogger();
-	    logger.setLevel(Level.INFO);
-		BasicConfigurator.configure();
+		Utils.loggerSetup(Level.OFF);
+		Logger.getLogger(SerialController.class).setLevel(Level.OFF);
 
 		if (! Gate.isInitialised())
 		{
