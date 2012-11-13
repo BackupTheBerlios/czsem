@@ -10,6 +10,7 @@ import czsem.fs.query.FsQuery.QueryNode;
 
 public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	protected List<QueryNode> queryNodes;
+	private Iterable<Integer> dataNodes;
 	protected Iterator<Integer>[] dataNodesIterators;
 	protected Iterator<QueryMatch>[] resultsIterators;
 	protected QueryMatch[] lastMatches;
@@ -22,6 +23,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	public ParentQueryNodeIterator(NodeMatch parentNodeMatch, List<QueryNode> queryNodes, Iterable<Integer> dataNodes) {
 		this.queryNodes = queryNodes;
 		this.parentNodeMatch = parentNodeMatch;
+		this.dataNodes = dataNodes;
 		
 		dataNodesIterators = new Iterator[queryNodes.size()];		
 		for (int i = 0; i < dataNodesIterators.length; i++) {
@@ -64,28 +66,41 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 		if (foundNext) return true;
 		
 		
-		for (int i = 0; i < dataNodesIterators.length; i++) {
-			if (tryMove(i)) {
-				return foundNext = true;
-			}
+		if (tryMove(dataNodesIterators.length-1)) {
+			return foundNext = true;
 		}
-		
+	
 		return false;
 	}
 
 
 	private boolean tryMove(int i) {
+		if (i < 0) return false;
+		
 		if (resultsIterators[i] == null) return false;
 
+		//try next result for same data
 		if (resultsIterators[i].hasNext())
 		{
 			lastMatches[i] = resultsIterators[i].next();
 			return true;
 		}
 		
-		resultsIterators[i] = findNewResultIterator(i);
+		//try new result for new data
+		resultsIterators[i] = findNewResultIterator(i);		
+		if (resultsIterators[i] != null) {			
+			lastMatches[i] = resultsIterators[i].next();
+			return true;
+		}
+
+		//rewind and try new result for previous iterator group
+		dataNodesIterators[i] = dataNodes.iterator();
+		resultsIterators[i] = findNewResultIterator(i);		
+		if (resultsIterators[i] == null) return false; //rewind failed
+		lastMatches[i] = resultsIterators[i].next();
 		
-		return tryMove(i);		
+		//try new result for previous iterator group
+		return tryMove(i-1);		
 	}
 
 

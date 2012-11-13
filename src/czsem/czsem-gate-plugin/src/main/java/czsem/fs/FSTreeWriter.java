@@ -18,6 +18,7 @@ public class FSTreeWriter	{
 	public static interface NodeAttributes 
 	{
 		Iterable<Map.Entry<String, Object>> get(int node_id);
+		Object getValue(int node_id, String attrName);
 	}
 		
 	private PrintWriter out;

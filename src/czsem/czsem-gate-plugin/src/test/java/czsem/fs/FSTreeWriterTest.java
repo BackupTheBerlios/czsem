@@ -26,6 +26,11 @@ public class FSTreeWriterTest {
 				ret.add(new AbstractMap.SimpleEntry<String, Object>("id", node_id));
 				return ret;
 			}
+
+			@Override
+			public Object getValue(int node_id, String attrName) {
+				return node_id;
+			}
 		});
 		
 		tw.addDependency(0,1);

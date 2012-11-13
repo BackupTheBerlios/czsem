@@ -93,6 +93,11 @@ public class FSSentenceWriter
 			
 			return ret;
 		}
+
+		@Override
+		public Object getValue(int node_id, String attrName) {
+			return annotations.get(node_id).getFeatures().get(attrName);
+		}
 	};
 
 	
