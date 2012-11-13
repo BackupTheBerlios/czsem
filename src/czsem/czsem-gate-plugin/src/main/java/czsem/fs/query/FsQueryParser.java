@@ -33,11 +33,6 @@ public class FsQueryParser {
 		
 		parseNode();
 	}
-	protected boolean nextCharIs(Character next) {
-		if (next == getChar()) return true; //mainly if both are null
-		return next.equals(getChar());
-	}
-
 	protected void parseNode() throws SyntaxError {
 		expectChar('[');
 		
@@ -53,7 +48,7 @@ public class FsQueryParser {
 		}
 	}
 
-	private void parseChildren() throws SyntaxError {
+	protected void parseChildren() throws SyntaxError {
 		expectChar('(');		
 		builder.beginChildren();
 		
@@ -68,7 +63,7 @@ public class FsQueryParser {
 		builder.endChildren();
 	}
 
-	private void parseRestrictions() throws SyntaxError {
+	protected void parseRestrictions() throws SyntaxError {
 		for (;;)
 		{
 			parseRestriction();
@@ -107,13 +102,20 @@ public class FsQueryParser {
 		return ch;
 	}
 
+	protected boolean nextCharIs(Character next) {
+		if (next == getChar()) return true; //mainly if both are null
+		if (next == null) return false; //because of previous
+		return next.equals(getChar());
+	}
+	
 	protected void expectChar(Character expected) throws SyntaxError {
 		Character ch = getChar();
 		charIndex++;
 		
 		if (expected == ch) return; //mainly if both are null - return ok;
 		
-		if (!expected.equals(ch)) throw new SyntaxError(String.format("Character '%c' expected but '%c' found!", expected, ch));		
+		if (expected == null || !expected.equals(ch)) 
+			throw new SyntaxError(String.format("Character '%c' expected but '%c' found!", expected, ch));		
 	}
 
 	protected Character getChar() {
