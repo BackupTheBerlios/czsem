@@ -6,7 +6,7 @@ import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 
 
-import czsem.gate.utils.TreeIndex;
+import czsem.gate.utils.GateAwareTreeIndex;
 
 public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguageAnalyserWithInputAnnotTypes
 {
@@ -19,7 +19,7 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 	protected AnnotationSet inputDependenciesAS = null;
 	protected String tokenAnnotationTypeName;
 	protected String dependencyAnnotationTypeName;
-	protected TreeIndex treeIndex;
+	protected GateAwareTreeIndex treeIndex;
 
 	public String getTokenAnnotationTypeName() {
 		return tokenAnnotationTypeName;
@@ -48,7 +48,7 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 		
 		inputTokensAS = tocDepAS.get(tokenAnnotationTypeName);
 		inputDependenciesAS = tocDepAS.get(dependencyAnnotationTypeName);
-		treeIndex = new TreeIndex(inputDependenciesAS);
+		treeIndex = new GateAwareTreeIndex(inputDependenciesAS);
 	}
 
 	public String getTokensAndDependenciesASName() {

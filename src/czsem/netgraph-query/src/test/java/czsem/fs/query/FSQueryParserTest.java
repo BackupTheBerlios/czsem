@@ -6,14 +6,14 @@ import org.apache.log4j.Level;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
-import czsem.fs.FSTreeWriter.NodeAttributes;
-import czsem.fs.query.FsQueryParser.SyntaxError;
+import czsem.fs.NodeAttributes;
+import czsem.fs.query.FSQueryParser.SyntaxError;
 
-public class FsQueryParserTest {
+public class FSQueryParserTest {
 	
 	@Test(expectedExceptions = SyntaxError.class)
 	public static void testParseExcept() throws SyntaxError {
-		FsQueryParser p = new FsQueryParser(new FsQueryBuilder(new FsQuery()));
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilder(new FSQuery()));
 		
 		p.parse("foo");
 	}
@@ -23,23 +23,23 @@ public class FsQueryParserTest {
 	public static void testParse() throws SyntaxError {
 		Utils.loggerSetup(Level.ALL);
 		
-		FsQueryParser p = new FsQueryParser(new FsQueryBuilder(new FsQuery()));
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilder(new FSQuery()));
 		
 		p.parse("[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],length=10]([string=annotations]([],[]),[])");
 	}
 
 	@Test
 	public static void testParseAndEvaluate() throws SyntaxError {
-		FsQuery q = FsQueryTest.buidQueryObject();
-		FsQueryBuilder b = new FsQueryBuilder(q);
-		FsQueryParser p = new FsQueryParser(b);
+		FSQuery q = FSQueryTest.buidQueryObject();
+		FSQueryBuilder b = new FSQueryBuilder(q);
+		FSQueryParser p = new FSQueryParser(b);
 		
 		p.parse("[]([]([]))");
 		
-		FsQueryTest.evaluateQuery(b.getRootNode());
+		FSQueryTest.evaluateQuery(b.getRootNode());
 		
-		b = new FsQueryBuilder(q);
-		p = new FsQueryParser(b);
+		b = new FSQueryBuilder(q);
+		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[])");
 		
@@ -53,11 +53,11 @@ public class FsQueryParserTest {
 				0, 7, 1,
 				0, 7, 2,
 				0, 7, 7,};
-		FsQueryTest.evaluateQuery(b.getRootNode(), res);
+		FSQueryTest.evaluateQuery(b.getRootNode(), res);
 
 		
-		b = new FsQueryBuilder(q);
-		p = new FsQueryParser(b);
+		b = new FSQueryBuilder(q);
+		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[id=7])");
 		
@@ -79,7 +79,7 @@ public class FsQueryParserTest {
 			}
 		});
 		
-		FsQueryTest.evaluateQuery(b.getRootNode(), res2);
+		FSQueryTest.evaluateQuery(b.getRootNode(), res2);
 
 	}
 }

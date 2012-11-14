@@ -5,10 +5,13 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import czsem.fs.FSTreeWriter.NodeAttributes;
-import czsem.gate.utils.TreeIndex;
+import com.google.common.collect.Iterables;
 
-public class FsQuery {
+import czsem.fs.TreeIndex;
+import czsem.fs.NodeAttributes;
+import czsem.fs.query.FSQueryParser.SyntaxError;
+
+public class FSQuery {
 	
 	protected TreeIndex index;
 	protected NodeAttributes nodeAttributes;
@@ -25,6 +28,10 @@ public class FsQuery {
 		@Override
 		public String toString() {			
 			return queryNode.toString() + ": " + nodeId;
+		}
+
+		public int getNodeId() {
+			return nodeId;
 		}
 	}
 
@@ -62,7 +69,7 @@ public class FsQuery {
 
 	
 	public class QueryNode {
-		protected List<Restrictioin> restricitions = new ArrayList<FsQuery.Restrictioin>();
+		protected List<Restrictioin> restricitions = new ArrayList<FSQuery.Restrictioin>();
 		
 		public boolean evalaute(int nodeID) {
 			return true;
@@ -89,7 +96,7 @@ public class FsQuery {
 	}
 
 	public class ParentQueryNode extends QueryNode {
-		protected List<QueryNode> children = new ArrayList<FsQuery.QueryNode>();
+		protected List<QueryNode> children = new ArrayList<FSQuery.QueryNode>();
 
 		@Override
 		public Iterable<QueryMatch> getResultsFor(final int nodeId) {
@@ -132,6 +139,38 @@ public class FsQuery {
 	
 	public void setNodeAttributes(NodeAttributes nodeAttributes) {
 		this.nodeAttributes = nodeAttributes;
+	}
+
+	public class QueryObject {
+		protected QueryNode queryNode;
+
+		public QueryObject(QueryNode queryNode) {
+			this.queryNode = queryNode;
+		}
+		
+		public Iterable<QueryMatch> evaluate() {
+			List<Iterable<QueryMatch>> res = new ArrayList<Iterable<QueryMatch>>();
+			
+			for (int id : index.getAllNodes())
+			{
+				Iterable<QueryMatch> i = queryNode.getResultsFor(id);
+				if (i != null) res.add(i);
+			}
+			
+			@SuppressWarnings("unchecked")
+			Iterable<QueryMatch>[] gt = (Iterable<QueryMatch>[]) new Iterable[0];
+			
+			return Iterables.concat(res.toArray(gt));
+		}
+		
+	}
+	
+	public QueryObject buildQuery(String queryString) throws SyntaxError {
+		FSQueryBuilder b = new FSQueryBuilder(this);
+		FSQueryParser p = new FSQueryParser(b);
+		p.parse(queryString);
+		
+		return new QueryObject(b.getRootNode());		
 	}
 
 

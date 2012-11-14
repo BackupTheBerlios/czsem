@@ -2,6 +2,9 @@ package czsem.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.concurrent.CountDownLatch;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -11,6 +14,7 @@ import cz.cuni.mff.mirovsky.trees.NGForestDisplay;
 import cz.cuni.mff.mirovsky.trees.NGTree;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.utils.CzsemTree;
+import czsem.utils.NetgraphConstants;
 
 @SuppressWarnings("serial")
 public class TreeVisualize extends JFrame {
@@ -32,10 +36,10 @@ public class TreeVisualize extends JFrame {
 	public void setForest(NGForest forest)
 	{
 		forestDisplay.setForest(forest);
-		forestDisplay.getTreeProperties().setShowHiddenNodes(true);
+		forestDisplay.getTreeProperties().setShowHiddenNodes(false);
 		forestDisplay.getTreeProperties().setShowNullValues(false);
-		forestDisplay.getTreeProperties().setShowMultipleSets(true);
-		forestDisplay.getTreeProperties().setShowAttrNames(true);
+		forestDisplay.getTreeProperties().setShowMultipleSets(false);
+		forestDisplay.getTreeProperties().setShowAttrNames(false);
 		
 		
 		forestDisplay.repaint();
@@ -68,15 +72,53 @@ public class TreeVisualize extends JFrame {
 		forestDisplay.repaint();
 	}
 
-	public static void showTree(String[] attrs, String forest) {
+	public static TreeVisualize showTree(String[] attrs, String forest, int selectedNode) {
+		TreeVisualize tv = showTree(attrs, forest);
+		
+		tv.selectNode(selectedNode);
+		
+		return tv;		
+	}
+
+	public void selectNode(int selectedNodeID) {
+		NGTree tree = forestDisplay.getForest().getChosenTree();
+		int id_index = forestDisplay.getForest().getHead().getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
+		CzsemTree czstree = new CzsemTree(tree);
+		int deep_ord = czstree.findFirstNodeByAttributeValue(id_index, Integer.toString(selectedNodeID));
+		tree.setMatchingNodes(Integer.toString(deep_ord));
+	}
+
+	public static TreeVisualize showTree(String[] attrs, String forest) {
 		TreeVisualize tv = new TreeVisualize();
 		tv.pack();
 		tv.setVisible(true);
 		
 		tv.setForest(attrs, forest);
-		tv.addShownAttribute("string");		
-		tv.addShownAttribute("form");		
-		tv.addShownAttribute("t_lemma");		
+//		tv.addShownAttribute("string");		
+//		tv.addShownAttribute("form");		
+		tv.addShownAttribute("t_lemma");
+		tv.addShownAttribute("functor");		
+		
+		return tv;
+	}
+
+	public static void showTreeAndWait(String[] attrs, String forest, int selectedNode) throws InterruptedException {
+		TreeVisualize tv = showTree(attrs, forest, selectedNode);
+		
+		final CountDownLatch signal = new CountDownLatch(1);
+		
+		tv.addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				System.err.println("closed");
+				signal.countDown();
+			}
+			
+		});
+		
+		signal.await();
+		System.err.println("RETURNED");
 	}
 
 	public static void main(String [] args)

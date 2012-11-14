@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import czsem.fs.FSTreeWriter.NodeAttributes;
 
 public class FSTreeWriterTest {
 

@@ -7,23 +7,16 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import czsem.gate.utils.TreeIndex;
+import czsem.gate.utils.GateAwareTreeIndex;
 
 public class FSTreeWriter	{
 
-	public static interface NodeAttributes 
-	{
-		Iterable<Map.Entry<String, Object>> get(int node_id);
-		Object getValue(int node_id, String attrName);
-	}
-		
 	private PrintWriter out;
 	private NodeAttributes nodeAttributes;
-	private TreeIndex index = new TreeIndex();
+	private GateAwareTreeIndex index = new GateAwareTreeIndex();
 	private Set<String> attributes = new HashSet<String>();
 	private int rootNode = -1 ;
 

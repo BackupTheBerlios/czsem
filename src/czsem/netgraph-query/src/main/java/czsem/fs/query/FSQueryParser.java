@@ -4,7 +4,7 @@ import java.util.List;
 
 import czsem.fs.FSTokenizer;
 
-public class FsQueryParser {
+public class FSQueryParser {
 
 	protected List<Character> chars;
 	protected List<String> strings;
@@ -12,9 +12,9 @@ public class FsQueryParser {
 	protected int charIndex = 0;
 	protected int stringIndex = 0;
 	
-	protected FsQueryBuilder builder;
+	protected FSQueryBuilder builder;
 
-	public FsQueryParser(FsQueryBuilder builder) {
+	public FSQueryParser(FSQueryBuilder builder) {
 		this.builder = builder;
 	}
 	
@@ -42,7 +42,7 @@ public class FsQueryParser {
 		
 		expectChar(']');
 		
-		if (nextCharIs('('))
+		if (moreCharsAvailable() && nextCharIs('('))
 		{
 			parseChildren();					
 		}
@@ -120,6 +120,10 @@ public class FsQueryParser {
 
 	protected Character getChar() {
 		return chars.get(charIndex); 
+	}
+
+	protected boolean moreCharsAvailable() {
+		return charIndex < chars.size();
 	}
 
 	protected String getStringPlusPlus() {

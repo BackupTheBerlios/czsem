@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import czsem.fs.query.FsQuery.NodeMatch;
-import czsem.fs.query.FsQuery.QueryMatch;
-import czsem.fs.query.FsQuery.QueryNode;
+import czsem.fs.query.FSQuery.NodeMatch;
+import czsem.fs.query.FSQuery.QueryMatch;
+import czsem.fs.query.FSQuery.QueryNode;
 
 public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	protected List<QueryNode> queryNodes;
@@ -108,7 +108,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	public QueryMatch next() {
 		foundNext = false;
 
-		List<NodeMatch> matchingNodes = new ArrayList<FsQuery.NodeMatch>();
+		List<NodeMatch> matchingNodes = new ArrayList<FSQuery.NodeMatch>();
 		
 		matchingNodes.add(parentNodeMatch);
 		

@@ -3,17 +3,17 @@ package czsem.fs.query;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import czsem.fs.query.FsQuery.NodeMatch;
-import czsem.fs.query.FsQuery.ParentQueryNode;
-import czsem.fs.query.FsQuery.QueryMatch;
-import czsem.fs.query.FsQuery.QueryNode;
-import czsem.gate.utils.TreeIndex;
+import czsem.fs.TreeIndex;
+import czsem.fs.query.FSQuery.NodeMatch;
+import czsem.fs.query.FSQuery.ParentQueryNode;
+import czsem.fs.query.FSQuery.QueryMatch;
+import czsem.fs.query.FSQuery.QueryNode;
 
-public class FsQueryTest {
+public class FSQueryTest {
 	@Test
 	public static void testQuery() {
 		
-		FsQuery q = buidQueryObject();
+		FSQuery q = buidQueryObject();
 		
 
 		ParentQueryNode qn1 = q.new ParentQueryNode();
@@ -48,7 +48,7 @@ public class FsQueryTest {
 		}		
 	}
 
-	public static FsQuery buidQueryObject() {
+	public static FSQuery buidQueryObject() {
 		TreeIndex index = new TreeIndex();
 		
 		index.addDependency(0,1);
@@ -61,7 +61,7 @@ public class FsQueryTest {
 
 		
 		
-		FsQuery q = new FsQuery();
+		FSQuery q = new FSQuery();
 		q.setIndex(index);
 
 		return q;

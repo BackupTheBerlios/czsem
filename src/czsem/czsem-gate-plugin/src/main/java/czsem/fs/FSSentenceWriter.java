@@ -8,13 +8,13 @@ import java.io.PrintWriter;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import czsem.fs.FSTreeWriter.NodeAttributes;
 import czsem.utils.NetgraphConstants;
 
 public class FSSentenceWriter
@@ -60,46 +60,7 @@ public class FSSentenceWriter
 	private FSTreeWriter tw;
 	private Map<Integer, Integer> nodeOreder;
 
-	protected NodeAttributes nodeAttributes = new NodeAttributes() {
-		
-		
-		@Override
-		public Iterable<Entry<String, Object>> get(int node_id) {
-			
-			FeatureMap fm = annotations.get(node_id).getFeatures();
-			
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			Set<Entry<String, Object>> f = (Set) fm.entrySet();
-
-			ArrayList<Entry<String, Object>> ret = new ArrayList<Entry<String, Object>>(f);
-			
-			if (fm.get(ordAttrName) == null) ret.add(
-					new AbstractMap.SimpleEntry<String, Object>(
-							ordAttrName, nodeOreder.get(node_id)));
-			
-			if (fm.get(idAttrName) == null) {
-				ret.add( new AbstractMap.SimpleEntry<String, Object>(
-						idAttrName, node_id));				
-			}
-			
-			if (fm.get(hideAttrName) == null) {
-				String rootType = annotations.get(tw.getRootNode()).getType();
-				if (! rootType.equals(annotations.get(node_id).getType()))
-				{
-					ret.add( new AbstractMap.SimpleEntry<String, Object>(
-							hideAttrName, true));
-				}				
-			}
-			
-			return ret;
-		}
-
-		@Override
-		public Object getValue(int node_id, String attrName) {
-			return annotations.get(node_id).getFeatures().get(attrName);
-		}
-	};
-
+	protected NodeAttributes nodeAttributes;
 	
 
 	public FSSentenceWriter(AnnotationSet sentence_annotations, PrintWriter out)
@@ -107,9 +68,44 @@ public class FSSentenceWriter
 		this.out = out;		
 		this.annotations = sentence_annotations;
 		
+		nodeAttributes = buildNodeAttributes(annotations);
+		
 		tw = new FSTreeWriter(out, nodeAttributes);
+		
 	}
 		
+	protected GateAnnotationsNodeAttributes buildNodeAttributes(AnnotationSet annotations) {
+		 return new GateAnnotationsNodeAttributes(annotations) {
+				
+				@Override
+				public Collection<Entry<String, Object>> get(int node_id) {
+					ArrayList<Entry<String, Object>> ret = new ArrayList<Entry<String, Object>>(super.get(node_id));
+					
+					FeatureMap fm = annotations.get(node_id).getFeatures();
+
+					if (fm.get(ordAttrName) == null) ret.add(
+							new AbstractMap.SimpleEntry<String, Object>(
+									ordAttrName, nodeOreder.get(node_id)));
+					
+					if (fm.get(idAttrName) == null) {
+						ret.add( new AbstractMap.SimpleEntry<String, Object>(
+								idAttrName, node_id));				
+					}
+					
+					if (fm.get(hideAttrName) == null) {
+						String rootType = annotations.get(tw.getRootNode()).getType();
+						if (! rootType.equals(annotations.get(node_id).getType()))
+						{
+							ret.add( new AbstractMap.SimpleEntry<String, Object>(
+									hideAttrName, true));
+						}				
+					}
+					
+					return ret;
+				}
+			};		
+	}
+
 	public void printTree()
 	{		
 		for (String depName : configuration.dependencyNames)

@@ -4,24 +4,24 @@ import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
-import czsem.fs.query.FsQuery.QueryNode;
+import czsem.fs.query.FSQuery.QueryNode;
 
-public class FsQueryBuilder {
+public class FSQueryBuilder {
 	
-	protected FsQuery query;
+	protected FSQuery query;
 
-	public FsQueryBuilder(FsQuery q) {
+	public FSQueryBuilder(FSQuery q) {
 		query = q;
 		curentParent = query.new ParentQueryNode(); 
 		curentNode = curentParent;
 	}
 	
-	Logger loger = Logger.getLogger(FsQueryBuilder.class);
+	Logger loger = Logger.getLogger(FSQueryBuilder.class);
 	
-	Stack<FsQuery.ParentQueryNode> nodeStack = new Stack<FsQuery.ParentQueryNode>();
+	protected Stack<FSQuery.ParentQueryNode> nodeStack = new Stack<FSQuery.ParentQueryNode>();
 	
-	FsQuery.ParentQueryNode curentParent; 
-	FsQuery.ParentQueryNode curentNode;
+	protected FSQuery.ParentQueryNode curentParent; 
+	protected FSQuery.ParentQueryNode curentNode;
 
 	public void addNode() {
 		loger.debug("addNode");

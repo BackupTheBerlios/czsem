@@ -3,6 +3,7 @@ package cuni.mff.intlib;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Document;
+import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
 import gate.creole.ResourceInstantiationException;
@@ -11,12 +12,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
 
 import czsem.fs.FSFileWriter;
 import czsem.fs.FSSentenceStringBuilder;
+import czsem.fs.GateAnnotationsNodeAttributes;
+import czsem.fs.query.FSQuery;
+import czsem.fs.query.FSQuery.NodeMatch;
+import czsem.fs.query.FSQuery.QueryMatch;
+import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gate.applet.GateApplet;
 import czsem.gate.plugins.NetgraphTreeViewer;
+import czsem.gate.utils.GateAwareTreeIndex;
 import czsem.gate.utils.GateUtils;
 import czsem.gui.TreeVisualize;
 import czsem.utils.MultiSet;
@@ -31,7 +37,7 @@ public class HistogramBuilder {
 		
 		String fileName = "documents/ucto.gate.xml";
 
-		/*
+		/**/
 		System.err.println("reading doc: " + fileName);
 		Document doc = Factory.newDocument(new File(fileName).toURI().toURL(), "utf8");
 		System.err.println("reading finished");
@@ -43,12 +49,49 @@ public class HistogramBuilder {
 		//FsExport(doc);
 		/**/
 		
-		viewAnnot(fileName);
+		//viewAnnot(fileName);
 
 	}
 
-	public static void showTree(Document doc) {
-		AnnotationSet ss = doc.getAnnotations("tmt4").get("Sentence");
+	public static void showTree(Document doc) throws InterruptedException, SyntaxError {
+		GateAwareTreeIndex index = new GateAwareTreeIndex();
+		
+		System.err.println("fillnig index");
+		
+		AnnotationSet mainAs = doc.getAnnotations("tmt4");
+		
+		AnnotationSet ss = mainAs.get("Sentence");
+		for (Annotation s : ss) {
+			AnnotationSet cont = mainAs.get("tDependency").getContained(
+					s.getStartNode().getOffset(), 
+					s.getEndNode().getOffset());
+			
+			index.addDependecies(cont);			
+		}
+
+		System.err.println("fillnig index finished");
+		
+		FSQuery q = new FSQuery();
+		q.setIndex(index);
+		q.setNodeAttributes(new GateAnnotationsNodeAttributes(mainAs));
+		
+		for (QueryMatch result : q.buildQuery("[t_lemma=být]").evaluate())
+		{
+			NodeMatch res = result.getMatchingNodes().iterator().next();
+			System.err.println(res);
+			Annotation ra = mainAs.get(res.getNodeId());
+			Annotation s = mainAs.getCovering("Sentence", ra.getStartNode().getOffset(), ra.getEndNode().getOffset()).iterator().next();
+			
+			AnnotationSet sas = mainAs.getContained(
+					s.getStartNode().getOffset(), 
+					s.getEndNode().getOffset());
+			
+			FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
+			TreeVisualize.showTreeAndWait(fssb.getAttributes(), fssb.getTree(), res.getNodeId());		
+
+		}
+		
+		/*
 		
 		Iterator<Annotation> i = ss.iterator();
 		
@@ -63,9 +106,11 @@ public class HistogramBuilder {
 				s.getStartNode().getOffset(), 
 				s.getEndNode().getOffset());
 		
+
+		AnnotationSet sas = null;
 		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
-		
-		TreeVisualize.showTree(fssb.getAttributes(), fssb.getTree());		
+		TreeVisualize.showTreeAndWait(fssb.getAttributes(), fssb.getTree());		
+		*/
 	}
 
 	public static void viewAnnot(String fileName) throws Exception {
