@@ -8,7 +8,6 @@ import czsem.gate.applet.GateApplet;
 import czsem.gate.applet.MainFrame;
 import czsem.gate.gui.DialogBasedAnnotationEditor;
 import czsem.gate.plugins.NetgraphTreeViewer;
-import czsem.gate.plugins.OldNetgraphTreeViewer;
 import czsem.gate.utils.GateUtils;
 
 public class NgTreeViewTest {
@@ -22,7 +21,6 @@ public class NgTreeViewTest {
 		
 		MainFrame.defaultEncoding = "cp1250";
 		
-		Gate.getCreoleRegister().registerComponent(OldNetgraphTreeViewer.class);
 		Gate.getCreoleRegister().registerComponent(DialogBasedAnnotationEditor.class);
 		Gate.getCreoleRegister().registerComponent(NetgraphTreeViewer.class);
 		GateApplet.showWithDocument(new File(fileName).toURI().toURL(), "TectoMT", null);
