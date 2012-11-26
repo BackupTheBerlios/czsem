@@ -48,11 +48,18 @@ public class DialogBasedAnnotationEditor extends AbstractAnnotationEditor {
 			MainFrame.getGuiRoots().add(dialog);
 		}
 		
-		dialog.add(this);
+		
+		updateInitDialog(dialog);
+		
 		dialog.pack();		
 	}
 
 	
+	protected void updateInitDialog(JDialog dialog) {
+		dialog.add(this);		
+	}
+
+
 /* these should be overridden START */
 	protected void initGui() {
 		JTextArea debugOut = new JTextArea("some text");

@@ -24,7 +24,7 @@ import czsem.gate.applet.GateApplet;
 import czsem.gate.plugins.NetgraphTreeViewer;
 import czsem.gate.utils.GateAwareTreeIndex;
 import czsem.gate.utils.GateUtils;
-import czsem.gui.TreeVisualize;
+import czsem.gui.TreeVisualizeFrame;
 import czsem.utils.MultiSet;
 
 public class HistogramBuilder {
@@ -87,7 +87,7 @@ public class HistogramBuilder {
 					s.getEndNode().getOffset());
 			
 			FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
-			TreeVisualize.showTreeAndWait(fssb.getAttributes(), fssb.getTree(), res.getNodeId());		
+			TreeVisualizeFrame.showTreeAndWait(fssb.getAttributes(), fssb.getTree(), res.getNodeId());		
 
 		}
 		
