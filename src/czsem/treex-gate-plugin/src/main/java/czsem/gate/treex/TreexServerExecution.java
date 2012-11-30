@@ -96,7 +96,9 @@ public class TreexServerExecution {
 				case ProcessTrminated:
 					throw new ResourceInstantiationException("Error during run of Treex server, see '"+logPath);			
 				case TimeOut:
-					throw new ResourceInstantiationException("Treex server run out of time dutring start up, see '"+logPath);			
+					throw new ResourceInstantiationException("Treex server run out of time dutring start up, see '"+logPath);
+				default:
+					throw new ResourceInstantiationException("This sould be impossible to  happen :-)");			
 				}		
 				
 			}

@@ -150,6 +150,8 @@ public class TectoMTOnlineAnalyser extends TectoMTAbstractAnalyser
 				throw new ResourceInstantiationException("Error during run of TectoMT server, see 'czsem_GATE_plugins/log/TMT_GATE_err.log'.");			
 			case TimeOut:
 				throw new ResourceInstantiationException("TectoMT server run out of time dutring start up, see 'czsem_GATE_plugins/log/TMT_GATE_err.log'.");			
+			default:
+				throw new ResourceInstantiationException("This sould be impossible to  happen :-)");			
 			}		
 			
 		}
