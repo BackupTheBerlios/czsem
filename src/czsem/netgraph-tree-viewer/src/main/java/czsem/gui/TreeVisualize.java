@@ -31,7 +31,7 @@ import czsem.utils.NetgraphConstants;
 public class TreeVisualize extends Container {
 	private static final long serialVersionUID = -1059534175810175035L;
 	
-	private NGForestDisplay forestDisplay;
+	private CzsemForestDisplay forestDisplay;
 	private NGTableModel dataModel;
 
 
@@ -51,7 +51,7 @@ public class TreeVisualize extends Container {
 		pm.add(new JSeparator());
 		pm.add(new JMenuItem("123456789"));
 
-		forestDisplay = new NGForestDisplay(null);
+		forestDisplay = new CzsemForestDisplay();
 		JScrollPane forestScrollpane = new JScrollPane(forestDisplay);
 		forestDisplay.addMouseListener(new MouseListener()
 		{
@@ -130,29 +130,11 @@ public class TreeVisualize extends Container {
 	
 	public void setForest(String[] attrs, String forest)
 	{
-		char[] chars = forest.toCharArray();
-		
-		NGTreeHead th = CzsemTree.createTreeHead(attrs);
-
-		NGTree tree = new NGTree(null);
-		tree.readTree(th, chars, 0, th.getSize());
-		
-		NGForest ngf = new NGForest(null);
-		ngf.setHead(th);
-		ngf.addTree(tree);
-			
-		setForest(ngf);
+		forestDisplay.setForest(attrs, forest);
 	}
 	
 	public void addShownAttribute(String attr) {
-		DefaultListModel selected_attrs =  forestDisplay.getForest().getVybraneAtributy();
-		if (selected_attrs.contains(attr))
-			return;
-		else
-			selected_attrs.add(0, attr);
-
-		forestDisplay.getForest().setFlagWholeForestChanged(true);
-		forestDisplay.repaint();
+		forestDisplay.addShownAttribute(attr);
 	}
 
 	
@@ -281,34 +263,34 @@ public class TreeVisualize extends Container {
 		}
 	}
 	
-	public static void main(String [] args)
-	{
-		JFrame fr = new JFrame(TreeVisualize.class.getName());
-        fr.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-		
-		TreeVisualize tv = new TreeVisualize();
-		tv.initComponents();
-		
-		String attrs [] = {"string"};
-
-		String fsTree = "[string=a]([string=\\\\b],[string=c])";
-
-		tv.setForest(attrs, fsTree);
-
-		fr.add(tv);
-		
-		fr.pack();
-		fr.setVisible(true);
-
-	}
-
-
 	public int getIdAttrValue(TNode node) {
 		NGForest forest = forestDisplay.getForest();
 		int idAttrIndex = forest.getHead().getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
 		String id = node.getValue(0, idAttrIndex, 0);
 		return Integer.parseInt(id);
+	}
+
+
+	public static void main(String [] args)
+	{
+		JFrame fr = new JFrame(TreeVisualize.class.getName());
+	    fr.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+	
+		
+		TreeVisualize tv = new TreeVisualize();
+		tv.initComponents();
+		
+		String attrs [] = {"string"};
+	
+		String fsTree = "[string=a]([string=\\\\b],[string=c])";
+	
+		tv.setForest(attrs, fsTree);
+	
+		fr.add(tv);
+		
+		fr.pack();
+		fr.setVisible(true);
+	
 	}
 
 }

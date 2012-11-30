@@ -57,9 +57,12 @@ public class HistogramBuilder {
 		GateAwareTreeIndex index = new GateAwareTreeIndex();
 		
 		System.err.println("fillnig index");
+		long time = System.currentTimeMillis();
 		
 		AnnotationSet mainAs = doc.getAnnotations("tmt4");
+		index.addDependecies(mainAs.get("tDependency"));			
 		
+		/*
 		AnnotationSet ss = mainAs.get("Sentence");
 		for (Annotation s : ss) {
 			AnnotationSet cont = mainAs.get("tDependency").getContained(
@@ -68,12 +71,15 @@ public class HistogramBuilder {
 			
 			index.addDependecies(cont);			
 		}
+		*/
 
-		System.err.println("fillnig index finished");
+		System.err.format("fillnig index finished in: %10.3fs\n", (System.currentTimeMillis() - time) * 0.001);
 		
 		FSQuery q = new FSQuery();
 		q.setIndex(index);
 		q.setNodeAttributes(new GateAnnotationsNodeAttributes(mainAs));
+		
+		/**/
 		
 		for (QueryMatch result : q.buildQuery("[t_lemma=být]").evaluate())
 		{
