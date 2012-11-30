@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBoxMenuItem;
@@ -22,10 +23,9 @@ import javax.swing.table.TableColumn;
 
 import cz.cuni.mff.mirovsky.trees.NGForest;
 import cz.cuni.mff.mirovsky.trees.NGForestDisplay;
-import cz.cuni.mff.mirovsky.trees.NGTree;
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import cz.cuni.mff.mirovsky.trees.TNode;
-import czsem.utils.CzsemTree;
+import czsem.fs.query.FSQuery.MatchingNode;
 import czsem.utils.NetgraphConstants;
 
 public class TreeVisualize extends Container {
@@ -52,6 +52,8 @@ public class TreeVisualize extends Container {
 		pm.add(new JMenuItem("123456789"));
 
 		forestDisplay = new CzsemForestDisplay();
+		setDefaultLook();
+		
 		JScrollPane forestScrollpane = new JScrollPane(forestDisplay);
 		forestDisplay.addMouseListener(new MouseListener()
 		{
@@ -114,23 +116,34 @@ public class TreeVisualize extends Container {
 		
 	}
 	
+	public void setDefaultLook()
+	{
+		forestDisplay.getTreeProperties().setShowHiddenNodes(true);
+		forestDisplay.getTreeProperties().setShowNullValues(false);
+		forestDisplay.getTreeProperties().setShowMultipleSets(true);
+		forestDisplay.getTreeProperties().setShowAttrNames(false);		
+	}
+	
 	public void setForest(NGForest forest)
 	{		
 		checkAttributes(forest);
 		forestDisplay.setForest(forest);
-		forestDisplay.getTreeProperties().setShowHiddenNodes(true);
-		forestDisplay.getTreeProperties().setShowNullValues(false);
-		forestDisplay.getTreeProperties().setShowMultipleSets(true);
-		forestDisplay.getTreeProperties().setShowAttrNames(false);
 
 		dataModel.setForestDisplay(forestDisplay);
 				
 		repaint();
 	}
 	
+	public void updateForest()
+	{
+		setForest(forestDisplay.getForest());		
+	}
+
+	
 	public void setForest(String[] attrs, String forest)
 	{
 		forestDisplay.setForest(attrs, forest);
+		updateForest();
 	}
 	
 	public void addShownAttribute(String attr) {
@@ -139,12 +152,7 @@ public class TreeVisualize extends Container {
 
 	
 	public void selectNode(int selectedNodeID) {
-		NGTree tree = forestDisplay.getForest().getChosenTree();
-		int id_index = forestDisplay.getForest().getHead().getIndexOfAttribute(NetgraphConstants.ID_FEATURENAME);				
-		CzsemTree czstree = new CzsemTree(tree);
-		int deep_ord = czstree.findFirstNodeByAttributeValue(id_index, Integer.toString(selectedNodeID));
-		tree.setMatchingNodes(Integer.toString(deep_ord));
-		tree.setChosenNodeByDepthOrder(deep_ord+1);
+		forestDisplay.selectNode(selectedNodeID);
 	}
 
 	
@@ -291,6 +299,11 @@ public class TreeVisualize extends Container {
 		fr.pack();
 		fr.setVisible(true);
 	
+	}
+
+
+	public void setMatchingNodes(List<? extends MatchingNode> matchingNodes) {
+		forestDisplay.setMatchingNodes(matchingNodes);
 	}
 
 }

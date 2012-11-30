@@ -1,12 +1,11 @@
 package czsem.gate.plugins;
-import java.util.Iterator;
-
-import javax.swing.JDialog;
-
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.creole.metadata.CreoleResource;
 import gate.gui.annedit.AnnotationDataImpl;
+
+import javax.swing.JDialog;
+
 import cz.cuni.mff.mirovsky.trees.TNode;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.gate.gui.DialogBasedAnnotationEditor;
@@ -54,27 +53,11 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 		
 		if (! canDisplayAnnotationType(annotation.getType())) return;
 
-		Annotation sentence = annotation; 
-
-		if (! annotation.getType().equals("Sentence"))
-		{
-			AnnotationSet sentences = annotation_set.getCovering("Sentence", 
-					annotation.getStartNode().getOffset(), 
-					annotation.getEndNode().getOffset());
-			
-			Iterator<Annotation> iter = sentences.iterator();
-			if (iter.hasNext())	sentence = iter.next();
-			else return;
-		}
-
 		setAnnotation(annotation, annotation_set);
 		
-		
-		AnnotationSet sas = annotation_set.getContained(
-				sentence.getStartNode().getOffset(), 
-				sentence.getEndNode().getOffset());
-		
-		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
+				
+//		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
+		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(annotation, annotation_set);
 		tv.setForest(fssb.getAttributes(), fssb.getTree());
 		tv.selectNode(annotation.getId());
 

@@ -16,22 +16,30 @@ public class FSQuery {
 	protected TreeIndex index;
 	protected NodeAttributes nodeAttributes;
 
-	public static class NodeMatch {
+	public static class MatchingNode {
+
 		protected int nodeId;
+
+		public MatchingNode(int nodeId) {
+			this.nodeId = nodeId;
+		}
+
+		public int getNodeId() {
+			return nodeId;
+		}		
+	}
+
+	public static class NodeMatch extends MatchingNode{
 		protected QueryNode queryNode;
 
 		public NodeMatch(int nodeId, QueryNode queryNode) {
-			this.nodeId = nodeId;
+			super(nodeId);
 			this.queryNode = queryNode;
 		}
 		
 		@Override
 		public String toString() {			
 			return queryNode.toString() + ": " + nodeId;
-		}
-
-		public int getNodeId() {
-			return nodeId;
 		}
 	}
 

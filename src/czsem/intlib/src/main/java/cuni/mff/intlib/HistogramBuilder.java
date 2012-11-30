@@ -86,13 +86,8 @@ public class HistogramBuilder {
 			NodeMatch res = result.getMatchingNodes().iterator().next();
 			System.err.println(res);
 			Annotation ra = mainAs.get(res.getNodeId());
-			Annotation s = mainAs.getCovering("Sentence", ra.getStartNode().getOffset(), ra.getEndNode().getOffset()).iterator().next();
 			
-			AnnotationSet sas = mainAs.getContained(
-					s.getStartNode().getOffset(), 
-					s.getEndNode().getOffset());
-			
-			FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(sas);
+			FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(ra, mainAs);
 			TreeVisualizeFrame.showTreeAndWait(fssb.getAttributes(), fssb.getTree(), res.getNodeId());		
 
 		}
