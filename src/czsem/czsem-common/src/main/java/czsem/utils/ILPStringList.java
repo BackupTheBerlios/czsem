@@ -32,7 +32,11 @@ public class ILPStringList
 		for (;;)
 		{
 			String ln = fr.readLine();
-			if (ln == null) return;			
+			if (ln == null)
+			{
+				fr.close();
+				return;
+			}
 			
 			//lines starting with comments are removed
 			if (ln.charAt(0) != '%') lines.add(ln);

@@ -401,10 +401,11 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 
 	protected void saveDocumentToFile(String filename) throws FileNotFoundException
 	{
-		new PrintStream(filename)
-		.print(
+		PrintStream s = new PrintStream(filename);
+		s.print(
 				DocumentXmlUtils.toXml(
-						(TextualDocument) document));		
+						(TextualDocument) document));
+		s.close();
 	}
 	
 	public void _testExecuteCzechFullAllIncidents() throws PersistenceException, ResourceInstantiationException, ExecutionException
@@ -623,7 +624,8 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		for (int i = 0; i < scenario.length; i++)
 		{
 			s.println(scenario[i]);			
-		}		
+		}
+		s.close();
 	}
 /*	
 	public static junit.framework.Test suite(){

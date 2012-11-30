@@ -12,7 +12,13 @@ import java.util.Map;
 import czsem.Utils;
 import czsem.gate.learning.MLEngine;
 
+import 	org.apache.log4j.Logger;
+
+
 public class TimeBenchmarkLogAnalysis {
+	
+
+	static Logger logger = Logger.getLogger(TimeBenchmarkLogAnalysis.class);
 
 	private BufferedReader in;
 	
@@ -99,8 +105,8 @@ public class TimeBenchmarkLogAnalysis {
 		}
 		in.close();
 		
-//		System.err.println(total);
-//		System.err.println(lines);
+		logger.debug(String.format("total time: %d", total));
+		logger.debug(String.format("lines: %d", lines));
 	}
 
 	public static String statsKeyTrain(String reponsesASName)

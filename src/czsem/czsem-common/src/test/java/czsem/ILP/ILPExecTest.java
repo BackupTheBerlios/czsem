@@ -34,6 +34,7 @@ public class ILPExecTest
 			new BufferedReader(	new InputStreamReader(
 					new FileInputStream(out_file) , "utf-8"));
 		String ret = read.readLine();
+		read.close();
 		
 		assertEquals("dědek Janěščřžýáíéúů", ret);
 		new File(out_file).delete();		
