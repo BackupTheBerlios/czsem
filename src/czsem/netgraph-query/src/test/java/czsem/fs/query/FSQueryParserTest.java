@@ -27,6 +27,19 @@ public class FSQueryParserTest {
 		
 		p.parse("[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],length=10]([string=annotations]([],[]),[])");
 	}
+	
+	public static class IdNodeAttributes implements NodeAttributes {
+		@Override
+		public Object getValue(int node_id, String attrName) {
+			return node_id;
+		}
+		
+		@Override
+		public Iterable<Entry<String, Object>> get(int node_id) {
+			return null;
+		}
+	}
+	
 
 	@Test
 	public static void testParseAndEvaluate() throws SyntaxError {
@@ -66,20 +79,38 @@ public class FSQueryParserTest {
 				0, 2, 7,
 				0, 7, 7,};
 		
-		q.setNodeAttributes(new NodeAttributes() {
-			
-			@Override
-			public Object getValue(int node_id, String attrName) {
-				return node_id;
-			}
-			
-			@Override
-			public Iterable<Entry<String, Object>> get(int node_id) {
-				return null;
-			}
-		});
+		q.setNodeAttributes(new IdNodeAttributes());
 		
 		FSQueryTest.evaluateQuery(b.getRootNode(), res2);
 
 	}
+
+	public static void evalQuery(String queryString, int[] res) throws SyntaxError {
+		FSQuery q = FSQueryTest.buidQueryObject();
+		FSQueryBuilder b = new FSQueryBuilder(q);
+		FSQueryParser p = new FSQueryParser(b);
+		
+		q.setNodeAttributes(new IdNodeAttributes());
+
+		p.parse(queryString);
+		FSQueryTest.evaluateQuery(b.getRootNode(), res);		
+	}
+	
+	@Test
+	public static void testDeeperNesting() throws SyntaxError {
+
+		evalQuery("[]([]([id=6]))", new int [] {});
+		evalQuery("[]([]([id=4]))", new int [] {0, 1, 4});
+		evalQuery("[]([id=1]([]))", new int [] {
+				0, 1, 3,
+				0, 1, 4});
+		evalQuery("[]([]([]([id=6])))", new int [] {0, 1, 3, 6});
+		evalQuery("[]([]([]([id=x])))", new int [] {});
+		evalQuery("[]([]([]([]([]))))", new int [] {});
+
+		evalQuery("[]([]([]([])),[]([]([])))", new int [] {0, 1, 3, 6, 1, 3, 6});
+		evalQuery("[]([]([]([])),[]([id=4]([])))", new int [] {});
+		evalQuery("[]([]([]([])),[]([id=4]))", new int [] {0, 1, 3, 6, 1, 4});
+	}
+
 }

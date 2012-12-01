@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
 
 import com.google.common.collect.Iterables;
 
@@ -71,7 +72,9 @@ public class FSQuery {
 		}
 
 		public boolean evalaute(int nodeID) {
-			return value.equals(nodeAttributes.getValue(nodeID, attr).toString());
+			Object v = nodeAttributes.getValue(nodeID, attr);
+			if (v == null) return false;
+			return value.equals(v.toString());
 		}
 	}
 
@@ -159,8 +162,12 @@ public class FSQuery {
 		public Iterable<QueryMatch> evaluate() {
 			List<Iterable<QueryMatch>> res = new ArrayList<Iterable<QueryMatch>>();
 			
-			for (int id : index.getAllNodes())
+			PriorityQueue<Integer> sortedNodes = new PriorityQueue<Integer>(index.getAllNodes()) ;
+			
+			while (! sortedNodes.isEmpty())
 			{
+				int id = sortedNodes.remove();
+
 				Iterable<QueryMatch> i = queryNode.getResultsFor(id);
 				if (i != null) res.add(i);
 			}

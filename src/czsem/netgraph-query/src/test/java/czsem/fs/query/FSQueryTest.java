@@ -39,13 +39,17 @@ public class FSQueryTest {
 		
 		Iterable<QueryMatch> res = queryNode.getResultsFor(0);
 		int i = 0;
+		int finishedNodeMatches = 0;
 		for (QueryMatch queryMatch : res) {
 			System.err.println(queryMatch.getMatchingNodes());
 			
 			for (NodeMatch nodeMatch : queryMatch.getMatchingNodes()) {
 				Assert.assertEquals(nodeMatch.nodeId, results[i++]);
+				finishedNodeMatches++;
 			}
-		}		
+		}
+		
+		Assert.assertEquals(finishedNodeMatches, results.length);
 	}
 
 	public static FSQuery buidQueryObject() {

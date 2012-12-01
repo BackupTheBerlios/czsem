@@ -1,5 +1,6 @@
 package czsem.gui;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +21,8 @@ public class CzsemForestDisplay extends NGForestDisplay {
 	private NGTreeHead head;
 	
 	private Set<Object> slectionCache = new HashSet<Object>();
+	
+	public boolean sorted = true;
 
 
 	public CzsemForestDisplay() {
@@ -27,6 +30,8 @@ public class CzsemForestDisplay extends NGForestDisplay {
 	}
 
 	public void setHead(String[] attrs) {
+		if (sorted) Arrays.sort(attrs);
+			
 		head = CzsemTree.createTreeHead(attrs);
 	}
 
@@ -67,8 +72,8 @@ public class CzsemForestDisplay extends NGForestDisplay {
 	private void restoreFromCache(DefaultListModel selectedAttrs) {
 		for (Object sel : slectionCache)
 		{
-			selectedAttrs.add(0, sel);			
-		}		
+			selectedAttrs.add(0, sel);
+		}
 	}
 
 	private void saveToCache(NGTreeHead head, ListModel selectedAttrs) {
@@ -76,7 +81,7 @@ public class CzsemForestDisplay extends NGForestDisplay {
 		//first: remove all known attributes
 		for (int i=0; i<head.getSize(); i++)
 		{
-			slectionCache.remove(head.getAttributeAt(i));
+			slectionCache.remove(head.getAttributeAt(i).getName());
 		}
 		
 		
@@ -84,7 +89,7 @@ public class CzsemForestDisplay extends NGForestDisplay {
 		for (int i=0; i<selectedAttrs.getSize(); i++)
 		{
 			slectionCache.add(selectedAttrs.getElementAt(i));
-		}		
+		}
 	}
 
 	public void addShownAttribute(String attr) {

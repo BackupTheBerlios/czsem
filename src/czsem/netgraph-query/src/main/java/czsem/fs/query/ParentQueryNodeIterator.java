@@ -3,6 +3,7 @@ package czsem.fs.query;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import czsem.fs.query.FSQuery.NodeMatch;
 import czsem.fs.query.FSQuery.QueryMatch;
@@ -34,7 +35,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 		for (int i = 0; i < resultsIterators.length; i++) {
 			resultsIterators[i] = findNewResultIterator(i);
 			
-			if (resultsIterators[i] == null) empty = true;
+			if (resultsIterators[i] == null || ! resultsIterators[i].hasNext()) empty = true;
 		}
 		
 		if (! empty) {
@@ -72,7 +73,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	
 		return false;
 	}
-
+	
 
 	private boolean tryMove(int i) {
 		if (i < 0) return false;
@@ -88,7 +89,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 		
 		//try new result for new data
 		resultsIterators[i] = findNewResultIterator(i);		
-		if (resultsIterators[i] != null) {			
+		if (resultsIterators[i] != null && resultsIterators[i].hasNext()) {			
 			lastMatches[i] = resultsIterators[i].next();
 			return true;
 		}
@@ -106,6 +107,8 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 
 	@Override
 	public QueryMatch next() {
+		if (! hasNext()) throw new NoSuchElementException();
+		
 		foundNext = false;
 
 		List<NodeMatch> matchingNodes = new ArrayList<FSQuery.NodeMatch>();

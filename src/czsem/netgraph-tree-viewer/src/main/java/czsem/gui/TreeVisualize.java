@@ -4,8 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
 import javax.swing.DefaultListModel;
@@ -55,8 +55,7 @@ public class TreeVisualize extends Container {
 		setDefaultLook();
 		
 		JScrollPane forestScrollpane = new JScrollPane(forestDisplay);
-		forestDisplay.addMouseListener(new MouseListener()
-		{
+		forestDisplay.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e)
 			{
@@ -80,18 +79,6 @@ public class TreeVisualize extends Container {
 					repaint();
 				}
 			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
 		});
 
 		dataModel = new NGTableModel();
@@ -100,7 +87,7 @@ public class TreeVisualize extends Container {
 		column.setMinWidth(21);
 		column.setMaxWidth(21);
 		column.setPreferredWidth(21);
-		column.setResizable(false);
+		column.setResizable(true);
 
 		JScrollPane tableScrollpane = new JScrollPane(table);
 
@@ -124,26 +111,18 @@ public class TreeVisualize extends Container {
 		forestDisplay.getTreeProperties().setShowAttrNames(false);		
 	}
 	
-	public void setForest(NGForest forest)
-	{		
-		checkAttributes(forest);
-		forestDisplay.setForest(forest);
-
-		dataModel.setForestDisplay(forestDisplay);
-				
-		repaint();
-	}
 	
-	public void updateForest()
+	public void updateAttrTableDataModel()
 	{
-		setForest(forestDisplay.getForest());		
+		dataModel.setForestDisplay(forestDisplay);
 	}
 
 	
 	public void setForest(String[] attrs, String forest)
 	{
 		forestDisplay.setForest(attrs, forest);
-		updateForest();
+		updateAttrTableDataModel();
+		repaint();
 	}
 	
 	public void addShownAttribute(String attr) {
@@ -154,33 +133,6 @@ public class TreeVisualize extends Container {
 	public void selectNode(int selectedNodeID) {
 		forestDisplay.selectNode(selectedNodeID);
 	}
-
-	
-	private void checkAttributes(NGForest new_forest)
-	{
-		NGForest old = forestDisplay.getForest();
-		if (old == null) return;
-		
-		new_forest.getVybraneAtributy().clear();
-		
-		DefaultListModel old_attrs = old.getVybraneAtributy();
-		DefaultListModel new_attrs = new_forest.getVybraneAtributy();
-		for (int i=0; i<old_attrs.size(); i++)
-		{
-			new_attrs.add(i, old_attrs.get(i));
-		}
-		
-		
-		/*
-		ngf.getVybraneAtributy().add(0, "id");
-		ngf.getVybraneAtributy().add(0, "t_lemma");
-		ngf.getVybraneAtributy().add(0, "form");
-		ngf.getVybraneAtributy().add(0, "string");
-		ngf.getVybraneAtributy().add(0, FSFileWriter.ORD_FEATURENAME);
-*/
-
-	}
-	
 	
 	public static class NGTableModel extends AbstractTableModel {
 		private static final long serialVersionUID = 1L;
@@ -216,6 +168,8 @@ public class TreeVisualize extends Container {
 			head = forest.getHead();
 
 			rowCount = head.getSize();
+			
+			fireTableDataChanged();
 		}
 
 		@Override

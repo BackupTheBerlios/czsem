@@ -7,13 +7,18 @@ import gate.Factory;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import czsem.fs.FSSentenceStringBuilder;
@@ -51,7 +56,8 @@ public class NgResultsBrowser extends Container {
 		q.setIndex(index);
 		q.setNodeAttributes(new GateAnnotationsNodeAttributes(mainAs));
 		
-		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([t_lemma=povinný])").evaluate();
+//		Iterable<QueryMatch> results = q.buildQuery("[lex.rf=32154]))").evaluate();
+		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([t_lemma=povinný]([t_lemma=vést]))").evaluate();
 		
 		JFrame fr = new JFrame(NgResultsBrowser.class.getName());
 	    fr.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,17 +76,69 @@ public class NgResultsBrowser extends Container {
 
 	private TreeVisualize treeVisualize;
 
-	private Iterator<QueryMatch> results;
+	protected ResultsWalker resultsWalker;
 
 	private AnnotationSet as;
+
+	private JButton buttonNext;
+
+	private JButton buttonPrevious;
+	
+	protected static class ResultsWalker {
+		
+		private Iterator<QueryMatch> results;
+		private ListIterator<QueryMatch> cachePos;
+		private int currentIndex = -1;
+
+		public ResultsWalker(Iterator<QueryMatch> results) {
+			this.results = results;
+			LinkedList<QueryMatch> cache = new LinkedList<FSQuery.QueryMatch>();
+			cachePos = cache.listIterator();
+		}
+
+		public boolean hasPrevious() {
+			return cachePos.hasPrevious();
+		}
+
+		public QueryMatch previous() {
+			if (cachePos.previousIndex() == currentIndex) cachePos.previous();
+			currentIndex = cachePos.previousIndex();			
+			return cachePos.previous();
+		}
+
+		public boolean hasNext() {
+			if (cachePos.hasNext()) return true;
+			if (results.hasNext()) return true;
+			return false;
+		}
+
+		public QueryMatch next() {
+			if (cachePos.nextIndex() == currentIndex) cachePos.next();
+
+			if (cachePos.hasNext())
+			{
+				currentIndex = cachePos.nextIndex();			
+				return cachePos.next();
+			}
+			if (results.hasNext()) {
+				QueryMatch r = results.next();
+				currentIndex = cachePos.nextIndex();			
+				cachePos.add(r);
+				return r;
+			}
+			throw new NoSuchElementException();
+		}
+		
+	}
 
 	public void setSourceAS(AnnotationSet as) {
 		this.as = as;
 	}
 
 	public void setResults(Iterable<QueryMatch> results) {
-		this.results = results.iterator();
-		
+		resultsWalker = new ResultsWalker(results.iterator());
+		showNext();
+		buttonPrevious.setEnabled(false);		
 	}
 
 	protected void initComponents() {
@@ -92,20 +150,27 @@ public class NgResultsBrowser extends Container {
 		add(treeVisualize, BorderLayout.CENTER);
 		
 		
-		JButton buttonNext = new JButton("Next");
+		JPanel southPanel = new JPanel(new FlowLayout());
+		add(southPanel, BorderLayout.SOUTH);
+				
+		buttonPrevious = new JButton("< Previous");
+		buttonPrevious.addActionListener(new ActionListener() {
+			@Override public void actionPerformed(ActionEvent e) { showPrevious(); }});
+		southPanel.add(buttonPrevious);
+
+		buttonNext = new JButton("Next >");
 		buttonNext.addActionListener(new ActionListener() {
 			@Override public void actionPerformed(ActionEvent e) { showNext(); }});
-		add(buttonNext, BorderLayout.SOUTH);
+		//same size as "Previous"
+		buttonNext.setPreferredSize(buttonPrevious.getPreferredSize());
+
+		southPanel.add(buttonNext);
 		
 		
 		
 	}
 
-	protected void showNext() {
-		if (! results.hasNext()) return;
-		
-		QueryMatch match = results.next();
-		
+	protected void showMatch(QueryMatch match) {
 		int id = match.getMatchingNodes().iterator().next().getNodeId();
 		Annotation ra = as.get(id);
 		
@@ -113,10 +178,28 @@ public class NgResultsBrowser extends Container {
 		
 		treeVisualize.setForest(fssb.getAttributes(), fssb.getTree());
 		treeVisualize.selectNode(id);
-		treeVisualize.setMatchingNodes(match.getMatchingNodes());
-//		TreeVisualizeFrame.showTreeAndWait(fssb.getAttributes(), fssb.getTree(), res.getNodeId());
+		treeVisualize.setMatchingNodes(match.getMatchingNodes());		
+	}
+
+	protected void showNext() {
+		if (resultsWalker.hasNext())
+		{
+			showMatch(resultsWalker.next());
+			buttonPrevious.setEnabled(true);
+		}
 		
-		//repaint();
+		buttonNext.setEnabled(resultsWalker.hasNext());
+	}
+
+	
+	protected void showPrevious() {
+		if (resultsWalker.hasPrevious())
+		{
+			showMatch(resultsWalker.previous());		
+			buttonNext.setEnabled(true);
+		}
+
+		buttonPrevious.setEnabled(resultsWalker.hasPrevious());		
 	}
 
 }
