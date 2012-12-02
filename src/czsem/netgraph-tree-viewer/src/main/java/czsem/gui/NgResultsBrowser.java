@@ -58,6 +58,7 @@ public class NgResultsBrowser extends Container {
 		
 //		Iterable<QueryMatch> results = q.buildQuery("[lex.rf=32154]))").evaluate();
 		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([t_lemma=povinný]([t_lemma=vést]))").evaluate();
+//		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([]([t_lemma=2]),[t_lemma=povinný]([t_lemma=vést]))").evaluate();
 		
 		JFrame fr = new JFrame(NgResultsBrowser.class.getName());
 	    fr.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
