@@ -5,37 +5,41 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import czsem.Utils;
 import czsem.fs.query.FSQuery.NodeMatch;
 import czsem.fs.query.FSQuery.QueryMatch;
 import czsem.fs.query.FSQuery.QueryNode;
 
 public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
-	protected List<QueryNode> queryNodes;
-	private Iterable<Integer> dataNodes;
-	protected Iterator<Integer>[] dataNodesIterators;
-	protected Iterator<QueryMatch>[] resultsIterators;
+
+	/* immutable properties */
+	protected final List<QueryNode> queryNodes;
+	private final Iterable<Integer> dataNodes;
 	protected QueryMatch[] lastMatches;
-	protected NodeMatch parentNodeMatch;
+	protected final NodeMatch parentNodeMatch;
 	private boolean empty = false;
 	private boolean foundNext = false;
+
+	/* mutable properties */
+	protected Iterator<Integer>[] dataNodesIterators;
+	protected Iterator<QueryMatch>[] resultsIterators;
 	
 
-	@SuppressWarnings("unchecked")
 	public ParentQueryNodeIterator(NodeMatch parentNodeMatch, List<QueryNode> queryNodes, Iterable<Integer> dataNodes) {
 		this.queryNodes = queryNodes;
 		this.parentNodeMatch = parentNodeMatch;
 		this.dataNodes = dataNodes;
 		
-		dataNodesIterators = new Iterator[queryNodes.size()];		
+		dataNodesIterators = Utils.convertToGenericArray(new Iterator[queryNodes.size()]);		
 		for (int i = 0; i < dataNodesIterators.length; i++) {
 			dataNodesIterators[i] = dataNodes.iterator();			
 		}
 		
-		resultsIterators = new Iterator[queryNodes.size()];
+		resultsIterators = Utils.convertToGenericArray(new Iterator[queryNodes.size()]);
 		for (int i = 0; i < resultsIterators.length; i++) {
 			resultsIterators[i] = findNewResultIterator(i);
 			
-			if (resultsIterators[i] == null || ! resultsIterators[i].hasNext()) empty = true;
+			if (resultsIterators[i] == null) empty = true;
 		}
 		
 		if (! empty) {
@@ -89,7 +93,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 		
 		//try new result for new data
 		resultsIterators[i] = findNewResultIterator(i);		
-		if (resultsIterators[i] != null && resultsIterators[i].hasNext()) {			
+		if (resultsIterators[i] != null) {			
 			lastMatches[i] = resultsIterators[i].next();
 			return true;
 		}
@@ -125,6 +129,10 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	@Override
 	public void remove() {
 		throw new UnsupportedOperationException();
+	}
+	
+	public ParentQueryNodeIterator createCopyOfInitialIteratorState() {
+		return new ParentQueryNodeIterator(parentNodeMatch, queryNodes, dataNodes);
 	}
 
 }

@@ -366,5 +366,11 @@ public class Utils {
 	    logger.removeAllAppenders();
 		BasicConfigurator.configure();		
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static <E,O> E [] convertToGenericArray(O [] runtimeType)
+	{
+		return (E[]) runtimeType;
+	}
 
 }

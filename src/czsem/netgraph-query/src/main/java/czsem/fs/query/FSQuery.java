@@ -86,6 +86,9 @@ public class FSQuery {
 			return true;
 		}
 		
+		/**
+		 * @return null if no results found, must not return empty iterator!!!
+		 */
 		public Iterable<QueryMatch> getResultsFor(int nodeId) {
 			for (Restrictioin r : restricitions)
 			{
@@ -117,12 +120,17 @@ public class FSQuery {
 			
 			if (chDataNodes == null && children.size() > 0) return null;
 			
-			final NodeMatch parentNodeMatch = new NodeMatch(nodeId, this);		
+			NodeMatch parentNodeMatch = new NodeMatch(nodeId, this);
+			
+			final ParentQueryNodeIterator mainIterator = new ParentQueryNodeIterator(parentNodeMatch, children, chDataNodes);
+			
+			if (! mainIterator.hasNext()) return null;
+			
 			return new Iterable<QueryMatch>(){
 
 				@Override
 				public Iterator<QueryMatch> iterator() {
-					return new ParentQueryNodeIterator(parentNodeMatch, children, chDataNodes);
+					return mainIterator.createCopyOfInitialIteratorState();
 				}
 				
 			};
@@ -186,6 +194,10 @@ public class FSQuery {
 		p.parse(queryString);
 		
 		return new QueryObject(b.getRootNode());		
+	}
+
+	public TreeIndex getIndex() {
+		return index;
 	}
 
 
