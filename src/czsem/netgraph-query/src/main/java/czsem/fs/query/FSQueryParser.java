@@ -77,20 +77,20 @@ public class FSQueryParser {
 		expectChar(null);
 		
 		StringBuilder comparator = new StringBuilder();
-		comparator.append(expectComprator());
+		comparator.append(expectCompratorChar());
 		
 		if (! nextCharIs(null))
 		{
-			comparator.append(expectComprator());			
+			comparator.append(expectCompratorChar());			
 		}
 
 		expectChar(null);
 		
-		builder.addRestriction(comparator.toString(), getStringPlusPlus(), getStringPlusPlus());
+		builder.addRestriction(comparator.toString(), getStringAndMove(), getStringAndMove());
 		
 	}
 
-	protected char expectComprator() throws SyntaxError {
+	protected char expectCompratorChar() throws SyntaxError {
 		Character ch = getChar();
 		charIndex++;
 		
@@ -126,7 +126,7 @@ public class FSQueryParser {
 		return charIndex < chars.size();
 	}
 
-	protected String getStringPlusPlus() {
+	protected String getStringAndMove() {
 		return strings.get(stringIndex++); 
 	}
 }
