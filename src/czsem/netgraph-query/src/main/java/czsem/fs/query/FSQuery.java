@@ -72,7 +72,9 @@ public class FSQuery {
 	}
 	
 	public static abstract class AbstractEvaluator {
-		public abstract Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode node, int nodeId);
+		public abstract Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode queryNode, int dataNodeId);
+
+		public void reset() {}
 	}
 	
 
@@ -92,6 +94,7 @@ public class FSQuery {
 			{
 				int id = sortedNodes.remove();
 
+				queryNode.reset();
 				Iterable<QueryMatch> i = queryNode.getResultsFor(data, id);
 				if (i != null) res.add(i);
 			}

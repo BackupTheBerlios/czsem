@@ -108,6 +108,7 @@ public class FSQueryTest {
 	public static void evaluateQuery(QueryData data, QueryNode queryNode, int[] results) {
 
 		
+		queryNode.reset();
 		Iterable<QueryMatch> res = queryNode.getResultsFor(data, 0);
 		int i = 0;
 		int finishedNodeMatches = 0;

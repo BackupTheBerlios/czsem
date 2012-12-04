@@ -11,21 +11,17 @@ import czsem.fs.query.QueryNode;
 
 public class ChildrenEvaluator extends RestrictioinsConjunctionEvaluator {
 	
-	public static ChildrenEvaluator instance = new ChildrenEvaluator();
-
-	@Override
-	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode node, int nodeId) {
-		if (super.getResultsFor(data, node, nodeId) == null) return null;
-		
+	public static ChildrenEvaluator childrenEvaluatorInstance = new ChildrenEvaluator();
+	
+	protected Iterable<QueryMatch> getChildernResultsFor(NodeMatch parentNodeMatch, QueryData data, QueryNode node, int nodeId) {
 		Iterable<Integer> chDataNodes = data.getIndex().getChildren(nodeId);
 		
-		List<QueryNode> children = node.getChildren();
+		List<QueryNode> chQueryNodes = node.getChildren();
 		
-		if (chDataNodes == null && children.size() > 0) return null;
+		if (chDataNodes == null && chQueryNodes.size() > 0) return null;
 		
-		NodeMatch parentNodeMatch = new NodeMatch(nodeId, node);
 		
-		final ParentQueryNodeIterator mainIterator = new ParentQueryNodeIterator(parentNodeMatch, children, chDataNodes, data);
+		final ParentQueryNodeIterator mainIterator = new ParentQueryNodeIterator(parentNodeMatch, chQueryNodes, chDataNodes, data);
 		
 		if (! mainIterator.hasNext()) return null;
 		
@@ -36,6 +32,17 @@ public class ChildrenEvaluator extends RestrictioinsConjunctionEvaluator {
 				return mainIterator.createCopyOfInitialIteratorState();
 			}
 			
-		};
+		};		
+	}
+
+	@Override
+	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode queryNode, int dataNodeId) {
+		if (! evalRestricitons(data, queryNode, dataNodeId)) return null;
+		
+		NodeMatch parentNodeMatch = new NodeMatch(dataNodeId, queryNode);
+		
+		return getChildernResultsFor(parentNodeMatch, data, queryNode, dataNodeId);
+
+		
 	}
 }

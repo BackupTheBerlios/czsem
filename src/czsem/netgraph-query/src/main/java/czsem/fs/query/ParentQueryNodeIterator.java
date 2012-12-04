@@ -26,6 +26,12 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	protected QueryData queryData;
 	
 
+	/**
+	 * @param parentNodeMatch can be null
+	 * @param queryNodes
+	 * @param dataNodes
+	 * @param data
+	 */
 	public ParentQueryNodeIterator(NodeMatch parentNodeMatch, List<QueryNode> queryNodes, Iterable<Integer> dataNodes, QueryData data) {
 		this.queryNodes = queryNodes;
 		this.parentNodeMatch = parentNodeMatch;
@@ -119,7 +125,8 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 
 		List<NodeMatch> matchingNodes = new ArrayList<FSQuery.NodeMatch>();
 		
-		matchingNodes.add(parentNodeMatch);
+		if (parentNodeMatch != null)
+			matchingNodes.add(parentNodeMatch);
 		
 		for (int i = 0; i < lastMatches.length; i++) {
 			matchingNodes.addAll(lastMatches[i].getMatchingNodes());

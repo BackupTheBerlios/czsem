@@ -11,17 +11,24 @@ import czsem.fs.query.QueryNode;
 
 public class RestrictioinsConjunctionEvaluator extends AbstractEvaluator {
 	
-	public static RestrictioinsConjunctionEvaluator instance = new RestrictioinsConjunctionEvaluator();
+	public static RestrictioinsConjunctionEvaluator restrictioinsConjunctionEvaluatorInstance = new RestrictioinsConjunctionEvaluator();
+	
+	public boolean evalRestricitons(QueryData data, QueryNode queryNode, int dataNodeId)
+	{
+		for (Restrictioin r : queryNode.getRestricitions())
+		{
+			if (! r.evaluate(data, dataNodeId)) return false;
+		}
+		return true;
+	}
 	
 	@Override
-	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode node, int nodeId) {
-		for (Restrictioin r : node.getRestricitions())
-		{
-			if (! r.evalaute(data, nodeId)) return null;
-		}
-
+	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode queryNode, int dataNodeId) {
+		if (! evalRestricitons(data, queryNode, dataNodeId))
+			return null;
+		
 		List<NodeMatch> matchingNodes = Arrays.asList(
-				new NodeMatch[] {new NodeMatch(nodeId, node)} );
+				new NodeMatch[] {new NodeMatch(dataNodeId, queryNode)} );
 		
 		return Arrays.asList(
 				new QueryMatch [] {

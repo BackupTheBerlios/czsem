@@ -86,13 +86,12 @@ public class FSQueryParser {
 
 		expectChar(null);
 		
-		builder.addRestriction(comparator.toString(), getStringAndMove(), getStringAndMove());
+		builder.addRestriction(comparator.toString(), getStringAndMove().trim(), getStringAndMove());
 		
 	}
 
 	protected char expectCompratorChar() throws SyntaxError {
-		Character ch = getChar();
-		charIndex++;
+		Character ch = getCurrentCharAndMove();
 		
 		if (	ch == null ||
 				FSTokenizer.isSpecialChar(ch) != FSTokenizer.SpecialChar.EVEN_STRING_COMPARATOR)
@@ -103,14 +102,13 @@ public class FSQueryParser {
 	}
 
 	protected boolean nextCharIs(Character next) {
-		if (next == getChar()) return true; //mainly if both are null
+		if (next == getCurrentChar()) return true; //mainly if both are null
 		if (next == null) return false; //because of previous
-		return next.equals(getChar());
+		return next.equals(getCurrentChar());
 	}
 	
 	protected void expectChar(Character expected) throws SyntaxError {
-		Character ch = getChar();
-		charIndex++;
+		Character ch = getCurrentCharAndMove();
 		
 		if (expected == ch) return; //mainly if both are null - return ok;
 		
@@ -118,12 +116,36 @@ public class FSQueryParser {
 			throw new SyntaxError(String.format("Character '%c' expected but '%c' found!", expected, ch));		
 	}
 
-	protected Character getChar() {
-		return chars.get(charIndex); 
+	protected Character getCurrentCharAndMove() {
+		Character ch = getCurrentChar();
+		charIndex++;
+		return ch;		
+	}
+	
+	protected Character findNextChar() {
+		Character ch;
+		do {
+			ch = chars.get(++charIndex);
+			if (ch == null) return ch;
+		} while (ch == ' ');
+		
+		return ch;
+	}
+
+	protected Character getCurrentChar() {
+		Character ch = chars.get(charIndex);
+		if (ch == null) return ch;
+		if (ch == ' ') ch = findNextChar();
+		return ch;
 	}
 
 	protected boolean moreCharsAvailable() {
-		return charIndex < chars.size();
+		for (int i = charIndex+1; i<chars.size(); i++)
+		{
+			if (chars.get(i) != ' ') return true; 
+		}
+			
+		return false;
 	}
 
 	protected String getStringAndMove() {

@@ -21,5 +21,19 @@ public class FSTokenizerTest {
 
 		Assert.assertEquals(t.getCharList(), Arrays.asList(new Character[] {'[', null, '=', null, ',', null, '=', null, ',', null, '=', null, ',', null, '=', null, ']', '(', '[', null, '=', null, ']', '(', '[', ']', ')', ')'}));
 		Assert.assertEquals(t.getStringList(), Arrays.asList(new String[] {"string", "visualized", "kind", "word", "dependencies", "[nsubjpass(3), aux(5), auxpass(7), prep(11)]", "length", "10", "string", "annotations"}));
+
+		t = new FSTokenizer(" [ id = 2]");
+		System.err.println(t.getCharList());
+		System.err.println(t.getStringList());
+
+		Assert.assertEquals(t.getCharList(), Arrays.asList(new Character[] {' ', '[', ' ', null, '=', null, ']'}));
+		Assert.assertEquals(t.getStringList(), Arrays.asList(new String[] { "id ", " 2"}));
+
+		t = new FSTokenizer(" [ id = 2 ]");
+		System.err.println(t.getCharList());
+		System.err.println(t.getStringList());
+
+		Assert.assertEquals(t.getCharList(), Arrays.asList(new Character[] {' ', '[', ' ', null, '=', null, ']'}));
+		Assert.assertEquals(t.getStringList(), Arrays.asList(new String[] { "id ", " 2 "}));
 	}
 }

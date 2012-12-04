@@ -1,12 +1,14 @@
 package czsem.fs.query;
 
 import org.apache.log4j.Level;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
 import czsem.fs.TreeIndex;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQueryParser.SyntaxError;
+import czsem.fs.query.restrictions.OptionalEvaluator;
 
 public class FSQueryParserTest {
 	
@@ -17,14 +19,31 @@ public class FSQueryParserTest {
 		p.parse("foo");
 	}
 
+	@Test
+	public static void testParseName() throws SyntaxError {
+		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryParser p = new FSQueryParser(b);
+		p.parse("[_name=node1]");
+		
+		Assert.assertEquals(b.getRootNode().getName(), "node1");
+	}
 	
 	@Test
 	public static void testParse() throws SyntaxError {
 		Utils.loggerSetup(Level.ALL);
 		
 		FSQueryParser p = new FSQueryParser(new FSQueryBuilder());
-		
+		p.parse("[]");
+
+		p = new FSQueryParser(new FSQueryBuilder());				
 		p.parse("[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],length=10]([string=annotations]([],[]),[])");
+		
+		evalQuery("[]( [id=1] , [id=2] )", new int [] {0, 1, 2});		
+		evalQuery("[]( [id=1] , [id =2] )", new int [] {0, 1, 2});		
+		evalQuery("[]( [id=1] , [ id =2] )", new int [] {0, 1, 2});		
+		evalQuery("[]( [id=1] , [ id = 2] )", new int [] {});		
+		evalQuery("[]( [id=1] , [ id =2 ] )", new int [] {});		
+		evalQuery("[]( [id=1] , [ id = 2 ] )", new int [] {});		
 	}
 	
 	@Test
@@ -172,6 +191,64 @@ public class FSQueryParserTest {
 		evalQuery(data, "[]([id=8]([id=9]))", new int [] {	0, 8, 9,});
 		evalQuery(data, "[]([]([id=9]))", new int [] {	0, 8, 9,});
 		evalQuery(data, "[]([]([id=11],[id=10],[id=9]))", new int [] {	0, 8, 11, 10, 9,});
+	}
+
+	@Test
+	public static void testOptional() throws SyntaxError {
+		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryParser p = new FSQueryParser(b);
+		p.parse("[id=1, _optional=true]");
+		
+		Assert.assertTrue(b.getRootNode().evaluator instanceof OptionalEvaluator, "OptionalEvaluator should be used");
+
+
+		evalQuery("[]([id=2,_optional=true])", new int [] {0, 2});
+		evalQuery("[]([id=1,_optional=true])", new int [] {0, 1});
+
+		evalQuery("[]([_optional=true,_name=opt]([id=7]))", new int [] {0, 7});
+
+		evalQuery("[]([_optional=true])", new int [] {
+				0, 1,
+				0, 2,
+				0, 7,
+				});
+
+		evalQuery("[]([_optional=true,_name=opt1]([id=xxx]))", new int [] {});
+
+		evalQuery("[]([_optional=true,_name=opt1]([_optional=true,_name=opt2]([id=7])))", new int [] {0, 7});
+
+		evalQuery("[]([_optional=true,_name=opt1]([id~=\\[124\\]]))", new int [] {
+				0, 1, 4,
+				});
+		
+		evalQuery("[]([_optional=true,_name=opt1]([_optional=true,_name=opt2]([id~=\\[165\\]])))", new int [] {
+				0, 1, 3, 6,
+				0, 2, 5,
+				});
+		
+		evalQuery("[]([id=1]([_optional=true,_name=opt1]([_optional=true,_name=opt2]([id~=\\[346\\]]))))", new int [] {
+				0, 1, 3, 6,
+				});
+
+		
+		QueryData data = FSQueryTest.buidQueryObject();
+		data.getIndex().addDependency(4, 8);
+		evalQuery(data, "[]([id=1]([_optional=true,_name=opt1]([_optional=true,_name=opt2]([id~=\\[3468\\]]))))", new int [] {
+				0, 1, 3, 6,
+				0, 1, 4, 8,
+				});
+
+	}
+
+	@Test
+	public static void testRegexp() throws SyntaxError {
+		evalQuery("[]([id~=\\[12\\]])", new int [] {0, 1, 0, 2});		
+	}
+
+	@Test
+	public static void testNotEqual() throws SyntaxError {
+		evalQuery("[]([id!=1])", new int [] {0, 2, 0, 7});		
+		evalQuery("[]([ id !=1])", new int [] {0, 2, 0, 7});		
 	}
 
 }

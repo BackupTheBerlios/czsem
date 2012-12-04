@@ -19,11 +19,11 @@ public class FSTokenizer {
 	public static class SpecialChar 
 	{
 		public static final int NO = 0; 
-		public static final int ORDINARY = 1; 
-		public static final int ALSO_IN_STRING = 2; 
-		public static final int EVEN_STRING_COMPARATOR = 3; 
+		public static final int SPACE = 5; 		
+		public static final int ORDINARY = 10; 
+		public static final int ALSO_IN_STRING = 30; 
+		public static final int EVEN_STRING_COMPARATOR = 40; 
 	}
-	
 	
 	public static int isSpecialChar(char ch)
 	{
@@ -32,16 +32,20 @@ public class FSTokenizer {
 			case '!':
 			case '<':
 			case '>':
+			case '~':	//regexp
 				return SpecialChar.EVEN_STRING_COMPARATOR;
 
 			case '[':
 			case ']':
 			case ',':
 				return SpecialChar.ALSO_IN_STRING;
-							
+
 			case ')':
 			case '(':
 				return SpecialChar.ORDINARY;
+
+			case ' ':
+				return SpecialChar.SPACE;	
 	
 			default:
 				return SpecialChar.NO;
@@ -49,11 +53,18 @@ public class FSTokenizer {
 	}
 	
 	protected void processInput() {
+		char lastChar = 'x';
 		for (i=0; i<input.length(); i++)
 		{
 			char ch = getChar();
-			
-			if (isSpecialChar(ch) >= SpecialChar.ORDINARY)
+
+			if (	isSpecialChar(lastChar) >= SpecialChar.EVEN_STRING_COMPARATOR &&
+					isSpecialChar(ch) < SpecialChar.ALSO_IN_STRING)
+			{
+					charList.add(null);
+					readString();				
+			}
+			else if (isSpecialChar(ch) >= SpecialChar.SPACE)
 			{
 					charList.add(ch);
 			} 
@@ -62,6 +73,8 @@ public class FSTokenizer {
 					charList.add(null);
 					readString();
 			}
+			
+			lastChar = ch;
 		}		
 	}
 
