@@ -24,6 +24,7 @@ import javax.swing.WindowConstants;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.GateAnnotationsNodeAttributes;
 import czsem.fs.query.FSQuery;
+import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
 import czsem.gate.utils.GateAwareTreeIndex;
 import czsem.gate.utils.GateUtils;
@@ -52,12 +53,10 @@ public class NgResultsBrowser extends Container {
 		System.err.format("finished in: %10.3fs\n", (System.currentTimeMillis() - time) * 0.001);
 		
 		
-		FSQuery q = new FSQuery();
-		q.setIndex(index);
-		q.setNodeAttributes(new GateAnnotationsNodeAttributes(mainAs));
+		QueryData data = new FSQuery.QueryData(index, new GateAnnotationsNodeAttributes(mainAs));
 		
 //		Iterable<QueryMatch> results = q.buildQuery("[lex.rf=32154]))").evaluate();
-		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([t_lemma=povinný]([t_lemma=vést]))").evaluate();
+		Iterable<QueryMatch> results = FSQuery.buildQuery("[t_lemma=být]([t_lemma=povinný]([t_lemma=vést]))").evaluate(data);
 //		Iterable<QueryMatch> results = q.buildQuery("[t_lemma=být]([]([t_lemma=2]),[t_lemma=povinný]([t_lemma=vést]))").evaluate();
 		
 		JFrame fr = new JFrame(NgResultsBrowser.class.getName());

@@ -18,6 +18,7 @@ import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.GateAnnotationsNodeAttributes;
 import czsem.fs.query.FSQuery;
 import czsem.fs.query.FSQuery.NodeMatch;
+import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gate.applet.GateApplet;
@@ -75,13 +76,11 @@ public class HistogramBuilder {
 
 		System.err.format("fillnig index finished in: %10.3fs\n", (System.currentTimeMillis() - time) * 0.001);
 		
-		FSQuery q = new FSQuery();
-		q.setIndex(index);
-		q.setNodeAttributes(new GateAnnotationsNodeAttributes(mainAs));
+		QueryData data = new FSQuery.QueryData(index, new GateAnnotationsNodeAttributes(mainAs));
 		
 		/**/
 		
-		for (QueryMatch result : q.buildQuery("[t_lemma=být]").evaluate())
+		for (QueryMatch result : FSQuery.buildQuery("[t_lemma=být]").evaluate(data))
 		{
 			NodeMatch res = result.getMatchingNodes().iterator().next();
 			System.err.println(res);

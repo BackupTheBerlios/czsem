@@ -9,36 +9,35 @@ import org.testng.annotations.Test;
 import czsem.fs.NodeAttributes;
 import czsem.fs.TreeIndex;
 import czsem.fs.query.FSQuery.NodeMatch;
-import czsem.fs.query.FSQuery.ParentQueryNode;
+import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
-import czsem.fs.query.FSQuery.QueryNode;
 
 public class FSQueryTest {
 	@Test
 	public static void getResultsFor() {
-		FSQuery q = buidQueryObject();
+		QueryData data = buidQueryObject();
 		
-		ParentQueryNode qn = q.new ParentQueryNode();
-		Iterable<QueryMatch> res = qn.getResultsFor(0);
+		QueryNode qn = new QueryNode();
+		Iterable<QueryMatch> res = qn.getResultsFor(data, 0);
 		Assert.assertNotEquals(res, null);
 		Assert.assertTrue(res.iterator().hasNext());
 
 		qn.addRestriction("=", "id", "xxx");
 		
-		res = qn.getResultsFor(0);
+		res = qn.getResultsFor(data, 0);
 		Assert.assertEquals(res, null);
 
-		ParentQueryNode qn1 = q.new ParentQueryNode();
-		ParentQueryNode qn2 = q.new ParentQueryNode();
+		QueryNode qn1 = new QueryNode();
+		QueryNode qn2 = new QueryNode();
 		qn1.addChild(qn2);
 
-		res = qn1.getResultsFor(0);
+		res = qn1.getResultsFor(data, 0);
 		Assert.assertNotEquals(res, null);
 		Assert.assertTrue(res.iterator().hasNext());
 
 		qn2.addRestriction("=", "id", "xxx");
 
-		res = qn1.getResultsFor(0);
+		res = qn1.getResultsFor(data, 0);
 		Assert.assertEquals(res, null);
 	}
 	
@@ -55,15 +54,15 @@ public class FSQueryTest {
 
 	@Test
 	public static void getResultsForConcurentIterators() {
-		FSQuery q = buidQueryObject();
+		 QueryData data = buidQueryObject();
 		
-		ParentQueryNode qn1 = q.new ParentQueryNode();
-		ParentQueryNode qn2 = q.new ParentQueryNode();
+		QueryNode qn1 = new QueryNode();
+		QueryNode qn2 = new QueryNode();
 		qn1.addChild(qn2);
-		ParentQueryNode qn3 = q.new ParentQueryNode();
+		QueryNode qn3 = new QueryNode();
 		qn2.addChild(qn3);
 
-		Iterable<QueryMatch> res = qn1.getResultsFor(0);
+		Iterable<QueryMatch> res = qn1.getResultsFor(data, 0);
 		Assert.assertNotEquals(res, null);
 		Assert.assertTrue(res.iterator().hasNext());
 		
@@ -82,16 +81,12 @@ public class FSQueryTest {
 	
 	@Test
 	public static void testQuery() {
-		
-		FSQuery q = buidQueryObject();
-		
+		QueryNode qn1 = new QueryNode();
 
-		ParentQueryNode qn1 = q.new ParentQueryNode();
-
-		ParentQueryNode qn2 = q.new ParentQueryNode();
+		QueryNode qn2 = new QueryNode();
 		
 		qn1.addChild(qn2);
-		qn2.addChild(q.new ParentQueryNode());
+		qn2.addChild(new QueryNode());
 		
 		evaluateQuery(qn1);
 	}
@@ -106,8 +101,14 @@ public class FSQueryTest {
 	}
 
 	public static void evaluateQuery(QueryNode queryNode, int[] results) {
+		 QueryData data = buidQueryObject();
+		 evaluateQuery(data, queryNode, results);
+	}
+
+	public static void evaluateQuery(QueryData data, QueryNode queryNode, int[] results) {
+
 		
-		Iterable<QueryMatch> res = queryNode.getResultsFor(0);
+		Iterable<QueryMatch> res = queryNode.getResultsFor(data, 0);
 		int i = 0;
 		int finishedNodeMatches = 0;
 		if (res != null) {
@@ -136,7 +137,7 @@ public class FSQueryTest {
 		}
 	}
 
-	public static FSQuery buidQueryObject() {
+	public static QueryData buidQueryObject() {
 		TreeIndex index = new TreeIndex();
 		
 		index.addDependency(0,1);
@@ -147,13 +148,6 @@ public class FSQueryTest {
 		index.addDependency(3,6);
 		index.addDependency(0,7);
 
-		
-		
-		FSQuery q = new FSQuery();
-		q.setIndex(index);
-		
-		q.setNodeAttributes(new IdNodeAttributes());
-
-		return q;
+		return new FSQuery.QueryData(index, new IdNodeAttributes());
 	}
 }

@@ -1,22 +1,43 @@
 package czsem.fs.query;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.PriorityQueue;
 
 import com.google.common.collect.Iterables;
 
-import czsem.fs.TreeIndex;
 import czsem.fs.NodeAttributes;
+import czsem.fs.TreeIndex;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 
 public class FSQuery {
 	
-	protected TreeIndex index;
-	protected NodeAttributes nodeAttributes;
+	public static class QueryData {
+		protected TreeIndex index;
+		protected NodeAttributes nodeAttributes;		
 
+		public QueryData(TreeIndex index, NodeAttributes nodeAttributes) {
+			this.index = index;
+			this.nodeAttributes = nodeAttributes;
+		}
+
+		public TreeIndex getIndex() {
+			return index;
+		}
+
+		public void setIndex(TreeIndex index) {
+			this.index = index;
+		}
+
+		public NodeAttributes getNodeAttributes() {
+			return nodeAttributes;
+		}
+
+		public void setNodeAttributes(NodeAttributes nodeAttributes) {
+			this.nodeAttributes = nodeAttributes;
+		}
+	}
+	
 	public static class MatchingNode {
 
 		protected int nodeId;
@@ -50,133 +71,28 @@ public class FSQuery {
 		public List<NodeMatch> getMatchingNodes() {return matchingNodes; }
 	}
 	
-	public class Restrictioin {
-		public boolean evalaute(int nodeID) {
-			return true;
-		}
-	}
-
-	public class AttrRestrictioin extends Restrictioin {
-		protected String attr, value;
-
-		public AttrRestrictioin(String attr, String value) {
-			this.attr = attr;
-			this.value = value;
-		}
-	}
-
-	public class EqualRestrictioin extends AttrRestrictioin {
-
-		public EqualRestrictioin(String attr, String value) {
-			super(attr, value);
-		}
-
-		public boolean evalaute(int nodeID) {
-			Object v = nodeAttributes.getValue(nodeID, attr);
-			if (v == null) return false;
-			return value.equals(v.toString());
-		}
-	}
-
-	
-	public class QueryNode {
-		protected List<Restrictioin> restricitions = new ArrayList<FSQuery.Restrictioin>();
-		
-		public boolean evalaute(int nodeID) {
-			return true;
-		}
-		
-		/**
-		 * @return null if no results found, must not return empty iterator!!!
-		 */
-		public Iterable<QueryMatch> getResultsFor(int nodeId) {
-			for (Restrictioin r : restricitions)
-			{
-				if (! r.evalaute(nodeId)) return null;
-			}
-			
-			List<NodeMatch> matchingNodes = Arrays.asList(
-					new NodeMatch[] {new NodeMatch(nodeId, this)} );
-			
-			return Arrays.asList(
-					new QueryMatch [] {
-							new QueryMatch(matchingNodes)}); 
-		}
-		
-		@Override
-		public String toString() {
-			return "QN_"+Integer.toString(hashCode(), Character.MAX_RADIX);
-		}
-	}
-
-	public class ParentQueryNode extends QueryNode {
-		protected List<QueryNode> children = new ArrayList<FSQuery.QueryNode>();
-
-		@Override
-		public Iterable<QueryMatch> getResultsFor(final int nodeId) {
-			if (super.getResultsFor(nodeId) == null) return null;
-			
-			final Iterable<Integer> chDataNodes = index.getChildren(nodeId);
-			
-			if (chDataNodes == null && children.size() > 0) return null;
-			
-			NodeMatch parentNodeMatch = new NodeMatch(nodeId, this);
-			
-			final ParentQueryNodeIterator mainIterator = new ParentQueryNodeIterator(parentNodeMatch, children, chDataNodes);
-			
-			if (! mainIterator.hasNext()) return null;
-			
-			return new Iterable<QueryMatch>(){
-
-				@Override
-				public Iterator<QueryMatch> iterator() {
-					return mainIterator.createCopyOfInitialIteratorState();
-				}
-				
-			};
-		}
-
-		public void addChild(QueryNode queryNode) {
-			children.add(queryNode);			
-		}
-
-		public void addRestriction(String comparartor, String arg1,	String arg2) {
-			if (comparartor.equals("="))
-			{
-				restricitions.add(new EqualRestrictioin(arg1, arg2));
-				return;
-			}
-			
-			throw new RuntimeException(String.format("Restricition ont supported: %s", comparartor));
-		}
-
-	}
-
-	public void setIndex(TreeIndex i) {
-		index = i;		
+	public static abstract class AbstractEvaluator {
+		public abstract Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode node, int nodeId);
 	}
 	
-	public void setNodeAttributes(NodeAttributes nodeAttributes) {
-		this.nodeAttributes = nodeAttributes;
-	}
 
-	public class QueryObject {
+	public static class QueryObject {
 		protected QueryNode queryNode;
 
 		public QueryObject(QueryNode queryNode) {
 			this.queryNode = queryNode;
 		}
 		
-		public Iterable<QueryMatch> evaluate() {
+		public Iterable<QueryMatch> evaluate(QueryData data) {
 			List<Iterable<QueryMatch>> res = new ArrayList<Iterable<QueryMatch>>();
 			
-			PriorityQueue<Integer> sortedNodes = new PriorityQueue<Integer>(index.getAllNodes()) ;
+			PriorityQueue<Integer> sortedNodes = new PriorityQueue<Integer>(data.getIndex().getAllNodes()) ;
 			
 			while (! sortedNodes.isEmpty())
 			{
 				int id = sortedNodes.remove();
 
-				Iterable<QueryMatch> i = queryNode.getResultsFor(id);
+				Iterable<QueryMatch> i = queryNode.getResultsFor(data, id);
 				if (i != null) res.add(i);
 			}
 			
@@ -188,19 +104,11 @@ public class FSQuery {
 		
 	}
 	
-	public QueryObject buildQuery(String queryString) throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder(this);
+	public static QueryObject buildQuery(String queryString) throws SyntaxError {
+		FSQueryBuilder b = new FSQueryBuilder();
 		FSQueryParser p = new FSQueryParser(b);
 		p.parse(queryString);
 		
 		return new QueryObject(b.getRootNode());		
 	}
-
-	public TreeIndex getIndex() {
-		return index;
-	}
-
-
-
-
 }

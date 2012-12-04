@@ -4,34 +4,34 @@ import java.util.Stack;
 
 import org.apache.log4j.Logger;
 
-import czsem.fs.query.FSQuery.QueryNode;
+import czsem.fs.query.restrictions.ChildrenEvaluator;
+import czsem.fs.query.restrictions.RestrictioinsConjunctionEvaluator;
 
 public class FSQueryBuilder {
 	
-	protected FSQuery query;
-
-	public FSQueryBuilder(FSQuery q) {
-		query = q;
-		curentParent = query.new ParentQueryNode(); 
+	public FSQueryBuilder() {
+		curentParent = new QueryNode(); 
 		curentNode = curentParent;
 	}
 	
 	Logger loger = Logger.getLogger(FSQueryBuilder.class);
 	
-	protected Stack<FSQuery.ParentQueryNode> nodeStack = new Stack<FSQuery.ParentQueryNode>();
+	protected Stack<QueryNode> nodeStack = new Stack<QueryNode>();
 	
-	protected FSQuery.ParentQueryNode curentParent; 
-	protected FSQuery.ParentQueryNode curentNode;
+	protected QueryNode curentParent; 
+	protected QueryNode curentNode;
 
 	public void addNode() {
 		loger.debug("addNode");
 
-		curentNode = query.new ParentQueryNode();
+		curentNode = new QueryNode(RestrictioinsConjunctionEvaluator.instance);
 		curentParent.addChild(curentNode);		
 	}
 
 	public void beginChildren() {
 		loger.debug("beginChildren");
+		
+		curentNode.setEvaluator(ChildrenEvaluator.instance);
 		
 		nodeStack.push(curentParent);
 		curentParent = curentNode;		

@@ -5,13 +5,14 @@ import org.testng.annotations.Test;
 
 import czsem.Utils;
 import czsem.fs.TreeIndex;
+import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 
 public class FSQueryParserTest {
 	
 	@Test(expectedExceptions = SyntaxError.class)
 	public static void testParseExcept() throws SyntaxError {
-		FSQueryParser p = new FSQueryParser(new FSQueryBuilder(new FSQuery()));
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilder());
 		
 		p.parse("foo");
 	}
@@ -21,22 +22,21 @@ public class FSQueryParserTest {
 	public static void testParse() throws SyntaxError {
 		Utils.loggerSetup(Level.ALL);
 		
-		FSQueryParser p = new FSQueryParser(new FSQueryBuilder(new FSQuery()));
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilder());
 		
 		p.parse("[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],length=10]([string=annotations]([],[]),[])");
 	}
 	
 	@Test
 	public static void testParseAndEvaluate() throws SyntaxError {
-		FSQuery q = FSQueryTest.buidQueryObject();
-		FSQueryBuilder b = new FSQueryBuilder(q);
+		FSQueryBuilder b = new FSQueryBuilder();
 		FSQueryParser p = new FSQueryParser(b);
 		
 		p.parse("[]([]([]))");
 		
 		FSQueryTest.evaluateQuery(b.getRootNode());
 		
-		b = new FSQueryBuilder(q);
+		b = new FSQueryBuilder();
 		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[])");
@@ -54,7 +54,7 @@ public class FSQueryParserTest {
 		FSQueryTest.evaluateQuery(b.getRootNode(), res);
 
 		
-		b = new FSQueryBuilder(q);
+		b = new FSQueryBuilder();
 		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[id=7])");
@@ -68,17 +68,18 @@ public class FSQueryParserTest {
 
 	}
 
-	public static void evalQuery(String queryString, int[] res) throws SyntaxError {
-		FSQuery q = FSQueryTest.buidQueryObject();
-		evalQuery(q, queryString, res);
-	}
-
-	public static void evalQuery(FSQuery q, String queryString, int[] res) throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder(q);
+	public static void evalQuery(QueryData data, String queryString, int[] res) throws SyntaxError {
+		FSQueryBuilder b = new FSQueryBuilder();
 		FSQueryParser p = new FSQueryParser(b);
 		
 		p.parse(queryString);
-		FSQueryTest.evaluateQuery(b.getRootNode(), res);		
+		FSQueryTest.evaluateQuery(data, b.getRootNode(), res);				
+	}
+
+
+	public static void evalQuery(String queryString, int[] res) throws SyntaxError {
+		QueryData data = FSQueryTest.buidQueryObject();		
+		evalQuery(data, queryString, res);
 	}
 	
 	@Test
@@ -108,30 +109,30 @@ public class FSQueryParserTest {
 
 	@Test
 	public static void testThreeBrothers1() throws SyntaxError {
-		FSQuery q = FSQueryTest.buidQueryObject();		
-		TreeIndex i = q.getIndex();
+		QueryData data = FSQueryTest.buidQueryObject();		
+		TreeIndex i = data.getIndex();
 		i.addDependency(1, 12);
-		evalQuery(q, "[]([]([id=12],[id=3],[]))", new int [] {	
+		evalQuery(data, "[]([]([id=12],[id=3],[]))", new int [] {	
 				0, 1, 12, 3, 3,
 				0, 1, 12, 3, 4,
 				0, 1, 12, 3, 12,
 				});		
 
-		evalQuery(q, "[]([]([id=12],[id=3],[id=4]))", new int [] {	
+		evalQuery(data, "[]([]([id=12],[id=3],[id=4]))", new int [] {	
 				0, 1, 12, 3, 4,
 				});		
 	}
 
 	@Test
 	public static void testThreeBrothers2() throws SyntaxError {
-		FSQuery q = FSQueryTest.buidQueryObject();		
-		TreeIndex i = q.getIndex();
+		QueryData data = FSQueryTest.buidQueryObject();		
+		TreeIndex i = data.getIndex();
 		i.addDependency(0, 8);
 		i.addDependency(8, 9);
 		i.addDependency(8, 10);
 		i.addDependency(8, 11);
 		
-		evalQuery(q, "[]([]([],[],[]))", new int [] {	0, 1, 3, 3, 3,
+		evalQuery(data, "[]([]([],[],[]))", new int [] {	0, 1, 3, 3, 3,
 														0, 1, 3, 3, 4,
 														0, 1, 3, 4, 3,
 														0, 1, 3, 4, 4,
@@ -168,9 +169,9 @@ public class FSQueryParserTest {
 														0, 8, 11, 11, 10,
 														0, 8, 11, 11, 11,
 														});
-		evalQuery(q, "[]([id=8]([id=9]))", new int [] {	0, 8, 9,});
-		evalQuery(q, "[]([]([id=9]))", new int [] {	0, 8, 9,});
-		evalQuery(q, "[]([]([id=11],[id=10],[id=9]))", new int [] {	0, 8, 11, 10, 9,});
+		evalQuery(data, "[]([id=8]([id=9]))", new int [] {	0, 8, 9,});
+		evalQuery(data, "[]([]([id=9]))", new int [] {	0, 8, 9,});
+		evalQuery(data, "[]([]([id=11],[id=10],[id=9]))", new int [] {	0, 8, 11, 10, 9,});
 	}
 
 }

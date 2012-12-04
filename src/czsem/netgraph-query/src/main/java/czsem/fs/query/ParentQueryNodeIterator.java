@@ -7,28 +7,30 @@ import java.util.NoSuchElementException;
 
 import czsem.Utils;
 import czsem.fs.query.FSQuery.NodeMatch;
+import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
-import czsem.fs.query.FSQuery.QueryNode;
 
 public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 
 	/* immutable properties */
 	protected final List<QueryNode> queryNodes;
-	private final Iterable<Integer> dataNodes;
+	protected final Iterable<Integer> dataNodes;
 	protected QueryMatch[] lastMatches;
 	protected final NodeMatch parentNodeMatch;
-	private boolean empty = false;
-	private boolean foundNext = false;
+	protected boolean empty = false;
+	protected boolean foundNext = false;
 
 	/* mutable properties */
 	protected Iterator<Integer>[] dataNodesIterators;
 	protected Iterator<QueryMatch>[] resultsIterators;
+	protected QueryData queryData;
 	
 
-	public ParentQueryNodeIterator(NodeMatch parentNodeMatch, List<QueryNode> queryNodes, Iterable<Integer> dataNodes) {
+	public ParentQueryNodeIterator(NodeMatch parentNodeMatch, List<QueryNode> queryNodes, Iterable<Integer> dataNodes, QueryData data) {
 		this.queryNodes = queryNodes;
 		this.parentNodeMatch = parentNodeMatch;
 		this.dataNodes = dataNodes;
+		this.queryData = data;
 		
 		dataNodesIterators = Utils.convertToGenericArray(new Iterator[queryNodes.size()]);		
 		for (int i = 0; i < dataNodesIterators.length; i++) {
@@ -57,7 +59,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	private Iterator<QueryMatch> findNewResultIterator(int i) {
 		while (dataNodesIterators[i].hasNext())
 		{
-			Iterable<QueryMatch> res = queryNodes.get(i).getResultsFor(dataNodesIterators[i].next());			
+			Iterable<QueryMatch> res = queryNodes.get(i).getResultsFor(queryData, dataNodesIterators[i].next());			
 			if (res != null) return res.iterator();
 		}
 		
@@ -132,7 +134,7 @@ public class ParentQueryNodeIterator implements Iterator<QueryMatch> {
 	}
 	
 	public ParentQueryNodeIterator createCopyOfInitialIteratorState() {
-		return new ParentQueryNodeIterator(parentNodeMatch, queryNodes, dataNodes);
+		return new ParentQueryNodeIterator(parentNodeMatch, queryNodes, dataNodes, queryData);
 	}
 
 }
