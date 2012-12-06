@@ -38,6 +38,7 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 		this.dependencyAnnotationTypeName = dependencyAnnotationTypeName;
 	}
 	
+	@Override
 	protected void initBeforeExecute()
 	{
 		super.initBeforeExecute();

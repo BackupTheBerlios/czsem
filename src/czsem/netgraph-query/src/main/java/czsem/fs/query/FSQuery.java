@@ -63,6 +63,10 @@ public class FSQuery {
 		public String toString() {			
 			return queryNode.toString() + ": " + nodeId;
 		}
+
+		public QueryNode getQueryNode() {
+			return queryNode;
+		}		
 	}
 
 	public static class QueryMatch {

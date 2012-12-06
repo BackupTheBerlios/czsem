@@ -31,7 +31,6 @@ import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.plugins.LearningEvaluator.CentralResultsRepository;
 import czsem.gate.plugins.LearningEvaluator.DocumentDiff;
 import czsem.gate.plugins.PutTokenIdFeaturePR;
-import czsem.gate.utils.Config;
 import czsem.gate.utils.GateUtils;
 
 public class ILPWrapperTest {
@@ -61,14 +60,14 @@ public class ILPWrapperTest {
 
 	public static void init() throws IOException, URISyntaxException, GateException
 	{
+		if (! Gate.isInitialised())
+		{
+			GateUtils.initGate();
+		}
+
 		Utils.loggerSetup(Level.OFF);
 		Logger.getLogger(SerialController.class).setLevel(Level.OFF);
 
-		if (! Gate.isInitialised())
-		{
-			Config.getConfig().setGateHome();
-			Gate.init();
-		}
 		
 		if (! GateUtils.isPrCalssRegisteredInCreole(MachineLearningPR.class)) {
 			GateUtils.registerPluginDirectory("Machine_Learning");
