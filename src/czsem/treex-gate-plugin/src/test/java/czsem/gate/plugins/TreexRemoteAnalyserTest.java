@@ -4,6 +4,7 @@ import gate.Corpus;
 import gate.Document;
 import gate.Factory;
 import gate.Gate;
+import gate.GateConstants;
 import gate.creole.SerialAnalyserController;
 
 import java.net.URL;
@@ -91,6 +92,48 @@ public class TreexRemoteAnalyserTest {
 		GateUtils.deleteAllPublicGateResources();
 
 		Assert.assertEquals(annsNum, 33);
+	}
+
+	@Test(groups = { "treexRemote", "slow" })
+	public void czechFullLawTest() throws Exception {
+	    String sever_addr = "http://192.168.0.161:9090";
+	    
+	    System.err.println("Testing remote server at: " + sever_addr);
+
+	    GateUtils.initGateInSandBox();
+
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
+	    }
+	    
+		PRSetup[] prs= {
+	    		new SinglePRSetup(TreexRemoteAnalyser.class)
+	    			.putFeature("languageCode", "cs")
+	    			.putFeature("treexServerUrl", new URL(sever_addr))
+	    			.putFeature("resetServerScenario", true)
+	    			.putFeature("terminateServerOnCleanup", true)
+	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "devel/analysis/cs/s_w2t.scen")
+	    };
+	    
+		
+		Gate.getUserConfig().put(GateConstants.DOCUMENT_ADD_SPACE_ON_UNPACK_FEATURE_NAME, false);
+		
+		URL url = getClass().getResource("/czsem/gate/treex/1-1537-10_1.vxml");
+		Document d = Factory.newDocument(url, "utf8");
+		Assert.assertEquals(d.getContent().size(), (Long) 8934L);
+
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechFullLawTest");
+		
+		Corpus c = Factory.newCorpus("czechFullLawTest");
+		c.add(d);
+		
+		analysis.setCorpus(c);
+		analysis.execute();
+		
+		GateUtils.deleteAllPublicGateResources();
+
+		Assert.assertEquals(d.getAnnotations().size(), 99999);
 	}
 
 	@Test(groups = { "treexRemote", "slow" })

@@ -5,9 +5,7 @@
 		<groupId>czsem</groupId>
 		<version>2.3-SNAPSHOT</version>
 	</parent>
-	<groupId>czsem</groupId>
 	<artifactId>treex-gate-plugin</artifactId>
-	<version>1.2-SNAPSHOT</version>
 
 	<build>
 		<plugins>

@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+use 5.010;
 use strict;
 use warnings;
 
@@ -422,7 +423,9 @@ sub encodeSubNode
     my $outKey = $attrPrefix . $key;
     my $value = $node->{$key};
 
-    if ($value) {
+    #testing nonempty value 
+    #if ($value) {   #this doen't work e.g. for "0" or 0
+    if (length( $value // '')) {     
       if ($stringAttrs->contains($key)) {      
         if (UNIVERSAL::isa($value,'ARRAY'))
         {

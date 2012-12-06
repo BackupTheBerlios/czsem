@@ -31,18 +31,28 @@ public class TreexAnalysisTest {
 		
 		conn.initScenario("cs", "W2A::Segment", "W2A::Tokenize");
 		
-		Object ret = conn.analyzeText("Ahoj světe! Hallo world!");
+		Object ret = conn.analyzeText("Ahoj světe! Hallo world! Nula se píše jako 0 .");
 		
 		conn.terminateServer();
 		
 		List<Map<String, Object>> treexRet = Utils.objectArrayToGenericList(ret);		
-		Assert.assertEquals(treexRet.size(), 2);
+		Assert.assertEquals(treexRet.size(), 3);
 		
 		List<Object> nodes1 = Utils.objectArrayToGenericList(treexRet.get(0).get("nodes"));		
 		Assert.assertEquals(nodes1.size(), 3);
 
 		List<Object> nodes2 = Utils.objectArrayToGenericList(treexRet.get(1).get("nodes"));		
 		Assert.assertEquals(nodes2.size(), 3);
+
+		List<Object> nodes3 = Utils.objectArrayToGenericList(treexRet.get(2).get("nodes"));		
+		Assert.assertEquals(nodes3.size(), 6);
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Object> toc = (Map<String, Object>) nodes3.get(4); 
+		
+		Assert.assertEquals(toc.get("ord"), "5");
+		Assert.assertEquals(toc.get("form"), "0");
+
 		
 	}
 
@@ -63,6 +73,10 @@ public class TreexAnalysisTest {
 		ret = conn.analyzeText("Life is great, isn't it?");
 
 		logger.debug("Second sentence finished!");
+
+		Object ret3 = conn.analyzeText("Zero is written as 0 .");
+
+		logger.debug("Third sentence finished!");
 		
 		conn.terminateServer();
 		
@@ -71,6 +85,20 @@ public class TreexAnalysisTest {
 		
 		List<Object> nodes1 = Utils.objectArrayToGenericList(treexRet.get(0).get("nodes"));		
 		Assert.assertEquals(nodes1.size(), 8);
+
+		List<Map<String, Object>> treexRet3 = Utils.objectArrayToGenericList(ret3);		
+		Assert.assertEquals(treexRet.size(), 1);
+		
+		List<Object> nodes3 = Utils.objectArrayToGenericList(treexRet3.get(0).get("nodes"));		
+		Assert.assertEquals(nodes3.size(), 6);
+		
+		@SuppressWarnings("unchecked")
+		Map<String, Object> toc = (Map<String, Object>) nodes3.get(4); 
+		
+		Assert.assertEquals(toc.get("ord"), "5");
+		Assert.assertEquals(toc.get("form"), "0");
+
+		
 	}
 
 }
