@@ -15,7 +15,7 @@ use Sys::Hostname;
 use Treex::Core::Log;
 
 sub debugPrint {
-#  print STDERR @_;
+  #print STDERR @_;
 }
 
 debugPrint "treex online start\n";
@@ -125,6 +125,9 @@ sub initScenario
   my $lang = shift;
   my $blocks = shift;
   my $scenStr = "Util::SetGlobal language=$lang CzsemRpcReader " . join(' ', @$blocks);  
+  
+  debugPrint "init scenario: $scenStr \n";
+  
   $scenario = Treex::CzsemScenario->new(from_string => $scenStr);
   
   $scenario->init;

@@ -16,6 +16,8 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	private static final long serialVersionUID = -3111101835623696930L;
 		
 	private int serverPortNumber;
+	private boolean showTreexLogInConsole;
+
 	
 	
 	@Override
@@ -27,6 +29,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	@Override
 	public Resource init() throws ResourceInstantiationException {
 		TreexServerExecution exec = new TreexServerExecution();
+		exec.show_treex_output = getShowTreexLogInConsole();
 		exec.setPortNumber(getServerPortNumber());
 		
 		serverConnection = exec.getConnection();
@@ -62,5 +65,14 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 	public Integer getServerPortNumber() {
 		return serverPortNumber;
+	}
+
+	public Boolean getShowTreexLogInConsole() {
+		return showTreexLogInConsole;
+	}
+
+	@CreoleParameter(defaultValue="false")
+	public void setShowTreexLogInConsole(Boolean showTreexLogInConsole) {
+		this.showTreexLogInConsole = showTreexLogInConsole;
 	}
 }

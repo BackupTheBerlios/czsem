@@ -54,6 +54,39 @@ public class TreexLocalAnalyserTest {
 		GateUtils.deleteAllPublicGateResources();
 	}
 	
+
+	@Test(groups = { "slow" })
+	public void czechFullTest() throws Exception {
+    	GateUtils.initGateInSandBox();
+    	Utils.loggerSetup(Level.OFF);
+    
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    			.putFeature("serverPortNumber", 9997)	
+	    			.putFeature("languageCode", "cs")
+	    			.putFeature("showTreexLogInConsole", true)
+	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "./dedek.scen")
+//	    					"ccc.scen",
+//	    					"devel\\analysis\\cs\\s_w2t_dedek.scen")
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechFullTest");
+		Corpus corpus = Factory.newCorpus("czechFullTest");
+		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012");
+		corpus.add(doc);
+		
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		
+		analysis.cleanup();
+		GateUtils.deleteAllPublicGateResources();
+	}
+
 	@Test
 	public void czechSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();

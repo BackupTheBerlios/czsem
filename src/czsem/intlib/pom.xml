@@ -7,7 +7,6 @@
 	</parent>
 	<groupId>cuni.mff</groupId>
 	<artifactId>intlib</artifactId>
-	<version>1.2-SNAPSHOT</version>
 	<name>Intelligent library</name>
 	<description>Project Intelligent library (TA02010182)</description>
 
