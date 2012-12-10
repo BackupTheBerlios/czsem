@@ -1,5 +1,5 @@
 <userInput>
-    <panel order="0">
+    <panel id="GATE_userinput">
         <field size="2" txt="Gate integration setup" type="title"/>
         
         <field align="left" txt="GATE home path" type="staticText"/>
@@ -10,7 +10,7 @@
             txt="GATE can be obtained at: http://gate.ac.uk/" type="staticText"/>
     </panel>
     
-    <panel order="1">
+    <panel id="Treex_userinput">
         <field size="2" txt="Treex integration setup" type="title"/>
 
         <field align="left" txt="Treex root path" type="staticText"/>
@@ -22,7 +22,7 @@
         <field align="top" type="divider"/>
     </panel>
 
-    <panel order="2">
+    <panel id="TMT_userinput">
         <field size="2" txt="TectoMT integration setup" type="title"/>
 
         <field align="left" txt="TectoMT root path" type="staticText"/>
@@ -42,7 +42,7 @@
             txt="Tred is usually a parat of TectoMT instalation (TMT_ROOT/share/tred) but can be also obtained separately at: http://ufal.mff.cuni.cz/~pajas/tred/" type="staticText"/>
     </panel>
     
-    <panel order="3">
+    <panel id="ILP_userinput">
         <field size="2" txt="ILP integration setup" type="title"/>
 
         <field align="left" txt="Yap prolog executable path" type="staticText"/>
@@ -61,7 +61,7 @@
             txt="Aleph can be obtained at: http://www.comlab.ox.ac.uk/activities/machinelearning/Aleph/" type="staticText"/>
     </panel>
 
-    <panel order="4">
+    <panel id="WEKA_userinput">
         <field size="2" txt="Weka integration setup" type="title"/>
 
         <field align="left" txt="Weka JAR path" type="staticText"/>
@@ -72,7 +72,7 @@
             txt="WEKA can be obtained at: http://www.cs.waikato.ac.nz/ml/weka/" type="staticText"/>
     </panel>
     
-    <panel order="5">
+    <panel id="TMP_userinput">
         <field size="2" txt="Temporary serialization setup" type="title"/>
 
         <field align="left"
