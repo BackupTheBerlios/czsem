@@ -1,4 +1,4 @@
-package czsem.gate.learning;
+package czsem.gate.learning.experiments;
 
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
@@ -14,6 +14,9 @@ import java.util.List;
 
 import org.jdom.JDOMException;
 
+import czsem.gate.learning.DataSet;
+import czsem.gate.learning.MLEngine;
+import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.MLEngine.MLEngineConfig;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
@@ -27,6 +30,7 @@ public class MachineLearningExperiment
 		List<PRSetup> getTestControllerSetup(MLEngine.MLEngineConfig config) throws MalformedURLException;
 		String getDefaultOutputAS();
 		String getDefaultLearningAnnotationType();
+		void clearSevedFilesDirectory(MLEngineConfig config);
 	}
 	
 	public static interface EngineFactory 
@@ -91,6 +95,13 @@ public class MachineLearningExperiment
 		
 		ret.evaluation_register = this.evaluation_register;
 		return ret;
+	}
+
+	protected void clearEnginesSevedFiles() {
+		for (int i = 0; i < engines.length; i++)
+		{
+			engines[i].clearSevedFilesDirectory(getMLEngineConfig(engines[i]));				
+		}
 	}
 
 
@@ -171,6 +182,12 @@ public class MachineLearningExperiment
 			.putFeature("trainingPR", train_controller)
 			.putFeature("testingPR", test_controller).createPR();
 		
+		crossvalid.addBeforeTrainingCallback(new Runnable() {
+			@Override
+			public void run() {
+				clearEnginesSevedFiles();
+			}
+		});
 		crossvalid.addBeforeTrainingCallback(beforeTrainingCallback);
 		
 		crossvalid.evaluation_register = evaluation_register;
@@ -178,6 +195,4 @@ public class MachineLearningExperiment
 		
 		LearningEvaluator.CentralResultsRepository.repository.logAll();		
 	}
-
-
 }

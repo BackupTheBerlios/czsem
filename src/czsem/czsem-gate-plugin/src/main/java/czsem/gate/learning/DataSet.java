@@ -103,6 +103,8 @@ public interface DataSet
 		public String getLearnigConfigDirectory() {return learnigConfigDirectory;}
 
 		@Override
+		@Deprecated
+		/** use {MLEngine.clearSevedFilesDirectory} instead */
 		public void clearSevedFilesDirectory() throws IOException {
 			File dir = new File(getLearnigConfigDirectory() + "/savedFiles");
 			dir.mkdirs();

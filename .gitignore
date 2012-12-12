@@ -16,3 +16,4 @@ test-output
 temp
 src/workspace/RemoteSystemsTempFiles
 src/czsem/intlib/documents
+src/czsem/resources/Gate/learning/czech_law/*/savedFiles/

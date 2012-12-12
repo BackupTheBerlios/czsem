@@ -11,11 +11,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
 
-import czsem.gate.learning.MachineLearningExperiment.TrainTest;
+import czsem.gate.learning.experiments.MachineLearningExperiment.TrainTest;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.utils.JDomUtils;
 
@@ -36,6 +37,26 @@ public abstract class MLEngine implements TrainTest
 		
 	private String outputAS;
 	protected String configFileName;
+	
+	@Override
+	public void clearSevedFilesDirectory(MLEngineConfig config)
+	{
+		String configDirectory = config.experimentLearningConfigsDirectory + '/' + configFileName;
+		configDirectory = configDirectory.substring(0, configDirectory.lastIndexOf('/'));
+		File dir = new File(configDirectory + "/savedFiles");
+		dir.mkdirs();
+		File[] files = dir.listFiles();
+		List<File> dirs = new ArrayList<File>(files.length);
+		for (File f : files)
+		{
+			if (f.isDirectory()) dirs.add(f);
+		}
+		FileUtils.deleteQuietly(dir );			
+		for (File d : dirs)
+		{
+			d.mkdirs();
+		}
+	}
 
 	public MLEngine(String outputAS, String configFileName)
 	{
@@ -45,9 +66,7 @@ public abstract class MLEngine implements TrainTest
 
 	protected URL getConfigURL(String experimentDirectory) throws MalformedURLException
 	{
-		
 		return new File(experimentDirectory + '/' + configFileName).toURI().toURL(); 			
-
 	}
 	
 	protected void setOutputAS(String outputAS) {
@@ -103,6 +122,13 @@ public abstract class MLEngine implements TrainTest
 
 	public static class PaumEngine extends MLEngine
 	{
+		public PaumEngine(String configFileName)
+		{			
+			super(configFileName
+					.substring(configFileName.indexOf('/')+1, configFileName.indexOf('.'))
+					.replace("_config", ""), configFileName);
+			
+		}
 
 		public PaumEngine() {
 			super("Paum", "Paum_config.xml");
@@ -140,7 +166,7 @@ public abstract class MLEngine implements TrainTest
 
 		@Override
 		public String getDefaultLearningAnnotationType() {
-			return "MentionPaum";
+			return "Mention"+getDefaultOutputAS();
 		}
 		
 	}

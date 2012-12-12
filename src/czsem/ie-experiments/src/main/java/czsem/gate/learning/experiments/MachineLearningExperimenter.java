@@ -1,4 +1,4 @@
-package czsem.gate.learning;
+package czsem.gate.learning.experiments;
 
 import gate.Gate;
 import gate.creole.ExecutionException;
@@ -17,11 +17,11 @@ import java.util.Enumeration;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.log4j.Appender;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.jdom.JDOMException;
 
+import czsem.gate.learning.DataSet;
 import czsem.gate.learning.DataSet.DataSetImpl.Acquisitions;
 import czsem.gate.learning.DataSet.DataSetImpl.CzechFireman;
 import czsem.gate.learning.DataSet.DataSetReduce;
@@ -33,12 +33,13 @@ import czsem.gate.learning.MLEngineEncapsulate.CreateTemporaryMentions;
 import czsem.gate.learning.MLEngineEncapsulate.CreateTemporaryMentionsReferredMentionsPostprocessing;
 import czsem.gate.learning.MLEngineEncapsulate.CreateTemporaryMentionsRootSubtree;
 import czsem.gate.learning.MLEngineEncapsulate.MLEvaluate;
-import czsem.gate.learning.MachineLearningExperiment.EngineFactory;
-import czsem.gate.learning.MachineLearningExperiment.TrainTest;
+import czsem.gate.learning.WekaResultExporter;
+import czsem.gate.learning.WekaResultTests;
+import czsem.gate.learning.experiments.MachineLearningExperiment.EngineFactory;
+import czsem.gate.learning.experiments.MachineLearningExperiment.TrainTest;
 import czsem.gate.plugins.AnnotationDependencyRootMarker;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
-import czsem.gate.utils.Config;
 import czsem.gate.utils.GateUtils;
 import czsem.gate.utils.TimeBenchmarkUtils;
 
@@ -157,10 +158,8 @@ public class MachineLearningExperimenter
 
     public static void initEnvironment() throws GateException, URISyntaxException, IOException
 	{
-        Logger logger = Logger.getRootLogger();
-	    logger.setLevel(Level.ALL);
-		BasicConfigurator.configure();
-
+    	GateUtils.initGate(Level.ALL);
+    
 	    @SuppressWarnings("unchecked")
 		Enumeration<Appender> apps = logger.getAllAppenders();
 	    while (apps.hasMoreElements())
@@ -182,11 +181,9 @@ public class MachineLearningExperimenter
 	    logger.setLevel(Level.ALL);
 	    logger = Logger.getLogger(CrossValidation.class);
 	    logger.setLevel(Level.INFO);
-
+	    logger = Logger.getLogger(WekaResultExporter.class);
+	    logger.setLevel(Level.INFO);
 		
-	    Config.getConfig().setGateHome();
-	    Gate.init();
-
 	    GateUtils.registerPluginDirectory("Machine_Learning");
 	    GateUtils.registerPluginDirectory("ANNIE");
 	    GateUtils.registerPluginDirectory("Tools");
@@ -194,7 +191,6 @@ public class MachineLearningExperimenter
 	    
 	    GateUtils.registerCzsemPlugin();
 		    		    
-	    	    
 	    LogService.minVerbosityLevel = 0;		
 	}
 

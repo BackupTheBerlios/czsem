@@ -6,7 +6,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import czsem.gate.learning.MLEngine.MLEngineConfig;
-import czsem.gate.learning.MachineLearningExperiment.TrainTest;
+import czsem.gate.learning.experiments.MachineLearningExperiment.TrainTest;
 import czsem.gate.plugins.AnnotationDependencyRootMarker;
 import czsem.gate.plugins.AnnotationDependencySubtreeMarker;
 import czsem.gate.plugins.CreateMentionsPR;
@@ -41,6 +41,27 @@ public class MLEngineEncapsulate implements TrainTest
 	@Override
 	public String getDefaultLearningAnnotationType() {
 		return child.getDefaultLearningAnnotationType();
+	}
+
+	public static class InvertMentionsPostprocessingOnly  extends MLEngineEncapsulate
+	{
+		public InvertMentionsPostprocessingOnly(TrainTest child) {super(child);	}
+		
+		@Override
+		public List<PRSetup> getTestControllerSetup(MLEngineConfig config) throws MalformedURLException
+		{
+			List<PRSetup> ret = super.getTestControllerSetup(config);
+			
+			//CreateMentions inverse
+			ret.add(new PRSetup.SinglePRSetup(CreateMentionsPR.class)
+				.putFeature("inputASName", config.outputAS)
+				.putFeature("outputASName", config.outputAS)
+				.putFeature("mentionAnntotationTypeName", config.learnigAnnotationType)
+				.putFeature("inverseFunction", true)
+				.putFeature("inputAnnotationTypeNames", config.originalLearnigAnnotationTypes));
+			
+			return ret;
+		}
 	}
 
 	public static class CreatePersistentMentionsNoPostprocessing  extends MLEngineEncapsulate
@@ -272,5 +293,10 @@ public class MLEngineEncapsulate implements TrainTest
 					
 			return ret;
 		}	
+	}
+
+	@Override
+	public void clearSevedFilesDirectory(MLEngineConfig config) {		
+		child.clearSevedFilesDirectory(config);
 	}
 }

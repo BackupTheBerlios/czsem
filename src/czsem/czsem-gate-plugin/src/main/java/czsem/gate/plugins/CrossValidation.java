@@ -49,13 +49,26 @@ public class CrossValidation extends AbstractProcessingResource
 	protected Utils.Evidence<Document> documentEvidence [];
 	public List<LearningEvaluator> evaluation_register = null;
 	public int actual_fold_number = 0;
-	private List<Runnable> beforeTrainingCallbacks = new ArrayList<Runnable>(); 
+	private List<Runnable> beforeTrainingCallbacks = new ArrayList<Runnable>();
+	private boolean syncDocuments;
+	private boolean loadAllDocumentsBefore;
 	
 	
 	@Override
 	public Resource init() throws ResourceInstantiationException
 	{
+		logger.info(String.format("Loading %d documents from corpus %s ...", corpus.size(), corpus.getName()));
+		if (getLoadAllDocumentsBefore())
+		{
+			for (int d=0; d<corpus.size(); d++)
+			{
+				logger.debug(String.format("Loading document %d ...", d));
+				corpus.get(d);
+			}
+			logger.debug("Loaded!");
+		}
 		documentEvidence = Utils.createRandomPermutation(corpus);
+		logger.debug("Permuted!");
 		
 		corpusFolds = new Corpus[numberOfFolds][];
 		int reamining_documents = corpus.size();
@@ -175,7 +188,9 @@ public class CrossValidation extends AbstractProcessingResource
 			    if (isInterrupted()) return;			    
 			}
 			
-			syncAllDocuments();
+			if (getSyncDocuments())
+				syncAllDocuments();
+			
 			//don't do recursive close 
 			training_controller.setPRs(Collections.emptyList());
 			testing_controller.setPRs(Collections.emptyList());
@@ -189,7 +204,8 @@ public class CrossValidation extends AbstractProcessingResource
 	}
 	
 	public void addBeforeTrainingCallback(Runnable beforeTrainingCallback) {
-		beforeTrainingCallbacks.add(beforeTrainingCallback);
+		if (beforeTrainingCallback != null) 
+			beforeTrainingCallbacks.add(beforeTrainingCallback);
 	}
 
 	protected void executeBeforeTrainingCallbacks() {
@@ -215,6 +231,8 @@ public class CrossValidation extends AbstractProcessingResource
 
 	protected void syncAllDocuments() throws PersistenceException, SecurityException
 	{
+		logger.info(String.format("syncAllDocuments: %d", documentEvidence.length));
+		
 		for (int i = 0; i < documentEvidence.length; i++)
 		{
 			documentEvidence[i].element.sync();			
@@ -279,5 +297,29 @@ public class CrossValidation extends AbstractProcessingResource
 	    
 	    cross.execute();
 	   	    
+	}
+
+
+	public Boolean getSyncDocuments() {
+		return syncDocuments;
+	}
+
+
+	@RunTime
+	@CreoleParameter(comment="Synchronizes all documents with the datastore.", defaultValue="false")
+	public void setSyncDocuments(Boolean syncDocuments) {
+		this.syncDocuments = syncDocuments;
+	}
+
+
+	public Boolean getLoadAllDocumentsBefore() {
+		return loadAllDocumentsBefore;
+	}
+
+
+	@RunTime
+	@CreoleParameter(comment="Loads all documents from datastore before any processing.", defaultValue="true")
+	public void setLoadAllDocumentsBefore(Boolean loadAllDocumentsBefore) {
+		this.loadAllDocumentsBefore = loadAllDocumentsBefore;
 	}
 }
