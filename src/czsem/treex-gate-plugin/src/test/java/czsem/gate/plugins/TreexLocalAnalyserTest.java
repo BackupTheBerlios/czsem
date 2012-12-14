@@ -23,6 +23,47 @@ import czsem.gate.utils.GateUtils;
 public class TreexLocalAnalyserTest {
 	
 	@Test(groups = { "slow" })
+	public void czechNETest() throws Exception {
+    	GateUtils.initGateInSandBox();
+    	Utils.loggerSetup(Level.OFF);
+    
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    			.putFeature("serverPortNumber", 9994)
+	    			.putFeature("languageCode", "cs")
+	    			.putFeature("showTreexLogInConsole", true)
+	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "devel/analysis/cs/s_w2n_dedek.scen")
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechNETest");
+		Corpus corpus = Factory.newCorpus("czechNETest");
+		
+		//MainFrame.getInstance().setVisible(true);
+		
+		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012 v Hradci Králové, Česká republika (ČR), Česko");
+		corpus.add(doc);
+		
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		
+		//GateUtils.saveGateDocumentToXML(doc, "NETest.gate.xml");
+		
+		//while (MainFrame.getInstance().isVisible()) { Thread.sleep(10); }
+		
+		analysis.cleanup();
+		
+		Assert.assertTrue(doc.getAnnotations().get("n-node").size() > 0, "there are no n-nodes!");
+		
+		GateUtils.deleteAllPublicGateResources();
+	}
+
+	
+	@Test(groups = { "slow" })
 	public void englishFeaturamaTest() throws Exception {
     	GateUtils.initGateInSandBox();
     	
