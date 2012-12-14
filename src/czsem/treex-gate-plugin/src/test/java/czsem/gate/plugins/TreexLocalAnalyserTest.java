@@ -4,6 +4,7 @@ import gate.Annotation;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
+import gate.FeatureMap;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
@@ -21,6 +22,46 @@ import czsem.gate.utils.GateUtils;
 
 public class TreexLocalAnalyserTest {
 	
+	@Test(groups = { "slow" })
+	public void englishFeaturamaTest() throws Exception {
+    	GateUtils.initGateInSandBox();
+    	
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    		.putFeature("serverPortNumber", 9999)	
+	    		.putFeatureList("scenarioSetup",
+	    					"W2A::EN::Segment",
+	    					"W2A::EN::Tokenize",
+				            "W2A::EN::TagFeaturama",
+				            "W2A::EN::Lemmatize")
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		Corpus corpus = Factory.newCorpus("englishSimpleTest");
+		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
+		corpus.add(doc);
+		Document doc2 = Factory.newDocument("This is the second document in the corpus.");
+		corpus.add(doc2);
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		analysis.cleanup();
+		
+		Assert.assertEquals(doc.getAnnotations().size(), 13);
+		Assert.assertEquals(doc2.getAnnotations().size(), 10);
+
+		FeatureMap f = doc2.getAnnotations().get(2).getFeatures();
+		Assert.assertEquals(f.get("form"), "is");
+		Assert.assertEquals(f.get("lemma"), "be");
+		Assert.assertEquals(f.get("tag"), "VBZ");
+		
+		GateUtils.deleteAllPublicGateResources();
+	}
+
 	@Test
 	public void englishSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();
@@ -70,8 +111,8 @@ public class TreexLocalAnalyserTest {
 	    			.putFeature("serverPortNumber", 9997)	
 	    			.putFeature("languageCode", "cs")
 	    			.putFeature("showTreexLogInConsole", true)
-	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "./dedek.scen")
-//	    					"ccc.scen",
+	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "devel/analysis/cs/s_w2t_dedek.scen")
+//	    					"dedek.scen",
 //	    					"devel\\analysis\\cs\\s_w2t_dedek.scen")
 	    };
 	    
@@ -108,7 +149,7 @@ public class TreexLocalAnalyserTest {
 //	    					"W2A::CS::FixMorphoErrors")
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechSimpleTest");
 		Corpus corpus = Factory.newCorpus("czechSimpleTest");
 		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012");
 		corpus.add(doc);

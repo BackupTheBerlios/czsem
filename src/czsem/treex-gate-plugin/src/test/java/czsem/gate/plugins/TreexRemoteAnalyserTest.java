@@ -10,9 +10,11 @@ import gate.creole.SerialAnalyserController;
 import java.net.URL;
 import java.util.Arrays;
 
+import org.apache.log4j.Level;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import czsem.Utils;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
 import czsem.gate.utils.GateUtils;
@@ -172,4 +174,39 @@ public class TreexRemoteAnalyserTest {
 
 		Assert.assertEquals(annsNum, 41);
 	}
+	
+	@Test(groups = { "slow" })
+	public void czechNETest() throws Exception {
+    	GateUtils.initGateInSandBox();
+    	Utils.loggerSetup(Level.OFF);
+    
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexRemoteAnalyser.class)
+//	    			.putFeature("serverPortNumber", 9994)
+	    			.putFeature("treexServerUrl", new URL("http://192.168.0.161:9090"))
+	    			
+	    			.putFeature("languageCode", "cs")
+//	    			.putFeature("showTreexLogInConsole", true)
+	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "devel/analysis/cs/s_w2n_dedek.scen")
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechNETest");
+		Corpus corpus = Factory.newCorpus("czechNETest");
+		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012 v Hradci Králové, Česká republika (ČR), Česko");
+		corpus.add(doc);
+		
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		
+		GateUtils.saveGateDocumentToXML(doc, "NETest.gate.xml");
+		
+		analysis.cleanup();
+		GateUtils.deleteAllPublicGateResources();
+	}
+
 }
