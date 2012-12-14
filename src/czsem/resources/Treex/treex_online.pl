@@ -295,7 +295,7 @@ sub analyzePreprocessedDoc
   $scenario->run;
   
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  #$doc->save('demo_cz.treex');
+  $doc->save('treex_online_debug.treex');
   # DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!
   
   return encodeLoadedDoc($doc);
