@@ -3,6 +3,8 @@ use 5.010;
 use strict;
 use warnings;
 
+use Error ':try';
+
 use Set::Light;
 
 use Treex::Core;
@@ -102,8 +104,22 @@ sub startServer
    }
   );
   
-  my $host = hostname;  
-  print "Starting Treex RPC server at: \n  http://$host:$port_number \n  http://" . Net::Address::IP::Local->public_ipv4 . ":$port_number \n";
+  try {
+    print "Starting Treex RPC server at: \n";
+    print "  http://localhost:$port_number \n";
+    my $host = hostname;
+    print "  http://$host:$port_number \n";
+    my $ipv4 = Net::Address::IP::Local->public_ipv4;  
+    print "  http://$ipv4:$port_number \n";
+    my $ipv6 = Net::Address::IP::Local->public_ipv6;  
+    print "  http://$ipv6:$port_number \n";
+  } 
+  catch Net::Address::IP::Local::Error with {
+    my $ex = shift;
+    my $errMsg = $ex->stringify;
+    print "\nWARNING network error registered:\n$errMsg\n";
+  };
+  
   print "Handshake hash: $handshake_hash\n";
   
   $srv->server_loop; # Just work
