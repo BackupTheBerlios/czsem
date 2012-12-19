@@ -112,7 +112,7 @@ sub startServer
     my $ipv4 = Net::Address::IP::Local->public_ipv4;  
     print "  http://$ipv4:$port_number \n";
     my $ipv6 = Net::Address::IP::Local->public_ipv6;  
-    print "  http://$ipv6:$port_number \n";
+    print "  http://[$ipv6]:$port_number \n";
   } 
   catch Net::Address::IP::Local::Error with {
     my $ex = shift;
