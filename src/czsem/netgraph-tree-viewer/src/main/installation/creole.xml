@@ -4,5 +4,6 @@
   <JAR SCAN="false">../bin/czsem-gate-plugin-${dependency.czsem.czsem-gate-plugin.version}.jar</JAR>  
   <JAR SCAN="false">../bin/netgraph-client-${dependency.cz.cuni.mff.mirovsky.netgraph-client.version}.jar</JAR>  
   <JAR SCAN="false">../bin/netgraph-query-${dependency.czsem.netgraph-query.version}.jar</JAR>  
+  <JAR SCAN="false">../bin/guava-${dependency.com.google.guava.guava.version}.jar</JAR>  
   <JAR SCAN="true">../bin/${project.artifactId}-${project.version}.${project.packaging}</JAR>
 </CREOLE-DIRECTORY> 

@@ -2,13 +2,14 @@ package czsem.maven.customproperties;
 
 import java.util.Properties;
 
-import org.apache.maven.model.Dependency;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
 
 /**
  * @goal setproperties
+ * @requiresDependencyResolution compile+runtime
  */
 public class MainMojo extends AbstractMojo {
 
@@ -18,13 +19,13 @@ public class MainMojo extends AbstractMojo {
 	@Override
 	public void execute() throws MojoExecutionException {
 		Properties props = mavenProject.getProperties();
-		for (Object objDependency : mavenProject.getDependencies())
+		for (Object objArtifact : mavenProject.getArtifacts())
 		{
-			Dependency dependency = (Dependency) objDependency;
+			Artifact artifact = (Artifact) objArtifact;
 
-			String key = String.format("dependency.%s.%s.version", dependency.getGroupId(),dependency.getArtifactId());
-			props.put(key, dependency.getVersion());
-			getLog().info("setting artifact version to property: " + key);
+			String key = String.format("dependency.%s.%s.version", artifact.getGroupId(), artifact.getArtifactId());
+			props.put(key, artifact.getVersion());
+			getLog().info(String.format("setting artifact version '%s' to property: %s", artifact.getVersion(), key));
 		}
 	}
 }

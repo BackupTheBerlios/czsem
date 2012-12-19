@@ -81,7 +81,7 @@
 				<plugin>
 					<groupId>czsem</groupId>
 					<artifactId>custom-properties-maven-plugin</artifactId>
-					<version>1.2-SNAPSHOT</version>
+					<version>${project.version}</version>
 					<executions>
 						<execution>
 							<goals>
@@ -130,9 +130,7 @@
 										<artifactId>
 											custom-properties-maven-plugin
 										</artifactId>
-										<versionRange>
-											[1.0,)
-										</versionRange>
+										<versionRange>${project.version}</versionRange>
 										<goals>
 											<goal>setproperties</goal>
 										</goals>
