@@ -10,7 +10,6 @@
 
 	<properties>
 		<staging.dir>${project.build.directory}/staging</staging.dir>
-		<izpack.standalone-compiler.version>4.3.5</izpack.standalone-compiler.version>
 	</properties>
 
 

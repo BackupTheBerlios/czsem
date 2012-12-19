@@ -83,7 +83,7 @@
 		<pack name="czsem-common" preselected="yes" required="yes">
 			<description>Common binaries</description>
 			<fileset dir="../../../czsem-common/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>
-			<fileset dir="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue" />
+			<fileset dir="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue" excludes="**/savedFiles/**"/>
 			<fileset dir="configuration" targetdir="$INSTALL_PATH/configuration" override="asktrue" />
 			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
 		</pack>
