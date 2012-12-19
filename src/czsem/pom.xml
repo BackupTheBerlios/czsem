@@ -1,24 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	
 	<groupId>czsem</groupId>
 	<artifactId>czsem</artifactId>
 	<version>2.3-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Czsem Root</name>
+	
+	<name>Czsem Mining Suite</name>
+	<url>http://czsem.berlios.de/</url>
 
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.scm.id>czsem-git</project.scm.id>
-	</properties>
-
+	<issueManagement>
+		<url>http://developer.berlios.de/bugs/?group_id=8427</url>
+	</issueManagement>
 
 	<scm>
 		<connection>scm:git:git://git.berlios.de/czsem</connection>
 		<developerConnection>scm:git:ssh://git.berlios.de/gitroot/czsem</developerConnection>
 		<url>http://git.berlios.de/cgi-bin/gitweb.cgi?p=czsem</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.scm.id>czsem-git</project.scm.id>
+	</properties>
 
 	<distributionManagement>
 		<repository>
@@ -81,7 +86,7 @@
 				<plugin>
 					<groupId>czsem</groupId>
 					<artifactId>custom-properties-maven-plugin</artifactId>
-					<version>${project.version}</version>
+					<version>${project.parent.version}</version>
 					<executions>
 						<execution>
 							<goals>

@@ -3,10 +3,9 @@
 	<parent>
 		<artifactId>gate-plugins</artifactId>
 		<groupId>czsem</groupId>
-		<version>2.3-SNAPSHOT</version>
+		<version>1.0</version>
 	</parent>
 	<groupId>uk.ac.gate</groupId>
 	<artifactId>gate-machine-learning-plugin</artifactId>
-	<version>1.0</version>
 
 </project>

@@ -22,28 +22,15 @@
 
 	<dependencies>
 		<dependency>
-			<!-- Don't remove - used by installer -->
-			<groupId>czsem</groupId>
-			<artifactId>czsem-common</artifactId>
-			<version>2.3-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>			
-		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>czsem-gate-plugin</artifactId>
-			<version>2.3-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>cz.cuni.mff.mirovsky</groupId>
-			<artifactId>netgraph-client</artifactId>
-			<version>1.94</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>netgraph-query</artifactId>
-			<version>2.3-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
