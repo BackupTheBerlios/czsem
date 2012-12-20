@@ -126,7 +126,7 @@ sub startServer
   catch Net::Address::IP::Local::Error with {
     my $ex = shift;
     my $errMsg = $ex->stringify;
-    print "IPv6 not available:\n  $errMsg";
+    print "INFO IPv6 not available:\n  $errMsg";
   };
   
   print "\nHandshake hash: $handshake_hash\n";
