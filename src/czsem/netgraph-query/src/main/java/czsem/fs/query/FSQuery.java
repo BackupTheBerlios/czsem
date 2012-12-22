@@ -112,7 +112,7 @@ public class FSQuery {
 	}
 	
 	public static QueryObject buildQuery(String queryString) throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryBuilderImpl b = new FSQueryBuilderImpl();
 		FSQueryParser p = new FSQueryParser(b);
 		p.parse(queryString);
 		

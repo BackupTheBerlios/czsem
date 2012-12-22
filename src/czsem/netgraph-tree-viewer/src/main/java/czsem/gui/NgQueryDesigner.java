@@ -14,6 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.WindowConstants;
 
+import czsem.fs.query.AttrsCollectorFSQB;
+import czsem.fs.query.FSQueryParser.SyntaxError;
+
 public class NgQueryDesigner extends Container  {
 	private static final long serialVersionUID = 3771937513564105054L;
 
@@ -35,7 +38,7 @@ public class NgQueryDesigner extends Container  {
 	private CzsemForestDisplay forestDispaly;
 	private JTextPane queryString;
 
-	protected void initComponents() {
+	public void initComponents() {
 		setLayout(new BorderLayout());
 
         //forest
@@ -66,9 +69,10 @@ public class NgQueryDesigner extends Container  {
         //buttonUpdate
         JButton buttonUpdate = new JButton("Update");
         buttonUpdate.addActionListener(new ActionListener() {
-        	@Override public void actionPerformed(ActionEvent e) {updateQuery();}});
+        	@Override public void actionPerformed(ActionEvent e) {onUpdateQueryButton();}});
         panelBottom.add(buttonUpdate, BorderLayout.EAST);
 
+        /*
         //buttonSearch
         JButton buttonSearch = new JButton("Search!");
         buttonSearch.addActionListener(new ActionListener() {
@@ -76,7 +80,7 @@ public class NgQueryDesigner extends Container  {
         JPanel p = new JPanel();
         p.add(buttonSearch);
         panelBottom.add(p, BorderLayout.SOUTH);
-        
+        /**/
 
 
 		
@@ -86,11 +90,36 @@ public class NgQueryDesigner extends Container  {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String getQueryString()
+	{
+		return queryString.getText();
+	}
+
+	protected void onUpdateQueryButton() {
+		updateQuery();
+	}
 
 	protected void updateQuery() {
-		forestDispaly.setForest(queryString.getText());
-        forestDispaly.addShownAttribute("string");
-		forestDispaly.repaint();		
+		try {
+			String[] attrs = AttrsCollectorFSQB.collectAttributes(getQueryString());
+			forestDispaly.setForest(attrs, getQueryString());
+			
+			//">="
+			
+			for (int i = 0; i < attrs.length; i++) {
+		        forestDispaly.addShownAttribute(attrs[i]);				
+			}
+			
+			forestDispaly.repaint();		
+		} catch (SyntaxError e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public void setQueryString(String queryString) {
+		this.queryString.setText(queryString);
+		updateQuery();
 	}
 
 }

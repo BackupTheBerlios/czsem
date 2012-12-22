@@ -14,14 +14,14 @@ public class FSQueryParserTest {
 	
 	@Test(expectedExceptions = SyntaxError.class)
 	public static void testParseExcept() throws SyntaxError {
-		FSQueryParser p = new FSQueryParser(new FSQueryBuilder());
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilderImpl());
 		
 		p.parse("foo");
 	}
 
 	@Test
 	public static void testParseName() throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryBuilderImpl b = new FSQueryBuilderImpl();
 		FSQueryParser p = new FSQueryParser(b);
 		p.parse("[_name=node1]");
 		
@@ -32,10 +32,10 @@ public class FSQueryParserTest {
 	public static void testParse() throws SyntaxError {
 		Utils.loggerSetup(Level.ALL);
 		
-		FSQueryParser p = new FSQueryParser(new FSQueryBuilder());
+		FSQueryParser p = new FSQueryParser(new FSQueryBuilderImpl());
 		p.parse("[]");
 
-		p = new FSQueryParser(new FSQueryBuilder());				
+		p = new FSQueryParser(new FSQueryBuilderImpl());				
 		p.parse("[string=visualized,kind=word,dependencies=\\[nsubjpass(3)\\, aux(5)\\, auxpass(7)\\, prep(11)\\],length=10]([string=annotations]([],[]),[])");
 		
 		evalQuery("[]( [id=1] , [id=2] )", new int [] {0, 1, 2});		
@@ -48,14 +48,14 @@ public class FSQueryParserTest {
 	
 	@Test
 	public static void testParseAndEvaluate() throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryBuilderImpl b = new FSQueryBuilderImpl();
 		FSQueryParser p = new FSQueryParser(b);
 		
 		p.parse("[]([]([]))");
 		
 		FSQueryTest.evaluateQuery(b.getRootNode());
 		
-		b = new FSQueryBuilder();
+		b = new FSQueryBuilderImpl();
 		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[])");
@@ -73,7 +73,7 @@ public class FSQueryParserTest {
 		FSQueryTest.evaluateQuery(b.getRootNode(), res);
 
 		
-		b = new FSQueryBuilder();
+		b = new FSQueryBuilderImpl();
 		p = new FSQueryParser(b);
 		
 		p.parse("[]([],[id=7])");
@@ -88,7 +88,7 @@ public class FSQueryParserTest {
 	}
 
 	public static void evalQuery(QueryData data, String queryString, int[] res) throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryBuilderImpl b = new FSQueryBuilderImpl();
 		FSQueryParser p = new FSQueryParser(b);
 		
 		p.parse(queryString);
@@ -195,7 +195,7 @@ public class FSQueryParserTest {
 
 	@Test
 	public static void testOptional() throws SyntaxError {
-		FSQueryBuilder b = new FSQueryBuilder();
+		FSQueryBuilderImpl b = new FSQueryBuilderImpl();
 		FSQueryParser p = new FSQueryParser(b);
 		p.parse("[id=1, _optional=true]");
 		
