@@ -12,7 +12,7 @@
 		<dependency>
 			<groupId>cz.cuni.mff.mirovsky</groupId>
 			<artifactId>netgraph-client</artifactId>
-			<version>1.94</version>
+			<version>1.94.1-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

@@ -341,7 +341,21 @@ public class NGTree extends Object { // uchovává jeden strom
             if (source_error != error_ok) { // vyskytla se chyba při čtení znaku
                 return "";
             }
-            if (c == '!') { // možný začátek znaku '!='
+            if (c == '~') { // možný začátek znaku '~='
+                d = readChar(); // zkusím přečíst další, jestli to není '='
+                if (source_error != error_ok) { // vyskytla se chyba při čtení znaku
+                    return "";
+                }
+                if (d == '=') { // skutečně to byl dvojznak '~='
+                    position --; // vrátím se o jednu pozici, za cyklem se vrátím ještě o jednu, tj. před dvojznak '!='
+                    //debug("\nNačteno slovo: " + str + ", ukončeno bylo dvojznakem '!='");
+                    break;
+                }
+                else { // není to dvojznak '~=', vlnka patří normálně do slova
+                    position --; // zruším přečtení znaku 'd'
+                }            	
+            }
+            else if (c == '!') { // možný začátek znaku '!='
                 d = readChar(); // zkusím přečíst další, jestli to není '='
                 if (source_error != error_ok) { // vyskytla se chyba při čtení znaku
                     return "";
@@ -430,9 +444,17 @@ public class NGTree extends Object { // uchovává jeden strom
             }
             str = readWord(head); // čtu jméno atributu nebo pozičně zapsanou hodnotu pozičního atributu
             c = readChar(); // dívám se, co je za tím - podle toho poznám, zda šlo o jméno či hodnotu atributu
-            if (c=='=' || c=='!' || c=='<' || c=='>') {  // slo o jmeno atributu
+            if (c=='=' || c=='!' || c=='~' || c=='<' || c=='>') {  // slo o jmeno atributu
                 if (c=='=') { // šlo o relaci rovnítko
                     relation = TAHLine.RELATION_EQ;
+                }
+                else if (c=='~') { // dedek
+                    d = readChar();
+                    if (d!='=') { // toto by určitě nemělo nastat
+                        debug("\nNGTree.readNode: problém při čtení rovnítka za vlnkou!");
+                        return null;
+                    }
+                    relation = TAHLine.RELATION_REGEXP;                	
                 }
                 else if (c=='!') { // musím odstranit ještě to rovnítko za vykřičníkem
                     d = readChar();

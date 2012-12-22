@@ -602,6 +602,9 @@ public class NGForestView extends JComponent {
                 case TAHLine.RELATION_LTEQ:
                     relation_mark = "<=";
                     break;
+                case TAHLine.RELATION_REGEXP:
+                    relation_mark = "~=";
+                    break;
                 default:
                     relation_mark = "=";
             }

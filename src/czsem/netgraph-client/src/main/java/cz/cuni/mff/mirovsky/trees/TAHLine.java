@@ -23,7 +23,8 @@ public class TAHLine {
     public static final int RELATION_LTEQ = 4;   // relace menší nebo rovno
     /** relation greater than or equal (>=) */
     public static final int RELATION_GTEQ = 5;   // relace větší nebo rovno
-
+    /** relation regexp (~=) */
+    public static final int RELATION_REGEXP = 6;   // dedek
 
     /**
      * Creates a new empty object for keeping a value of an attribute

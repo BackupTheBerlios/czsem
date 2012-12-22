@@ -144,6 +144,9 @@ public class TNode {
                                     case TAHLine.RELATION_LTEQ:
                                         node_fs.append("<=");
                                         break;
+                                    case TAHLine.RELATION_REGEXP:
+                                        node_fs.append("~=");
+                                        break;
                                     default:
                                         node_fs.append("=");
                                 }
