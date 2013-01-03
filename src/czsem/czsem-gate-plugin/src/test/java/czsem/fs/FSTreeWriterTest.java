@@ -2,14 +2,11 @@ package czsem.fs;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import czsem.fs.NodeAttributes.IdNodeAttributes;
 
 
 public class FSTreeWriterTest {
@@ -18,19 +15,7 @@ public class FSTreeWriterTest {
 	public static void testPrintTree() {
 		StringWriter out = new StringWriter();
 		
-		FSTreeWriter tw = new FSTreeWriter(new PrintWriter(out), new NodeAttributes() {
-			@Override
-			public Iterable<Entry<String, Object>> get(int node_id) {
-				List<Entry<String,Object>> ret = new ArrayList<Map.Entry<String,Object>>(1);
-				ret.add(new AbstractMap.SimpleEntry<String, Object>("id", node_id));
-				return ret;
-			}
-
-			@Override
-			public Object getValue(int node_id, String attrName) {
-				return node_id;
-			}
-		});
+		FSTreeWriter tw = new FSTreeWriter(new PrintWriter(out), new IdNodeAttributes());
 		
 		tw.addDependency(0,1);
 		tw.addDependency(0,2);

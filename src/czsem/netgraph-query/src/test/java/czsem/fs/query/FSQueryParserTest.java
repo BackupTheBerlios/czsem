@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import czsem.Utils;
+import czsem.fs.NodeAttributes;
 import czsem.fs.TreeIndex;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQueryParser.SyntaxError;
@@ -242,7 +243,40 @@ public class FSQueryParserTest {
 
 	@Test
 	public static void testRegexp() throws SyntaxError {
-		evalQuery("[]([id~=\\[12\\]])", new int [] {0, 1, 0, 2});		
+		evalQuery("[]([id~=\\[12\\]])", new int [] {0, 1, 0, 2});
+		
+		
+		
+		TreeIndex index = new TreeIndex();		
+		index.addDependency(0,1);
+		index.addDependency(0,2);
+		index.addDependency(0,3);
+		index.addDependency(0,4);
+
+		QueryData data = new FSQuery.QueryData(index, new NodeAttributes.IdNodeAttributes() {
+
+			@Override
+			public Object getValue(int node_id, String attrName) {
+				switch (node_id) {
+				case 0:					
+					return "string0";
+				case 1:					
+					return "string1";
+				case 2:					
+					return "string2";
+				case 3:					
+					return "#PersPron";
+				case 4:					
+					return "a#string4";
+				default:
+					return "";
+				}
+			}
+		});
+
+		evalQuery(data, "[]([str~=\\[^#\\].*])", new int [] {0, 1, 0, 2, 0, 4});
+		evalQuery(data, "[]([str~=\\[#\\].*])", new int [] {0, 3});
+
 	}
 
 	@Test

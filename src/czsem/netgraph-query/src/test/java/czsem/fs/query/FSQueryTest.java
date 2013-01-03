@@ -1,7 +1,6 @@
 package czsem.fs.query;
 
 import java.util.Iterator;
-import java.util.Map.Entry;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -53,8 +52,8 @@ public class FSQueryTest {
 	}
 
 	@Test
-	public static void getResultsForConcurentIterators() {
-		 QueryData data = buidQueryObject();
+	public static void getResultsForConcurentIterators() {		 
+		QueryData data = buidQueryObject();
 		
 		QueryNode qn1 = new QueryNode();
 		QueryNode qn2 = new QueryNode();
@@ -126,18 +125,6 @@ public class FSQueryTest {
 		Assert.assertEquals(finishedNodeMatches, results.length);
 	}
 
-	public static class IdNodeAttributes implements NodeAttributes {
-		@Override
-		public Object getValue(int node_id, String attrName) {
-			return node_id;
-		}
-		
-		@Override
-		public Iterable<Entry<String, Object>> get(int node_id) {
-			return null;
-		}
-	}
-
 	public static QueryData buidQueryObject() {
 		TreeIndex index = new TreeIndex();
 		
@@ -149,6 +136,6 @@ public class FSQueryTest {
 		index.addDependency(3,6);
 		index.addDependency(0,7);
 
-		return new FSQuery.QueryData(index, new IdNodeAttributes());
+		return new FSQuery.QueryData(index, new NodeAttributes.IdNodeAttributes());
 	}
 }
