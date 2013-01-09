@@ -18,10 +18,8 @@ import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.RunTime;
 import gate.persist.PersistenceException;
 import gate.security.SecurityException;
-import gate.util.GateException;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -67,10 +65,19 @@ public class CrossValidation extends AbstractProcessingResource
 			}
 			logger.debug("Loaded!");
 		}
+
+		corpusFolds = new Corpus[numberOfFolds][];
+		
+		intitFolds();
+		
+		return super.init();
+	}
+
+	
+	protected void intitFolds() throws ResourceInstantiationException {
 		documentEvidence = Utils.createRandomPermutation(corpus);
 		logger.debug("Permuted!");
 		
-		corpusFolds = new Corpus[numberOfFolds][];
 		int reamining_documents = corpus.size();
 		int reamining_folds = numberOfFolds;
 		int from = 0;
@@ -79,38 +86,46 @@ public class CrossValidation extends AbstractProcessingResource
 			int fold_size = reamining_documents/reamining_folds;
 			int to = from + fold_size;
 			logger.info(String.format("creating FOLD %3d: size: %4d from: %4d to: %4d", i, fold_size, from, to));
-			corpusFolds[i] = MakeFold(i, from, to);
+			corpusFolds[i] = makeFold(i, from, to);
 			from = to;
 			reamining_documents -= fold_size;
 			reamining_folds--;			
-		}
-		
-		return super.init();
+		}		
 	}
 
-	
-	/** if (i >= test_from && i < test_to) then "test" else "train" **/
-	protected Corpus[] MakeFold(int fold_num, int test_from, int test_to) throws ResourceInstantiationException
+	protected Corpus[] makeFold(int fold_num, int from, int to) throws ResourceInstantiationException {
+		Corpus[] ret = createFold(fold_num);
+		fillFold(ret, from, to);				
+		return ret;
+	}
+
+
+	protected static Corpus[] createFold(int fold_num) throws ResourceInstantiationException
 	{
 		Corpus[] ret = new Corpus[2];
 		ret[0] = Factory.newCorpus("Corpus for testing fold " + fold_num); 
 		ret[1] = Factory.newCorpus("Corpus for training fold " + fold_num);
 		
+		return ret;
+	}
+
+	/** if (i >= test_from && i < test_to) then "test" else "train" **/
+	protected void fillFold(Corpus[] fold, int test_from, int test_to)
+	{
+		
 		for (int i = 0; i < documentEvidence.length; i++)
 		{
 			if (i >= test_from && i < test_to)
 			{
-				ret[0].add(documentEvidence[i].element);
+				fold[0].add(documentEvidence[i].element);
 				logger.debug(String.format("TEST doc %3d name: '%s'", i, documentEvidence[i].element.getName()));
 			}
 			else
 			{
-				ret[1].add(documentEvidence[i].element);
+				fold[1].add(documentEvidence[i].element);
 				logger.debug(String.format("TRAIN doc %3d name: '%s'", i, documentEvidence[i].element.getName()));
 			}
 		}
-				 
-		return ret;
 	}
 
 
@@ -257,7 +272,7 @@ public class CrossValidation extends AbstractProcessingResource
 	
 	
 	
-	public static void main(String[] args) throws GateException, MalformedURLException
+	public static void main(String[] args) throws Exception
 	{
 		BasicConfigurator.configure();
 
@@ -317,8 +332,7 @@ public class CrossValidation extends AbstractProcessingResource
 	}
 
 
-	@RunTime
-	@CreoleParameter(comment="Loads all documents from datastore before any processing.", defaultValue="true")
+	@CreoleParameter(comment="Loads all documents from datastore before init.", defaultValue="true")
 	public void setLoadAllDocumentsBefore(Boolean loadAllDocumentsBefore) {
 		this.loadAllDocumentsBefore = loadAllDocumentsBefore;
 	}
