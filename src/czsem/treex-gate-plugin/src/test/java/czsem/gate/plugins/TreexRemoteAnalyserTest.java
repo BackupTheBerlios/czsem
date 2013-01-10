@@ -8,7 +8,6 @@ import gate.GateConstants;
 import gate.creole.SerialAnalyserController;
 
 import java.net.URL;
-import java.util.Arrays;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -42,7 +41,7 @@ public class TreexRemoteAnalyserTest {
 	    					"W2A::EN::Tokenize")//,
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "englishSimpleTest");
 		Corpus corpus = Factory.newCorpus("englishSimpleTest");
 		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
 		corpus.add(doc);
@@ -80,7 +79,7 @@ public class TreexRemoteAnalyserTest {
 	    					"devel/analysis/cs/s_w2t.scen")//,
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechFullTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "czechFullTest");
 		Corpus corpus = Factory.newCorpus("czechFullTest");
 		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že?");
 		corpus.add(doc);
@@ -123,7 +122,7 @@ public class TreexRemoteAnalyserTest {
 		Document d = Factory.newDocument(url, "utf8");
 		Assert.assertEquals(d.getContent().size(), (Long) 8934L);
 
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechFullLawTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "czechFullLawTest");
 		
 		Corpus c = Factory.newCorpus("czechFullLawTest");
 		c.add(d);
@@ -159,7 +158,7 @@ public class TreexRemoteAnalyserTest {
 	    					"devel/analysis/en/s_w2t_best.scen")//,
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishFullTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "englishFullTest");
 		Corpus corpus = Factory.newCorpus("englishFullTest");
 		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
 		corpus.add(doc);

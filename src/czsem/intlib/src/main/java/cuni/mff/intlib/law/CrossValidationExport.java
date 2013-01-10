@@ -5,7 +5,6 @@ import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
 import java.io.File;
-import java.util.Arrays;
 
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.experiments.CzechLawLearningExperiment.CzechLawDataSet;
@@ -44,7 +43,7 @@ public class CrossValidationExport {
 				.putFeature("useSuffixForDumpFiles", false)								
 		};
 		
-		SerialAnalyserController p = PRSetup.buildGatePipeline(Arrays.asList(prs), "export");
+		SerialAnalyserController p = PRSetup.buildGatePipeline(prs, "export");
 		
 		new PRSetup.SinglePRSetup(CrossValidation.class)
 			.putFeature("testingPR", p)

@@ -17,7 +17,6 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -54,7 +53,7 @@ public class ILPWrapperTest {
 	{
 		init();
 		
-		mainAnalyzerContainer = PRSetup.buildGatePipeline(Arrays.asList(nlpAnalysisResourcesSetup), "TestAnalysis");
+		mainAnalyzerContainer = PRSetup.buildGatePipeline(nlpAnalysisResourcesSetup, "TestAnalysis");
 		
 	}
 

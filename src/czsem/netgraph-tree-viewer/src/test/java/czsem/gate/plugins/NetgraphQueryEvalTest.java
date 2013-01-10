@@ -8,8 +8,6 @@ import gate.Factory;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
-import java.util.Arrays;
-
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -42,8 +40,8 @@ public class NetgraphQueryEvalTest {
 		
 		Gate.getCreoleRegister().registerComponent(NetgraphQueryEval.class);
 		
-		SerialAnalyserController pipeline = PRSetup.buildGatePipeline(
-				Arrays.asList(nlpAnalysisResourcesSetup), "netgraphQueryEvalTest");
+		SerialAnalyserController pipeline = 
+				PRSetup.buildGatePipeline(nlpAnalysisResourcesSetup, "netgraphQueryEvalTest");
 
 		
 		Document d = Factory.newDocument("9 of 10 people recommend Czsem!");

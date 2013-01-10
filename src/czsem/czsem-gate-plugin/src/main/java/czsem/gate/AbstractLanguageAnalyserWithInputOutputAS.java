@@ -6,9 +6,9 @@ import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.Optional;
 import gate.creole.metadata.RunTime;
 
+@SuppressWarnings("serial")
 public abstract class AbstractLanguageAnalyserWithInputOutputAS extends AbstractLanguageAnalyser {
 
-	private static final long serialVersionUID = 1L;
 	protected String inputASName = null;
 	protected AnnotationSet inputAS = null;
 	protected String outputASName = null;

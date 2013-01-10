@@ -15,6 +15,10 @@ import czsem.gate.utils.Config;
 
 @SuppressWarnings("serial")
 public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInputOutputAS {
+	protected String languageCode;
+	protected List<String> scenarioSetup;
+	protected TreexServerConnection serverConnection = null;
+	private boolean verifyOnInit = false;
 
 	
 	@Optional
@@ -25,9 +29,6 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 		super.setInputASName(inputASName);
 	}
 
-	protected String languageCode;
-	protected List<String> scenarioSetup;
-	protected TreexServerConnection serverConnection = null;
 	
 	public static String getLogPath() {
 		try {
@@ -62,6 +63,11 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 	{
 		try {
 			serverConnection.initScenario(getLanguageCode(), getScenarioSetup().toArray(new String[0]));
+			
+			if (getVerifyOnInit()) {
+				Object ret = serverConnection.analyzeText("robot");
+				if (ret == null) throw new NullPointerException("Server returned null response!");
+			}
 		} catch (Exception e) {
 			throw new ResourceInstantiationException(
 					"Error occured during Treex server init.\nSee remote server's output, or local server's log file: " + getLogPath(), e);
@@ -74,6 +80,17 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 
 	public String getLanguageCode() {
 		return languageCode;
+	}
+
+
+	public Boolean getVerifyOnInit() {
+		return verifyOnInit;
+	}
+
+
+	@CreoleParameter(defaultValue="false")
+	public void setVerifyOnInit(Boolean verifyOnInit) {
+		this.verifyOnInit = verifyOnInit;
 	}
 
 }

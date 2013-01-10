@@ -8,7 +8,6 @@ import gate.FeatureMap;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -40,7 +39,7 @@ public class TreexLocalAnalyserTest {
 	    			.putFeatureList("scenarioSetup", "W2A::CS::Segment", "devel/analysis/cs/s_w2n_dedek.scen")
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechNETest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "czechNETest");
 		Corpus corpus = Factory.newCorpus("czechNETest");
 		
 		//MainFrame.getInstance().setVisible(true);
@@ -82,7 +81,7 @@ public class TreexLocalAnalyserTest {
 				            "W2A::EN::Lemmatize")
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "englishSimpleTest");
 		Corpus corpus = Factory.newCorpus("englishSimpleTest");
 		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
 		corpus.add(doc);
@@ -120,7 +119,7 @@ public class TreexLocalAnalyserTest {
 	    					"W2A::EN::Tokenize")//,
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "englishSimpleTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "englishSimpleTest");
 		Corpus corpus = Factory.newCorpus("englishSimpleTest");
 		Document doc = Factory.newDocument("Hallo world! Life is great, isn't it?");
 		corpus.add(doc);
@@ -157,7 +156,7 @@ public class TreexLocalAnalyserTest {
 //	    					"devel\\analysis\\cs\\s_w2t_dedek.scen")
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechFullTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "czechFullTest");
 		Corpus corpus = Factory.newCorpus("czechFullTest");
 		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012");
 		corpus.add(doc);
@@ -190,7 +189,7 @@ public class TreexLocalAnalyserTest {
 //	    					"W2A::CS::FixMorphoErrors")
 	    };
 	    
-		SerialAnalyserController analysis = PRSetup.buildGatePipeline(Arrays.asList(prs), "czechSimpleTest");
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "czechSimpleTest");
 		Corpus corpus = Factory.newCorpus("czechSimpleTest");
 		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012");
 		corpus.add(doc);

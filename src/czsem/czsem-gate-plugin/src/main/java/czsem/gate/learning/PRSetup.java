@@ -86,6 +86,10 @@ public abstract class PRSetup
 
 	public abstract ProcessingResource createPR() throws ResourceInstantiationException;
 
+	public static SerialAnalyserController buildGatePipeline(PRSetup [] prs, String name) throws ResourceInstantiationException	{
+		return buildGatePipeline(prs, name);
+	}
+
 	public static SerialAnalyserController buildGatePipeline(List<PRSetup> prs, String name) throws ResourceInstantiationException
 	{
 		SerialAnalyserController controller = (SerialAnalyserController)	    	   
@@ -98,8 +102,7 @@ public abstract class PRSetup
 		{
 			controller.add(prs.get(i).createPR());			
 		}
-		
-		
+				
 		return controller;		
 	}		
 }

@@ -13,7 +13,6 @@ import gate.creole.dumpingPR.DumpingPR;
 import gate.util.InvalidOffsetException;
 
 import java.io.File;
-import java.util.Arrays;
 
 import czsem.gate.learning.PRSetup;
 
@@ -55,7 +54,7 @@ public class HtmlExport {
 				
 		};
 		
-		SerialAnalyserController pipeline = PRSetup.buildGatePipeline(Arrays.asList(setup), "export pipeline");
+		SerialAnalyserController pipeline = PRSetup.buildGatePipeline(setup, "export pipeline");
 		
 		Corpus c = Factory.newCorpus("export");
 		c.add(doc);		
