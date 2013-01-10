@@ -22,10 +22,13 @@ public interface DataSet
 {
 	String getKeyAS();
 	String getLearnigConfigDirectory();
-	void clearSevedFilesDirectory() throws IOException;
 	String [] getLearnigAnnotationTypes();
 	String getTectoMTAS();
 	Corpus getCorpus() throws PersistenceException, ResourceInstantiationException;
+
+	/** use {@link czsem.gate.learning.experiments.MachineLearningExperiment.TrainTest#clearSevedFilesDirectory} instead */
+	@Deprecated
+	void clearSevedFilesDirectory() throws IOException;
 
 	public static interface DatasetFactory
 	{
@@ -102,9 +105,9 @@ public interface DataSet
 		@Override
 		public String getLearnigConfigDirectory() {return learnigConfigDirectory;}
 
+		/** use {@link czsem.gate.learning.MLEngine#clearSevedFilesDirectory(MLEngineConfig)} instead */
 		@Override
 		@Deprecated
-		/** use {MLEngine.clearSevedFilesDirectory} instead */
 		public void clearSevedFilesDirectory() throws IOException {
 			File dir = new File(getLearnigConfigDirectory() + "/savedFiles");
 			dir.mkdirs();
