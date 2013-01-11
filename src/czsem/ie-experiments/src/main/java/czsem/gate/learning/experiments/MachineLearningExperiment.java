@@ -8,6 +8,7 @@ import gate.persist.PersistenceException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,8 @@ import czsem.gate.learning.DataSet;
 import czsem.gate.learning.MLEngine;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.MLEngine.MLEngineConfig;
+import czsem.gate.learning.PRSetup.SinglePRSetup;
+import czsem.gate.plugins.ControlledCrossValidation;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.plugins.LearningEvaluator;
 
@@ -169,14 +172,20 @@ public class MachineLearningExperiment
 	}
 
 
+	public void controlledCrossValidation(int numOfFolds, URL foldDefinitionDirectoryUrl, Runnable beforeTrainingCallback) throws ResourceInstantiationException, PersistenceException, ExecutionException, JDOMException, IOException
+	{
+		SinglePRSetup crossvalidSetup = new PRSetup.SinglePRSetup(ControlledCrossValidation.class)
+			.putFeature("foldDefinitionDirectoryUrl", foldDefinitionDirectoryUrl);
+		
+		crossValidation(numOfFolds, beforeTrainingCallback, crossvalidSetup);		
+	}
 
-	public void crossValidation(int numOfFolds, Runnable beforeTrainingCallback)  throws ExecutionException, ResourceInstantiationException, PersistenceException, JDOMException, IOException
-	{		
+	public void crossValidation(int numOfFolds, Runnable beforeTrainingCallback, SinglePRSetup crossvalidSetup) throws ResourceInstantiationException, JDOMException, IOException, PersistenceException, ExecutionException
+	{
 	    SerialAnalyserController train_controller = getTrainController();
 	    SerialAnalyserController test_controller = getTestController();
 	    
-		CrossValidation crossvalid = 
-			(CrossValidation) new PRSetup.SinglePRSetup(CrossValidation.class)
+		CrossValidation crossvalid = (CrossValidation) crossvalidSetup
 			.putFeature("corpus", dataSet.getCorpus())
 			.putFeature("numberOfFolds", numOfFolds)
 			.putFeature("trainingPR", train_controller)
@@ -194,5 +203,12 @@ public class MachineLearningExperiment
 		crossvalid.execute();
 		
 		LearningEvaluator.CentralResultsRepository.repository.logAll();		
+		
+	}
+
+	public void crossValidation(int numOfFolds, Runnable beforeTrainingCallback) throws ResourceInstantiationException, PersistenceException, ExecutionException, JDOMException, IOException
+	{		
+		crossValidation(numOfFolds, beforeTrainingCallback, 
+				new PRSetup.SinglePRSetup(CrossValidation.class));		
 	}
 }

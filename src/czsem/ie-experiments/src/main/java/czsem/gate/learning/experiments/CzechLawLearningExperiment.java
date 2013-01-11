@@ -73,7 +73,6 @@ public class CzechLawLearningExperiment {
 				final DataSet dataset =  new DataSetReduce(
 						ds_factory.createDataset(annot_type),
 						ds_reduce_retio);
-				dataset.clearSevedFilesDirectory();
 				
 				MachineLearningExperiment experiment = new MachineLearningExperiment(dataset, engines);
 				
@@ -81,16 +80,9 @@ public class CzechLawLearningExperiment {
 					experiment.trainOnly();
 				else
 				{
-					experiment.crossValidation(numFolds, new Runnable() {						
-						@Override
-						public void run() {
-							try {
-								dataset.clearSevedFilesDirectory();
-							} catch (IOException e) {
-								throw new RuntimeException(e);
-							}
-						}
-					});
+					//experiment.crossValidation(numFolds);
+					experiment.controlledCrossValidation(10, 
+							new File("../intlib/train-10-fold-cross/").toURI().toURL(), null);
 				    
 					logger.info("saving results, counting time statistics...");
 					MachineLearningExperimenter.saveResults(results_file_name);
@@ -127,11 +119,13 @@ public class CzechLawLearningExperiment {
 		//MainFrame.getInstance().setVisible(true);
 
 		performExperiment(
-				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, 10, results_file_name, 
+				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, -10, results_file_name, 
+//				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, 10, results_file_name, 
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum/Paum_config.xml"))),
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_small/Paum_small.xml"))),
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_afun/Paum_config_afun.xml"))),
-				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos/Paum_config_pos.xml")))
+				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos/Paum_config_pos.xml"))),
+				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos_orth_sent/Paum_config_pos_orth_sent.xml")))
 		);
 		
 	}
