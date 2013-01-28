@@ -9,6 +9,7 @@ import java.io.File;
 
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.experiments.CzechLawLearningExperiment.CzechLawDataSet;
+import czsem.gate.plugins.ControlledCrossValidation;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.utils.GateUtils;
 
@@ -20,11 +21,20 @@ public class CrossValidationExport {
 		
 		Gate.getCreoleRegister().registerComponent(CorpusNameAwareExporter.class);
 		Gate.getCreoleRegister().registerComponent(CrossValidation.class);
+		Gate.getCreoleRegister().registerComponent(ControlledCrossValidation.class);
 		
 		CzechLawDataSet dataset = new CzechLawDataSet(null);
 		Corpus corpus = dataset.getCorpus();
 		
+/*
+		String set = "Key";
+		
+		String set = "Paum_small";
 		String set = "Paum";
+		String set = "Paum_pos";
+		String set = "Paum_pos_orth_sent";
+*/
+		String set = "Paum_pos_orth_sent";
 		
 		PRSetup [] prs = {
 				new PRSetup.SinglePRSetup(CorpusNameAwareExporter.class)
@@ -48,12 +58,22 @@ public class CrossValidationExport {
 		
 		SerialAnalyserController p = PRSetup.buildGatePipeline(prs, "export");
 		
-		new PRSetup.SinglePRSetup(CrossValidation.class)
+		new PRSetup.SinglePRSetup(ControlledCrossValidation.class)
 			.putFeature("testingPR", p)
 			.putFeature("trainingPR", Factory.createResource(SerialAnalyserController.class.getCanonicalName()))
 			.putFeature("numberOfFolds", 10)
 			.putFeature("corpus", corpus)
+			.putFeature("foldDefinitionDirectoryUrl", new File("train-10-fold-cross/").toURI().toURL())
 			.createPR().execute();
+
+/*		
+		new PRSetup.SinglePRSetup(CrossValidation.class)
+			.putFeature("testingPR", p)
+			.putFeature("trainingPR", p)
+			.putFeature("numberOfFolds", 10)
+			.putFeature("corpus", corpus)
+			.createPR().execute();
+/**/			
 	}
 
 }
