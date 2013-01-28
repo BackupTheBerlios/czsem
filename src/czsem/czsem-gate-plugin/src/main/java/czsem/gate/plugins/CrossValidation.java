@@ -246,11 +246,13 @@ public class CrossValidation extends AbstractProcessingResource
 
 	protected void syncAllDocuments() throws PersistenceException, SecurityException
 	{
-		logger.info(String.format("syncAllDocuments: %d", documentEvidence.length));
+		Corpus c = getCorpus();
 		
-		for (int i = 0; i < documentEvidence.length; i++)
+		logger.info(String.format("syncAllDocuments: %d", c.size()));
+		
+		for (int i = 0; i < c.size(); i++)
 		{
-			documentEvidence[i].element.sync();			
+			c.get(i).sync();			
 		}
 	}
 

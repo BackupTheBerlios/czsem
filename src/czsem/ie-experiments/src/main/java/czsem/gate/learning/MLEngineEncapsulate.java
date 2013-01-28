@@ -299,4 +299,10 @@ public class MLEngineEncapsulate implements TrainTest
 	public void clearSevedFilesDirectory(MLEngineConfig config) {		
 		child.clearSevedFilesDirectory(config);
 	}
+
+
+	@Override
+	public boolean getClearOutputAsBeforeTesting() {
+		return child.getClearOutputAsBeforeTesting();
+	}
 }

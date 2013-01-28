@@ -1,6 +1,7 @@
 package cuni.mff.intlib.law;
 
 import gate.Corpus;
+import gate.Factory;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
 
@@ -23,9 +24,11 @@ public class CrossValidationExport {
 		CzechLawDataSet dataset = new CzechLawDataSet(null);
 		Corpus corpus = dataset.getCorpus();
 		
+		String set = "Paum";
+		
 		PRSetup [] prs = {
 				new PRSetup.SinglePRSetup(CorpusNameAwareExporter.class)
-				.putFeature("annotationSetName", "Key")
+				.putFeature("annotationSetName", set)
 				.putFeatureList("annotationTypes", 
 													"Cenovy_vymer",
 													"Document",
@@ -38,7 +41,7 @@ public class CrossValidationExport {
 													"Zakon",
 													"Zkratka")
 				.putFeatureList("dumpTypes")
-				.putFeature("outputDirectoryUrl", new File("export/data").toURI().toURL())
+				.putFeature("outputDirectoryUrl", new File("export/"+set+"/data").toURI().toURL())
 				.putFeature("dataStore", corpus.getDataStore())
 				.putFeature("useSuffixForDumpFiles", false)								
 		};
@@ -47,7 +50,7 @@ public class CrossValidationExport {
 		
 		new PRSetup.SinglePRSetup(CrossValidation.class)
 			.putFeature("testingPR", p)
-			.putFeature("trainingPR", p)
+			.putFeature("trainingPR", Factory.createResource(SerialAnalyserController.class.getCanonicalName()))
 			.putFeature("numberOfFolds", 10)
 			.putFeature("corpus", corpus)
 			.createPR().execute();

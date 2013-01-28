@@ -34,6 +34,7 @@ public class MachineLearningExperiment
 		String getDefaultOutputAS();
 		String getDefaultLearningAnnotationType();
 		void clearSevedFilesDirectory(MLEngineConfig config);
+		boolean getClearOutputAsBeforeTesting();
 	}
 	
 	public static interface EngineFactory 
@@ -77,7 +78,8 @@ public class MachineLearningExperiment
 		//Reset engines outASs		
 		String [] outAS = new String[engines.length];
 		for (int i = 0; i < outAS.length; i++) {
-			outAS[i] = engines[i].getDefaultOutputAS();
+			if (engines[i].getClearOutputAsBeforeTesting())
+				outAS[i] = engines[i].getDefaultOutputAS();
 		}
 		prs.add(new PRSetup.SinglePRSetup(AnnotationDeletePR.class)
 			.putFeature("setsToRemove", Arrays.asList(outAS)));		
@@ -172,10 +174,11 @@ public class MachineLearningExperiment
 	}
 
 
-	public void controlledCrossValidation(int numOfFolds, URL foldDefinitionDirectoryUrl, Runnable beforeTrainingCallback) throws ResourceInstantiationException, PersistenceException, ExecutionException, JDOMException, IOException
+	public void controlledCrossValidation(int numOfFolds, URL foldDefinitionDirectoryUrl, Runnable beforeTrainingCallback, boolean syncDocuments) throws ResourceInstantiationException, PersistenceException, ExecutionException, JDOMException, IOException
 	{
 		SinglePRSetup crossvalidSetup = new PRSetup.SinglePRSetup(ControlledCrossValidation.class)
-			.putFeature("foldDefinitionDirectoryUrl", foldDefinitionDirectoryUrl);
+			.putFeature("foldDefinitionDirectoryUrl", foldDefinitionDirectoryUrl)
+			.putFeature("syncDocuments", syncDocuments);
 		
 		crossValidation(numOfFolds, beforeTrainingCallback, crossvalidSetup);		
 	}

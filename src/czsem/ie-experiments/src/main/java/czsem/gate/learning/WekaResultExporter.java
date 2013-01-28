@@ -122,7 +122,11 @@ public class WekaResultExporter
 		"Strict Precision",
 		"Strict Recall",
 		"Strict $F_1$",
+		"Lenient Precision",
+		"Lenient Recall",
 		"Lenient $F_1$",
+		"Average Precision",
+		"Average Recall",
 		"Average $F_1$",
 		"Number Training Inst",
 		"Number Training Docs",
@@ -198,15 +202,24 @@ public class WekaResultExporter
 					timestamp,//Date_time
 					//Number_of_training_instances
 					//Number_of_testing_instances
+					
 					diff.getCorrectMatches(),
 					diff.getMissing(),
 					diff.getSpurious(),
 					diff.getPartiallyCorrectMatches(),
+					
 					diff.getPrecisionStrict(),
 					diff.getRecallStrict(),
 					diff.getFMeasureStrict(1),
+					
+					diff.getPrecisionLenient(),
+					diff.getRecallLenient(),
 					diff.getFMeasureLenient(1),
+					
+					diff.getPrecisionAverage(),
+					diff.getRecallAverage(),
 					diff.getFMeasureAverage(1),
+					
 					numTrainInst,
 					numDocs
 					//Number_unclassified

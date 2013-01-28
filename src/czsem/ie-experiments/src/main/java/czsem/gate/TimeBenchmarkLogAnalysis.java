@@ -47,7 +47,8 @@ public class TimeBenchmarkLogAnalysis {
 	public int getTestTimeForMLEngine(String reponsesASName, int fold_number)
 	{
 		String key = foldStatsKey(statsKeyTest(reponsesASName), Integer.toString(fold_number));
-		return stats_with_fold_numbers.get(key); 
+		Integer ret = stats_with_fold_numbers.get(key); 
+		return ret == null ? -1 : ret;  
 	}
 
 	/**
@@ -56,7 +57,8 @@ public class TimeBenchmarkLogAnalysis {
 	public int getTrainTimeForMLEngine(String reponsesASName, int fold_number)
 	{
 		String key = foldStatsKey(statsKeyTrain(reponsesASName), Integer.toString(fold_number));
-		return stats_with_fold_numbers.get(key); 
+		Integer ret = stats_with_fold_numbers.get(key);
+		return ret == null ? -1 : ret;  
 	}
 
 	public void print()

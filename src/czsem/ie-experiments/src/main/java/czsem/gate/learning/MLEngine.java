@@ -39,6 +39,11 @@ public abstract class MLEngine implements TrainTest
 	protected String configFileName;
 	
 	@Override
+	public boolean getClearOutputAsBeforeTesting() {
+		return true;
+	}
+
+	@Override
 	public void clearSevedFilesDirectory(MLEngineConfig config)
 	{
 		String configDirectory = config.experimentLearningConfigsDirectory + '/' + configFileName;
@@ -120,6 +125,32 @@ public abstract class MLEngine implements TrainTest
 	}
 
 
+	public static class FakeEngine extends MLEngine
+	{
+		public FakeEngine(String outputAS) {
+			super(outputAS, null);
+		}
+		
+		@Override
+		public boolean getClearOutputAsBeforeTesting() {
+			return false;
+		}
+
+		@Override
+		public void clearSevedFilesDirectory(MLEngineConfig config) {}
+
+		@Override
+		public List<PRSetup> getTrainControllerSetup(MLEngineConfig config)	throws MalformedURLException {
+			return new ArrayList<PRSetup>();
+		}
+
+		@Override
+		public List<PRSetup> getTestControllerSetup(MLEngineConfig config) throws MalformedURLException {
+			return new ArrayList<PRSetup>();
+		}
+		
+	}
+
 	public static class PaumEngine extends MLEngine
 	{
 		public PaumEngine(String configFileName)
@@ -133,6 +164,13 @@ public abstract class MLEngine implements TrainTest
 		public PaumEngine() {
 			super("Paum", "Paum_config.xml");
 		}
+		
+		/*
+		@Override
+		public boolean getClearOutputAsBeforeTesting() {
+			return false;
+		}
+		*/
 
 		@Override
 		public List<PRSetup> getTrainControllerSetup(MLEngineConfig config) throws MalformedURLException
@@ -153,6 +191,14 @@ public abstract class MLEngine implements TrainTest
 		public List<PRSetup> getTestControllerSetup(MLEngineConfig config) throws MalformedURLException
 		{
 			List<PRSetup> prs = new ArrayList<PRSetup>();
+			
+			//delete mentions
+			/*
+			prs.add(new PRSetup.SinglePRSetup(AnnotationDeletePR.class, "delete mentions")
+				.putFeatureList("annotationTypes", config.learnigAnnotationType)
+				.putFeatureList("setsToRemove", config.outputAS));
+			/**/						
+
 
 			//Paum Application
 			prs.add(new PRSetup.SinglePRSetup(LearningAPIMain.class, getNameTest())
