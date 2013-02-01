@@ -1,5 +1,6 @@
 package czsem.gate.learning.experiments;
 
+import gate.Corpus;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
@@ -153,7 +154,9 @@ public class MachineLearningExperiment
 	
 	public void trainOnly() throws PersistenceException, ResourceInstantiationException, JDOMException, IOException, ExecutionException
 	{
-	    SerialAnalyserController train_controller = getTrainController();
+		clearEnginesSevedFiles();
+		
+		SerialAnalyserController train_controller = getTrainController();
 	    
 	    train_controller.setCorpus(dataSet.getCorpus());			    	    	    
 	    train_controller.execute();
@@ -161,9 +164,14 @@ public class MachineLearningExperiment
 	
 	public void testOnly() throws ResourceInstantiationException, JDOMException, IOException, PersistenceException, ExecutionException
 	{
+	    testOnly(dataSet.getCorpus());			    	    	    
+	}
+
+	public void testOnly(Corpus testCorpus) throws ResourceInstantiationException, JDOMException, IOException, PersistenceException, ExecutionException
+	{
 	    SerialAnalyserController test_controller = getTestController();
 	    
-	    test_controller.setCorpus(dataSet.getCorpus());			    	    	    
+	    test_controller.setCorpus(testCorpus);			    	    	    
 	    test_controller.execute();
 	}
 

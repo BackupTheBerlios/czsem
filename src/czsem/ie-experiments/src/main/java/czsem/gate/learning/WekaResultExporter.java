@@ -128,6 +128,10 @@ public class WekaResultExporter
 		"Average Precision",
 		"Average Recall",
 		"Average $F_1$",
+		
+		"Accuracy",
+		"Tokens",
+		
 		"Number Training Inst",
 		"Number Training Docs",
 //		"Area_under_ROC",
@@ -190,7 +194,7 @@ public class WekaResultExporter
 			
 		}
 		
-		public Result(LearningEvaluator learningEvaluator, AnnotationDiffer diff, int numDocs, int numTrainInst, int fold_number, String timestamp)
+		public Result(LearningEvaluator learningEvaluator, AnnotationDiffer diff, int tokensTotal, int numDocs, int numTrainInst, int fold_number, String timestamp)
 		{
 			this(					
 					learningEvaluator.getAnnotationTypes().toString(), //Key_Dataset
@@ -219,6 +223,11 @@ public class WekaResultExporter
 					diff.getPrecisionAverage(),
 					diff.getRecallAverage(),
 					diff.getFMeasureAverage(1),
+					
+					tokensTotal == 0 ? 0 :
+						(tokensTotal-diff.getMissing()-diff.getSpurious()) / 
+						(double) tokensTotal,
+					tokensTotal,
 					
 					numTrainInst,
 					numDocs
@@ -302,7 +311,8 @@ public class WekaResultExporter
 		
 		if (rep_contnet.isEmpty()) return;
 		
-		int num_of_folds = rep_contnet.iterator().next().actualFoldNumber;
+		//all learning evaluators should be set to the last fold number, which is equal to the total number of folds
+		int num_of_folds = rep_contnet.iterator().next().actualFoldNumber;		
 		
 		results = new Result[rep_contnet.size()*num_of_folds]; 
 		int a=0;
@@ -313,24 +323,24 @@ public class WekaResultExporter
 				final int fold_number = fold+1;
 				
 				CentralResultsRepository repository = LearningEvaluator.CentralResultsRepository.repository;
-				AnnotationDiffer eval = 
-					
 
+				DiffCondition foldDiffCond = new DiffCondition() {
+					@Override
+					public boolean evaluate(DocumentDiff diff) {
+						return diff.foldNumber == fold_number;
+					}
+				};
+
+				AnnotationDiffer eval = 
 //					repository.getOveralResults(learningEvaluator, new AllDiffsCondition());
-					repository.getOveralResults(learningEvaluator, 
-/**/
-						new DiffCondition() {
-							@Override
-							public boolean evaluate(DocumentDiff diff) {
-								return diff.foldNumber == fold_number;
-							}
-						});
-/**/				
+					repository.getOveralResults(learningEvaluator, foldDiffCond);
+
 				String trainPRName = MLEngine.renderPRNameTrain(learningEvaluator.getResponseASName());
 				int numDocs = repository.getNumDocs(trainPRName, fold);
 				int numTrainInst = repository.getNumTrainInst(trainPRName, learningEvaluator.getAnnotationTypes(), fold);;
+				int tokensTotal = repository.getNumberOfTokens(learningEvaluator, foldDiffCond);
 				results[a*num_of_folds+fold] = new Result(
-						learningEvaluator, eval, numDocs, numTrainInst, fold_number, timestamp );
+						learningEvaluator, eval, tokensTotal, numDocs, numTrainInst, fold_number, timestamp );
 			}
 			a++;
 		}				

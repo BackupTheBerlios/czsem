@@ -52,6 +52,18 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 		{
 			return repository_map.keySet();
 		}
+
+		public int getNumberOfTokens(LearningEvaluator e, DiffCondition diffCondition)
+		{
+			int ret = 0;
+			for (DocumentDiff diff : repository_map.get(e))
+			{
+				if (diffCondition.evaluate(diff))
+					ret += diff.numOfTokens;			
+			}
+		
+			return ret;			
+		}
 		
 		public AnnotationDiffer getOveralResults(LearningEvaluator e, DiffCondition diffCondition)
 		{
@@ -162,7 +174,9 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 		public int runNumber = 0;
 		public int foldNumber = 0;
 		public String documentName;
-		public AnnotationDiffer []	diff;	
+		public AnnotationDiffer []	diff;
+		
+		public int numOfTokens = 0;
 	}
 	
 	private static final long serialVersionUID = -3577722098895242238L;
@@ -179,8 +193,8 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 	
 	private boolean keyAnnotationsAreInDocumentFeatures;
 	
-	public int actualRunNumber = 0;
-	public int actualFoldNumber = 0;
+	public final int actualRunNumber = 0;
+	public int actualFoldNumber = 1;
 
 
 	protected AnnotationDiffer calculateDocumentDiff(Document document, String annotTypeName)
@@ -224,6 +238,8 @@ public class LearningEvaluator extends AbstractLanguageAnalyser
 		
 		DocumentDiff diff = new DocumentDiff(document.getName(), actualRunNumber, actualFoldNumber);
 		diff.diff = calculateDocumentDiff(document);
+		Object tocNum = document.getFeatures().get("numOfTokens");
+		if (tocNum != null) diff.numOfTokens = (Integer) tocNum; 
 		
 		documentDifs.add(diff);
 		CentralResultsRepository.repository.addDocumentDiff(this, diff);
