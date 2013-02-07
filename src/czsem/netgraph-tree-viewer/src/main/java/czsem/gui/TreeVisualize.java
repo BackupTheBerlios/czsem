@@ -43,7 +43,7 @@ public class TreeVisualize extends Container {
 		mi_show_hiddden.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				forestDisplay.getTreeProperties().setShowHiddenNodes(mi_show_hiddden.isSelected());
+				forestDisplay.setShowHiddenNodes(mi_show_hiddden.isSelected());
 				forestDisplay.repaint();
 			}
 		});

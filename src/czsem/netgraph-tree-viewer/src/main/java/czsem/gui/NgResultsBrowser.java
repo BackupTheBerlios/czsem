@@ -26,6 +26,7 @@ import czsem.fs.GateAnnotationsNodeAttributes;
 import czsem.fs.query.FSQuery;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
+import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gate.utils.GateAwareTreeIndex;
 import czsem.gate.utils.GateUtils;
 
@@ -83,6 +84,8 @@ public class NgResultsBrowser extends Container {
 	private JButton buttonNext;
 
 	private JButton buttonPrevious;
+
+	private GateAwareTreeIndex index;
 	
 	protected static class ResultsWalker {
 		
@@ -135,13 +138,28 @@ public class NgResultsBrowser extends Container {
 		this.as = as;
 	}
 
+	public void initIndex() {
+		index = new GateAwareTreeIndex();
+		index.addDependecies(as.get("tDependency"));
+	}
+
 	public void setResults(Iterable<QueryMatch> results) {
 		resultsWalker = new ResultsWalker(results.iterator());
 		showNext();
 		buttonPrevious.setEnabled(false);		
 	}
+	
+	
+	public void setResultsUsingQuery(String queryString) throws SyntaxError {
+		QueryData data = new FSQuery.QueryData(index, new GateAnnotationsNodeAttributes(as));
+		
+//		Iterable<QueryMatch> results = q.buildQuery("[lex.rf=32154]))").evaluate();
+		Iterable<QueryMatch> results = FSQuery.buildQuery(queryString).evaluate(data);
+		setResults(results);
+	}
 
-	protected void initComponents() {
+
+	public void initComponents() {
 		setLayout(new BorderLayout());
 		
 		//treeVisualize

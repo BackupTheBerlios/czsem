@@ -37,6 +37,7 @@ public class NgQueryDesigner extends Container  {
 
 	private CzsemForestDisplay forestDispaly;
 	private JTextPane queryString;
+	private JPanel panelBottom;
 
 	public void initComponents() {
 		setLayout(new BorderLayout());
@@ -54,7 +55,7 @@ public class NgQueryDesigner extends Container  {
         add(query_tree_view_scroll_pane, BorderLayout.CENTER);
         
         
-        JPanel panelBottom = new JPanel(new BorderLayout());
+        panelBottom = new JPanel(new BorderLayout());
         add(panelBottom, BorderLayout.SOUTH);
         
         //query string
@@ -72,25 +73,18 @@ public class NgQueryDesigner extends Container  {
         	@Override public void actionPerformed(ActionEvent e) {onUpdateQueryButton();}});
         panelBottom.add(buttonUpdate, BorderLayout.EAST);
 
-        /*
+	}
+	
+	public JButton addSearchButton() {
         //buttonSearch
-        JButton buttonSearch = new JButton("Search!");
-        buttonSearch.addActionListener(new ActionListener() {
-        	@Override public void actionPerformed(ActionEvent e) {search();}});
+        JButton buttonSearch = new JButton("   Search !   ");
         JPanel p = new JPanel();
         p.add(buttonSearch);
         panelBottom.add(p, BorderLayout.SOUTH);
-        /**/
-
-
-		
+        
+        return buttonSearch;
 	}
 
-	protected void search() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public String getQueryString()
 	{
 		return queryString.getText();

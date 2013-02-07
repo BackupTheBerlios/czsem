@@ -143,5 +143,11 @@ public class CzsemForestDisplay extends NGForestDisplay {
 						
 		dof.getNGTree().setMatchingNodes(sb.toString());		
 	}
+	
+    @Override
+	public void setShowHiddenNodes(boolean show) {
+    	super.setShowHiddenNodes(show);
+    	getForest().setFlagWholeForestChanged(true);
+	}
 
 }
