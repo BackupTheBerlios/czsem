@@ -38,10 +38,8 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 	};
 
 	private JTabbedPane tabs; 
-	private NgQueryDesigner qd;
-
-
-	private NgResultsBrowser rb;
+	private NgQueryDesigner queryDesigner;
+	private NgResultsBrowser resultsBrowser;
 
 	
 	@Override
@@ -59,30 +57,30 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 		tabs = new JTabbedPane(JTabbedPane.BOTTOM);
 		tabs.addTab("Viewer", tv);
 		
-		qd = new NgQueryDesigner();
-		qd.initComponents();
-		qd.setQueryString("[string=hallo]");
-		qd.addSearchButton().addActionListener(new ActionListener() {
+		queryDesigner = new NgQueryDesigner();
+		queryDesigner.initComponents();
+		queryDesigner.setQueryString("[string=hallo]");
+		queryDesigner.addSearchButton().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {search();}});
-		tabs.addTab("Query", qd);
+		tabs.addTab("Query", queryDesigner);
 		
-	    rb = new NgResultsBrowser();
-	    rb.initComponents();
-		tabs.addTab("Results", rb);
+	    resultsBrowser = new NgResultsBrowser();
+	    resultsBrowser.initComponents();
+		tabs.addTab("Results", resultsBrowser);
 
 	}
 	
 	protected void search() {
-		rb.setSourceAS(getAnnotationSetCurrentlyEdited());
-		rb.initIndex();
+		resultsBrowser.setSourceAS(getAnnotationSetCurrentlyEdited());
+		resultsBrowser.initIndex();
 		try {
-			rb.setResultsUsingQuery(qd.getQueryString());
+			resultsBrowser.setResultsUsingQuery(queryDesigner.getQueryString());
 		} catch (SyntaxError e) {
 			throw new RuntimeException(e);
 		}
 		
-		tabs.setSelectedComponent(rb);
+		tabs.setSelectedComponent(resultsBrowser);
 		
 	}
 
