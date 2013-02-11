@@ -4,11 +4,6 @@
   <void method="put"> 
    <string>dependencyConfig</string> 
    <object class="czsem.utils.Config$DependencyConfig"> 
-    <void property="dependencyTypesAvailable"> 
-     <void method="add"> 
-      <string>aaa</string> 
-     </void> 
-    </void> 
     <void property="dependencyTypesSelected"> 
      <void method="add"> 
       <string>tDependency</string> 
@@ -57,6 +52,10 @@
   <void method="put"> 
    <string>alephPath</string> 
    <string>C:\Program Files\aleph\aleph.pl</string> 
+  </void> 
+  <void method="put"> 
+   <string>loadedFrom</string> 
+   <string>../configuration/czsem_config.xml</string> 
   </void> 
   <void method="put"> 
    <string>logFileDirectoryPath</string> 

@@ -13,11 +13,13 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import czsem.fs.DependencyConfiguration;
 import czsem.fs.FSSentenceWriter;
 import czsem.gate.utils.Config;
 import czsem.utils.AbstractConfig.ConfigLoadEception;
 import czsem.utils.Config.DependencyConfig;
 
+@SuppressWarnings("unused")
 public class NgQueryConfig extends Container {
 	private static final long serialVersionUID = 8676767227162395664L;
 
@@ -58,8 +60,7 @@ public class NgQueryConfig extends Container {
         add(panel_south, BorderLayout.SOUTH);
 		
 
-        final Config cfg = Config.getConfig();
-        DependencyConfig deps = cfg.getDependencyConfig();
+        DependencyConfig deps = DependencyConfiguration.getDependencyConfig();
         
         final AddRemoveListsManager depMan = new AddRemoveListsManager();
         panel_center.add(embedDependencyManager(depMan, "Dependencies"));
@@ -73,25 +74,13 @@ public class NgQueryConfig extends Container {
         tocDepMan.addRightModelSynchronization(deps.getTokenDependenciesAvailable());
 		tocDepMan.synchronizeModels();
         
-        JButton buttonSave = new JButton("Save");
-		buttonSave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					cfg.updateLoadedConfigFile();
-				} catch (IOException ex) {
-					throw new RuntimeException(ex);
-				}
-			}
-		});
-		panel_south.add(buttonSave);
         
 		JButton buttonDefaults = new JButton("Defaults");
 		buttonDefaults.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					FSSentenceWriter.defaultConfig.putToConfig();
+					DependencyConfiguration.defaultConfig.putToConfig();
 					depMan.synchronizeModels();
 					tocDepMan.synchronizeModels();
 				} catch (ConfigLoadEception ex) {
@@ -99,7 +88,21 @@ public class NgQueryConfig extends Container {
 				}
 			}});
 		panel_south.add(buttonDefaults);
+
 		
+        JButton buttonSave = new JButton("Save");
+		buttonSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Config.getConfig().updateLoadedConfigFile();
+				} catch (IOException ex) {
+					throw new RuntimeException(ex);
+				}
+			}
+		});
+		panel_south.add(buttonSave);
+
 		
 	}
 

@@ -45,10 +45,6 @@ public class Config extends AbstractConfig {
 	
 	public DependencyConfig getDependencyConfig() {
 		DependencyConfig ret = (DependencyConfig) getObj("dependencyConfig");
-		if (ret == null) {
-			ret = new DependencyConfig();
-			setDependencyConfig(ret);
-		}
 		return ret;
 	}
 

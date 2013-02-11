@@ -11,14 +11,10 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import czsem.utils.AbstractConfig.ConfigLoadEception;
-import czsem.utils.Config;
-import czsem.utils.Config.DependencyConfig;
 import czsem.utils.NetgraphConstants;
 
 public class FSSentenceWriter
@@ -38,54 +34,9 @@ public class FSSentenceWriter
 		
 	}
 
-	public static class Configuration {
-		public Configuration(Collection<String> dependencyNames,	Iterable<TokenDependecy> tokenDepDefs) {
-			this.dependencyNames = dependencyNames;
-			this.tokenDepDefs = tokenDepDefs;
-		}
-		
-		Collection<String> dependencyNames;
-		Iterable<TokenDependecy> tokenDepDefs;
-		
-		public void putToConfig() throws ConfigLoadEception {
-			DependencyConfig depsCfg = Config.getConfig().getDependencyConfig();
-			depsCfg.clear();
-			
-			depsCfg.getDependencyTypesSelected().addAll(dependencyNames);
-			Set<String> tocs = depsCfg.getTokenDependenciesSelected();
-			for (TokenDependecy tocDep :tokenDepDefs)
-			{
-				tocs.add(tocDep.tokenTypeName +"."+ tocDep.depFeatureName);				
-			}
-			
-		}
-
-		public static Configuration getFromConfig() throws ConfigLoadEception {
-			DependencyConfig depsCfg = Config.getConfig().getDependencyConfig();
-
-			List<TokenDependecy> tokenDepDefs = new ArrayList<FSSentenceWriter.TokenDependecy>(depsCfg.getTokenDependenciesSelected().size());
-			
-			for (String s : depsCfg.getTokenDependenciesSelected()) {
-				String[] split = s.split("\\.");
-				if (split.length < 2) continue;
-				tokenDepDefs.add(new TokenDependecy(split[0], split[1]));
-			}
-			
-			return new Configuration(depsCfg.getDependencyTypesSelected(), tokenDepDefs);
-		}
-	};
-	
 	private AnnotationSet annotations;
 	
-	public static Configuration defaultConfig = 
-		new Configuration (
-			Arrays.asList(new String [] {
-					"tDependency", "auxRfDependency", "Dependency", /* "aDependency" */}), 
-			Arrays.asList(new TokenDependecy [] {
-					new TokenDependecy("t-node", "lex.rf"),
-					new TokenDependecy("tToken", "lex.rf"),})); 
-
-	protected Configuration configuration = defaultConfig;
+	protected DependencyConfiguration configuration = DependencyConfiguration.defaultConfig;
 	
 	private PrintWriter out;
 	private FSTreeWriter tw;

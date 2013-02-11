@@ -20,14 +20,20 @@ public class AbstractConfig {
 	protected static String config_dir = "configuration";
 	protected static String config_envp = "CZSEM_CONFIG";
 	
-	protected String loadedFrom = null;
-	
+	public String getLoadedFrom() {
+		return get("loadedFrom");
+	}
+
+	public void setLoadedFrom(String loadedFrom) {
+		set("loadedFrom", loadedFrom);
+	}
+
 	protected void save() throws IOException {
 		saveToFile(getDefaultLoc());		
 	}
 
 	public void updateLoadedConfigFile() throws IOException {
-		saveToFile(loadedFrom);		
+		saveToFile(getLoadedFrom());		
 	}
 	
 	protected Map<String, Object> getMap() { return property_map.get(getConfigKey());}
@@ -81,7 +87,7 @@ public class AbstractConfig {
 	{
 		setMap(loadFromFile(filename, classLoader));
 		
-		loadedFrom = filename;
+		setLoadedFrom(filename);
 	}
 
 	protected synchronized AbstractConfig getAbstractConfig() throws ConfigLoadEception {
