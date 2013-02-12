@@ -3,7 +3,6 @@ package czsem.fs;
 import gate.AnnotationSet;
 import gate.FeatureMap;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -23,9 +22,7 @@ public class GateAnnotationsNodeAttributes implements NodeAttributes {
 		@SuppressWarnings({ "unchecked", "rawtypes" })
 		Set<Entry<String, Object>> f = (Set) fm.entrySet();
 
-		ArrayList<Entry<String, Object>> ret = new ArrayList<Entry<String, Object>>(f);
-		
-		return ret;
+		return f;
 	}
 
 	@Override

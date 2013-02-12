@@ -72,8 +72,8 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 	}
 	
 	protected void search() {
-		resultsBrowser.setSourceAS(getAnnotationSetCurrentlyEdited());
-		resultsBrowser.initIndex();
+		resultsBrowser.asIndexHelper.setSourceAS(getAnnotationSetCurrentlyEdited());
+		resultsBrowser.asIndexHelper.initIndex();
 		try {
 			resultsBrowser.setResultsUsingQuery(queryDesigner.getQueryString());
 		} catch (SyntaxError e) {
@@ -105,6 +105,8 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(annotation, annotation_set);
 		tv.setForest(fssb.getAttributes(), fssb.getTree());
 		tv.selectNode(annotation.getId());
+		
+		queryDesigner.setAs(annotation_set);
 		
 		tabs.setSelectedComponent(tv);		
 		dialog.setVisible(true);		

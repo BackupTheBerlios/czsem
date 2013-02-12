@@ -66,7 +66,7 @@ public class NgResultsBrowser extends Container {
 	    NgResultsBrowser qd = new NgResultsBrowser();
 		qd.initComponents();
 		
-		qd.setSourceAS(mainAs);
+		qd.asIndexHelper.setSourceAS(mainAs);
 		qd.setResults(results);
 		
 		fr.add(qd);
@@ -79,13 +79,11 @@ public class NgResultsBrowser extends Container {
 
 	protected ResultsWalker resultsWalker;
 
-	private AnnotationSet as;
+	public AsIndexHelper asIndexHelper = new AsIndexHelper(); 
 
 	private JButton buttonNext;
 
 	private JButton buttonPrevious;
-
-	private GateAwareTreeIndex index;
 	
 	protected static class ResultsWalker {
 		
@@ -133,15 +131,26 @@ public class NgResultsBrowser extends Container {
 		}
 		
 	}
+	
+	public static class AsIndexHelper {
+		private AnnotationSet as;
+		private GateAwareTreeIndex index;
+		
+		public void setSourceAS(AnnotationSet as) {
+			this.as = as;
+		}
 
-	public void setSourceAS(AnnotationSet as) {
-		this.as = as;
+		public void initIndex() {
+			index = new GateAwareTreeIndex();
+			index.addDependecies(as.get("tDependency"));
+		}
+
+		public QueryData createQueryData() {
+			return new FSQuery.QueryData(index, new GateAnnotationsNodeAttributes(as));
+		}
 	}
 
-	public void initIndex() {
-		index = new GateAwareTreeIndex();
-		index.addDependecies(as.get("tDependency"));
-	}
+
 
 	public void setResults(Iterable<QueryMatch> results) {
 		resultsWalker = new ResultsWalker(results.iterator());
@@ -151,7 +160,7 @@ public class NgResultsBrowser extends Container {
 	
 	
 	public void setResultsUsingQuery(String queryString) throws SyntaxError {
-		QueryData data = new FSQuery.QueryData(index, new GateAnnotationsNodeAttributes(as));
+		QueryData data = asIndexHelper.createQueryData();
 		
 //		Iterable<QueryMatch> results = q.buildQuery("[lex.rf=32154]))").evaluate();
 		Iterable<QueryMatch> results = FSQuery.buildQuery(queryString).evaluate(data);
@@ -190,9 +199,9 @@ public class NgResultsBrowser extends Container {
 
 	protected void showMatch(QueryMatch match) {
 		int id = match.getMatchingNodes().iterator().next().getNodeId();
-		Annotation ra = as.get(id);
+		Annotation ra = asIndexHelper.as.get(id);
 		
-		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(ra, as);
+		FSSentenceStringBuilder fssb = new FSSentenceStringBuilder(ra, asIndexHelper.as);
 		
 		treeVisualize.setForest(fssb.getAttributes(), fssb.getTree());
 		treeVisualize.selectNode(id);

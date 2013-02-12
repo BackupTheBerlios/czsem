@@ -2,7 +2,12 @@ package czsem.fs.query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
+import java.util.SortedSet;
+import java.util.TreeMap;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
+import java.util.TreeSet;
 
 import com.google.common.collect.Iterables;
 
@@ -35,6 +40,25 @@ public class FSQuery {
 
 		public void setNodeAttributes(NodeAttributes nodeAttributes) {
 			this.nodeAttributes = nodeAttributes;
+		}
+		
+		public SortedMap<String,SortedSet<String>> buildAttrIndex() {
+			SortedMap<String, SortedSet<String>> attrIndex = new TreeMap<String, SortedSet<String>>();
+			
+			for (int n : index.getAllNodes())
+			{
+				Iterable<Entry<String, Object>> entries = nodeAttributes.get(n);
+				for (Entry<String, Object> e: entries)
+				{ 
+					SortedSet<String> previous = attrIndex.get(e.getKey());
+					if (previous == null) previous = new TreeSet<String>();
+					
+					previous.add(e.getValue().toString());
+					attrIndex.put(e.getKey(), previous);
+				}
+			}
+			
+			return attrIndex;
 		}
 	}
 	

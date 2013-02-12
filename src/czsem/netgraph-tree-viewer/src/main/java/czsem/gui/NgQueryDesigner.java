@@ -1,21 +1,34 @@
 package czsem.gui;
 
+import gate.AnnotationSet;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.SortedMap;
+import java.util.SortedSet;
 
+import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
+import javax.swing.ListModel;
 import javax.swing.WindowConstants;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import czsem.fs.query.AttrsCollectorFSQB;
 import czsem.fs.query.FSQueryParser.SyntaxError;
+import czsem.gui.NgResultsBrowser.AsIndexHelper;
 
 public class NgQueryDesigner extends Container  {
 	private static final long serialVersionUID = 3771937513564105054L;
@@ -38,6 +51,12 @@ public class NgQueryDesigner extends Container  {
 	private CzsemForestDisplay forestDispaly;
 	private JTextPane queryString;
 	private JPanel panelBottom;
+	private JList attrNames;
+	private JList attrValues;
+	
+	public AsIndexHelper asIndexHelper = new AsIndexHelper();
+	private SortedMap<String, SortedSet<String>> attrIndex; 
+
 
 	public void initComponents() {
 		setLayout(new BorderLayout());
@@ -52,7 +71,19 @@ public class NgQueryDesigner extends Container  {
         JScrollPane query_tree_view_scroll_pane = new JScrollPane(forestDispaly);
         query_tree_view_scroll_pane.setPreferredSize(new Dimension(500,400));
         query_tree_view_scroll_pane.setBorder(BorderFactory.createTitledBorder("query tree:"));
-        add(query_tree_view_scroll_pane, BorderLayout.CENTER);
+        
+        JPanel attrsPanel = new JPanel(new GridLayout(1, 2, 2, 0));
+        attrsPanel.setBorder(BorderFactory.createTitledBorder("attributes:"));
+        attrNames = new JList();
+        attrsPanel.add(attrNames);
+        attrValues = new JList();
+        attrsPanel.add(attrValues);
+        initAttrListEvents();
+        
+        
+        JSplitPane centerSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, attrsPanel, query_tree_view_scroll_pane); 
+        
+        add(centerSplit, BorderLayout.CENTER);
         
         
         panelBottom = new JPanel(new BorderLayout());
@@ -75,6 +106,20 @@ public class NgQueryDesigner extends Container  {
 
 	}
 	
+	protected void initAttrListEvents() {
+		attrNames.addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				SortedSet<String> values = attrIndex.get(attrNames.getModel().getElementAt(attrNames.getSelectedIndex()));
+				if (values.size() < 50)
+					attrValues.setModel(new ArrayListModel(values));
+				else {
+					attrValues.setModel(emptyModel);					
+				}
+			}
+		});
+	}
+
 	public JButton addSearchButton() {
         //buttonSearch
         JButton buttonSearch = new JButton("   Search !   ");
@@ -114,6 +159,46 @@ public class NgQueryDesigner extends Container  {
 	public void setQueryString(String queryString) {
 		this.queryString.setText(queryString);
 		updateQuery();
+	}
+
+	public void setAs(AnnotationSet annotation_set) {
+		asIndexHelper.setSourceAS(annotation_set);
+		asIndexHelper.initIndex();
+		fillAttrIndexAndNamesList();
+	}
+	
+	@SuppressWarnings("serial")
+	private static final class ArrayListModel extends AbstractListModel {
+		String [] values;
+
+		public ArrayListModel(Collection<String> data) {
+			values =  data.toArray(new String[0]);
+		}
+
+		@Override
+		public int getSize() {
+			return values.length;
+		}
+
+		@Override
+		public Object getElementAt(int index) {
+			return values[index];
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public static final ListModel emptyModel = new AbstractListModel() {
+		@Override
+		public int getSize() { return 0; }
+		@Override
+		public Object getElementAt(int index) {	return null;}
+	};
+
+
+	protected void fillAttrIndexAndNamesList() {
+		attrIndex = asIndexHelper.createQueryData().buildAttrIndex();
+		
+		attrNames.setModel(new ArrayListModel(attrIndex.keySet()));
 	}
 
 }
