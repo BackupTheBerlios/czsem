@@ -21,14 +21,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
-import javax.swing.JTextPane;
 import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import com.wordpress.tips4java.ListAction;
-
+import thirdparty.JTextPaneWithUndo;
+import thirdparty.ListAction;
 import czsem.fs.query.AttrsCollectorFSQB;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gui.NgResultsBrowser.AsIndexHelper;
@@ -52,7 +51,7 @@ public class NgQueryDesigner extends Container  {
 	}
 
 	private CzsemForestDisplay forestDispaly;
-	private JTextPane queryString;
+	private JTextPaneWithUndo queryString;
 	private JPanel panelBottom;
 	private JList attrNames;
 	private JList attrValues;
@@ -96,7 +95,7 @@ public class NgQueryDesigner extends Container  {
         add(panelBottom, BorderLayout.SOUTH);
         
         //query string
-		queryString = new JTextPane();        
+		queryString = new JTextPaneWithUndo();        
         queryString.setText("[string=query]");
 		JPanel panel_query = new JPanel(new BorderLayout());
         panel_query.setBorder(BorderFactory.createTitledBorder("query string:"));

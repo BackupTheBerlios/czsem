@@ -1,4 +1,4 @@
-package com.wordpress.tips4java;
+package thirdparty;
 
 import java.awt.event.*;
 import javax.swing.*;

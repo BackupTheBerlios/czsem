@@ -29,7 +29,8 @@ import javax.swing.WindowConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 
-import com.wordpress.tips4java.ListAction;
+import thirdparty.ListAction;
+
 
 import czsem.gate.utils.Config;
 
