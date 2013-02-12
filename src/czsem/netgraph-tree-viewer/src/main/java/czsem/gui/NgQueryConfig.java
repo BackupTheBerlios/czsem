@@ -101,9 +101,7 @@ public class NgQueryConfig extends Container {
 				}
 			}
 		});
-		panel_south.add(buttonSave);
-
-		
+		panel_south.add(buttonSave);		
 	}
 
 }

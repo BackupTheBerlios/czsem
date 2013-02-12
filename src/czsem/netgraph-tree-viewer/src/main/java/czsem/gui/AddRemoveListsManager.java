@@ -9,12 +9,12 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
@@ -28,6 +28,8 @@ import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
+
+import com.wordpress.tips4java.ListAction;
 
 import czsem.gate.utils.Config;
 
@@ -69,9 +71,9 @@ public class AddRemoveListsManager extends Container {
 		panel.add(Box.createRigidArea(new Dimension(0, 10)));
 	}
 
-	public static JList createList(ListModel model, ListElementDoubleClickEvent doubleClickEvent) {
+	public static JList createList(ListModel model, Action actionEvent) {
 		JList listRet = new JList(model);
-		listRet.addMouseListener(doubleClickEvent);
+		new ListAction(listRet, actionEvent);
 		listRet.setPreferredSize(new Dimension(100, 50));
 		return listRet;
 	}
@@ -97,27 +99,17 @@ public class AddRemoveListsManager extends Container {
 		add(listComponenet, c);
 	}
 	
-	public static abstract class ListElementDoubleClickEvent extends MouseAdapter {
-		@Override
-		public void mouseClicked(MouseEvent evt) {
-	        if (evt.getClickCount() == 2) {
-	        	mouseDoubleClicked(evt);
-	        }
-		}
-
-		public abstract void mouseDoubleClicked(MouseEvent e);
-	}
-
+	@SuppressWarnings("serial")
 	public void initComponents() {
 		setLayout(new GridBagLayout());
 		
-		listRight = createList(modelRight = new DefaultListModel(), new ListElementDoubleClickEvent() {
+		listRight = createList(modelRight = new DefaultListModel(), new AbstractAction() {
 			@Override
-			public void mouseDoubleClicked(MouseEvent e) {commandAdd();}}); 
+			public void actionPerformed(ActionEvent e) { commandAdd(); }});
 
-		listLeft = createList(modelLeft = new DefaultListModel(), new ListElementDoubleClickEvent() {
+		listLeft = createList(modelLeft = new DefaultListModel(), new AbstractAction() {
 			@Override
-			public void mouseDoubleClicked(MouseEvent e) {commandRemove();}}); 
+			public void actionPerformed(ActionEvent e) {commandRemove();}}); 
 		
 		
 		addListLabel("Selected:", 0);

@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
+import javax.swing.AbstractAction;
 import javax.swing.AbstractListModel;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -25,6 +26,8 @@ import javax.swing.ListModel;
 import javax.swing.WindowConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import com.wordpress.tips4java.ListAction;
 
 import czsem.fs.query.AttrsCollectorFSQB;
 import czsem.fs.query.FSQueryParser.SyntaxError;
@@ -73,7 +76,10 @@ public class NgQueryDesigner extends Container  {
         query_tree_view_scroll_pane.setBorder(BorderFactory.createTitledBorder("query tree:"));
         
         JPanel attrsPanel = new JPanel(new GridLayout(1, 2, 2, 0));
-        attrsPanel.setBorder(BorderFactory.createTitledBorder("attributes:"));
+        JScrollPane attrsScrollPane = new JScrollPane(attrsPanel);
+        query_tree_view_scroll_pane.setPreferredSize(new Dimension(200,0));
+        attrsScrollPane.setBorder(BorderFactory.createTitledBorder("attributes:"));
+        //attrsPanel.setBorder(BorderFactory.createTitledBorder("attributes:"));
         attrNames = new JList();
         attrsPanel.add(attrNames);
         attrValues = new JList();
@@ -81,7 +87,7 @@ public class NgQueryDesigner extends Container  {
         initAttrListEvents();
         
         
-        JSplitPane centerSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, attrsPanel, query_tree_view_scroll_pane); 
+        JSplitPane centerSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, attrsScrollPane, query_tree_view_scroll_pane); 
         
         add(centerSplit, BorderLayout.CENTER);
         
@@ -106,18 +112,47 @@ public class NgQueryDesigner extends Container  {
 
 	}
 	
+	@SuppressWarnings("serial")
 	protected void initAttrListEvents() {
 		attrNames.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				SortedSet<String> values = attrIndex.get(attrNames.getModel().getElementAt(attrNames.getSelectedIndex()));
-				if (values.size() < 50)
+				SortedSet<String> values = attrIndex.get(attrNames.getSelectedValue().toString());
+				if (values.size() < 500)
 					attrValues.setModel(new ArrayListModel(values));
 				else {
 					attrValues.setModel(emptyModel);					
 				}
 			}
 		});
+		
+		new ListAction(attrNames, new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) { onSelectAttrName(); }});
+
+		new ListAction(attrValues, new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent e) { onSelectAttrValue(); }});
+	}
+
+	protected void onSelectAttrValue() {
+		insertTextToQuery(
+				attrNames.getSelectedValue().toString()+
+				"="+
+				attrValues.getSelectedValue().toString()
+				);		
+	}
+
+	protected void insertTextToQuery(String text) {
+		int pos = queryString.getCaretPosition();
+		String newString = new StringBuffer(queryString.getText()).insert(pos, text).toString();
+		queryString.setText(newString);
+		queryString.setCaretPosition(pos + text.length());
+		queryString.requestFocusInWindow();
+	}
+
+	protected void onSelectAttrName() {
+		insertTextToQuery(attrNames.getSelectedValue().toString());		
 	}
 
 	public JButton addSearchButton() {
@@ -143,8 +178,6 @@ public class NgQueryDesigner extends Container  {
 		try {
 			String[] attrs = AttrsCollectorFSQB.collectAttributes(getQueryString());
 			forestDispaly.setForest(attrs, getQueryString());
-			
-			//">="
 			
 			for (int i = 0; i < attrs.length; i++) {
 		        forestDispaly.addShownAttribute(attrs[i]);				
