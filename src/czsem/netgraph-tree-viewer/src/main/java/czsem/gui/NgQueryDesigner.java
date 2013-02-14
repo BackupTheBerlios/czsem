@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
+import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
 
@@ -28,6 +29,7 @@ import javax.swing.event.ListSelectionListener;
 
 import thirdparty.JTextPaneWithUndo;
 import thirdparty.ListAction;
+import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.fs.query.AttrsCollectorFSQB;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gui.NgResultsBrowser.AsIndexHelper;
@@ -204,7 +206,11 @@ public class NgQueryDesigner extends Container  {
 		String [] values;
 
 		public ArrayListModel(Collection<String> data) {
-			values =  data.toArray(new String[0]);
+			this(data.toArray(new String[0]));
+		}
+
+		public ArrayListModel(String[] values) {
+			this.values = values;
 		}
 
 		@Override
@@ -229,8 +235,12 @@ public class NgQueryDesigner extends Container  {
 
 	protected void fillAttrIndexAndNamesList() {
 		attrIndex = asIndexHelper.createQueryData().buildAttrIndex();
+
+		Set<String> keys = attrIndex.keySet();
+		String[] values = keys.toArray(new String[keys.size()+1]);
+		values[keys.size()] = NGTreeHead.META_ATTR_NODE_NAME; 
 		
-		attrNames.setModel(new ArrayListModel(attrIndex.keySet()));
+		attrNames.setModel(new ArrayListModel(values));
 	}
 
 }
