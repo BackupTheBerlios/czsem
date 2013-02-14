@@ -1,7 +1,5 @@
 package czsem.fs;
 
-import gate.AnnotationSet;
-
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -103,24 +101,13 @@ public class FSTreeWriter	{
 		printCildren(node_id);
 	}
 
-	public void addDependency(Integer parent, Integer child) {
-		index.addDependency(parent, child);
-	}
-
-	public void addDependecies(AnnotationSet dependenciesAS) {
-		index.addDependecies(dependenciesAS);
-	}
-
-	public void addTokenDependecies(AnnotationSet tokenAS, String feature_name) {
-		index.addTokenDependecies(tokenAS, feature_name);
-	}
-
 	public Set<String> getAttributes() {
 		return attributes;
 	}
 
-	public Set<Integer> getAllNodes() {
-		return index.getAllNodes();
+	
+	public GateAwareTreeIndex getIndex() {
+		return index;
 	}
 	
 	public int getRootNode() {

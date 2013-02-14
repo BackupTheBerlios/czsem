@@ -21,6 +21,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import czsem.fs.DependencyConfiguration;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.GateAnnotationsNodeAttributes;
 import czsem.fs.query.FSQuery;
@@ -50,7 +51,7 @@ public class NgResultsBrowser extends Container {
 		System.err.println("fillnig index");
 		
 		AnnotationSet mainAs = doc.getAnnotations("tmt4");
-		index.addDependecies(mainAs.get("tDependency"));			
+		index.addDependecies(mainAs, DependencyConfiguration.getSelectedConfigurationFromConfigOrDefault());			
 		System.err.format("finished in: %10.3fs\n", (System.currentTimeMillis() - time) * 0.001);
 		
 		
@@ -142,7 +143,7 @@ public class NgResultsBrowser extends Container {
 
 		public void initIndex() {
 			index = new GateAwareTreeIndex();
-			index.addDependecies(as.get("tDependency"));
+			index.addDependecies(as, DependencyConfiguration.getSelectedConfigurationFromConfigOrDefault());;
 		}
 
 		public QueryData createQueryData() {

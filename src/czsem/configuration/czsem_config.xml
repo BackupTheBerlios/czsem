@@ -4,23 +4,44 @@
   <void method="put"> 
    <string>dependencyConfig</string> 
    <object class="czsem.utils.Config$DependencyConfig"> 
-    <void property="dependencyTypesSelected"> 
-     <void method="add"> 
-      <string>tDependency</string> 
-     </void> 
-     <void method="add"> 
-      <string>auxRfDependency</string> 
-     </void> 
-     <void method="add"> 
-      <string>Dependency</string> 
+    <void property="available"> 
+     <void property="dependencyTypes"> 
+      <void method="add"> 
+       <string>coref_gram.rf</string> 
+      </void> 
+      <void method="add"> 
+       <string>nDependency</string> 
+      </void> 
+      <void method="add"> 
+       <string>aDependency</string> 
+      </void> 
+      <void method="add"> 
+       <string>auxRfDependency</string> 
+      </void> 
+      <void method="add"> 
+       <string>a.rf</string> 
+      </void> 
+      <void method="add"> 
+       <string>a/aux.rf</string> 
+      </void> 
      </void> 
     </void> 
-    <void property="tokenDependenciesSelected"> 
-     <void method="add"> 
-      <string>tToken.lex.rf</string> 
+    <void property="selected"> 
+     <void property="dependencyTypes"> 
+      <void method="add"> 
+       <string>tDependency</string> 
+      </void> 
+      <void method="add"> 
+       <string>Dependency</string> 
+      </void> 
+      <void method="add"> 
+       <string>a/lex.rf</string> 
+      </void> 
      </void> 
-     <void method="add"> 
-      <string>t-node.lex.rf</string> 
+     <void property="tokenDependencies"> 
+      <void method="add"> 
+       <string>tToken.lex.rf</string> 
+      </void> 
      </void> 
     </void> 
    </object> 
@@ -70,12 +91,12 @@
    <string>C:\workspace\tectomt</string> 
   </void> 
   <void method="put"> 
-   <string>learnigConfigDirectoryForGate</string> 
-   <string>C:\workspace\czsem_git\src\czsem/resources/Gate/learning</string> 
-  </void> 
-  <void method="put"> 
    <string>czsemPluginDir</string> 
    <string>C:\workspace\czsem_git\src\czsem/czsem-gate-plugin/target/prepared-installer-files/czsem-gate-plugin</string> 
+  </void> 
+  <void method="put"> 
+   <string>learnigConfigDirectoryForGate</string> 
+   <string>C:\workspace\czsem_git\src\czsem/resources/Gate/learning</string> 
   </void> 
   <void method="put"> 
    <string>wekaJarPath</string> 

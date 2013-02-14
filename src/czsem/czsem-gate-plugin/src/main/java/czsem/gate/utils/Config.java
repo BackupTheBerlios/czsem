@@ -75,7 +75,7 @@ public class Config extends czsem.utils.Config
 	
 
 	@Override
-	public void loadConfig() throws ConfigLoadEception 
+	public void loadConfig() throws ConfigLoadException 
 	{
 		if (Gate.isInitialised() && Config.classLoader == null)
 			Config.classLoader = Gate.getClassLoader();
@@ -84,13 +84,13 @@ public class Config extends czsem.utils.Config
 	}
 
 	@Override
-	public void loadConfig(ClassLoader classLoader) throws ConfigLoadEception
+	public void loadConfig(ClassLoader classLoader) throws ConfigLoadException
 	{
-		ConfigLoadEception fe;
+		ConfigLoadException fe;
 		try {
 			super.loadConfig(classLoader);
 			return;
-		} catch (ConfigLoadEception e) {fe = e;}
+		} catch (ConfigLoadException e) {fe = e;}
 		
 		try {
 			if (Gate.isInitialised())
@@ -109,7 +109,7 @@ public class Config extends czsem.utils.Config
 	}
 
 		
-	public static Config getConfig() throws ConfigLoadEception 
+	public static Config getConfig() throws ConfigLoadException 
 	{
 		return (Config) new Config().getAbstractConfig();
 	}

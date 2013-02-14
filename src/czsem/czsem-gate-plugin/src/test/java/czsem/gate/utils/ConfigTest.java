@@ -11,11 +11,11 @@ import java.net.URISyntaxException;
 import org.junit.rules.TemporaryFolder;
 import org.testng.annotations.Test;
 
-import czsem.utils.AbstractConfig.ConfigLoadEception;
+import czsem.utils.AbstractConfig.ConfigLoadException;
 
 public class ConfigTest {
 
-	@Test(groups = { "excludeByMaven" }, expectedExceptions=ConfigLoadEception.class)
+	@Test(groups = { "excludeByMaven" }, expectedExceptions=ConfigLoadException.class)
 	public void getConfigExcept() throws IOException, URISyntaxException, GateException {
 		System.err.println(System.getProperty("user.dir"));
 		

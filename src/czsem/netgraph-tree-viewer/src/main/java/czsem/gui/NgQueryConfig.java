@@ -16,7 +16,7 @@ import javax.swing.WindowConstants;
 import czsem.fs.DependencyConfiguration;
 import czsem.fs.FSSentenceWriter;
 import czsem.gate.utils.Config;
-import czsem.utils.AbstractConfig.ConfigLoadEception;
+import czsem.utils.AbstractConfig.ConfigLoadException;
 import czsem.utils.Config.DependencyConfig;
 
 @SuppressWarnings("unused")
@@ -50,7 +50,7 @@ public class NgQueryConfig extends Container {
 		return panel_dependencies;
 	}
 
-	public void initComponents() throws ConfigLoadEception {
+	public void initComponents() throws ConfigLoadException {
 		setLayout(new BorderLayout());
 
 		JPanel panel_center = new JPanel(new GridLayout(1, 2));
@@ -64,14 +64,14 @@ public class NgQueryConfig extends Container {
         
         final AddRemoveListsManager depMan = new AddRemoveListsManager();
         panel_center.add(embedDependencyManager(depMan, "Dependencies"));
-        depMan.addLeftModelSynchronization(deps.getDependencyTypesSelected());
-        depMan.addRightModelSynchronization(deps.getDependencyTypesAvailable());
+        depMan.addLeftModelSynchronization(deps.getSelected().getDependencyTypes());
+        depMan.addRightModelSynchronization(deps.getAvailable().getDependencyTypes());
 		depMan.synchronizeModels();
 
         final AddRemoveListsManager tocDepMan = new AddRemoveListsManager();
         panel_center.add(embedDependencyManager(tocDepMan, "Token Dependencies"));
-        tocDepMan.addLeftModelSynchronization(deps.getTokenDependenciesSelected());
-        tocDepMan.addRightModelSynchronization(deps.getTokenDependenciesAvailable());
+        tocDepMan.addLeftModelSynchronization(deps.getSelected().getTokenDependencies());
+        tocDepMan.addRightModelSynchronization(deps.getAvailable().getTokenDependencies());
 		tocDepMan.synchronizeModels();
         
         
@@ -80,10 +80,13 @@ public class NgQueryConfig extends Container {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					DependencyConfiguration.defaultConfig.putToConfig();
+					DependencyConfiguration.defaultConfigSelected.putToConfig(
+							Config.getConfig().getDependencyConfig().getSelected());
+					DependencyConfiguration.defaultConfigAvailable.putToConfig(
+							Config.getConfig().getDependencyConfig().getAvailable());
 					depMan.synchronizeModels();
 					tocDepMan.synchronizeModels();
-				} catch (ConfigLoadEception ex) {
+				} catch (ConfigLoadException ex) {
 					throw new RuntimeException(ex);
 				}
 			}});

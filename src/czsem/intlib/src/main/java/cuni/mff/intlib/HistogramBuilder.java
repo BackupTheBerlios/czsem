@@ -13,6 +13,7 @@ import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+import czsem.fs.DependencyConfiguration;
 import czsem.fs.FSFileWriter;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.GateAnnotationsNodeAttributes;
@@ -61,7 +62,7 @@ public class HistogramBuilder {
 		long time = System.currentTimeMillis();
 		
 		AnnotationSet mainAs = doc.getAnnotations("tmt4");
-		index.addDependecies(mainAs.get("tDependency"));			
+		index.addDependecies(mainAs, DependencyConfiguration.getSelectedConfigurationFromConfigOrDefault());;			
 		
 		/*
 		AnnotationSet ss = mainAs.get("Sentence");

@@ -90,7 +90,7 @@ public class AbstractConfig {
 		setLoadedFrom(filename);
 	}
 
-	protected synchronized AbstractConfig getAbstractConfig() throws ConfigLoadEception {
+	protected synchronized AbstractConfig getAbstractConfig() throws ConfigLoadException {
 		
 		if (getMap() == null) 
 			loadConfig();
@@ -102,9 +102,9 @@ public class AbstractConfig {
 		setMap(new HashMap<String, Object>());
 	}
 
-	public void loadConfig(ClassLoader classLoader) throws ConfigLoadEception
+	public void loadConfig(ClassLoader classLoader) throws ConfigLoadException
 	{
-		ConfigLoadEception fe = new ConfigLoadEception();
+		ConfigLoadException fe = new ConfigLoadException();
 		
 		//first: try env
 		try {
@@ -134,7 +134,7 @@ public class AbstractConfig {
 		return "../" +config_dir+ '/' +config_filename;
 	}
 	
-	public static class ConfigLoadEception extends FileNotFoundException
+	public static class ConfigLoadException extends FileNotFoundException
 	{
 		private static final long serialVersionUID = -5616178151757529473L;
 		
@@ -157,7 +157,7 @@ public class AbstractConfig {
 	}
 
 
-	public void loadConfig() throws ConfigLoadEception  {
+	public void loadConfig() throws ConfigLoadException  {
 		loadConfig(null);
 	}
 

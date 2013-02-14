@@ -36,8 +36,6 @@ public class FSSentenceWriter
 
 	private AnnotationSet annotations;
 	
-	protected DependencyConfiguration configuration = DependencyConfiguration.defaultConfig;
-	
 	private PrintWriter out;
 	private FSTreeWriter tw;
 	private Map<Integer, Integer> nodeOreder;
@@ -90,11 +88,7 @@ public class FSSentenceWriter
 
 	public void printTree()
 	{		
-		for (String depName : configuration.dependencyNames)
-			tw.addDependecies(annotations.get(depName));
-
-		for (TokenDependecy tocDep : configuration.tokenDepDefs)
-			tw.addTokenDependecies(annotations.get(tocDep.tokenTypeName), tocDep.depFeatureName);
+		tw.getIndex().addDependecies(annotations, DependencyConfiguration.getSelectedConfigurationFromConfigOrDefault());
 		
 		setupNodeOrder();
 		
@@ -119,7 +113,7 @@ public class FSSentenceWriter
 
 	
 	protected void setupNodeOrder() {
-		Integer[] nodes = tw.getAllNodes().toArray(new Integer[0]);
+		Integer[] nodes = tw.getIndex().getAllNodes().toArray(new Integer[0]);
 		
 		Arrays.sort(nodes, new TokenOrderComprator());
 		

@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class Config extends AbstractConfig {
 	
-	public static Config getConfig() throws ConfigLoadEception
+	public static Config getConfig() throws ConfigLoadException
 	{
 		return (Config) new Config().getAbstractConfig();
 	}
@@ -14,33 +14,37 @@ public class Config extends AbstractConfig {
 	public static class DependencyConfig implements Serializable {
 		private static final long serialVersionUID = -6751646590097569415L;
 
-		private Set<String> dependencyTypesSelected = new HashSet<String>(); 
-		private Set<String> dependencyTypesAvailable = new HashSet<String>(); 
-		private Set<String> tokenDependenciesSelected = new HashSet<String>(); 
-		private Set<String> tokenDependenciesAvailable = new HashSet<String>(); 		
+		public static class DependencySetting implements Serializable {
+			private static final long serialVersionUID = -927092769489657986L;
 
-		public Set<String> getDependencyTypesSelected() {return dependencyTypesSelected;}
-		public void setDependencyTypesSelected(Set<String> dependencyTypesSelected) {
-			this.dependencyTypesSelected = dependencyTypesSelected;
+			private Set<String> dependencyTypes = new HashSet<String>(); 
+			private Set<String> tokenDependencies = new HashSet<String>();
+			
+			public Set<String> getDependencyTypes() {
+				return dependencyTypes;
+			}
+			public void setDependencyTypes(Set<String> dependencyTypes) {
+				this.dependencyTypes = dependencyTypes;
+			}
+			public Set<String> getTokenDependencies() {
+				return tokenDependencies;
+			}
+			public void setTokenDependencies(Set<String> tokenDependencies) {
+				this.tokenDependencies = tokenDependencies;
+			}
+			public void clear() {
+				dependencyTypes.clear();
+				tokenDependencies.clear();
+			}
 		}
-		public Set<String> getDependencyTypesAvailable() {return dependencyTypesAvailable;}
-		public void setDependencyTypesAvailable(Set<String> dependencyTypesAvailable) {
-			this.dependencyTypesAvailable = dependencyTypesAvailable;
-		}
-		public Set<String> getTokenDependenciesSelected() {	return tokenDependenciesSelected;}
-		public void setTokenDependenciesSelected(Set<String> tokenDependenciesSelected) {
-			this.tokenDependenciesSelected = tokenDependenciesSelected;
-		}
-		public Set<String> getTokenDependenciesAvailable() {return tokenDependenciesAvailable;}
-		public void setTokenDependenciesAvailable(Set<String> tokenDependenciesAvailable) {
-			this.tokenDependenciesAvailable = tokenDependenciesAvailable;
-		}
-		public void clear() {
-			dependencyTypesSelected.clear();
-			dependencyTypesAvailable.clear();
-			tokenDependenciesSelected.clear();
-			tokenDependenciesAvailable.clear();
-		}
+		
+		private DependencySetting selected = new DependencySetting();
+		private DependencySetting available = new DependencySetting();
+		
+		public DependencySetting getSelected() {return selected;}
+		public void setSelected(DependencySetting selected) {this.selected = selected;}
+		public DependencySetting getAvailable() {return available;}
+		public void setAvailable(DependencySetting available) {this.available = available;};
 	}
 	
 	public DependencyConfig getDependencyConfig() {

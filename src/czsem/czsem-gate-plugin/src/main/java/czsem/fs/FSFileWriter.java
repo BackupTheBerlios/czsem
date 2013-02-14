@@ -20,32 +20,13 @@ public class FSFileWriter {
 	
 	private String[] attributes = null;
 
-	/** The order of elements is the same as in {@link #tokendependency_annotation_types} and {@link #token_annotation_types}. **/
-	public static final String[][] dependency_annotation_types =
-	{
-		{"tDependency", "auxRfDependency"},
-		{"aDependency"},		
-		{"Dependency"},
-	};
-	
-	/** The order of elements is the same as in {@link #dependency_annotation_types}. **/
-	public static final String[] tokendependency_annotation_types =
-	{
-		"lex.rf",
-		null, 
-		null
-	};
-
-
-	/** The order of elements is the same as in {@link #dependency_annotation_types}. **/
 	public static final String[] token_annotation_types =
 	{		
 		"tToken",
+		"t-node",
 		"Token",
 	};
 			
-
-	
 	public FSFileWriter(String filename) throws UnsupportedEncodingException, FileNotFoundException 
 	{
 		out = new PrintWriter(new OutputStreamWriter(new FileOutputStream(filename), "utf8"));

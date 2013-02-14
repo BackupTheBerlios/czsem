@@ -47,8 +47,8 @@ public class AddRemoveListsManager extends Container {
 	    AddRemoveListsManager qd = new AddRemoveListsManager();
 		qd.initComponents();
 		
-		qd.addLeftModelSynchronization(Config.getConfig().getDependencyConfig().getDependencyTypesSelected());
-		qd.addRightModelSynchronization(Config.getConfig().getDependencyConfig().getDependencyTypesAvailable());
+		qd.addLeftModelSynchronization(Config.getConfig().getDependencyConfig().getSelected().getDependencyTypes());
+		qd.addRightModelSynchronization(Config.getConfig().getDependencyConfig().getAvailable().getDependencyTypes());
 		
 		fr.add(qd);
 		
