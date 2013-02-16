@@ -14,6 +14,7 @@ import cz.cuni.mff.mirovsky.trees.TNode;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gate.gui.DialogBasedAnnotationEditor;
+import czsem.gui.NgQueryConfig;
 import czsem.gui.NgQueryDesigner;
 import czsem.gui.NgResultsBrowser;
 import czsem.gui.TreeVisualize;
@@ -68,6 +69,10 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 	    resultsBrowser = new NgResultsBrowser();
 	    resultsBrowser.initComponents();
 		tabs.addTab("Results", resultsBrowser);
+
+		NgQueryConfig config = new NgQueryConfig();
+		config.initComponents();
+		tabs.addTab("Config", config);
 
 	}
 	

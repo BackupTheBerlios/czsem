@@ -41,6 +41,49 @@ public class NetgraphQueryEval extends AbstractLanguageAnalyserWithInputOutputAS
 		return super.init();
 	}
 	
+	public static String encodeIntAlpha(int h){
+		int mod = ('Z'-'A'+1) * 2;
+		if (h < 0) h = -h;
+		
+		StringBuilder sb = new StringBuilder();
+		
+		do {
+			int resid = h % mod;
+			
+			if (resid > 'Z'-'A')
+			{
+				sb.insert(0, (char) ('a'+resid-mod/2));								
+			} else {
+				sb.insert(0, (char) ('A'+resid));				
+			}
+			
+			h /= mod;			
+		} while (h > 0);
+
+		
+		return sb.toString();		
+	}
+
+	public static String buildQueryStringHash(String qString){		
+		return encodeIntAlpha(qString.hashCode());		
+	}
+	
+	public static void main (String [] args) {
+		System.err.println(buildQueryStringHash("aabbaabbaabb"));
+		System.err.println(buildQueryStringHash("aabbaabbaa"));
+		System.err.println(buildQueryStringHash("bb"));
+		System.err.println(buildQueryStringHash(""));
+		System.err.println(buildQueryStringHash("aabbxaabbaabb"));
+		System.err.println(buildQueryStringHash("aafbbaabbaa"));
+		System.err.println(buildQueryStringHash("bnb"));
+		System.err.println(buildQueryStringHash("Q"));
+		System.err.println("----");
+		for (int a=0; a < 140; a++)
+		{
+			System.err.format("%s, ", encodeIntAlpha(a));
+		}
+	}
+	
 	@Override
 	public void execute() throws ExecutionException
 	{
@@ -53,6 +96,8 @@ public class NetgraphQueryEval extends AbstractLanguageAnalyserWithInputOutputAS
 		
 		Iterable<QueryMatch> results = queryObject.evaluate(data);
 		
+		int queryMatchOrd = 0;
+		
 		for (QueryMatch result : results)
 		{
 			for (NodeMatch match : result.getMatchingNodes())
@@ -63,6 +108,7 @@ public class NetgraphQueryEval extends AbstractLanguageAnalyserWithInputOutputAS
 					Annotation matchingAnnot = tokensAndDependenciesAS.get(match.getNodeId());
 					FeatureMap fm = Factory.newFeatureMap();
 					fm.put("matchingNodeId", match.getNodeId());
+					fm.put("queryMatchId", String.format("%s_%03d", buildQueryStringHash(getQueryString()), queryMatchOrd++));
 					outputAS.add(
 							matchingAnnot.getStartNode(),
 							matchingAnnot.getEndNode(),

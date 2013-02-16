@@ -8,10 +8,11 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Set;
 import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.AbstractAction;
 import javax.swing.AbstractListModel;
@@ -235,12 +236,11 @@ public class NgQueryDesigner extends Container  {
 
 	protected void fillAttrIndexAndNamesList() {
 		attrIndex = asIndexHelper.createQueryData().buildAttrIndex();
-
-		Set<String> keys = attrIndex.keySet();
-		String[] values = keys.toArray(new String[keys.size()+1]);
-		values[keys.size()] = NGTreeHead.META_ATTR_NODE_NAME; 
 		
-		attrNames.setModel(new ArrayListModel(values));
+		attrIndex.put(NGTreeHead.META_ATTR_NODE_NAME, new TreeSet<String>(Arrays.asList(new String [] {"subject", "predicate", "object"})));
+		attrIndex.put(NGTreeHead.META_ATTR_OPTIONAL, new TreeSet<String>(Arrays.asList(new String [] {NGTreeHead.META_ATTR_OPTIONAL_TRUE, "false"})));
+		
+		attrNames.setModel(new ArrayListModel(attrIndex.keySet()));
 	}
 
 }

@@ -9,13 +9,17 @@ import gate.AnnotationSet;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.creole.ExecutionException;
+import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
+import gate.creole.metadata.RunTime;
 import gate.util.InvalidOffsetException;
 
 @CreoleResource(name = "czsem AnnotationDependencySubtreeMarker", comment = "Marks the whole subtree for the union of all 'tokens' inside a given annotation.")
 public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDependencyMarker
 {
 	private static final long serialVersionUID = 671833725416131750L;
+
+	private int maxDepth = Integer.MAX_VALUE;
 
 	@Override
 	public void execute() throws ExecutionException
@@ -88,7 +92,7 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		SubtreeMarkInfo info = new SubtreeMarkInfo(annotation.getFeatures());
 		for (Annotation token : tokens)
 		{
-			info.mergeWith(markAnnotationDependencySubtreeForSingleToken(token.getId()));			
+			info.mergeWith(markAnnotationDependencySubtreeForSingleToken(token.getId(), 0));			
 		}
 		
 		info.fm.put("origSubTrID", annotation.getId());
@@ -110,21 +114,31 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		
 	}
 
-	protected SubtreeMarkInfo markAnnotationDependencySubtreeForSingleToken(Integer tokenID)
+	protected SubtreeMarkInfo markAnnotationDependencySubtreeForSingleToken(Integer tokenID, int depth)
 	{
 		SubtreeMarkInfo this_token_info = new SubtreeMarkInfo(inputTokensAS.get(tokenID));
 		
 		Iterable<Integer> children = treeIndex.getChildren(tokenID);		
-		if (children == null) return this_token_info;
+		if (depth >= getMaxDepth() || children == null) return this_token_info;
 		
 		for (Integer childID : children)
 		{
 			this_token_info.mergeWith(
-					markAnnotationDependencySubtreeForSingleToken(childID));
+					markAnnotationDependencySubtreeForSingleToken(childID, depth+1));
 					//recursive call
 		}
 		
 		return this_token_info;		
+	}
+
+	public Integer getMaxDepth() {
+		return maxDepth;
+	}
+
+	@CreoleParameter(defaultValue="2147483647")
+	@RunTime
+	public void setMaxDepth(Integer maxDepth) {
+		this.maxDepth = maxDepth;
 	}
 
 }

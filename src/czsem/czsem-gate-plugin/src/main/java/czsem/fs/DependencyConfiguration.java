@@ -46,33 +46,36 @@ public class DependencyConfiguration {
 		
 	}
 
-	public static DependencyConfig getDependencyConfig() throws ConfigLoadException {
-		Config cfg = Config.getConfig();
-		DependencyConfig depsCfg = cfg.getDependencyConfig();
+	public static DependencyConfig getDependencyConfig() {
+		DependencyConfig depsCfg;
+		Config cfg = null; 
 		
-		if (depsCfg == null) {
-			depsCfg = new DependencyConfig();
-			cfg.setDependencyConfig(depsCfg);
-			defaultConfigSelected.putToConfig(depsCfg.getSelected());
+		try {
+			cfg = Config.getConfig();
+			depsCfg = cfg.getDependencyConfig();
+			if (depsCfg != null) return depsCfg;
+		} catch (ConfigLoadException e) {}
+		
+		depsCfg = new DependencyConfig();
+
+		if (cfg != null) {
+			cfg.setDependencyConfig(depsCfg);			
 		}
 		
+		defaultConfigSelected.putToConfig(depsCfg.getSelected());		
 		return depsCfg;
 	}
 
 	public static DependencyConfiguration getSelectedConfigurationFromConfigOrDefault() {
-		try {
-			DependencyConfig depsCfg = getDependencyConfig();
-			List<TokenDependecy> tokenDepDefs = new ArrayList<FSSentenceWriter.TokenDependecy>(depsCfg.getSelected().getTokenDependencies().size());
-			
-			for (String s : depsCfg.getSelected().getTokenDependencies()) {
-				String[] split = s.split("\\.", 2);
-				if (split.length < 2) continue;
-				tokenDepDefs.add(new TokenDependecy(split[0], split[1]));
-			}
-			return new DependencyConfiguration(depsCfg.getSelected().getDependencyTypes(), tokenDepDefs);
-		} catch (Exception e) {
-			return defaultConfigSelected;			
+		DependencyConfig depsCfg = getDependencyConfig();
+		List<TokenDependecy> tokenDepDefs = new ArrayList<FSSentenceWriter.TokenDependecy>(depsCfg.getSelected().getTokenDependencies().size());
+		
+		for (String s : depsCfg.getSelected().getTokenDependencies()) {
+			String[] split = s.split("\\.", 2);
+			if (split.length < 2) continue;
+			tokenDepDefs.add(new TokenDependecy(split[0], split[1]));
 		}
+		return new DependencyConfiguration(depsCfg.getSelected().getDependencyTypes(), tokenDepDefs);
 	}
 
 	public Collection<String> getDependencyNames() {

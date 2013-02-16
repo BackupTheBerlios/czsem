@@ -5,6 +5,8 @@ import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -50,7 +52,7 @@ public class NgQueryConfig extends Container {
 		return panel_dependencies;
 	}
 
-	public void initComponents() throws ConfigLoadException {
+	public void initComponents() {
 		setLayout(new BorderLayout());
 
 		JPanel panel_center = new JPanel(new GridLayout(1, 2));
@@ -104,7 +106,16 @@ public class NgQueryConfig extends Container {
 				}
 			}
 		});
-		panel_south.add(buttonSave);		
+		panel_south.add(buttonSave);
+		
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentShown(ComponentEvent e) {
+				depMan.synchronizeModels();
+				tocDepMan.synchronizeModels();				
+			}			
+		});
+
 	}
 
 }
