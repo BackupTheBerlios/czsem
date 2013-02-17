@@ -8,11 +8,14 @@ import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
 import gate.corpora.DocumentContentImpl;
+import gate.creole.ExecutionException;
+import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 import gate.creole.dumpingPR.DumpingPR;
 import gate.util.InvalidOffsetException;
 
 import java.io.File;
+import java.net.MalformedURLException;
 
 import czsem.gate.learning.PRSetup;
 
@@ -30,6 +33,39 @@ public class HtmlExport {
 		String asName = "tmt2";
 		String [] annotationTypes = {"Sentence"};
 		String[] colorNames = {"red"};
+		
+		doExport(fileName, outputDir, asName, annotationTypes, colorNames);
+		
+	}
+
+	public static void addExportHeader(Document doc, String[] annotationTypes, String[] colorNames) throws InvalidOffsetException {
+		String prefix ="\n\n\n"+"body	{white-space: pre-wrap;}\n";
+		
+		StringBuilder sb = new StringBuilder(prefix);
+		for (int i = 0; i < annotationTypes.length; i++) {
+			sb.append(annotationTypes[i]);
+			sb.append("	{background: ");
+			sb.append(colorNames[i]);
+			sb.append(";}\n");
+		}
+		sb.append("\n");
+		
+		String docPrefix = sb.toString();
+		DocumentContent replacement = new DocumentContentImpl(docPrefix);
+		doc.edit(0L, 0L, replacement);
+		
+		AnnotationSet markupAs = doc.getAnnotations("Original markups");
+		
+		FeatureMap f = Factory.newFeatureMap();
+		markupAs.add(0L, doc.getContent().size(), "html", f);
+		markupAs.add(1L, (long) docPrefix.length(), "head", f);
+		markupAs.add(2L, docPrefix.length()-1L, "style", f);
+		markupAs.add((long) docPrefix.length(), doc.getContent().size(), "body", f);
+		
+	}
+
+	public static void doExport(String fileName, String outputDir, String asName, String[] annotationTypes, String[] colorNames) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException, ExecutionException {
+		new File(outputDir).mkdirs();
 		
 		new File(outputDir).mkdirs();
 		
@@ -60,32 +96,6 @@ public class HtmlExport {
 		c.add(doc);		
 		pipeline.setCorpus(c);
 		pipeline.execute();
-	}
-
-	public static void addExportHeader(Document doc, String[] annotationTypes, String[] colorNames) throws InvalidOffsetException {
-		String prefix ="\n\n\n"+"body	{white-space: pre-wrap;}\n";
-		
-		StringBuilder sb = new StringBuilder(prefix);
-		for (int i = 0; i < annotationTypes.length; i++) {
-			sb.append(annotationTypes[i]);
-			sb.append("	{background: ");
-			sb.append(colorNames[i]);
-			sb.append(";}\n");
-		}
-		sb.append("\n");
-		
-		String docPrefix = sb.toString();
-		DocumentContent replacement = new DocumentContentImpl(docPrefix);
-		doc.edit(0L, 0L, replacement);
-		
-		AnnotationSet markupAs = doc.getAnnotations("Original markups");
-		
-		FeatureMap f = Factory.newFeatureMap();
-		markupAs.add(0L, doc.getContent().size(), "html", f);
-		markupAs.add(1L, (long) docPrefix.length(), "head", f);
-		markupAs.add(2L, docPrefix.length()-1L, "style", f);
-		markupAs.add((long) docPrefix.length(), doc.getContent().size(), "body", f);
-		
 	}
 
 }
