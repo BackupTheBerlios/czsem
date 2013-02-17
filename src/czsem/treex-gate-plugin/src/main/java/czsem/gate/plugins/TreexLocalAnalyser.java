@@ -10,7 +10,8 @@ import java.util.List;
 import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
 
-@CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )")
+@CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )", 
+	helpURL="https://czsem-suite.atlassian.net/wiki/display/DOC/Treex+GATE+Plugin")
 public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 	private static final long serialVersionUID = -3111101835623696930L;
@@ -48,7 +49,7 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 
 	@CreoleParameter(comment="List of blocks to be used in the analysis. Each element can be either a Treex block or a .scen file.",
-			defaultValue="W2A::EN::Segment;W2A::EN::Tokenize;W2A::EN::NormalizeForms;W2A::EN::FixTokenization;W2A::EN::TagMorce;W2A::EN::FixTags;W2A::EN::Lemmatize")
+			defaultValue="W2A::CS::Segment;W2A::CS::Tokenize;W2A::CS::TagFeaturama lemmatize=1;W2A::CS::FixMorphoErrors")
 	public void setScenarioSetup(List<String> scenarioSetup) {
 		this.scenarioSetup = scenarioSetup;
 	}
