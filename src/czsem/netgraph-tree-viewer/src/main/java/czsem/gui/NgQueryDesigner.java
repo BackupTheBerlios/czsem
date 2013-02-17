@@ -119,10 +119,16 @@ public class NgQueryDesigner extends Container  {
 		attrNames.addListSelectionListener(new ListSelectionListener() {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
-				SortedSet<String> values = attrIndex.get(attrNames.getSelectedValue().toString());
-				if (values.size() < 500)
+				Object v = attrNames.getSelectedValue();
+				if (v == null) {
+					attrValues.setModel(emptyModel);
+					return;
+				}
+				
+				SortedSet<String> values = attrIndex.get(v.toString());
+				if (values.size() < 3000){					
 					attrValues.setModel(new ArrayListModel(values));
-				else {
+				} else {
 					attrValues.setModel(emptyModel);					
 				}
 			}
