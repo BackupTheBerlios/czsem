@@ -100,6 +100,7 @@ public class NetgraphQueryEval extends AbstractLanguageAnalyserWithInputOutputAS
 		
 		for (QueryMatch result : results)
 		{
+			queryMatchOrd++;
 			for (NodeMatch match : result.getMatchingNodes())
 			{
 				String name = match.getQueryNode().getName();
@@ -108,13 +109,13 @@ public class NetgraphQueryEval extends AbstractLanguageAnalyserWithInputOutputAS
 					Annotation matchingAnnot = tokensAndDependenciesAS.get(match.getNodeId());
 					FeatureMap fm = Factory.newFeatureMap();
 					fm.put("matchingNodeId", match.getNodeId());
-					fm.put("queryMatchId", String.format("%s_%03d", buildQueryStringHash(getQueryString()), queryMatchOrd++));
+					fm.put("queryMatchId", String.format("%s_%03d", buildQueryStringHash(getQueryString()), queryMatchOrd));
 					outputAS.add(
 							matchingAnnot.getStartNode(),
 							matchingAnnot.getEndNode(),
 							name, fm);					
 				}
-			}			
+			}
 		}
 	}
 
