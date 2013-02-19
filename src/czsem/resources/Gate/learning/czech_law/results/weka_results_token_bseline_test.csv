@@ -1,0 +1,5 @@
+Key_Dataset,Key_Run,Key_Fold,Key_Scheme,Key_Scheme_options,Key_Scheme_version_ID,DateTime,Number Correct,Number Missing,Number Spurious,Number Overlap,Strict Precision,Strict Recall,Strict $F_1$,Lenient Precision,Lenient Recall,Lenient $F_1$,Average Precision,Average Recall,Average $F_1$,Accuracy,Tokens,Number Training Inst,Number Training Docs,Time Training,Time Testing
+[InstituceToken],1,1,baseline,Key,a,20130131_170318,0,1632,0,0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.9734931540223164,61569,-1,-1,-1,-1
+[Rozhodnuti_souduToken],2,1,baseline,Key,a,20130131_170351,0,2294,0,0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.9627409897838198,61569,-1,-1,-1,-1
+[UcinnostToken],3,1,baseline,Key,a,20130131_170423,0,129,0,0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.9979047897480875,61569,-1,-1,-1,-1
+[ZakonToken],4,1,baseline,Key,a,20130131_170456,0,4498,0,0,1.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,0.0,0.9269437541619971,61569,-1,-1,-1,-1
