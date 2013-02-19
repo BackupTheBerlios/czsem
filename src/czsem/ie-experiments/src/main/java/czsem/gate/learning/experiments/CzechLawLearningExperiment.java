@@ -1,5 +1,7 @@
 package czsem.gate.learning.experiments;
 
+import gate.Corpus;
+import gate.DataStore;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
@@ -16,9 +18,8 @@ import czsem.gate.learning.DataSet;
 import czsem.gate.learning.DataSet.DataSetImpl;
 import czsem.gate.learning.DataSet.DataSetReduce;
 import czsem.gate.learning.DataSet.DatasetFactory;
-import czsem.gate.learning.MLEngine.PaumEngine;
-import czsem.gate.learning.MLEngineEncapsulate.CreatePersistentMentions;
-import czsem.gate.learning.MLEngineEncapsulate.MLEvaluate;
+import czsem.gate.learning.MLEngine.*;
+import czsem.gate.learning.MLEngineEncapsulate.*;
 import czsem.gate.learning.experiments.MachineLearningExperiment.TrainTest;
 import czsem.gate.plugins.LearningEvaluator;
 import czsem.gate.utils.GateUtils;
@@ -38,6 +39,12 @@ public class CzechLawLearningExperiment {
 					"Treex",
 					"czech_law",
 					learnigAnnotationTypes);
+		}
+		
+		public Corpus getTestCorpus() throws PersistenceException, ResourceInstantiationException {
+		    DataStore ds = GateUtils.openDataStore(dataStore);
+		    Corpus corpus = GateUtils.loadCorpusFormDatastore(ds, "test___1354799449330___3473");			
+		    return corpus; 
 		}
 
 		public static DatasetFactory getFactory() {
@@ -77,12 +84,21 @@ public class CzechLawLearningExperiment {
 				MachineLearningExperiment experiment = new MachineLearningExperiment(dataset, engines);
 				
 				if (numFolds == 1)
+				{
+					Corpus testCorpus = ((CzechLawDataSet) ds_factory.createDataset(annot_type)).getTestCorpus();
+
 					experiment.trainOnly();
+
+					experiment.testOnly(testCorpus);
+					
+					logger.info("saving results, counting time statistics...");
+					MachineLearningExperimenter.saveResults(results_file_name);
+				}
 				else
 				{
 					//experiment.crossValidation(numFolds);
 					experiment.controlledCrossValidation(10, 
-							new File("../intlib/train-10-fold-cross/").toURI().toURL(), null);
+							new File("../intlib/train-10-fold-cross/").toURI().toURL(), null, false);
 				    
 					logger.info("saving results, counting time statistics...");
 					MachineLearningExperimenter.saveResults(results_file_name);
@@ -99,33 +115,59 @@ public class CzechLawLearningExperiment {
 		MachineLearningExperimenter.initEnvironment();
 		//Logger.getLogger(CrossValidation.class).setLevel(Level.DEBUG);
 		
-		String results_file_name = "weka_results_long.csv";
+		String results_file_name = "weka_results_token_bseline_test.csv";
 		
 		new File(results_file_name).delete();
 		
 		String[] learnigAnnotationTypes = {
+				/*
 				//Cenovy_vymer	1
 				//Document	83
 				//Dokument	7
 				"Instituce",		//2491
-				"Plne_zneni",		//18
+				//"Plne_zneni",		//18
 				"Rozhodnuti_soudu",	//899
 				"Ucinnost", 		//114
 				//Vyhlaska	1
 				"Zakon",			//1105
-				"Zkratka",			//163
+				//"Zkratka",			//163
+				
+				/**/
+				"InstituceToken",		
+				"Rozhodnuti_souduToken",
+				"UcinnostToken", 		
+				"ZakonToken",
+				/**/
+
 		};
 		
 		//MainFrame.getInstance().setVisible(true);
 
 		performExperiment(
-				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, -10, results_file_name, 
-//				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, 10, results_file_name, 
-				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum/Paum_config.xml"))),
+				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, 1, results_file_name, 
+//				CzechLawDataSet.getFactory(), 1.0, learnigAnnotationTypes, 1, 10, results_file_name,
+
+//				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_small/Paum_small.xml"))),
+				new MLEvaluate(new FakeEngine("baseline"))
+				/*
+				new MLEvaluate(new FakeEngine("JTagger")),
+				new MLEvaluate(new FakeEngine("Paum_small")),
+				new MLEvaluate(new FakeEngine("Paum")),
+				new MLEvaluate(new FakeEngine("Paum_pos")),
+				new MLEvaluate(new FakeEngine("Paum_pos_orth_sent"))
+
+
+				/*
+				new MLEvaluate(new FakeEngine("JTagger")),
+
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_small/Paum_small.xml"))),
-				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_afun/Paum_config_afun.xml"))),
+				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum/Paum_config.xml"))),
+//				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_afun/Paum_config_afun.xml"))),
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos/Paum_config_pos.xml"))),
 				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos_orth_sent/Paum_config_pos_orth_sent.xml")))
+				/**/
+//				new MLEvaluate(new CreatePersistentMentions(new PaumEngine("Paum_pos_orth_sent_tolerant/Paum_config_pos_orth_sent_tolerant.xml")))
+				
 		);
 		
 	}

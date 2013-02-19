@@ -44,9 +44,9 @@ public class HistogramBuilder {
 		Document doc = Factory.newDocument(new File(fileName).toURI().toURL(), "utf8");
 		System.err.println("reading finished");
 		
-		showTree(doc);
+		//showTree(doc);
 		
-		//BuildHistogram(doc);
+		BuildHistogram(doc);
 		
 		//FsExport(doc);
 		/**/

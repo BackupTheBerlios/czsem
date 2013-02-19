@@ -1,5 +1,6 @@
 package czsem.gate.learning;
 
+import gate.creole.annotdelete.AnnotationDeletePR;
 import gate.creole.annotransfer.AnnotationSetTransfer;
 import gate.creole.ml.MachineLearningPR;
 import gate.learning.LearningAPIMain;
@@ -165,12 +166,12 @@ public abstract class MLEngine implements TrainTest
 			super("Paum", "Paum_config.xml");
 		}
 		
-		/*
+		/**/
 		@Override
 		public boolean getClearOutputAsBeforeTesting() {
 			return false;
 		}
-		*/
+		/**/
 
 		@Override
 		public List<PRSetup> getTrainControllerSetup(MLEngineConfig config) throws MalformedURLException
@@ -193,7 +194,7 @@ public abstract class MLEngine implements TrainTest
 			List<PRSetup> prs = new ArrayList<PRSetup>();
 			
 			//delete mentions
-			/*
+			/**/
 			prs.add(new PRSetup.SinglePRSetup(AnnotationDeletePR.class, "delete mentions")
 				.putFeatureList("annotationTypes", config.learnigAnnotationType)
 				.putFeatureList("setsToRemove", config.outputAS));
