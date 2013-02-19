@@ -92,43 +92,43 @@
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>czsem-common</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>czsem-gate-plugin</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>tecto-mt-gate-plugin</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>treex-gate-plugin</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>netgraph-tree-viewer</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
 			<artifactId>fuzzy-ilp-classifier</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>cuni.mff</groupId>
 			<artifactId>intlib</artifactId>
-			<version>2.4-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
