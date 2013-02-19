@@ -5,7 +5,6 @@ import gate.AnnotationSet;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -77,15 +76,14 @@ public class NgQueryDesigner extends Container  {
         query_tree_view_scroll_pane.setPreferredSize(new Dimension(500,400));
         query_tree_view_scroll_pane.setBorder(BorderFactory.createTitledBorder("query tree:"));
         
-        JPanel attrsPanel = new JPanel(new GridLayout(1, 2, 2, 0));
-        JScrollPane attrsScrollPane = new JScrollPane(attrsPanel);
+        attrNames = new JList();
+        attrValues = new JList();
+        JSplitPane attrsSplit = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, attrNames, attrValues);
+        JScrollPane attrsScrollPane = new JScrollPane(attrsSplit);
         query_tree_view_scroll_pane.setPreferredSize(new Dimension(200,0));
         attrsScrollPane.setBorder(BorderFactory.createTitledBorder("attributes:"));
         //attrsPanel.setBorder(BorderFactory.createTitledBorder("attributes:"));
-        attrNames = new JList();
-        attrsPanel.add(attrNames);
-        attrValues = new JList();
-        attrsPanel.add(attrValues);
+
         initAttrListEvents();
         
         
