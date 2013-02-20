@@ -92,8 +92,9 @@ public class FSSentenceWriter
 		
 		setupNodeOrder();
 		
-		tw.printTree();
-		out.println();
+		if (tw.printTree()) {
+			out.println();
+		}
 	}
 
 	public class TokenOrderComprator implements Comparator<Integer>

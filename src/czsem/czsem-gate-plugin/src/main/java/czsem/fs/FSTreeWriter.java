@@ -31,9 +31,13 @@ public class FSTreeWriter	{
 	}
 
 
-	public void printTree()
+	public boolean printTree()
 	{		
-		printNode(getRootNode());
+		int root = getRootNode();
+		if (root == -1) return false;
+		
+		printNode(root);
+		return true;
 	}
 
 

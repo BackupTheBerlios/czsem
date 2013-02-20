@@ -1,11 +1,15 @@
 package czsem.gate.plugins;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import gate.Annotation;
 import gate.AnnotationSet;
+import gate.Factory;
+import gate.Gate;
 import gate.creole.metadata.CreoleResource;
+import gate.gui.MainFrame;
 import gate.gui.annedit.AnnotationDataImpl;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JDialog;
 import javax.swing.JTabbedPane;
@@ -14,6 +18,7 @@ import cz.cuni.mff.mirovsky.trees.TNode;
 import czsem.fs.FSSentenceStringBuilder;
 import czsem.fs.query.FSQueryParser.SyntaxError;
 import czsem.gate.gui.DialogBasedAnnotationEditor;
+import czsem.gate.utils.GateUtils;
 import czsem.gui.NgQueryConfig;
 import czsem.gui.NgQueryDesigner;
 import czsem.gui.NgResultsBrowser;
@@ -130,6 +135,15 @@ public class NetgraphTreeViewer extends DialogBasedAnnotationEditor {
 			return true;
 
 		return false;
+	}
+	
+	public static void main(String [] args) throws Exception {
+		GateUtils.initGate();
+		Gate.getCreoleRegister().registerComponent(NetgraphTreeViewer.class);
+		
+		MainFrame.getInstance().setVisible(true);
+		
+		Factory.newDocument(new File("../intlib/documents/ucto_queryRes1.gate.xml").toURI().toURL());
 	}
 	
 }
