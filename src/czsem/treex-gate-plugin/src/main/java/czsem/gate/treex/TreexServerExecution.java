@@ -4,6 +4,7 @@ import gate.creole.ResourceInstantiationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -180,6 +181,8 @@ public class TreexServerExecution {
 		eh.append("PERL5LIB", path_sep + cfg.getCzsemResourcesDir()+"/Treex"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/lib"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/oldlib");
+		eh.append("PERL5LIB", path_sep + System.getProperty("user.home") + "/perl5/lib/perl5");
+		
 		eh.setIfEmpty("TMT_ROOT", cfg.getTmtRoot());
 		eh.setIfEmpty("JAVA_HOME", System.getProperty("java.home"));
 
@@ -194,6 +197,11 @@ public class TreexServerExecution {
 			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
 
 		process = tmt_proc;		
+	}
+	
+	public static void main (String args []) {
+		for (Entry<Object, Object> p : System.getProperties().entrySet())
+			System.err.println(p);
 	}
 	
 	public void doHandshake(String handshake_code) throws Exception {
