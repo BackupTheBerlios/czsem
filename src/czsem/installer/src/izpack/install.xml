@@ -85,7 +85,9 @@
 			<fileset dir="../../../czsem-common/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>
 			<fileset dir="../../../resources" targetdir="$INSTALL_PATH/resources" override="asktrue" excludes="**/savedFiles/**"/>
 			<fileset dir="configuration" targetdir="$INSTALL_PATH/configuration" override="asktrue" />
-			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>			
+			<parsable encoding="UTF8" targetfile="$INSTALL_PATH/configuration/czsem_config.xml" type="xml"/>
+			<executable targetfile="$INSTALL_PATH/resources/Treex/install.cmd"/>			
+			<executable targetfile="$INSTALL_PATH/resources/Treex/run_treex_server.sh"/>			
 		</pack>
 
 		<pack name="GATE Plugins" required="no">
@@ -131,15 +133,16 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			<fileset dir="../../../intlib/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
 		</pack>
 
-		<pack name="fuzzy-ilp-classifier" preselected="yes" required="no">
+		<pack name="fuzzy-ilp-classifier" preselected="no" required="no">
 			<description />
 			<depends packname="czsem-common" />
 			<depends packname="Select ILP location" />
 			<depends packname="Weka integration" />			
 			<fileset dir="../../../fuzzy-ilp-classifier/target/prepared-installer-files" targetdir="$INSTALL_PATH" override="true"/>			
+			<executable targetfile="$INSTALL_PATH/fuzzy-ilp-classifier/run-weka-with-fuzzy-ilp.sh"/>			
 		</pack>
 
-		<pack name="Gate integration" required="no" preselected="yes" id="gate">
+		<pack name="Gate integration" required="no" preselected="yes">
 			<description>Regiters plugins directories and makes it possible to run Czsem Gate dependent modules from command line.</description>
 		</pack>
 
@@ -159,12 +162,12 @@ If you want to use the ILP wrapper, it is necessary to select also the "Select I
 			<description>Install aditional Perl modules (e.g. XML-RPC) allowing Treex to run as local server.</description>
 		</pack>
 
-		<pack name="Select ILP location" required="no" preselected="yes"
+		<pack name="Select ILP location" required="no" preselected="no"
 			id="ilp">
 			<description>Configures Czsem to work with an ILP system. It is necesary for the induction tasks: IE learning and Fuzzy ILP Classifier</description>
 		</pack>
 
-		<pack name="Weka integration" preselected="yes" required="no" id="weka">
+		<pack name="Weka integration" preselected="no" required="no">
 			<description>Adds ILP Classifier to Weka. Crisp ILP Classifier and Fuzzy ILP Classifier can then be used inside the Weka (including GUI).</description>
 			<file override="asktrue" src="GenericPropertiesCreator.props"
 				targetdir="$USER_HOME/" />
