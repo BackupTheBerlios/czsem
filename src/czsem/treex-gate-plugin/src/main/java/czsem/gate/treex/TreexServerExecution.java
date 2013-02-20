@@ -182,6 +182,7 @@ public class TreexServerExecution {
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/lib"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/oldlib");
 		eh.append("PERL5LIB", path_sep + System.getProperty("user.home") + "/perl5/lib/perl5");
+		//TODO PERL5LIB = "/perl5/lib/perl5/i386-linux-..."
 		
 		eh.setIfEmpty("TMT_ROOT", cfg.getTmtRoot());
 		eh.setIfEmpty("JAVA_HOME", System.getProperty("java.home"));
@@ -202,6 +203,7 @@ public class TreexServerExecution {
 	public static void main (String args []) {
 		for (Entry<Object, Object> p : System.getProperties().entrySet())
 			System.err.println(p);
+		System.err.println(System.getenv("PERL5LIB"));
 	}
 	
 	public void doHandshake(String handshake_code) throws Exception {
