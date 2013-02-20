@@ -1,6 +1,6 @@
 <processing>
-  <job name="inslall Perl modules">
-  	<executeForPack name="Aditional Perl modules"/>
+  <job name="perform Gate integration">
+  	<executeForPack name="Gate integration"/>
     <executefile name="java" workingDir="$INSTALL_PATH/bin">
       <env>CZSEM_CONFIG=$INSTALL_PATH/configuration/czsem_config.xml</env>
       <arg>-jar</arg>
