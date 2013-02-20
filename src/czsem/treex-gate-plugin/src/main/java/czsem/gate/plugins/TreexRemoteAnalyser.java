@@ -62,7 +62,7 @@ public class TreexRemoteAnalyser extends TreexAnalyserBase {
 	}
 
 	@Optional
-	@CreoleParameter(comment="LangCode must be valid ISO 639-1 code. E.g. en, de, cs",	defaultValue="en")			
+	@CreoleParameter(comment="LangCode must be valid ISO 639-1 code. E.g. en, de, cs",	defaultValue="cs")			
 	public void setLanguageCode(String languageCode) {
 		this.languageCode = languageCode;
 	}
