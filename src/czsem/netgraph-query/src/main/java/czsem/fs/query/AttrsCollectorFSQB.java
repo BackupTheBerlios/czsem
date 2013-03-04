@@ -15,6 +15,8 @@ public class AttrsCollectorFSQB implements FSQueryBuilder{
 	
 	public static String[] collectAttributes(String fsString) throws SyntaxError
 	{
+		if (fsString == null || fsString.length() == 0) return new String [0];
+		
 		AttrsCollectorFSQB builder = new AttrsCollectorFSQB();
 		FSQueryParser parser = new FSQueryParser(builder);
 		

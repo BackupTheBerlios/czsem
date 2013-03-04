@@ -183,6 +183,8 @@ public class NgQueryDesigner extends Container  {
 	protected void updateQuery() {
 		try {
 			String[] attrs = AttrsCollectorFSQB.collectAttributes(getQueryString());
+			if (attrs.length == 0) attrs = new String [] {""};
+			
 			forestDispaly.setForest(attrs, getQueryString());
 			
 			for (int i = 0; i < attrs.length; i++) {
