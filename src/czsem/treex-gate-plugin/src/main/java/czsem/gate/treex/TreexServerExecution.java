@@ -176,7 +176,8 @@ public class TreexServerExecution {
 		
 		
 		ProcessBuilder pb = new ProcessBuilder(cmdarray);
-		pb.directory(new File(cfg.getTreexDir()));
+		File treexDir = new File(cfg.getTreexDir());
+		pb.directory(treexDir);
 		EnvMapHelper eh = new EnvMapHelper(pb.environment());
 		eh.append("PERL5LIB", path_sep + cfg.getCzsemResourcesDir()+"/Treex"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/lib"); 
@@ -185,7 +186,14 @@ public class TreexServerExecution {
 		eh.append("PERL5LIB", path_sep + System.getProperty("user.home") + "/perl5/lib/site_perl");
 		//The architecture specific directories are being searched by perl automatically
 		
-		eh.setIfEmpty("TMT_ROOT", cfg.getTmtRoot());
+		String tmt = cfg.getTmtRoot();
+		if (! new File(tmt).exists()) {
+			if (new File(System.getProperty("user.home")+"/.treex").exists())
+				tmt = System.getProperty("user.home")+"/.treex";
+			else
+				tmt = treexDir.getParent();				
+		}
+		eh.setIfEmpty("TMT_ROOT", tmt);
 		eh.setIfEmpty("JAVA_HOME", System.getProperty("java.home"));
 
 		ProcessExec tmt_proc = new ProcessExec();
