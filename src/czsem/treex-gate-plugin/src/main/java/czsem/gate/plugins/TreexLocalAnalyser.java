@@ -1,10 +1,12 @@
 package czsem.gate.plugins;
 
+import gate.Gate;
 import gate.Resource;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 
+import java.net.URL;
 import java.util.List;
 
 import czsem.gate.treex.TreexAnalyserBase;
@@ -29,6 +31,8 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 
 	@Override
 	public Resource init() throws ResourceInstantiationException {
+		//debugClassloader();
+		
 		TreexServerExecution exec = new TreexServerExecution();
 		exec.show_treex_output = getShowTreexLogInConsole();
 		exec.setPortNumber(getServerPortNumber());
@@ -47,6 +51,38 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 		return super.init();
 	}
 
+
+	public void debugClassload(String name) {
+		URL url = getClass().getClassLoader().getResource(name.replace('.', '/') + ".class");
+		System.err.println(url);
+
+		url = Gate.getClassLoader().getResource(name.replace('.', '/') + ".class");
+		System.err.println(url);
+
+		url = Gate.getClassLoader().getParent().getResource(name.replace('.', '/') + ".class");
+		System.err.println(url);
+		
+		System.err.println("---");
+		try {
+			getClass().getClassLoader().loadClass(name);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void debugClassloader() {
+		debugClassload("org.apache.log4j.Logger");
+		debugClassload("org.xml.sax.SAXException");
+		debugClassload("org.xml.sax.ContentHandler");
+		debugClassload("org.xml.sax.Attributes");
+		debugClassload("org.xml.sax.helpers.AttributesImpl");
+		debugClassload("org.xml.sax.InputSource");
+		debugClassload("javax.xml.parsers.ParserConfigurationException");
+		debugClassload("javax.xml.parsers.SAXParserFactory");
+		debugClassload("javax.xml.parsers.SAXParser");
+		debugClassload("org.xml.sax.SAXParseException");
+		debugClassload("org.xml.sax.XMLReader");
+	}
 
 	@CreoleParameter(comment="List of blocks to be used in the analysis. Each element can be either a Treex block or a .scen file.",
 			defaultValue="W2A::CS::Segment;W2A::CS::Tokenize;W2A::CS::TagFeaturama lemmatize=1;W2A::CS::FixMorphoErrors")

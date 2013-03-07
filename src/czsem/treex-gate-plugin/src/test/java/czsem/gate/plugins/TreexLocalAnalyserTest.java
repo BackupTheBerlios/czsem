@@ -6,8 +6,10 @@ import gate.Document;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
+import gate.ProcessingResource;
 import gate.creole.SerialAnalyserController;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -17,12 +19,13 @@ import org.testng.annotations.Test;
 import czsem.Utils;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
+import czsem.gate.utils.Config;
 import czsem.gate.utils.GateUtils;
 
 public class TreexLocalAnalyserTest {
 	
 	@Test(groups = { "slow" })
-	public void czechNETest() throws Exception {
+	public static void czechNETest() throws Exception {
     	GateUtils.initGateInSandBox();
     	Utils.loggerSetup(Level.OFF);
     
@@ -63,7 +66,7 @@ public class TreexLocalAnalyserTest {
 
 	
 	@Test(groups = { "slow" })
-	public void englishFeaturamaTest() throws Exception {
+	public static void englishFeaturamaTest() throws Exception {
     	GateUtils.initGateInSandBox();
     	
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
@@ -103,7 +106,7 @@ public class TreexLocalAnalyserTest {
 	}
 
 	@Test
-	public void englishSimpleTest() throws Exception {
+	public static void englishSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();
     
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
@@ -137,7 +140,7 @@ public class TreexLocalAnalyserTest {
 	
 
 	@Test(groups = { "slow" })
-	public void czechFullTest() throws Exception {
+	public static void czechFullTest() throws Exception {
     	GateUtils.initGateInSandBox();
     	Utils.loggerSetup(Level.OFF);
     
@@ -168,8 +171,22 @@ public class TreexLocalAnalyserTest {
 		GateUtils.deleteAllPublicGateResources();
 	}
 
+	@Test(groups = { "slow" })
+	public static void inintFromPluginDirTest() throws Exception {
+		GateUtils.initGate();
+		GateUtils.registerPluginDirectory(new File(Config.getConfig().getCzsemPluginDir()
+				.replaceFirst("/czsem-gate-plugin/.*$", "/treex-gate-plugin/target/prepared-installer-files/treex-gate-plugin")));		
+		
+		ProcessingResource pr = new SinglePRSetup(TreexLocalAnalyser.class)
+			.putFeature("serverPortNumber", 9991)	
+			.putFeature("showTreexLogInConsole", true)	
+			.putFeature("verifyOnInit", true).createPR();
+		
+		Factory.deleteResource(pr);
+	}
+
 	@Test
-	public void czechSimpleTest() throws Exception {
+	public static void czechSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();
     	Utils.loggerSetup(Level.ALL);
     

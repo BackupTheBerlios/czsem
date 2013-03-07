@@ -105,31 +105,31 @@ sub startServer
   );
   
   try {
-    print "Starting Treex RPC server at: \n";
-    print "  http://localhost:$port_number \n";
+    print STDERR "Starting Treex RPC server at: \n";
+    print STDERR "  http://localhost:$port_number \n";
     my $host = hostname;
-    print "  http://$host:$port_number \n";
+    print STDERR "  http://$host:$port_number \n";
     my $ipv4 = Net::Address::IP::Local->public_ipv4;  
-    print "  http://$ipv4:$port_number \n";
+    print STDERR "  http://$ipv4:$port_number \n";
   } 
   catch Net::Address::IP::Local::Error with {
     my $ex = shift;
     my $errMsg = $ex->stringify;
-    print "WARNING network error registered:\n  $errMsg";
+    print STDERR "WARNING network error registered:\n  $errMsg";
   };
 
   ### IPv6 ###
   try {
     my $ipv6 = Net::Address::IP::Local->public_ipv6;  
-    print "  http://[$ipv6]:$port_number \n";
+    print STDERR "  http://[$ipv6]:$port_number \n";
   } 
   catch Net::Address::IP::Local::Error with {
     my $ex = shift;
     my $errMsg = $ex->stringify;
-    print "INFO IPv6 not available:\n  $errMsg";
+    print STDERR "INFO IPv6 not available:\n  $errMsg";
   };
   
-  print "\nHandshake hash: $handshake_hash\n";
+  print STDERR "\nHandshake hash: $handshake_hash\n";
   
   $srv->server_loop; # Just work
 }
