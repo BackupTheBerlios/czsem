@@ -135,10 +135,10 @@ public class Config extends czsem.utils.Config
 		setTmtRoot("C:\\workspace\\tectomt");
 		setTreexDir("C:\\workspace\\treex\\svn\\treex");
 		setTredRoot("C:\\tred");
-		setGateHome("C:\\Program Files\\gate\\GATE-7.0");
+		setGateHome("C:\\Program Files\\gate\\GATE_Developer_7.1");
 		setCzsemProjectRelativePaths("C:\\workspace\\czsem_git\\src\\czsem");
 		setCzsemPluginDir("C:\\workspace\\czsem_git\\src\\czsem" + "/czsem-gate-plugin/target/prepared-installer-files/czsem-gate-plugin");
-		setTempRelativePaths(        "C:\\workspace\\czsem_git\\src\\czsem\\temp");
+		setTempRelativePaths("C:\\workspace\\czsem_git\\src\\czsem\\temp");
 	}
 
 	protected void setCzsemProjectRelativePaths(String projPath) {
