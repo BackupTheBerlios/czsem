@@ -277,6 +277,8 @@ sub encodeLoadedDoc
       push (@$zones, $zone);
     }
   }
+  
+  log_info 'Document ready for network transfer.';
   	
   return $zones;
 }

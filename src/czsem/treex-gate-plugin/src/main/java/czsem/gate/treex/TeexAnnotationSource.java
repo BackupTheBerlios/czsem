@@ -236,33 +236,15 @@ public class TeexAnnotationSource implements AnnotationSource {
 		}
 
 		@Override
-		public Iterable<SeqAnnotable> getOrderedTokens() {
+		public List<SeqAnnotable> getOrderedTokens() {
 			List<Map<String, Object>> tocs = findSentenceTokenNodes();
 			sortTokens(tocs);
-			final Iterator<Map<String, Object>> iterator = tocs.iterator(); 
-			return new Iterable<Annotator.SeqAnnotable>() {
-				
-				@Override
-				public Iterator<SeqAnnotable> iterator() {
-					return new Iterator<Annotator.SeqAnnotable>() {
-						
-						@Override
-						public void remove() {
-							throw new UnsupportedOperationException();							
-						}
-						
-						@Override
-						public SeqAnnotable next() {
-							return new TreexToken(iterator.next());
-						}
-						
-						@Override
-						public boolean hasNext() {
-							return iterator.hasNext();
-						}
-					};
-				}
-			};
+			List<SeqAnnotable> ret = new ArrayList<Annotator.SeqAnnotable>(tocs.size());
+			for (int t=0; t<tocs.size(); t++)
+			{
+				ret.add(new TreexToken(tocs.get(t))); 
+			}
+			return ret;
 		}
 
 		protected List<Map<String, Object>> findSentenceTokenNodes() {

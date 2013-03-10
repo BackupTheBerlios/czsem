@@ -6,6 +6,8 @@ import gate.Document;
 import gate.FeatureMap;
 import gate.util.InvalidOffsetException;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 import czsem.gate.externalannotator.RecursiveEntityAnnotator.SecondaryEntity;
@@ -50,7 +52,7 @@ public class Annotator implements AnnotatorInterface {
 	}
 
 	public static interface Sentence extends SeqAnnotable {
-		Iterable<SeqAnnotable> getOrderedTokens();
+		List<SeqAnnotable> getOrderedTokens();
 		void annotateSecondaryEntities(AnnotatorInterface annotator) throws InvalidOffsetException;		
 	}
 
@@ -62,6 +64,10 @@ public class Annotator implements AnnotatorInterface {
 	private SequenceAnnotator seq_anot;
 	private AnnotationSet as;
 	
+	public void setSeqAnot(SequenceAnnotator seq_anot) {
+		this.seq_anot = seq_anot;
+	}
+
 	public void annotate(
 			AnnotationSource annotationSource,
 			Document doc,
@@ -83,16 +89,54 @@ public class Annotator implements AnnotatorInterface {
     	    	
     	seq_anot.restorePreviousAndBackupCurrent();
     	
-		for (SeqAnnotable token : s.getOrderedTokens())
-		{
-			safeAnnotateSeq(token);
-		}
+		safeAnnotateIterableSeq(s.getOrderedTokens());
 		
 		s.annotateSecondaryEntities(this);
 
 		//important in cases, when there are no tokens 
 		seq_anot.restorePreviousAndBackupCurrent();
 
+	}
+
+	protected int annotateIterableSeqStep(List<SeqAnnotable> sa, int i) throws InvalidOffsetException {
+		SeqAnnotable next = sa.get(i);
+		try {
+			annotateSeq(next);
+			return i;
+		} catch (CannotAnnotateCharacterSequence e) {
+			int j = 0;
+			if (e.annotator_content.charAt(e.last_start_index) == '.' && e.token.equals("<") && sa.size() > i+5 &&
+					sa.get(i+ ++j).getString().equals("<") &&
+					sa.get(i+ ++j).getString().equals("<") &&
+					sa.get(i+ ++j).getString().equals("DOT") &&
+					sa.get(i+ ++j).getString().equals(">") &&
+					sa.get(i+ ++j).getString().equals(">"))
+			{
+				//DOT
+				annotateSeq(sa.get(i+ 3));
+				i+= 5;
+				return i;
+			}
+			throw e;
+		}
+	}
+
+	protected void safeAnnotateIterableSeq(List<SeqAnnotable> sa) throws InvalidOffsetException {
+		for (int i=0; i<sa.size(); i++)
+		{
+			try {
+				i = annotateIterableSeqStep(sa, i);
+			} catch (CannotAnnotateCharacterSequence e) {
+				safeAnnotateSeq(sa.get(i));
+			}
+		}
+	}
+
+	protected void annotateIterableSeq(List<SeqAnnotable> sa) throws InvalidOffsetException {
+		for (int i=0; i<sa.size(); i++)
+		{
+			i = annotateIterableSeqStep(sa, i);
+		}
 	}
 
 	protected void safeAnnotateSeq(SeqAnnotable seqAnn) throws InvalidOffsetException {
@@ -141,6 +185,10 @@ public class Annotator implements AnnotatorInterface {
 		
 		annotate(dAnn, ix1, ix2);
 		
+	}
+
+	public void setAS(AnnotationSet as) {
+		this.as = as; 		
 	}
 
 }

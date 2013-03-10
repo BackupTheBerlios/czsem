@@ -200,8 +200,8 @@ public class TreexLocalAnalyserTest {
 	    			.putFeature("serverPortNumber", 9998)	
 	    			.putFeature("languageCode", "cs")
 	    			.putFeatureList("scenarioSetup",
-	    					"W2A::CS::Segment")//,
-//	    					"W2A::CS::Tokenize")//,
+	    					"W2A::CS::Segment",
+	    					"W2A::CS::Tokenize")//,
 //	    					"W2A::CS::TagMorce",
 //	    					"W2A::CS::FixMorphoErrors")
 	    };

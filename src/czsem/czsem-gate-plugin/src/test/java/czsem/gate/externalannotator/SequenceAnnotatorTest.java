@@ -8,6 +8,18 @@ import static org.testng.AssertJUnit.*;
 
 public class SequenceAnnotatorTest 
 {
+	@Test(expectedExceptions = StringIndexOutOfBoundsException.class)
+	public void testNextTokenError()
+	{
+		SequenceAnnotator sa = new SequenceAnnotator("Hallo this\nstrange  world !", 0);
+		sa.nextToken("Hallo");
+		sa.nextToken("this");
+//		sa.nextToken("strange");
+		sa.nextToken("great");
+		sa.nextToken("world");
+		sa.nextToken("!");
+	}
+
 	@Test
 	public void testNextToken1()
 	{
@@ -244,6 +256,15 @@ public class SequenceAnnotatorTest
 		assertEquals(4, sa.lastStart());
 		sa.nextToken("Zákon č. 250/2000 Sb<<<DOT>>, o rozpočtových pravidlech územních rozpočtů, ve znění pozdějších předpisů. 11e) Nařízení (ES) č. 1606/2002 Evropského parlamentu a Rady ze dne 19. července 2002, o používání Mezinárodních účetních standardů.");
 		assertEquals(179, sa.lastStart());
+	}
+
+	@Test
+	public void testNextTokenDot() {
+		SequenceAnnotator sa = new SequenceAnnotator(". konec", 0);
+		sa.nextToken("DOT");
+		sa.nextToken("konec");
+		assertEquals(2, sa.lastStart());
+		assertEquals(7, sa.lastEnd());
 	}
 
 }
