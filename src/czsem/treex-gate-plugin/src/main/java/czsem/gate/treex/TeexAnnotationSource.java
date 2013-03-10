@@ -94,12 +94,12 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		@Override
 		public boolean annotate(AnnotatorInterface annotator) throws InvalidOffsetException {
-			String parentId = (String) node.get(relName);
+			String referencedId = (String) node.get(relName);
 
-			Map<String, Object> ref_node = nodeMap.get(parentId);
-			Annotation gAnn = annotator.getAnnotation((Integer) ref_node.get("gateAnnId"));
-			if (gAnn == null) return false;
-			annotator.annotate(this, gAnn.getStartNode().getOffset(), gAnn.getEndNode().getOffset());
+			Map<String, Object> ref_node = nodeMap.get(referencedId);
+			Annotation ref_gAnn = annotator.getAnnotation((Integer) ref_node.get("gateAnnId"));
+			if (ref_gAnn == null) return false;
+			annotator.annotate(this, ref_gAnn.getStartNode().getOffset(), ref_gAnn.getEndNode().getOffset());
 			
 			return true;
 		}		
@@ -145,6 +145,9 @@ public class TeexAnnotationSource implements AnnotationSource {
 			TreexDependency ret = createIdAttrDependency(node, "parent_id");
 			if (ret == null) return null;
 			
+			//dependency direction made by createIdAttrDependency is the opposite 
+			ret.swapParentChild();
+			
 			String type = (String) node.get("pml_type_name");
 			ret.annType = type.charAt(0) + "Dependency";
 			
@@ -152,18 +155,29 @@ public class TeexAnnotationSource implements AnnotationSource {
 		}
 		
 		public TreexDependency createIdAttrDependency(Map<String, Object> node, String depName) {
-			return createGeneralDependency((String) node.get(depName), (String) node.get("id"), depName);}
+			return createGeneralDependency(
+					//parent:
+					(String) node.get("id"),
+					//child:
+					(String) node.get(depName), 
+					
+					depName);}
 
 		public List<TreexDependency> createListIdAttrDependencies(Map<String, Object> node, String depName) {
 			
-			List<String> parentIds = Utils.objectArrayToGenericList(node.get(depName));
+			List<String> referencedIds = Utils.objectArrayToGenericList(node.get(depName));
 			
-			List<TreexDependency> ret = new ArrayList<TreexDependency>(parentIds.size());
-			String childId = (String) node.get("id");
+			List<TreexDependency> ret = new ArrayList<TreexDependency>(referencedIds.size());
+			String thisId = (String) node.get("id");
 			
-			for (String parentId : parentIds)
+			for (String referencedId : referencedIds)
 			{
-				ret.add(createGeneralDependency(parentId, childId, depName));
+				ret.add(createGeneralDependency(
+						//parent:
+						thisId, 
+						//child:
+						referencedId, 
+						depName));
 			}
 			
 			return ret;
@@ -179,6 +193,12 @@ public class TeexAnnotationSource implements AnnotationSource {
 			this.parentId = parentId;
 			this.childId = childId;
 			annType = depName;
+		}
+
+		public void swapParentChild() {
+			String swap = parentId;
+			parentId = childId;
+			childId = swap;
 		}
 
 		@Override
@@ -290,7 +310,7 @@ public class TeexAnnotationSource implements AnnotationSource {
 				
 			}
 
-			
+			//dependencies
 			if (nodeParam.get("parent_id") != null) rea.storeForLater(tdf.createParentDependency(nodeParam));
 			
 			for (String idAttr : idAttrs)
