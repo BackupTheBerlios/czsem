@@ -1,6 +1,7 @@
 package czsem.gate.plugins;
 
 import gate.Annotation;
+import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
@@ -243,6 +244,27 @@ public class TreexLocalAnalyserTest {
 		Document doc3 = Factory.newDocument(strDoc3);
 		corpus.add(doc3);
 
+		String str4 = 
+				"\n"+"1 obalená tableta obsahuje 10,0 mg butylscopolaminii bromidum." +
+				"\n"+"Pomocné látky: 1 obalená tableta obsahuje 41,2 mg sacharosy." +
+				"\n"+"Úplný seznam pomocných látek viz bod 6.1.";
+		
+		Document doc4 = Factory.newDocument(str4);
+		corpus.add(doc4);
+		
+		String str5 = 
+				"\n"+"Zhoršená funkce ledvin a jater" +
+				"\n"+"Doporučené počáteční a udržovací dávky pro pacienty se zhoršenou renální funkcí:" +
+				"\n"+"Clearance kreatininu                Sérová hladina                              Intravenózní dávka" +
+				"\n"+"(ml/min/1,73 m2)                           kreatininu                                        (mg)" +
+				"\n"+"                                                          (µmol/l)" +
+				"\n"+"> 60                                                < 124                                            viz obvyklé dávkování" +
+				"\n"+"                                                        " +
+				"\n"+"30 – 60                                           124 až 168                           200 – 400 mg každých 12 hod." +
+				"\n"+"< 30                                                 > 169                                  200 – 400 mg každých 24 hod.";
+
+		Document doc5 = Factory.newDocument(str5);
+		corpus.add(doc5);
 		
 		analysis.setCorpus(corpus);
 		analysis.execute();
@@ -270,6 +292,12 @@ public class TreexLocalAnalyserTest {
 		Assert.assertEquals(doc.getAnnotations().get("Sentence").size(), 2);
 		Assert.assertTrue(doc2.getAnnotations().get("Sentence").size() > 1, 
 				String.format("Sentences should be more than 1 but was: %d", doc2.getAnnotations().get("Sentence").size()));
+		
+		AnnotationSet sents4 = doc4.getAnnotations().get().get("Sentence");
+		Assert.assertEquals(sents4.size(), 3);
+
+		Assert.assertEquals(doc5.getAnnotations().get().get("Sentence").size(), 1);
+		 
 		
 		
 		GateUtils.deleteAllPublicGateResources();

@@ -233,6 +233,54 @@ public class SequenceAnnotatorTest
 		sa.nextToken("BUY");
 		assertEquals(26, sa.lastStart());		
 	}
+
+	@Test
+	public void testNextTokenAngleBrackets3()
+	{
+		String s = "FIRST WISCONSIN <FWB > TO BUY MINNESOTA BANK";
+
+		SequenceAnnotator sa = new SequenceAnnotator(s, 0);
+		sa.nextToken("FIRST");
+		assertEquals(0, sa.lastStart());
+		sa.nextToken("WISCONSIN");
+		assertEquals(6, sa.lastStart());
+		assertEquals(15, sa.lastEnd());
+		sa.nextToken("<FWB >");
+		assertEquals(16, sa.lastStart());
+		assertEquals(22, sa.lastEnd());
+		sa.nextToken("TO");
+		assertEquals(23, sa.lastStart());
+		assertEquals(25, sa.lastEnd());
+		sa.nextToken("BUY");
+		assertEquals(26, sa.lastStart());		
+	}
+
+	@Test
+	public void testNextTokenAngleBrackets4()
+	{
+		String s = "FIRST WISCONSIN <FWB > TO BUY MINNESOTA BANK";
+
+		SequenceAnnotator sa = new SequenceAnnotator(s, 0);
+		sa.nextToken("FIRST");
+		assertEquals(0, sa.lastStart());
+		sa.nextToken("WISCONSIN");
+		assertEquals(6, sa.lastStart());
+		assertEquals(15, sa.lastEnd());
+		sa.nextToken("<");
+		assertEquals(16, sa.lastStart());
+		assertEquals(17, sa.lastEnd());
+		sa.nextToken("FWB");
+		assertEquals(17, sa.lastStart());
+		assertEquals(20, sa.lastEnd());
+		sa.nextToken(">");
+		assertEquals(21, sa.lastStart());
+		assertEquals(22, sa.lastEnd());
+		sa.nextToken("TO");
+		assertEquals(23, sa.lastStart());
+		assertEquals(25, sa.lastEnd());
+		sa.nextToken("BUY");
+		assertEquals(26, sa.lastStart());		
+	}
 	
 	@Test
 	public void testNextTokenZakonDot()

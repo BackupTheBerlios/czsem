@@ -125,8 +125,10 @@ public class SequenceAnnotator
 					{
 						//multiple hyphens
 						if (
-								(loc_ch == '-') &&
-								Character.isWhitespace(toc_ch) &&
+								(loc_ch == '-')
+								&&
+								(Character.isWhitespace(toc_ch) || Character.isSpaceChar((int)toc_ch)) 
+								&&
 								(local_index > 0) &&
 								(string_content.charAt(local_index-1) == '-'))
 						{
@@ -137,27 +139,27 @@ public class SequenceAnnotator
 						//Angle Brackets skipped by TectoMT
 						if (loc_ch == '<')
 						{
-							 int found_index = string_content.indexOf('>', local_index);
-							 if (found_index != -1)
-							 {
-								 local_index = found_index;
-								 token_index--;
-								 
-							 }
-							 continue;
+							int ahead_index = token.indexOf('<', token_index);
+							int found_index = string_content.indexOf('>',local_index);
+							if (found_index != -1 && ahead_index == -1) {
+								local_index = found_index;
+								token_index--;
+
+								continue;
+							}
 						}
 						
 						//DOT
 						if ((loc_ch == '.') && (token.equals("DOT")))
 						{
-								token_index+=2;
+							token_index += 2;
 							continue;
 						}
 
 						//<<<DOT>>
 						if ((loc_ch == '.') && (token.startsWith("<<<DOT>>", token_index)))
 						{
-								token_index+=7;
+							token_index += 7;
 							continue;
 						}
 
@@ -171,12 +173,12 @@ public class SequenceAnnotator
 
 						if (token_index > 0) //otherwise move start
 						{
-							if (Character.isWhitespace(loc_ch))	{
+							if (Character.isWhitespace(loc_ch) || Character.isSpaceChar((int)loc_ch))	{
 								token_index--;
 								continue;
 							}
 							
-							if (Character.isWhitespace(toc_ch))	{
+							if (Character.isWhitespace(toc_ch) || Character.isSpaceChar((int)toc_ch))	{
 								local_index--;
 								continue;
 							}
