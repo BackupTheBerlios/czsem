@@ -75,6 +75,8 @@ public class Annotator implements AnnotatorInterface {
 	{
 		seq_anot = new SequenceAnnotator(doc);
 		as = doc.getAnnotations(outputASName);
+		
+		seq_anot.backup();
 
 		for (Sentence s : annotationSource.getOrderedSentences())
 		{
@@ -83,7 +85,8 @@ public class Annotator implements AnnotatorInterface {
 	}
 
 	protected void annotateSentence(Sentence s) throws InvalidOffsetException {
-    	seq_anot.backup();
+    	//seq_anot.backup(); 
+    	//commented out (moved to annotate(...)) because of cases when sentence annotation fails but tokens are ok
 
     	safeAnnotateSeq(s);
     	    	
