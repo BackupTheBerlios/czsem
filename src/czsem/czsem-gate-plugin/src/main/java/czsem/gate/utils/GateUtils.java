@@ -182,6 +182,35 @@ public class GateUtils
 		}		
 	}
 
+	public static void deleteAllPublicGateResources()
+	{
+		CreoleRegister reg = Gate.getCreoleRegister();
+		
+		for (ProcessingResource i : reg.getPublicPrInstances())
+		{
+			Factory.deleteResource(i);			
+		}
+	
+		for (LanguageResource l : reg.getPublicLrInstances())
+		{
+			Factory.deleteResource(l);			
+		}
+	
+	}
+
+	/** One level only, not full recursion! **/
+	public static void deepDeleteController(Controller contoler) {
+		
+		@SuppressWarnings("unchecked")
+		Collection<ProcessingResource> prs = contoler.getPRs();
+		
+		while (prs.iterator().hasNext())
+		{
+			Factory.deleteResource(prs.iterator().next());
+		}
+		Factory.deleteResource(contoler);
+	}
+
 	public static void registerCzsemPlugin() throws GateException, URISyntaxException, IOException
 	{
 		registerPluginDirectory(new File(Config.getConfig().getCzsemPluginDir()));		
@@ -277,22 +306,6 @@ public class GateUtils
 			if (a.getEndNode().getOffset() > next.getStartNode().getOffset()) return false;			
 		}
 		return true;
-	}
-
-	public static void deleteAllPublicGateResources()
-	{
-		CreoleRegister reg = Gate.getCreoleRegister();
-		
-		for (ProcessingResource i : reg.getPublicPrInstances())
-		{
-			Factory.deleteResource(i);			
-		}
-
-		for (LanguageResource l : reg.getPublicLrInstances())
-		{
-			Factory.deleteResource(l);			
-		}
-
 	}
 
 	public static void initGate() throws GateException, IOException, URISyntaxException {

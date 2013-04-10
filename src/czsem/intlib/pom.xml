@@ -38,6 +38,12 @@
 		</dependency>
 		<dependency>
 			<groupId>czsem</groupId>
+			<artifactId>treex-gate-plugin</artifactId>
+			<version>${project.parent.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>czsem</groupId>
 			<artifactId>netgraph-tree-viewer</artifactId>
 			<version>${project.parent.version}</version>
 			<scope>compile</scope>
