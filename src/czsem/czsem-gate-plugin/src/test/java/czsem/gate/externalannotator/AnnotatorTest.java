@@ -79,7 +79,7 @@ public class AnnotatorTest {
 
 	@Test(expectedExceptions = CannotAnnotateCharacterSequence.class)
 	public static void safeAnnotateIterableSeq() throws Exception {
-		Logger.getLogger(Annotator.class).setLevel(Level.ERROR);
+		Logger.getLogger(Annotator.class).setLevel(Level.OFF);
 		
 		String docStr = "aaa bbb";
 		
@@ -105,7 +105,7 @@ public class AnnotatorTest {
 
 	@Test
 	public static void annotateTokensWhenSentencesWrong() throws Exception {
-		Logger.getLogger(Annotator.class).setLevel(Level.ERROR);
+		Logger.getLogger(Annotator.class).setLevel(Level.OFF);
 		
 		String docStr = "aaa bbb aaa ddd aaa";
 		
@@ -162,7 +162,7 @@ public class AnnotatorTest {
 	
 	@Test
 	public static void annotateSentencesWhenTokensWrong() throws Exception {
-		Logger.getLogger(Annotator.class).setLevel(Level.ERROR);
+		Logger.getLogger(Annotator.class).setLevel(Level.OFF);
 		
 		String docStr = "aaa bbb aaa bbb aaa";
 		

@@ -213,6 +213,12 @@ public class SequenceAnnotatorTest
 		assertEquals(228, sa.lastStart());
 		sa.nextToken("First Wisconsin, which had assets at yearend of 7.1 billion dlrs, said the Shelard purchase price is about 12 times the 1986 earnings of the bank.");
 		assertEquals(331, sa.lastStart());
+
+		SequenceAnnotator sa2 = new SequenceAnnotator(s, 0);
+		String sentStr2 = "FIRST WISCONSIN <FWB > TO BUY MINNESOTA BANK";
+		sa2.nextToken(sentStr2);
+		assertEquals(0, sa2.lastStart());
+		assertEquals(sentStr2.length(), sa2.lastEnd());
 	}
 
 

@@ -322,11 +322,15 @@ public class GateUtils
 		Gate.init();						
 	}
 
-	public static void initGateInSandBox() throws GateException {
+	
+	public static void initGateInSandBox() throws GateException 
+	{ initGateInSandBox(Level.OFF); }
+
+	public static void initGateInSandBox(Level logLevel) throws GateException {
 		if (Gate.isInitialised()) return;
 		
 		Logger logger = Logger.getRootLogger();
-	    logger.setLevel(Level.OFF);
+	    logger.setLevel(logLevel);
 		BasicConfigurator.configure();
 
 		Gate.runInSandbox(true);

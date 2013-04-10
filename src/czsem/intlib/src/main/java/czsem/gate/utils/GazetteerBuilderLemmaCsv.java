@@ -1,28 +1,34 @@
 package czsem.gate.utils;
 
+import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
 import gate.Gate;
+import gate.Utils;
 import gate.corpora.DocumentContentImpl;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
 import gate.util.InvalidOffsetException;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.List;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.csvreader.CsvReader;
 
-import czsem.Utils;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
 import czsem.gate.plugins.TreexLocalAnalyser;
@@ -57,11 +63,16 @@ public class GazetteerBuilderLemmaCsv {
 		public void close() {
 			reader.close();
 		}
+
+		public String getHeader(int columnIndex) throws IOException {
+			return reader.getHeader(columnIndex).toLowerCase().replace(' ', '_');
+		}
 		
 	}
 
 	public static class	LemmatizationHandler {
 		private Document doc;
+		private AnnotationSet tocs = null;
 		
 		public void prepareDocument(InputHandler inputHandler, int culumnIndex, int backupCulumnIndex) 
 				throws IOException, InvalidOffsetException, ResourceInstantiationException {
@@ -102,6 +113,8 @@ public class GazetteerBuilderLemmaCsv {
 			pipe.execute();
 			
 			GateUtils.deepDeleteController(pipe);
+			
+			initTocs();
 		};
 
 		public void save(String filename) throws IOException {
@@ -109,24 +122,48 @@ public class GazetteerBuilderLemmaCsv {
 		};
 
 		public void load(URL sourceUrl) throws ResourceInstantiationException {
-			doc = Factory.newDocument(sourceUrl);			
+			doc = Factory.newDocument(sourceUrl);
+			initTocs();
 		};
 		
-		public String getLemma() {
-			return null;			
+		protected void initTocs() {
+			tocs = doc.getAnnotations().get("Token");
+		}
+		
+				
+		public String getLemma(int id) {
+			Annotation sentence = doc.getAnnotations("InputSentences").get(id);
+			List<Annotation> ordTocs = Utils.inDocumentOrder(
+				tocs.getContained(
+						sentence.getStartNode().getOffset(),
+						sentence.getEndNode().getOffset()));
+			StringBuilder sb = new StringBuilder();
+			
+			for (Annotation toc : ordTocs) {
+				sb.append(toc.getFeatures().get("lemma"));
+				sb.append(' ');
+			}
+			
+			return sb.toString().substring(0, sb.length()-1);			
 		}
 	}
 
 	private String fileName;
-	private char delimiter;
+	private char inputDelimiter;
+	private char outputDelimiter = '|';
 	private String charsetName;
 	private int gazetteerCulumnIndex;
 	private int backupCulumnIndex;
 	private LemmatizationHandler lh;
 	
-	protected void buildLemmatizatiuon() throws InvalidOffsetException, ResourceInstantiationException, IOException, ExecutionException {
-		InputHandler ih = new InputHandler(fileName, delimiter, charsetName);
+	protected InputHandler initInputHandler() throws IOException {
+		InputHandler ih = new InputHandler(fileName, inputDelimiter, charsetName);
 		ih.readHeader();
+		return ih;
+	}
+	
+	protected void buildLemmatizatiuon() throws InvalidOffsetException, ResourceInstantiationException, IOException, ExecutionException {		
+		InputHandler ih = initInputHandler();
 		
 		lh = new LemmatizationHandler();
 		lh.prepareDocument(ih, gazetteerCulumnIndex, backupCulumnIndex);
@@ -156,9 +193,48 @@ public class GazetteerBuilderLemmaCsv {
 	}
 	
 
+	public void printWithCheck(PrintWriter out, String string) {
+		if (string.contains(""+outputDelimiter)) 
+			throw new IllegalArgumentException(
+					String.format("Gazetteer value '%s' cannot contain delimiter '%c'", string, outputDelimiter));
+		out.print(string);
+	}
+	
+	public void buildGazetter(String output_file_name, int ... columns) throws IOException {
+		PrintWriter out = new PrintWriter(
+				new OutputStreamWriter(new BufferedOutputStream(
+						new FileOutputStream(output_file_name)), "utf8"));
+	
+		InputHandler inputHandler = initInputHandler();
+		
+		int id = 0;
+		
+		while (inputHandler.readRecord()) {
+			
+			printWithCheck(out, lh.getLemma(id++));
+			
+			for (int c=0; c < columns.length; c++)
+			{				
+				String value = inputHandler.getColumnValue(columns[c]);
+				if (value == null || value.isEmpty()) continue; 
+
+				out.print(outputDelimiter);
+				printWithCheck(out, inputHandler.getHeader(columns[c]));
+				out.print('=');
+				printWithCheck(out, value);
+			}
+
+			out.println();
+		}
+
+	
+		out.println();
+		out.close();
+	}
+
 	public GazetteerBuilderLemmaCsv(String fileName, char delimiter, String charsetName, int gazetteerCulumnIndex) {
 		this.fileName = fileName;
-		this.delimiter = delimiter;
+		this.inputDelimiter = delimiter;
 		this.charsetName = charsetName;
 		this.gazetteerCulumnIndex = gazetteerCulumnIndex;
 	}
@@ -173,11 +249,12 @@ public class GazetteerBuilderLemmaCsv {
 
 
 
+	public void buildGazetter(int ... columns) throws IOException {
+		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", ".lst"), columns);
+	}
+
 	public static void main(String[] args) throws Exception {
-		Utils.main(null);
-		
-		Config.getConfig().setGateHome();
-		Gate.init();
+		GateUtils.initGateInSandBox(Level.INFO);
 		
 		//MainFrame.getInstance().setVisible(true);
 		
@@ -190,7 +267,8 @@ public class GazetteerBuilderLemmaCsv {
 		gb.setBackupCulumnIndex(1);
 		
 		gb.initLemmatizatiuon();
-	
+
+		gb.buildGazetter(0, 1, 2, 3);	
 	}
 
 }
