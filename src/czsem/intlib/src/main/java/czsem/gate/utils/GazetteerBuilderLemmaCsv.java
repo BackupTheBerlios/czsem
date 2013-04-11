@@ -5,6 +5,7 @@ import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
+import gate.FeatureMap;
 import gate.Gate;
 import gate.Utils;
 import gate.corpora.DocumentContentImpl;
@@ -22,8 +23,10 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -139,12 +142,39 @@ public class GazetteerBuilderLemmaCsv {
 						sentence.getEndNode().getOffset()));
 			StringBuilder sb = new StringBuilder();
 			
-			for (Annotation toc : ordTocs) {
-				sb.append(toc.getFeatures().get("lemma"));
-				sb.append(' ');
+			/*remove
+			AnnotationSet inputAS = tocs;  
+			Annotation ann = inputAS.iterator().next();
+
+			List<Annotation> ordered = gate.Utils.inDocumentOrder(inputAS);
+			int index = ordered.indexOf(ann);
+			if (index <= 0) return;
+			Annotation prev = ordered.get(index-1);
+			int prevOrder = Integer.parseInt((String) prev.getFeatures().get("order"));
+			int thisOrder = Integer.parseInt((String) ann.getFeatures().get("order"));
+			int dist = thisOrder - prevOrder;
+			if (
+					(prevOrder>=thisOrder)
+					|| 
+					(dist > 2))
+					
+			{
+				inputAS.remove(ann);
+				ann.getFeatures().put("conflict_with", prev.getId());
+				doc.getAnnotations("debug").add(ann);
 			}
 			
-			return sb.toString().substring(0, sb.length()-1);			
+			/*remove*/
+			
+			for (Annotation toc : ordTocs) {
+				FeatureMap fm = toc.getFeatures();
+				sb.append(fm.get("lemma"));
+				if (fm.get("no_space_after").equals("0"))
+					sb.append(' ');
+				
+			}
+			
+			return sb.toString().trim();			
 		}
 	}
 
@@ -200,7 +230,7 @@ public class GazetteerBuilderLemmaCsv {
 		out.print(string);
 	}
 	
-	public void buildGazetter(String output_file_name, int ... columns) throws IOException {
+	public void buildGazetter(String output_file_name, boolean lemmatize, int ... columns) throws IOException {
 		PrintWriter out = new PrintWriter(
 				new OutputStreamWriter(new BufferedOutputStream(
 						new FileOutputStream(output_file_name)), "utf8"));
@@ -211,7 +241,10 @@ public class GazetteerBuilderLemmaCsv {
 		
 		while (inputHandler.readRecord()) {
 			
-			printWithCheck(out, lh.getLemma(id++));
+			if (lemmatize)
+				printWithCheck(out, lh.getLemma(id++));
+			else
+				printWithCheck(out, inputHandler.getColumnValue(gazetteerCulumnIndex));
 			
 			for (int c=0; c < columns.length; c++)
 			{				
@@ -250,16 +283,10 @@ public class GazetteerBuilderLemmaCsv {
 
 
 	public void buildGazetter(int ... columns) throws IOException {
-		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", ".lst"), columns);
+		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", ".lst"), true, columns);
 	}
 
-	public static void main(String[] args) throws Exception {
-		GateUtils.initGateInSandBox(Level.INFO);
-		
-		//MainFrame.getInstance().setVisible(true);
-		
-		Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
-		
+	public static void buildCIS_UCLAT() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
 				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\CIS_UCLAT.csv",
 				';', "cp1250", 3);
@@ -268,7 +295,40 @@ public class GazetteerBuilderLemmaCsv {
 		
 		gb.initLemmatizatiuon();
 
-		gb.buildGazetter(0, 1, 2, 3);	
+		gb.buildGazetter(0, 1, 2, 3);			
+	}
+
+	public static void buildSpcNoLemma() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC.csv",
+				';', "cp1250", 2);
+		
+		gb.buildGazetter("C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC_nolemma.lst", 
+				false, 0, 1);			
+	}
+
+	public static void buildSpc() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC.csv",
+				';', "cp1250", 2);
+		
+		gb.initLemmatizatiuon();
+
+		gb.buildGazetter(0, 1);
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
+		GateUtils.initGateInSandBox(Level.INFO);
+		
+		//MainFrame.getInstance().setVisible(true);
+		
+		Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+		
+		buildSpcNoLemma();
+		buildSpc();
+		//buildCIS_UCLAT();
+		
 	}
 
 }
