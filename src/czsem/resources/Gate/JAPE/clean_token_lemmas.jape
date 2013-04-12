@@ -3,7 +3,6 @@ Input: Token
 Options: control = all
 
 Rule: clean_token_lemmas
-Priority: 20
 (
 {Token}
 ): token_tmp
@@ -25,11 +24,13 @@ Priority: 20
 	
 	int slash =  lemma.indexOf('-', 1);
 	int under =  lemma.indexOf('_', 1);
+	int slashForm =  form.indexOf('-', 1);
+	int underForm =  form.indexOf('_', 1);
 	
 	int substr_end = lemma.length();
 	
-	if (slash > 0) substr_end = slash;
-	if (under > 0) substr_end = Math.min(substr_end, under);
+	if (slash > 0 && slashForm < 0) substr_end = slash;
+	if (under > 0 && underForm < 0) substr_end = Math.min(substr_end, under);
 
 	
 	char first_ch = lemma.charAt(0);
