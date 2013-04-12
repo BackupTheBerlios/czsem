@@ -17,7 +17,9 @@ import gate.creole.gazetteer.LinearNode;
 import gate.creole.gazetteer.Lookup;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
+import gate.creole.metadata.HiddenCreoleParameter;
 import gate.creole.metadata.RunTime;
+import gate.gui.MainFrame;
 
 import java.io.File;
 import java.util.HashMap;
@@ -32,12 +34,29 @@ import czsem.gate.utils.GateUtils;
 
 @CreoleResource
 public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
+
+	/** This parameter is disabled **/
+	@Override
+	@HiddenCreoleParameter
+	public void setLongestMatchOnly(Boolean longestMatchOnly) {
+		super.setLongestMatchOnly(longestMatchOnly);
+	}
+
+	/** This parameter is disabled **/
+	@Override
+	@HiddenCreoleParameter
+	public void setWholeWordsOnly(Boolean wholeWordsOnly) {
+		super.setWholeWordsOnly(wholeWordsOnly);
+	}
+
 	private static final long serialVersionUID = 2828791942110531799L;
 	
 	protected Map<LinearNode,Map<String,Lookup>> lookups = new HashMap<LinearNode, Map<String,Lookup>>();
 	private Map<String, Lookup> currentlyReadingNodeMap;
 	
 	private double minDistance = 0.2; 
+	private boolean removeAllSpaces = false;
+	private boolean removeRedundantSpaces = true;
 	
 	@Override
 	protected void readList(LinearNode node, boolean add) throws ResourceInstantiationException {
@@ -131,16 +150,11 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 					GazetteerNode gEntry = (GazetteerNode) entry;
 					String entryText = gEntry.getEntry();
 					
-					//if( Character.isSpaceChar(currentChar) || Character.isWhitespace(currentChar) )
-					if (! caseSensitive) {
-						entryText = entryText.toLowerCase();
-						srcText = srcText.toLowerCase();
-					}
 					
-					int distance = StringUtils.getLevenshteinDistance(srcText, entryText);
-					double normalizedDistance = distance / Math.max((double) srcText.length(), entryText.length());
+					double currentApplicableMin = Math.min(minDistance, getMinDistance());
+					Distance distance = countDistanceOptimized(srcText, entryText, currentApplicableMin); 							
 					
-					if (normalizedDistance <= minDistance)
+					if (distance.normalizeDistance <= currentApplicableMin)
 					{					
 						
 						FSMState state = new FSMState(this);
@@ -148,13 +162,16 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 						
 						@SuppressWarnings("unchecked")
 						Map<Object, Object> f = lookup.features;						
-						f.put("distance", distance);
-						f.put("normalizedDistance", normalizedDistance);
+						f.put("distance", distance.diatnce);
+						f.put("normalizedDistance", distance.normalizeDistance);
 						f.put("matchedText", entryText);
+						/* debug*/
+						f.put("srcText", srcText);
+						/**/
 						
 						state.addLookup(lookup);					
 
-						minDistance = normalizedDistance;
+						minDistance = distance.normalizeDistance;
 						minState = state;
 					}
 				}
@@ -172,6 +189,62 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	    fireStatusChanged("Look-up complete!");
 	}
 
+	public static double normalizeDistance(int distance, int maxLength) {
+		return distance / (double) maxLength;
+	}
+	
+	public static class Distance {
+		int diatnce;
+		double normalizeDistance;
+		String text1, text2;
+
+		public Distance(int diatnce, double normalizeDistance, String text1, String text2) {
+			this.diatnce = diatnce;
+			this.normalizeDistance = normalizeDistance;
+			this.text1 = text1;
+			this.text2 = text2;
+		}
+	}
+	
+	public Distance countDistanceOptimized(String text1, String text2, double minInterstingNormalizedDistance) {
+		
+		//if( Character.isSpaceChar(currentChar) || Character.isWhitespace(currentChar) )
+		
+		if (removeAllSpaces)
+		{
+			text1 = text1.replaceAll("[\\s\\u00a0]", "");
+			text2 = text2.replaceAll("[\\s\\u00a0]", "");
+		} else {
+			if (removeRedundantSpaces) {
+				text1 = text1.replaceAll("[\\s\\u00a0]+", " ");				
+				text2 = text2.replaceAll("[\\s\\u00a0]+", " ");				
+			}
+		}
+		
+		int l1 = text1.length(); int l2 = text2.length();
+		int lMin, lMax;		
+		if (l1 > l2) {
+			lMin = l2; lMax = l1;
+		} else {
+			lMin = l1; lMax = l2;			
+		}
+		
+		int minDistance = lMax - lMin;
+		double minNormDistance = normalizeDistance(minDistance, lMax);
+		
+		if (minNormDistance > minInterstingNormalizedDistance) 
+			return new Distance(minDistance, minNormDistance, text1, text2);
+			
+		if (! caseSensitive) {
+			text1 = text1.toLowerCase();
+			text2 = text2.toLowerCase();
+		}
+		
+		int countedDist = StringUtils.getLevenshteinDistance(text1, text2);
+		return new Distance(countedDist, 
+				normalizeDistance(countedDist, lMax), text1, text2);
+	}
+
 	@CreoleParameter(defaultValue="0.2")
 	@RunTime
 	public void setMinDistance(Double minDistance) {
@@ -182,17 +255,37 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		return minDistance;
 	}
 
+	public Boolean getRemoveAllSpaces() {
+		return removeAllSpaces;
+	}
+
+	@CreoleParameter(defaultValue="false")
+	@RunTime
+	public void setRemoveAllSpaces(Boolean removeAllSpaces) {
+		this.removeAllSpaces = removeAllSpaces;
+	}
+
+	public Boolean getRemoveRedundantSpaces() {
+		return removeRedundantSpaces;
+	}
+
+	@CreoleParameter(defaultValue="true")
+	@RunTime
+	public void setRemoveRedundantSpaces(Boolean removeRedundentSpaces) {
+		this.removeRedundantSpaces = removeRedundentSpaces;
+	}
+
 	public static void main(String[] args) throws Exception {
 		GateUtils.initGate();
 		
 		Gate.getCreoleRegister().registerComponent(LevenshteinWholeLineMatchingGazetteer.class);
 		
-		//MainFrame.getInstance().setVisible(true);
+		MainFrame.getInstance().setVisible(true);
 		
 		PRSetup [] s = {
 				new SinglePRSetup(LevenshteinWholeLineMatchingGazetteer.class)
-			.putFeature("minDistance", 0.9) 
-			.putFeature(DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, true) 
+			.putFeature("minDistance", 0.1) 
+			.putFeature(DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, false) 
 			.putFeature(DEF_GAZ_LISTS_URL_PARAMETER_NAME, 
 					new File("C:/Users/dedek/Desktop/DATLOWE/gazetteer/datlowe_gaz_nolemma.def").toURI().toURL())
 			.putFeature(DEF_GAZ_FEATURE_SEPARATOR_PARAMETER_NAME, "|"),
@@ -212,12 +305,6 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		pipe.execute();
 		
 		System.err.println(d.getAnnotations());
-		
-
-		
-		
-		
-	
 	}
 
 }
