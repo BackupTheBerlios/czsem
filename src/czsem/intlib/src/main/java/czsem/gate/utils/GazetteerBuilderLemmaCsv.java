@@ -12,6 +12,7 @@ import gate.corpora.DocumentContentImpl;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.creole.SerialAnalyserController;
+import gate.creole.Transducer;
 import gate.util.InvalidOffsetException;
 
 import java.io.BufferedOutputStream;
@@ -21,12 +22,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.charset.Charset;
-import java.util.Collections;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -35,6 +35,7 @@ import com.csvreader.CsvReader;
 import czsem.gate.learning.PRSetup;
 import czsem.gate.learning.PRSetup.SinglePRSetup;
 import czsem.gate.plugins.TreexLocalAnalyser;
+import czsem.utils.AbstractConfig.ConfigLoadException;
 
 public class GazetteerBuilderLemmaCsv {
 	
@@ -76,6 +77,7 @@ public class GazetteerBuilderLemmaCsv {
 	public static class	LemmatizationHandler {
 		private Document doc;
 		private AnnotationSet tocs = null;
+		private String lemmaFetureName = "clean_lemma";
 		
 		public void prepareDocument(InputHandler inputHandler, int culumnIndex, int backupCulumnIndex) 
 				throws IOException, InvalidOffsetException, ResourceInstantiationException {
@@ -96,7 +98,7 @@ public class GazetteerBuilderLemmaCsv {
 			}
 		};
 		
-		public void analyze() throws ResourceInstantiationException, ExecutionException {
+		public void analyze() throws ResourceInstantiationException, ExecutionException, ConfigLoadException, MalformedURLException {
 			PRSetup[] prs =  {
 					new SinglePRSetup(TreexLocalAnalyser.class)
 						.putFeatureList("scenarioSetup", 
@@ -106,6 +108,11 @@ public class GazetteerBuilderLemmaCsv {
 						.putFeature("verifyOnInit", false)
 						.putFeature("inputASName", "InputSentences")
 						.putFeature("showTreexLogInConsole", true),
+					new SinglePRSetup(Transducer.class)
+						.putFeature(Transducer.TRANSD_GRAMMAR_URL_PARAMETER_NAME, 
+								new File(
+										Config.getConfig().getCzsemResourcesDir() + 
+										"/Gate/JAPE/clean_token_lemmas.jape").toURI().toURL()),
 			};
 			
 			SerialAnalyserController pipe = PRSetup.buildGatePipeline(prs, "lemmatization");
@@ -142,37 +149,34 @@ public class GazetteerBuilderLemmaCsv {
 						sentence.getEndNode().getOffset()));
 			StringBuilder sb = new StringBuilder();
 			
-			/*remove
-			AnnotationSet inputAS = tocs;  
-			Annotation ann = inputAS.iterator().next();
-
-			List<Annotation> ordered = gate.Utils.inDocumentOrder(inputAS);
-			int index = ordered.indexOf(ann);
-			if (index <= 0) return;
-			Annotation prev = ordered.get(index-1);
-			int prevOrder = Integer.parseInt((String) prev.getFeatures().get("order"));
-			int thisOrder = Integer.parseInt((String) ann.getFeatures().get("order"));
-			int dist = thisOrder - prevOrder;
-			if (
-					(prevOrder>=thisOrder)
-					|| 
-					(dist > 2))
-					
-			{
-				inputAS.remove(ann);
-				ann.getFeatures().put("conflict_with", prev.getId());
-				doc.getAnnotations("debug").add(ann);
-			}
-			
-			/*remove*/
-			
 			for (Annotation toc : ordTocs) {
 				FeatureMap fm = toc.getFeatures();
-				sb.append(fm.get("lemma"));
+				sb.append(fm.get(lemmaFetureName));
 				if (fm.get("no_space_after").equals("0"))
 					sb.append(' ');
 				
 			}
+			
+			/*remove
+			AnnotationSet inputAS = tocs;  
+			AnnotationSet outputAS = tocs;  
+			Annotation ann = inputAS.iterator().next();
+			
+			  Node start = null;
+			  Node end   = null;
+
+		  FeatureMap features = Factory.newFeatureMap();
+		  features.put("heading_number", ann.getFeatures().get("heading_number"));
+
+			try {
+				outputAS.add(start.getOffset(), doc.getContent().size(),
+						"Product", features);
+			} catch (InvalidOffsetException e) {
+				throw new RuntimeException(e);
+			}						
+			
+			/*remove*/
+
 			
 			return sb.toString().trim();			
 		}
@@ -286,7 +290,27 @@ public class GazetteerBuilderLemmaCsv {
 		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", ".lst"), true, columns);
 	}
 
-	public static void buildCIS_UCLAT() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+	public static void buildATC() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\atc.csv",
+				',', "utf8", 0);
+		
+		gb.initLemmatizatiuon();
+
+		gb.buildGazetter(1);			
+	}
+
+	public static void buildMPG() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\medicinal_product_group.csv",
+				',', "cp1250", 0);
+		
+		gb.initLemmatizatiuon();
+
+		gb.buildGazetter(1);			
+	}
+
+	public static void buildCIS() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
 				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\CIS_UCLAT.csv",
 				';', "cp1250", 3);
@@ -324,10 +348,15 @@ public class GazetteerBuilderLemmaCsv {
 		//MainFrame.getInstance().setVisible(true);
 		
 		Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+		Gate.getCreoleRegister().registerComponent(Transducer.class);
 		
+		/*
 		buildSpcNoLemma();
 		buildSpc();
-		//buildCIS_UCLAT();
+		/**/
+		buildCIS();
+		buildATC();
+		buildMPG();
 		
 	}
 
