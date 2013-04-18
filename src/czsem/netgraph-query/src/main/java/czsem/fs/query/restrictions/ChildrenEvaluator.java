@@ -1,5 +1,6 @@
 package czsem.fs.query.restrictions;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class ChildrenEvaluator extends RestrictioinsConjunctionEvaluator {
 	public static ChildrenEvaluator childrenEvaluatorInstance = new ChildrenEvaluator();
 	
 	protected Iterable<QueryMatch> getChildernResultsFor(NodeMatch parentNodeMatch, QueryData data, QueryNode node, int nodeId) {
-		Iterable<Integer> chDataNodes = data.getIndex().getChildren(nodeId);
+		Collection<Integer> chDataNodes = data.getIndex().getChildren(nodeId);
 		
 		List<QueryNode> chQueryNodes = node.getChildren();
 		

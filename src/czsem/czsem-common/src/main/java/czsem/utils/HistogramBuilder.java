@@ -79,6 +79,8 @@ public class HistogramBuilder
 		hbSimple.add(0);
 		hbSimple.add(1);		
 		hbSimple.printHistogram(5, 50, System.err);
+		
+		System.err.println("---------------------------------------");
 
 		
 		HistogramBuilder hb = new HistogramBuilder();

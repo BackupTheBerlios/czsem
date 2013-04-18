@@ -206,18 +206,28 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		}
 	}
 	
+	public static String removeRedundantSpaces(String str)
+	{
+		return str.replaceAll("[\\s\\u00a0]+", " "); 
+	}
+
+	public static String removeAllSpaces(String str)
+	{
+		return str.replaceAll("[\\s\\u00a0]", "");
+	}
+	
 	public Distance countDistanceOptimized(String text1, String text2, double minInterstingNormalizedDistance) {
 		
 		//if( Character.isSpaceChar(currentChar) || Character.isWhitespace(currentChar) )
 		
 		if (removeAllSpaces)
 		{
-			text1 = text1.replaceAll("[\\s\\u00a0]", "");
-			text2 = text2.replaceAll("[\\s\\u00a0]", "");
+			text1 = removeAllSpaces(text1);				
+			text2 = removeAllSpaces(text2);				
 		} else {
 			if (removeRedundantSpaces) {
-				text1 = text1.replaceAll("[\\s\\u00a0]+", " ");				
-				text2 = text2.replaceAll("[\\s\\u00a0]+", " ");				
+				text1 = removeRedundantSpaces(text1);				
+				text2 = removeRedundantSpaces(text2);				
 			}
 		}
 		

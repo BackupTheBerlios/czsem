@@ -15,7 +15,7 @@ public class Restrictioin {
 		if (comparartor.equals("!="))
 			return new NotEqualRestrictioin(arg1, arg2);
 		
-		throw new RuntimeException(String.format("Restricition ont supported: %s", comparartor));
+		throw new RuntimeException(String.format("Restricition not supported: %s", comparartor));
 	}
 
 	

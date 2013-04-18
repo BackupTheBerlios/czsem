@@ -1,5 +1,6 @@
 package czsem.gate.plugins;
 
+import gate.Corpus;
 import gate.Document;
 import gate.Gate;
 import gate.creole.AbstractLanguageAnalyser;
@@ -46,13 +47,18 @@ public class CustomPR extends AbstractLanguageAnalyser {
 
 	public void executeAnalysis(DataSet data) throws PersistenceException, ResourceInstantiationException, ExecutionException
 	{
+		executeAnalysis(data.getCorpus());
+	}
+
+	public void executeAnalysis(Corpus corpusParam) throws ResourceInstantiationException, ExecutionException
+	{
 		
 		
 		SerialAnalyserController a = PRSetup.buildGatePipeline(preprocess, "CustomPR pipeline"); 
 		
 		a.add(this);
 		
-		a.setCorpus(data.getCorpus());
+		a.setCorpus(corpusParam);
 		a.execute();
 	}
     

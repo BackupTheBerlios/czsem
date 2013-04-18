@@ -10,6 +10,7 @@ import gate.creole.ResourceInstantiationException;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
@@ -46,7 +47,7 @@ public class HistogramBuilder {
 		
 		//showTree(doc);
 		
-		BuildHistogram(doc);
+		buildHistogram(doc);
 		
 		//FsExport(doc);
 		/**/
@@ -119,20 +120,20 @@ public class HistogramBuilder {
 		GateApplet.showWithDocument(new File(fileName).toURI().toURL(), "tmt2", null);
 	}
 
-	public static void BuildHistogram(Document doc) throws ResourceInstantiationException, MalformedURLException {
+	public static void buildHistogram(Document doc) throws ResourceInstantiationException, MalformedURLException {
 		System.err.println(doc.getAnnotationSetNames());
 		
-		BuildHistogram(doc.getAnnotations("tmt4").get("tToken"));
+		buildHistogram(doc.getAnnotations("tmt4").get("tToken"));
 		
 	}
 
-	public static void FsExport(Document doc) throws FileNotFoundException, UnsupportedEncodingException {
+	public static void fsExport(Document doc) throws FileNotFoundException, UnsupportedEncodingException {
 		FSFileWriter fsw = new FSFileWriter("documents/ucto.fs");
 		fsw.PrintAll(doc.getAnnotations("tmt4"));
 		fsw.close();
 	}
 
-	public static void BuildHistogram(AnnotationSet annotationSet) {
+	public static void buildHistogram(AnnotationSet annotationSet) {
 		System.err.println(annotationSet.getAllTypes());
 		
 		System.err.println("annotations: " + annotationSet.size());
@@ -160,8 +161,19 @@ public class HistogramBuilder {
 		System.err.println();
 		sempos.print(System.err);
 		System.err.println();
-		verbs.printSorted(System.err, "\n");
-		
+		verbs.printSorted(System.err, "\n");		
+	}
+
+	
+	
+	protected MultiSet<String> set = new MultiSet<String>();
+	
+	public void add(Object object) {
+		set.add(object.toString());
+	}
+
+	public void printSorted(PrintStream out, String separator) {
+		set.printSorted(out, separator);		
 	}
 
 }

@@ -1,5 +1,6 @@
 package czsem.fs;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class TreeIndex {
 		return parentIndex.get(child);
 	}
 
-	public Iterable<Integer> getChildren(Integer parent)
+	public Collection<Integer> getChildren(Integer parent)
 	{
 		return childIndex.get(parent);
 	}

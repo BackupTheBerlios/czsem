@@ -351,9 +351,11 @@ public class GazetteerBuilderLemmaCsv {
 		Gate.getCreoleRegister().registerComponent(Transducer.class);
 		
 		/*
-		buildSpcNoLemma();
 		buildSpc();
 		/**/
+		
+		buildSpcNoLemma();
+
 		buildCIS();
 		buildATC();
 		buildMPG();
