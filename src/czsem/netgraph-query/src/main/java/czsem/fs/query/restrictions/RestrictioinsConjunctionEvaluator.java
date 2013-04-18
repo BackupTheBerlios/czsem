@@ -13,7 +13,7 @@ public class RestrictioinsConjunctionEvaluator extends AbstractEvaluator {
 	
 	public static RestrictioinsConjunctionEvaluator restrictioinsConjunctionEvaluatorInstance = new RestrictioinsConjunctionEvaluator();
 	
-	public boolean evalRestricitons(QueryData data, QueryNode queryNode, int dataNodeId)
+	public static boolean evalRestricitons(QueryData data, QueryNode queryNode, int dataNodeId)
 	{
 		for (Restrictioin r : queryNode.getRestricitions())
 		{

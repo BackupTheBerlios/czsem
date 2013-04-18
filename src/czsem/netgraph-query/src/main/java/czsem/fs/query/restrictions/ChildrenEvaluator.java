@@ -4,13 +4,14 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
+import czsem.fs.query.FSQuery.AbstractEvaluator;
 import czsem.fs.query.FSQuery.NodeMatch;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
 import czsem.fs.query.ParentQueryNodeIterator;
 import czsem.fs.query.QueryNode;
 
-public class ChildrenEvaluator extends RestrictioinsConjunctionEvaluator {
+public class ChildrenEvaluator extends AbstractEvaluator {
 	
 	public static ChildrenEvaluator childrenEvaluatorInstance = new ChildrenEvaluator();
 	
@@ -38,7 +39,7 @@ public class ChildrenEvaluator extends RestrictioinsConjunctionEvaluator {
 
 	@Override
 	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode queryNode, int dataNodeId) {
-		if (! evalRestricitons(data, queryNode, dataNodeId)) return null;
+		if (! RestrictioinsConjunctionEvaluator.evalRestricitons(data, queryNode, dataNodeId)) return null;
 		
 		NodeMatch parentNodeMatch = new NodeMatch(dataNodeId, queryNode);
 		

@@ -10,6 +10,7 @@ import czsem.fs.TreeIndex;
 import czsem.fs.query.FSQuery.NodeMatch;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
+import czsem.fs.query.restrictions.IterateSubtreeEvaluator;
 
 public class FSQueryTest {
 	@Test
@@ -38,6 +39,29 @@ public class FSQueryTest {
 
 		res = qn1.getResultsFor(data, 0);
 		Assert.assertEquals(res, null);
+	}
+
+	@Test
+	public static void subtreeEval() {
+		QueryData data = buidQueryObject();
+		
+		QueryNode qn = new QueryNode();
+		qn.setEvaluator(new IterateSubtreeEvaluator());
+		
+		Iterable<QueryMatch> res = qn.getResultsFor(data, 0);
+		
+		for (QueryMatch r : res) {
+			System.err.println(r.getMatchingNodes());
+		}
+		
+		/*
+		
+		int[] results = {
+				0, 7, 2, 5, 1, 4, 3, 6 
+				};
+		
+		evaluateQuery(qn, results);
+		*/		
 	}
 	
 	public static int getNextNodeId(Iterator<QueryMatch> i, int matchIndex)
