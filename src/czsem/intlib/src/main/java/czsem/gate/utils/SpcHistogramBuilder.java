@@ -24,7 +24,9 @@ public class SpcHistogramBuilder {
 //		HistogramBuilder.buildHistogram(SpcGazetteerCollector.getSpcCorpus(false).get(0).getAnnotations("Treex"));
 
 		
-		final HistogramBuilderTreeNGram hb = new HistogramBuilderTreeNGram(FSQuery.buildQuery("[gram/sempos=v]"), "t_lemma", 3);
+		String queryString = "[t_lemma=tableta]([_subtree_eval=true])";
+//		String queryString = "[t_lemma=tableta]([]([]))";
+		final HistogramBuilderTreeNGram hb = new HistogramBuilderTreeNGram(FSQuery.buildQuery(queryString), "t_lemma", 3);
 		
 		CustomPR pr = CustomPR.createInstance(new AnalyzeDocDelegate() {
 			
