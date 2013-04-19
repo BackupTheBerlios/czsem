@@ -46,22 +46,49 @@ public class FSQueryTest {
 		QueryData data = buidQueryObject();
 		
 		QueryNode qn = new QueryNode();
-		qn.setEvaluator(new IterateSubtreeEvaluator());
+		qn.setEvaluator(new IterateSubtreeEvaluator(100));
 		
-		Iterable<QueryMatch> res = qn.getResultsFor(data, 0);
+		Iterable<QueryMatch> res = qn.getResultsFor(data, 3);
 		
 		for (QueryMatch r : res) {
 			System.err.println(r.getMatchingNodes());
 		}
 		
-		/*
-		
 		int[] results = {
-				0, 7, 2, 5, 1, 4, 3, 6 
+				4,
+				3,
+				3, 4,
+				3, 6,
+				3, 6, 4 
 				};
 		
-		evaluateQuery(qn, results);
-		*/		
+		evaluateQuery(data, qn, 3, results);
+	}
+
+	@Test
+	public static void subtreeEvalMaxDepth() {
+		QueryData data = buidQueryObject();
+		
+		QueryNode qn = new QueryNode();
+		qn.setEvaluator(new IterateSubtreeEvaluator(2));
+		
+		Iterable<QueryMatch> res = qn.getResultsFor(data, 1);
+		
+		for (QueryMatch r : res) {
+			System.err.println(r.getMatchingNodes());
+		}
+		
+		int[] results = {
+				7,
+				2,
+				2, 7,
+				1, 
+				1, 7,
+				1, 2,
+				1, 2, 7
+				};
+		
+		evaluateQuery(data, qn, 1, results);
 	}
 	
 	public static int getNextNodeId(Iterator<QueryMatch> i, int matchIndex)
@@ -129,10 +156,12 @@ public class FSQueryTest {
 	}
 
 	public static void evaluateQuery(QueryData data, QueryNode queryNode, int[] results) {
+		evaluateQuery(data, queryNode, 0, results);
+	}
 
-		
+	public static void evaluateQuery(QueryData data, QueryNode queryNode, int dataNodeId, int[] results) {
 		queryNode.reset();
-		Iterable<QueryMatch> res = queryNode.getResultsFor(data, 0);
+		Iterable<QueryMatch> res = queryNode.getResultsFor(data, dataNodeId);
 		int i = 0;
 		int finishedNodeMatches = 0;
 		if (res != null) {

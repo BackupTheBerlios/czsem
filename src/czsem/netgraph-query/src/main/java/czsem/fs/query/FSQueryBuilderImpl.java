@@ -57,8 +57,11 @@ public class FSQueryBuilderImpl implements FSQueryBuilder {
 			curentNode.setName(arg2);
 		else if (NGTreeHead.META_ATTR_OPTIONAL.equals(arg1) && NGTreeHead.META_ATTR_OPTIONAL_TRUE.equals(arg2))
 			curentNode.setEvaluator(new OptionalEvaluator());
-		else if (IterateSubtreeEvaluator.META_ATTR_SUBTREE.equals(arg1) && "true".equals(arg2))
-			curentNode.setEvaluator(new IterateSubtreeEvaluator());			
+		else if (IterateSubtreeEvaluator.META_ATTR_SUBTREE_DEPTH.equals(arg1))
+		{
+			int depth = Integer.parseInt(arg2); 
+			curentNode.setEvaluator(new IterateSubtreeEvaluator(depth));
+		}
 		else
 		{
 			curentNode.addRestriction(comparartor, arg1, arg2);					

@@ -13,10 +13,17 @@ import czsem.fs.query.SubtreeQueryNodeIterator;
 
 public class IterateSubtreeEvaluator extends AbstractEvaluator {
 	
-	public static final String META_ATTR_SUBTREE = "_subtree_eval";
+	public static final String META_ATTR_SUBTREE_DEPTH = "_subtree_eval_depth";
 	
 	protected Map<Integer,Integer> parentIdsAlreadyEvaluatedOnChild = new HashMap<Integer,Integer>();
+
+	protected int depth = Integer.MAX_VALUE;
 	
+	public IterateSubtreeEvaluator(int depth) {
+		this.depth = depth;
+	}
+
+
 	@Override
 	public void reset() {
 		parentIdsAlreadyEvaluatedOnChild = new HashMap<Integer,Integer>();		
@@ -35,7 +42,7 @@ public class IterateSubtreeEvaluator extends AbstractEvaluator {
 		}
 		parentIdsAlreadyEvaluatedOnChild.put(parentId, dataNodeId);
 		
-		final SubtreeQueryNodeIterator mainIterator = new SubtreeQueryNodeIterator(parentId, data, queryNode, false);
+		final SubtreeQueryNodeIterator mainIterator = new SubtreeQueryNodeIterator(parentId, data, queryNode, false, depth);
 		
 		if (! mainIterator.hasNext()) return null;
 		

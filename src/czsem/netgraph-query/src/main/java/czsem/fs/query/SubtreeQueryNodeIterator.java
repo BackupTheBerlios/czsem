@@ -25,10 +25,11 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 	
 	protected State state = parentState;
 	protected boolean initialParentSate;
+	private int maxDepth;
 	
 	public abstract class State { 
 		public abstract State nextState();
-		public boolean hasNext() {return true; };
+		public boolean hasNext() {return ! finish; };
 		public abstract QueryMatch next();
 	}
 	
@@ -49,10 +50,6 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		public State nextState() {
 			return childrenState;
 		}
-		
-		public boolean hasNext() {
-			return ! finish; 
-		}
 
 		@Override
 		public QueryMatch next() {
@@ -72,12 +69,18 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 	}
 	
 
-	public SubtreeQueryNodeIterator(int parentdataNodeId, QueryData data, QueryNode queryNode, boolean initialParentSate) {
+	public SubtreeQueryNodeIterator(int parentdataNodeId, QueryData data, QueryNode queryNode, boolean initialParentSate, int maxDepth) {
 		this.data = data;
 		this.parentDataNodeId = parentdataNodeId;
 		this.queryNode = queryNode;
 		this.initialParentSate = initialParentSate;
+		this.maxDepth = maxDepth;
 		
+		if (maxDepth <= 0)
+		{
+			finish = true;
+			return;
+		}
 		
 		if (! initialParentSate) state = childrenState;
 		
@@ -90,7 +93,7 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		
 		int i = 0;
 		for (int ch : childrenCollection) {
-			childrenIterators[i] = new SubtreeQueryNodeIterator(ch, data, queryNode, true);
+			childrenIterators[i] = new SubtreeQueryNodeIterator(ch, data, queryNode, true, maxDepth-1);
 			children[i] = ch;
 			lastResults[i] = childrenIterators[i].next();
 			i++;
@@ -106,7 +109,7 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		}
 		
 		//rewind
-		childrenIterators[i] = new SubtreeQueryNodeIterator(children[i], data, queryNode, true);
+		childrenIterators[i] = new SubtreeQueryNodeIterator(children[i], data, queryNode, true, maxDepth-1);
 		lastResults[i] = childrenIterators[i].next();
 			
 		return tryMove(i-1);
@@ -132,6 +135,6 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 	}
 
 	public SubtreeQueryNodeIterator createCopyOfInitialIteratorState() {
-		return new SubtreeQueryNodeIterator(parentDataNodeId, data, queryNode, initialParentSate);
+		return new SubtreeQueryNodeIterator(parentDataNodeId, data, queryNode, initialParentSate, maxDepth);
 	}
 }

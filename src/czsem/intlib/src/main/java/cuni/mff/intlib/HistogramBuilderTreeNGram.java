@@ -17,13 +17,11 @@ public class HistogramBuilderTreeNGram extends HistogramBuilder {
 
 	protected QueryObject selector;
 	private String attrName;
-	private int n;
 	
 	public HistogramBuilderTreeNGram(QueryObject selector, String attrName, int n) {
 		super();
 		this.selector = selector;
 		this.attrName = attrName;
-		this.n = n;
 	}
 
 	
@@ -126,7 +124,7 @@ public class HistogramBuilderTreeNGram extends HistogramBuilder {
 			sb.append(pefix);
 			if (hasChildren) sb.append("(");
 			for (int l=0; l<left.size()-1; l++)
-				sb.append(left.get(l).print("", ""));
+				sb.append(left.get(l).print("", " "));
 			
 			if (left.size() > 0)
 				sb.append(left.get(left.size()-1).print("", "("));
@@ -141,7 +139,7 @@ public class HistogramBuilderTreeNGram extends HistogramBuilder {
 				sb.append(")");
 
 			for (int r=1; r<right.size(); r++)
-				sb.append(right.get(r).print("", ""));
+				sb.append(right.get(r).print(" ", ""));
 			
 			if (hasChildren) sb.append(")");
 			sb.append(suffix);
