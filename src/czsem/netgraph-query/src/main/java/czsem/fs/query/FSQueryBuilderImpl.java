@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 
 import cz.cuni.mff.mirovsky.trees.NGTreeHead;
 import czsem.fs.query.restrictions.ChildrenEvaluator;
+import czsem.fs.query.restrictions.IterateSubtreeEvaluator;
 import czsem.fs.query.restrictions.OptionalEvaluator;
 import czsem.fs.query.restrictions.RestrictioinsConjunctionEvaluator;
 
@@ -56,6 +57,8 @@ public class FSQueryBuilderImpl implements FSQueryBuilder {
 			curentNode.setName(arg2);
 		else if (NGTreeHead.META_ATTR_OPTIONAL.equals(arg1) && NGTreeHead.META_ATTR_OPTIONAL_TRUE.equals(arg2))
 			curentNode.setEvaluator(new OptionalEvaluator());
+		else if (IterateSubtreeEvaluator.META_ATTR_SUBTREE.equals(arg1) && "true".equals(arg2))
+			curentNode.setEvaluator(new IterateSubtreeEvaluator());			
 		else
 		{
 			curentNode.addRestriction(comparartor, arg1, arg2);					

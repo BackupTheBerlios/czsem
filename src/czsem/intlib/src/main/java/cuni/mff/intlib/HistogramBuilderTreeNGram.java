@@ -2,8 +2,6 @@ package cuni.mff.intlib;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Deque;
-import java.util.LinkedList;
 import java.util.List;
 
 import czsem.fs.query.FSQuery.NodeMatch;

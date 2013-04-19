@@ -1,33 +1,30 @@
 package czsem.fs.query;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
-import com.google.common.collect.Iterators;
-
-import czsem.Utils;
 import czsem.fs.query.FSQuery.NodeMatch;
 import czsem.fs.query.FSQuery.QueryData;
 import czsem.fs.query.FSQuery.QueryMatch;
 
 public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 	
-	public static class LimitedStack<E> extends Stack<E> {
-		private static final long serialVersionUID = 6697907066897731316L;
-		
-	}
-	
-	private LimitedStack<Integer> stack = new LimitedStack<Integer>();
-	private QueryData data;
-	private int dataNodeId;
-	private QueryNode queryNode;
-	private SubtreeQueryNodeIterator [] childrenIterators;
+	protected QueryData data;
+	protected int parentDataNodeId;
+	protected QueryNode queryNode;
+	protected SubtreeQueryNodeIterator [] childrenIterators;
 	protected QueryMatch[] lastResults;
-
+	protected int[] children;
+	protected boolean finish = false;
+	
+	
+	protected State parentState = new ParentState();
+	protected State childrenState = new ChildrenState();
+	
+	protected State state = parentState;
+	protected boolean initialParentSate;
 	
 	public abstract class State { 
 		public abstract State nextState();
@@ -35,10 +32,10 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		public abstract QueryMatch next();
 	}
 	
-	public class FirstState extends State {
+	public class ParentState extends State {
 		@Override
 		public State nextState() {
-			return thirdState;
+			return childrenState;
 		}
 
 		@Override
@@ -47,22 +44,10 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		}
 	}
 
-	public class SecondState extends State {
+	public class ChildrenState extends State {
 		@Override
 		public State nextState() {
-			return thirdState;
-		}
-
-		@Override
-		public QueryMatch next() {
-			return new QueryMatch(Arrays.asList(new NodeMatch [] { new NodeMatch(dataNodeId, queryNode)}));
-		}
-	}
-
-	public class ThirdState extends State {
-		@Override
-		public State nextState() {
-			return thirdState;
+			return childrenState;
 		}
 		
 		public boolean hasNext() {
@@ -72,7 +57,10 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		@Override
 		public QueryMatch next() {
 			List<NodeMatch> ret = new ArrayList<FSQuery.NodeMatch>();
-			ret.add(new NodeMatch(dataNodeId, queryNode));
+			
+			if (initialParentSate)
+				ret.add(new NodeMatch(parentDataNodeId, queryNode));
+			
 			for (QueryMatch m : lastResults) {
 				ret.addAll(m.getMatchingNodes());
 			}
@@ -83,21 +71,17 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		}
 	}
 	
-	State firstState = new FirstState();
-	State secondState = new SecondState();
-	State thirdState = new ThirdState();
-	
-	State state = firstState;
-	
-	protected boolean finish = false;
-	private int[] children;
 
-	public SubtreeQueryNodeIterator(int dataNodeId, QueryData data, QueryNode queryNode) {
+	public SubtreeQueryNodeIterator(int parentdataNodeId, QueryData data, QueryNode queryNode, boolean initialParentSate) {
 		this.data = data;
-		this.dataNodeId = dataNodeId;
+		this.parentDataNodeId = parentdataNodeId;
 		this.queryNode = queryNode;
+		this.initialParentSate = initialParentSate;
 		
-		Collection<Integer> childrenCollection = data.getIndex().getChildren(dataNodeId);
+		
+		if (! initialParentSate) state = childrenState;
+		
+		Collection<Integer> childrenCollection = data.getIndex().getChildren(parentdataNodeId);
 		if (childrenCollection == null) childrenCollection = new ArrayList<Integer>(0); 
 		
 		childrenIterators = new SubtreeQueryNodeIterator[childrenCollection.size()];
@@ -106,7 +90,7 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		
 		int i = 0;
 		for (int ch : childrenCollection) {
-			childrenIterators[i] = new SubtreeQueryNodeIterator(ch, data, queryNode);
+			childrenIterators[i] = new SubtreeQueryNodeIterator(ch, data, queryNode, true);
 			children[i] = ch;
 			lastResults[i] = childrenIterators[i].next();
 			i++;
@@ -122,7 +106,7 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 		}
 		
 		//rewind
-		childrenIterators[i] = new SubtreeQueryNodeIterator(children[i], data, queryNode);
+		childrenIterators[i] = new SubtreeQueryNodeIterator(children[i], data, queryNode, true);
 		lastResults[i] = childrenIterators[i].next();
 			
 		return tryMove(i-1);
@@ -148,49 +132,6 @@ public class SubtreeQueryNodeIterator implements Iterator<QueryMatch> {
 	}
 
 	public SubtreeQueryNodeIterator createCopyOfInitialIteratorState() {
-		return new SubtreeQueryNodeIterator(dataNodeId, data, queryNode);
+		return new SubtreeQueryNodeIterator(parentDataNodeId, data, queryNode, initialParentSate);
 	}
-
-	/*
-	
-	public SubtreeQueryNodeIterator(
-			NodeMatch parentNodeMatch,
-			List<QueryNode> queryNodes, 
-			Collection<Integer> dataNodes,
-			QueryData data)
-	{
-		super(parentNodeMatch, queryNodes, dataNodes, data);
-		
-	}
-	
-
-	@Override
-	protected void initDataNodeIterators() {
-		if (dataNodes.size() < queryNodes.size())
-		{
-			empty = true;
-			return;
-		}
-
-		for (int i = 0; i < dataNodesIterators.length; i++) {
-			dataNodesIterators[i] = dataNodes.listIterator(i);			
-		}		
-	}
-	
-	@Override
-	protected boolean rewindDataNodesIterator(int i) {
-		
-		//first iterator will never be rewinded
-		if (i <= 0) return false;
-		
-		int ni = dataNodesIterators[i-1].nextIndex();
-		
-		//there is no space to move
-		if (ni+1 >= dataNodes.size()) return false;
-		
-		dataNodesIterators[i] = dataNodes.listIterator(ni+1);		
-		return true;
-	}
-
-*/
 }

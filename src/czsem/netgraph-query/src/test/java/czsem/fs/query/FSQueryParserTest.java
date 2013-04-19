@@ -285,4 +285,15 @@ public class FSQueryParserTest {
 		evalQuery("[]([ id !=1])", new int [] {0, 2, 0, 7});		
 	}
 
+	@Test
+	public static void testIterateSubtree() throws SyntaxError {
+		evalQuery("[_name=root]([id=1,_name=one]([_name=subtree,_subtree_eval=true]))", new int [] {
+				0, 1,
+				0, 1, 4, 
+				0, 1, 3, 
+				0, 1, 3, 4, 
+				0, 1, 3, 6, 
+				0, 1, 3, 6, 4});		
+	}
+
 }
