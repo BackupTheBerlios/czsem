@@ -61,13 +61,13 @@ public class SpcHistogramBuilder {
 
 //		HistogramBuilder.buildHistogram(SpcGazetteerCollector.getSpcCorpus(false).get(0).getAnnotations("Treex"));
 		
-		buildHistogram("[gram/sempos~=n.*]([])", "histograms/nouns_single_branch_1.txt");
+		buildHistogram("[gram/sempos~=^n\\..*]([])", "histograms/nouns_single_branch_1.txt");
 
-		buildHistogram("[gram/sempos~=n.*]([]([]))", "histograms/nouns_single_branch_2.txt");
+		buildHistogram("[gram/sempos~=^n\\..*]([]([]))", "histograms/nouns_single_branch_2.txt");
 
-		buildHistogram("[gram/sempos~=n.*]([]([]([])))", "histograms/nouns_single_branch_3.txt");
+		buildHistogram("[gram/sempos~=^n\\..*]([]([]([])))", "histograms/nouns_single_branch_3.txt");
 		
-		buildHistogram("[gram/sempos~=n.*]([_subtree_eval_depth=2])", "histograms/nouns_subtree_2.txt");
+		buildHistogram("[gram/sempos~=^n\\..*]([_subtree_eval_depth=2])", "histograms/nouns_subtree_2.txt");
 
 		buildHistogram("[t_lemma=být]([])", "histograms/byt_single_branch_1.txt");
 

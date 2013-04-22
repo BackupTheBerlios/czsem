@@ -7,8 +7,9 @@ import gate.creole.SerialAnalyserController;
 
 import java.io.File;
 
+import czsem.gate.learning.DataSet;
 import czsem.gate.learning.PRSetup;
-import czsem.gate.learning.experiments.CzechLawLearningExperiment.CzechLawDataSet;
+import czsem.gate.learning.experiments.CzechLawLearningExperimentV2;
 import czsem.gate.plugins.ControlledCrossValidation;
 import czsem.gate.plugins.CrossValidation;
 import czsem.gate.utils.GateUtils;
@@ -22,8 +23,16 @@ public class CrossValidationExport {
 		Gate.getCreoleRegister().registerComponent(CorpusNameAwareExporter.class);
 		Gate.getCreoleRegister().registerComponent(CrossValidation.class);
 		Gate.getCreoleRegister().registerComponent(ControlledCrossValidation.class);
+
+/*		
+		DataSet dataset = new CzechLawLearningExperimentV2.NsCrLawDataSet(null);
+		String crossValidationDef = CzechLawLearningExperimentV2.crossValidationDefNscr;
+/**/
+		DataSet dataset = new CzechLawLearningExperimentV2.UsCrLawDataSet(null);		
+		String crossValidationDef = CzechLawLearningExperimentV2.crossValidationDefUscr;
+/**/		
 		
-		CzechLawDataSet dataset = new CzechLawDataSet(null);
+		
 		Corpus corpus = dataset.getCorpus();
 		
 /*
@@ -39,19 +48,9 @@ public class CrossValidationExport {
 		PRSetup [] prs = {
 				new PRSetup.SinglePRSetup(CorpusNameAwareExporter.class)
 				.putFeature("annotationSetName", set)
-				.putFeatureList("annotationTypes", 
-													"Cenovy_vymer",
-													"Document",
-													"Dokument",
-													"Instituce",
-													"Plne_zneni",
-													"Rozhodnuti_soudu",
-													"Ucinnost",
-													"Vyhlaska",
-													"Zakon",
-													"Zkratka")
+				.putFeatureList("annotationTypes", CzechLawLearningExperimentV2.learnigAnnotationTypes)
 				.putFeatureList("dumpTypes")
-				.putFeature("outputDirectoryUrl", new File("export/"+set+"/data").toURI().toURL())
+				.putFeature("outputDirectoryUrl", new File("export/"+dataset.getClass().getName()+"/"+set+"/data").toURI().toURL())
 				.putFeature("dataStore", corpus.getDataStore())
 				.putFeature("useSuffixForDumpFiles", false)								
 		};
@@ -63,7 +62,7 @@ public class CrossValidationExport {
 			.putFeature("trainingPR", Factory.createResource(SerialAnalyserController.class.getCanonicalName()))
 			.putFeature("numberOfFolds", 10)
 			.putFeature("corpus", corpus)
-			.putFeature("foldDefinitionDirectoryUrl", new File("train-10-fold-cross/").toURI().toURL())
+			.putFeature("foldDefinitionDirectoryUrl", new File(crossValidationDef).toURI().toURL())
 			.createPR().execute();
 
 /*		

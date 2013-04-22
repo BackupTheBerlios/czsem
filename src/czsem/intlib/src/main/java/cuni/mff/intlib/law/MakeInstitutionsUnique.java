@@ -9,6 +9,10 @@ import gate.Utils;
 import gate.creole.SerialAnalyserController;
 import gate.util.InvalidOffsetException;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,20 +20,91 @@ import java.util.List;
 import com.google.common.collect.Iterables;
 
 import czsem.gate.learning.PRSetup;
-import czsem.gate.learning.experiments.CzechLawLearningExperiment.CzechLawDataSet;
 import czsem.gate.plugins.CustomPR;
+import czsem.gate.plugins.LevenshteinWholeLineMatchingGazetteer;
 import czsem.gate.utils.GateUtils;
 import czsem.utils.MultiSet;
 
 public class MakeInstitutionsUnique {
+
+	private static PrintStream lemmas_out;
+
+	public static void main3(String[] args) throws Exception {
+		
+		BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("inst_lemmas.txt"), "utf8"));
+		
+		for (;;) {
+			String ln = in.readLine();
+			if (ln == null) break;
+			lemmaSet.add(normalizeLemmaInst(ln));
+		}
+		
+		in.close();
+		
+		printSet(lemmaSet);
+
+		
+	}
+
+	public static String normalizeLemmaInst(String lemmaIsntStr) {
+		String ret = lemmaIsntStr.trim();
+		
+		/**/
+		ret = ret.replace("-", " ");
+		ret = ret.replace(",", " ");
+		ret = ret.replace(" v ", " ");
+		ret = ret.replace(" ČR", " ");
+		ret = ret.replace(" Spolkový republika Německo", " ");
+		ret = ret.replace(" Slovenský republika", " ");
+		ret = ret.replace(" Český republika", " ");
+		ret = ret.replace(" SR", " ");
+		ret = ret.replace(" SSR", " ");
+		ret = ret.replaceAll(" ČSR", " ");
+		ret = ret.replace(" ČSSR", " ");
+		ret = ret.replace("ÍNejvyšší", "Nejvyšší");
+		ret = ret.replace("Ústavný súdu", "Ústavní soud");
+		ret = ret.replace("Rychnov nad Kněžna", "Rychnov");
+		ret = ret.replaceFirst("^Vysoký$", "Vysoký soud");		
+		ret = ret.replaceFirst("^Krajský$", "Krajský soud");		
+		ret = ret.replace("Rozsudek", "");
+		ret = ret.replace(" pro ", " ");
+		ret = ret.replace("Vary", "Var");
+		ret = ret.replace("Frýdku", "Frýdek");
+		ret = ret.replace("soda", "soud");
+		ret = ret.replace("Okresného súdu Galant", "Okresní soud Galanta");
+		ret = ret.replaceFirst("Fond ohrožený dítě.*", "Fond ohrožený dítě");
+		ret = ret.replace("odvolací", "odvolat");
+		ret = ret.replace("soud odvolat", "odvolat soud");
+		ret = ret.replace("soud dovolací", "Dovolací soud");
+		ret = ret.replace("Králová", "Králové");
+		ret = ret.replace("MS Praha", "Městský soud Praha");
+		ret = ret.replace("Praga", "Praha");
+		ret = ret.replace("Evropský soud lidský právo Štrasburk", "Evropský soud lidský právo");
+		ret = ret.replaceFirst(" v$", "");
+		ret = ret.replace("soud krajský", "Krajský soud");
+		
+		ret = ret.replace("soud krajský", "Krajský soud");
+		
+		
+		ret = LevenshteinWholeLineMatchingGazetteer.removeRedundantSpaces(ret);
+		ret = ret.toUpperCase();
+		
+		/**/
+		return ret.trim();
+	}
 
 	public static void main(String[] args) throws Exception {
 		GateUtils.initGate();
 		
 		Gate.getCreoleRegister().registerComponent(CustomPR.class);
 		
-		CzechLawDataSet dataset = new CzechLawDataSet(null);
-		Corpus corpus = dataset.getTestCorpus();
+		Corpus corpus = GateUtils.loadCorpusFormDatastore(
+				GateUtils.openDataStore("file:/C:/data/law/cross-validation_2013-03-28/gate_store"),
+					"all___1365091864514___8479");
+		
+
+//		CzechLawDataSet dataset = new CzechLawDataSet(null);
+//		Corpus corpus = dataset.getTestCorpus();
 //		Corpus corpus = dataset.getCorpus();
 		
 		PRSetup [] prs = {
@@ -47,7 +122,12 @@ public class MakeInstitutionsUnique {
 		
 		SerialAnalyserController p = PRSetup.buildGatePipeline(prs, "export");
 		p.setCorpus(corpus);
+		
+		lemmas_out = new PrintStream("inst_lemmas", "utf8");
 		p.execute();
+		
+		lemmas_out.close();
+
 		
 		System.err.println("--- forms ---");
 		printSet(formSet);
@@ -65,7 +145,7 @@ public class MakeInstitutionsUnique {
 		
 		int a=1;
 		for (String s : sort) {
-			System.err.format("%2d '%-60s'%10d\n", a++, s, set.get(s));
+			System.err.format("%2d '%s'\t\t\t\t%10d\n", a++, s, set.get(s));
 		}
 		System.err.println(set.size());
 	}
@@ -73,6 +153,7 @@ public class MakeInstitutionsUnique {
 	static MultiSet<String> formSet = new MultiSet<String>();
 	static MultiSet<String> lemmaSet = new MultiSet<String>();
 	static MultiSet<String> regexpSet = new MultiSet<String>();
+	
 
 	protected static void makeInstitutionsUnique(Document doc) {
 		System.err.println("starting doc: " + doc.getName());
@@ -95,10 +176,13 @@ public class MakeInstitutionsUnique {
 				List<Annotation> ord = Utils.inDocumentOrder(tocs.getContained(i.getStartNode().getOffset(), i.getEndNode().getOffset()));
 				StringBuilder sb = new StringBuilder();
 				for (Annotation t : ord) { 
-					sb.append(t.getFeatures().get("lemma"));
+					sb.append(t.getFeatures().get("clean_lemma"));
 					sb.append(' ');
 				}				
 				lemmaSet.add(sb.toString());
+				//lemmas_out.println(sb.toString());
+				
+				i.getFeatures().put("normalized", normalizeLemmaInst(sb.toString()));
 			} catch (InvalidOffsetException e) {
 				throw new RuntimeException(e);
 			}
