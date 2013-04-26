@@ -286,59 +286,59 @@ public class GazetteerBuilderLemmaCsv {
 
 
 
-	public void buildGazetter(int ... columns) throws IOException {
-		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", ".lst"), true, columns);
+	public void buildGazetter(boolean lemmatize, int ... columns) throws IOException {
+		buildGazetter(fileName.replaceFirst("\\.[^\\.]*$", lemmatize ? ".lst" : "_nolemma.lst"), lemmatize, columns);
 	}
 
-	public static void buildATC() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+	public static void buildATC(boolean lemmatize) throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
-				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\atc.csv",
-				',', "utf8", 0);
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\new_gazzetteer\\atc.csv",
+				',', "utf8", 1);
 		
 		gb.initLemmatizatiuon();
 
-		gb.buildGazetter(1);			
+		gb.buildGazetter(lemmatize, 0, 1);			
 	}
 
-	public static void buildMPG() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+	public static void buildMPG(boolean lemmatize) throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
-				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\medicinal_product_group.csv",
-				',', "cp1250", 0);
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\new_gazzetteer\\medicinal_product_group.csv",
+				',', "utf8", 1);
 		
 		gb.initLemmatizatiuon();
 
-		gb.buildGazetter(1);			
+		gb.buildGazetter(lemmatize, 0, 1);			
 	}
 
-	public static void buildCIS() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+	public static void buildAI(boolean lemmatize) throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
-				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\CIS_UCLAT.csv",
-				';', "cp1250", 3);
-		
-		gb.setBackupCulumnIndex(1);
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\new_gazzetteer\\active_ingredient.csv",
+				',', "utf8", 1);
 		
 		gb.initLemmatizatiuon();
 
-		gb.buildGazetter(0, 1, 2, 3);			
+		gb.buildGazetter(lemmatize, 0, 1);			
+	}
+	
+	public static void buildMeSH(String concept, boolean lemmatize) throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
+				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\new_gazzetteer\\mesh_"+concept+".csv",
+				',', "utf8", 1);
+		
+		gb.initLemmatizatiuon();
+
+		gb.buildGazetter(lemmatize, 0, 1);					
 	}
 
-	public static void buildSpcNoLemma() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
+
+	public static void buildSpc(boolean lemmatize) throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
 		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
 				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC.csv",
 				';', "cp1250", 2);
 		
-		gb.buildGazetter("C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC_nolemma.lst", 
-				false, 0, 1);			
-	}
-
-	public static void buildSpc() throws ResourceInstantiationException, InvalidOffsetException, ExecutionException, IOException {
-		GazetteerBuilderLemmaCsv gb = new GazetteerBuilderLemmaCsv(
-				"C:\\Users\\dedek\\Desktop\\DATLOWE\\gazetteer\\SPC.csv",
-				';', "cp1250", 2);
-		
 		gb.initLemmatizatiuon();
 
-		gb.buildGazetter(0, 1);
+		gb.buildGazetter(lemmatize, 0, 1);
 		
 	}
 	
@@ -354,12 +354,21 @@ public class GazetteerBuilderLemmaCsv {
 		buildSpc();
 		/**/
 		
-		buildSpcNoLemma();
+		buildSpc(false);
 
-		buildCIS();
-		buildATC();
-		buildMPG();
+		buildAI(true);
+		buildATC(true);
+		buildMPG(true);
+		buildMeSH("concept", true);
+		buildMeSH("descriptor", true);
+		buildMeSH("term", true);
+
+		buildAI(false);
+		buildATC(false);
+		buildMPG(false);
+		buildMeSH("concept", false);
+		buildMeSH("descriptor", false);
+		buildMeSH("term", false);
 		
 	}
-
 }

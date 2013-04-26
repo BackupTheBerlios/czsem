@@ -23,34 +23,39 @@ public class CrossValidationExport {
 		Gate.getCreoleRegister().registerComponent(CorpusNameAwareExporter.class);
 		Gate.getCreoleRegister().registerComponent(CrossValidation.class);
 		Gate.getCreoleRegister().registerComponent(ControlledCrossValidation.class);
-
-/*		
+		
+		/**/		
 		DataSet dataset = new CzechLawLearningExperimentV2.NsCrLawDataSet(null);
 		String crossValidationDef = CzechLawLearningExperimentV2.crossValidationDefNscr;
-/**/
+/*
 		DataSet dataset = new CzechLawLearningExperimentV2.UsCrLawDataSet(null);		
 		String crossValidationDef = CzechLawLearningExperimentV2.crossValidationDefUscr;
-/**/		
+/**/
 		
-		
+		String sets [] = { 
+				"Paum_pos_orth_sent",
+				"Paum_pos",
+				"Paum",
+				"Paum_small"
+		};
+
 		Corpus corpus = dataset.getCorpus();
 		
-/*
-		String set = "Key";
+		for (String set : sets) {		
+			doExport(corpus, crossValidationDef, set);
+		}
+
 		
-		String set = "Paum_small";
-		String set = "Paum";
-		String set = "Paum_pos";
-		String set = "Paum_pos_orth_sent";
-*/
-		String set = "Paum_pos_orth_sent";
-		
+	}
+	
+	public static void doExport(Corpus corpus, String crossValidationDef, String set) throws Exception {
+
 		PRSetup [] prs = {
 				new PRSetup.SinglePRSetup(CorpusNameAwareExporter.class)
 				.putFeature("annotationSetName", set)
 				.putFeatureList("annotationTypes", CzechLawLearningExperimentV2.learnigAnnotationTypes)
 				.putFeatureList("dumpTypes")
-				.putFeature("outputDirectoryUrl", new File("export/"+dataset.getClass().getName()+"/"+set+"/data").toURI().toURL())
+				.putFeature("outputDirectoryUrl", new File("export/"+corpus.getName()+"/"+set+"/data").toURI().toURL())
 				.putFeature("dataStore", corpus.getDataStore())
 				.putFeature("useSuffixForDumpFiles", false)								
 		};

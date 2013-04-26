@@ -39,8 +39,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import czsem.gate.plugins.CustomPR;
-
 
 public class GateUtils
 {
@@ -354,7 +352,7 @@ public class GateUtils
 		return doc.getContent().getContent(annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset()).toString();
 	}
 
-	public static void registerComponentIfNot(Class<CustomPR> class1) throws GateException {
+	public static void registerComponentIfNot(Class<? extends ProcessingResource> class1) throws GateException {
 		if (! isPrCalssRegisteredInCreole(class1)) {
 			Gate.getCreoleRegister().registerComponent(class1);
 		}

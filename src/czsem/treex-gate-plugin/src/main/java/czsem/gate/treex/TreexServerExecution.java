@@ -80,7 +80,7 @@ public class TreexServerExecution {
 
 			if (result == null) result = HandShakeResult.TimeOut;
 			
-			String logPath = Config.getConfig().getLogFileDirectoryPath() + "/TREEX_err.log'.";
+			String logPath = Config.getConfig().getLogFileDirectoryPath() + "/TREEX"+handshake_code+"_err.log'.";
 			
 			if (result != HandShakeResult.HandShakeOK)			
 			{
@@ -204,7 +204,7 @@ public class TreexServerExecution {
 		if (show_treex_output)
 			tmt_proc.startStdoutReaderThreads();
 		else
-			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_");
+			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_" + handshakeCode);
 
 		process = tmt_proc;		
 	}

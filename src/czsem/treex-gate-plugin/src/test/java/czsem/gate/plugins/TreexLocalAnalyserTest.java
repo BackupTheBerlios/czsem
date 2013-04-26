@@ -67,17 +67,45 @@ public class TreexLocalAnalyserTest {
 
 	
 	@Test(groups = { "slow" })
+	public static void czechFeaturamaCrash() throws Exception {
+    	GateUtils.initGateInSandBox();
+    	
+    	GateUtils.registerComponentIfNot(TreexLocalAnalyser.class);
+    	
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    		.putFeature("showTreexLogInConsole", true)	
+	    		.putFeature("serverPortNumber", 1111)
+	    		/*
+	    		.putFeature("languageCode", "en")	
+	    		.putFeatureList("scenarioSetup",
+	    					"W2A::EN::Segment",
+	    					"W2A::EN::Tokenize",
+				            "W2A::EN::TagFeaturama",
+				            "W2A::EN::Lemmatize")
+				            */
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "englishSimpleTest");
+		Corpus corpus = Factory.newCorpus("englishSimpleTest");
+		/* Featurama is crashing on tokens longer than 40 characters! */
+		Document doc = Factory.newDocument("\n12345678901234567890123456789012345678901\n────────────────────────────────────────\n");
+		corpus.add(doc);
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		analysis.cleanup();
+	}
+
+	@Test(groups = { "slow" })
 	public static void englishFeaturamaTest() throws Exception {
     	GateUtils.initGateInSandBox();
     	
-	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
-	    {
-			Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
-	    }
-	    
+    	GateUtils.registerComponentIfNot(TreexLocalAnalyser.class);
+    	
 	    PRSetup[] prs= {
 	    		new SinglePRSetup(TreexLocalAnalyser.class)
 	    		.putFeature("serverPortNumber", 9999)	
+	    		.putFeature("languageCode", "en")	
 	    		.putFeatureList("scenarioSetup",
 	    					"W2A::EN::Segment",
 	    					"W2A::EN::Tokenize",

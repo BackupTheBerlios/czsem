@@ -3,12 +3,13 @@ package cuni.mff.intlib.law;
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Corpus;
+import gate.DataStore;
 import gate.Document;
 import gate.Factory;
 import gate.Gate;
 import gate.creole.SerialAnalyserController;
 import czsem.gate.learning.PRSetup;
-import czsem.gate.learning.experiments.CzechLawLearningExperiment.CzechLawDataSet;
+import czsem.gate.learning.experiments.CzechLawLearningExperimentV2;
 import czsem.gate.plugins.CustomPR;
 import czsem.gate.utils.GateUtils;
 
@@ -19,10 +20,18 @@ public class TokenMeasuresCounter {
 		
 		Gate.getCreoleRegister().registerComponent(CustomPR.class);
 		
+		/*
 		CzechLawDataSet dataset = new CzechLawDataSet(null);
 		Corpus corpus = dataset.getTestCorpus();
 //		Corpus corpus = dataset.getCorpus();
-		
+ * 
+ */
+
+		String copusId = "all___1366788715382___8493";
+		String storage_url = "file:/C:/data/law/cross-validation_2013-04-23/gate_store";
+		DataStore ds = GateUtils.openDataStore(storage_url);
+		Corpus corpus = GateUtils.loadCorpusFormDatastore(ds, copusId);
+				
 		PRSetup [] prs = {
 				new PRSetup.SinglePRSetup(CustomPR.class)
 				.putFeature("executionDelegate", new CustomPR.AnalyzeDocDelegate() {
@@ -65,7 +74,8 @@ public class TokenMeasuresCounter {
 		AnnotationSet tocs = doc.getAnnotations("Treex").get("Token");
 		doc.getFeatures().put("numOfTokens", tocs.size());
 		
-		String [] types = {"Instituce", "Rozhodnuti_soudu", "Ucinnost", "Zakon"};
+//		String [] types = {"Instituce", "Rozhodnuti_soudu", "Ucinnost", "Zakon"};
+		String [] types = CzechLawLearningExperimentV2.learnigAnnotationTypes;
 		String [] sets = {"Paum_small", "Paum", "Paum_pos", "Paum_pos_orth_sent", "JTagger", "Key"};
 		
 		for (int s = 0; s < sets.length; s++) {

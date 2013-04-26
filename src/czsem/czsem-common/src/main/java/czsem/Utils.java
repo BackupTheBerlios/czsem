@@ -273,10 +273,9 @@ public class Utils {
 		
 		public void startDetector()
 		{
-			Thread terminate_request_detector = new Thread() {
+			Thread terminate_request_detector = new Thread(new Runnable() {				
 				@Override
-				public void run()
-				{
+				public void run() {
 					BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 					String input = "";
 					do
@@ -289,10 +288,10 @@ public class Utils {
 						
 					} while (! input.equals("stop") && ! stop_requested);
 					
-					System.err.println("stop requsted!");
+					System.err.println("stop requested!");
 					stop_requested = true;
-				}			
-			};
+				}
+			});
 			
 			terminate_request_detector.start();
 		}
