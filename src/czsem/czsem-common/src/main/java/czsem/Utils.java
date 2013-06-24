@@ -284,15 +284,23 @@ public class Utils {
 					do
 					{
 						try {
-							input = in.readLine();
-						} catch (IOException e) {
-							e.printStackTrace();
+							if (in.ready())
+								input = in.readLine();
+							else
+								input = null;
+							Thread.sleep(100);
+						} catch (Exception e) {
+							throw new RuntimeException(e);
 						}
 						
-					} while (! input.equals("stop") && ! stop_requested);
+						if ("stop".equals(input)) {
+							logger.info("Stop requested by STDIN!");
+							stop_requested = true;
+						}
+						
+						
+					} while (! stop_requested);
 					
-					logger.info("Stop requested by STDIN!");
-					stop_requested = true;
 				}
 			});
 			
@@ -303,6 +311,8 @@ public class Utils {
 			Runtime.getRuntime().addShutdownHook( new Thread(new Runnable() {
 				@Override
 				public void run() {
+					if (stop_requested == true) return;
+					
 					logger.info("Stop requested by ShutdownHook!");
 					stop_requested = true;
 					
@@ -313,6 +323,10 @@ public class Utils {
 					}
 				}
 			}));
+		}
+
+		public void terminate() {
+			stop_requested = true;			
 		}
 	}
 	
