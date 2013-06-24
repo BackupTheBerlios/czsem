@@ -269,7 +269,10 @@ public class Utils {
 	
 	public static class StopRequestDetector
 	{
+		Logger logger = Logger.getLogger(StopRequestDetector.class);
+		
 		public Boolean stop_requested = false;
+		public Thread mainThread = Thread.currentThread();
 		
 		public void startDetector()
 		{
@@ -288,12 +291,28 @@ public class Utils {
 						
 					} while (! input.equals("stop") && ! stop_requested);
 					
-					System.err.println("stop requested!");
+					logger.info("Stop requested by STDIN!");
 					stop_requested = true;
 				}
 			});
 			
 			terminate_request_detector.start();
+		}
+
+		public void addShutdownHook() {
+			Runtime.getRuntime().addShutdownHook( new Thread(new Runnable() {
+				@Override
+				public void run() {
+					logger.info("Stop requested by ShutdownHook!");
+					stop_requested = true;
+					
+					try {
+						mainThread.join();
+					} catch (InterruptedException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			}));
 		}
 	}
 	
