@@ -88,9 +88,12 @@ public class Annotator implements AnnotatorInterface {
     	//seq_anot.backup(); 
     	//commented out (moved to annotate(...)) because of cases when sentence annotation fails but tokens are ok
 
-    	safeAnnotateSeq(s);
-    	    	
-    	seq_anot.restorePreviousAndBackupCurrent();
+    	if (safeAnnotateSeq(s)) {
+    		//search inside the last sentence only
+    		seq_anot.restoreToLastStartAndBackupCurrent();
+    	} else {
+    		seq_anot.restorePreviousAndBackupCurrent();
+    	}
     	
 		safeAnnotateIterableSeq(s.getOrderedTokens());
 		
@@ -142,12 +145,14 @@ public class Annotator implements AnnotatorInterface {
 		}
 	}
 
-	protected void safeAnnotateSeq(SeqAnnotable seqAnn) throws InvalidOffsetException {
+	protected boolean safeAnnotateSeq(SeqAnnotable seqAnn) throws InvalidOffsetException {
 		try {
 			annotateSeq(seqAnn);
+			return true;
 		} catch (CannotAnnotateCharacterSequence e) {
 			logger.error(String.format("SeqAnnotation error in document: %s", as.getDocument().getName()));
 			logger.error(this, e);
+			return false;
 		}
 	}
 

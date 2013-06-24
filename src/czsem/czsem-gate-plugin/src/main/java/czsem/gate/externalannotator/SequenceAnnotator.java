@@ -24,6 +24,12 @@ public class SequenceAnnotator
 		backup_last_length = last_length;		
 	}
 	
+	public void restoreToLastStartAndBackupCurrent() {
+		backup();
+		last_start_index = (int) lastStart();
+		//last_length = last_length;
+	}
+	
 	public void restorePreviousAndBackupCurrent()
 	{
 		int swap;
