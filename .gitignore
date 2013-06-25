@@ -19,3 +19,7 @@ src/czsem/intlib/documents
 src/czsem/resources/Gate/learning/czech_law/*/savedFiles/
 src/czsem/intlib/train-10-fold-cross
 src/czsem/intlib/export
+src/czsem/intlib/SpcInteractionExport/
+src/workspace/gate_debug/
+src/czsem/intlib/histograms/
+src/czsem/intlib/storePok/
