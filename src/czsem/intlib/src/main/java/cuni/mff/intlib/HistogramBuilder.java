@@ -169,6 +169,7 @@ public class HistogramBuilder {
 	protected MultiSet<String> set = new MultiSet<String>();
 	
 	public void add(Object object) {
+		System.err.println(object);
 		set.add(object.toString());
 	}
 
