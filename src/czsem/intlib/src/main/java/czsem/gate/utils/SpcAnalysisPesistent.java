@@ -3,11 +3,10 @@ package czsem.gate.utils;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
-import gate.Gate;
 import gate.creole.ConditionalSerialAnalyserController;
-import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
+import gate.security.SecurityException;
 import gate.util.GateException;
 import gate.util.persistence.PersistenceManager;
 
@@ -16,6 +15,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Level;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,17 +40,27 @@ public class SpcAnalysisPesistent {
 
 
 	public static void main(String[] args) throws Exception {
-		GateUtils.initGate(Level.ALL);
+		GateUtils.initGate(Level.INFO);
 
 		
 		SpcAnalysisPesistent a = new SpcAnalysisPesistent();
 		
-		a.init();
 		
-		a.run();
+		try {
+
+			a.init();
+			
+			a.run();
+			
+		} finally {
+			
+			a.close();
+			GateUtils.deleteAllPublicGateResources();
+		}
+		
 	}
 
-	public void run() throws ResourceInstantiationException, PersistenceException, IOException {
+	public void run() throws ResourceInstantiationException, PersistenceException, IOException, SecurityException {
 		StopRequestDetector srd = new StopRequestDetector();
 		
 		srd.addShutdownHook();
@@ -60,23 +70,28 @@ public class SpcAnalysisPesistent {
 		
 		Iterator<String> fileNameIterator = spcDb.mapBySelectedDoc.keySet().iterator();
 		
-		while (! srd.stop_requested && fileNameIterator.hasNext()) {
-			
-			String fileName = fileNameIterator.next();
-			SpcRecord record = spcDb.mapBySelectedDoc.get(fileName);
-			num++;
-			
-			if (
-					dsWrapper.containsFile(fileName) ||
-					new File(errorDir, fileName).exists()) continue;
-
-			logger.info("index\t{}, name: {}, spcCodes: {}", new Object [] {num, fileName, record.spcCode});
-			
-			processSingleFile(fileName, record);
-			
-		}
+		try {
 		
-		srd.terminate();
+			while (! srd.stop_requested && fileNameIterator.hasNext()) {
+				
+				String fileName = fileNameIterator.next();
+				SpcRecord record = spcDb.mapBySelectedDoc.get(fileName);
+				num++;
+				
+				if (
+						dsWrapper.containsGateDocument(fileName) ||
+						new File(errorDir, fileName+".xml").exists()
+				) continue;
+		
+				logger.info("index\t{}, name: {}, spcCodes: {}", new Object [] {num, fileName, record.spcCode});
+				
+				processSingleFile(fileName, record);
+				
+			}
+			
+		} finally {		
+			srd.terminate();
+		}
 
 		
 	}
@@ -85,20 +100,28 @@ public class SpcAnalysisPesistent {
 		SpcAnalysisConfig config = SpcAnalysisConfig.getConfig();
 		
 		inputDir = config.getSpcAllDirectory();
-		errorDir = config.getErrorFilesDirectory();
 		logger.info("Loading SPC DB, file {} dir {}", config.getSpcCsvFileName(), inputDir);
-				
+		
+		errorDir = config.getErrorFilesDirectory();
+		new File(errorDir).mkdirs();
+		logger.info("Using errorDir {}", errorDir);
+
 		spcDb = SpcDb.loadSpcDb(config.getSpcCsvFileName(), config.getSpcAllDirectory());
 		spcDb.mapBySelectedDoc.remove(null);
 
 		
 		logger.info("Openning data store, file {}", config.getDataStoreDir());
 		dsWrapper = new DataStoreWrapper(config.getDataStoreDir());
+		dsWrapper.openOrCreate();
 		
 
 		gateApplicationFile = config.getGateApplicationFile();
 		logger.info("loading gate application, file {}", gateApplicationFile);
-		//initController();
+		initController();
+	}
+	
+	public void close() throws PersistenceException {
+		dsWrapper.close();
 	}
 	
 	public void initController() throws PersistenceException, ResourceInstantiationException, IOException {
@@ -115,31 +138,39 @@ public class SpcAnalysisPesistent {
 	}
 
 	
-	public void processSingleFile(String filename, SpcRecord record) throws ResourceInstantiationException, PersistenceException, IOException {
+	public void processSingleFile(String filename, SpcRecord record) throws ResourceInstantiationException, IOException, PersistenceException, SecurityException {
 		File file = new File(inputDir, filename);
-		Document gateDoc = Factory.newDocument(file.toURI().toURL(), "utf8");
 		
-		gateDoc.setName(filename);
-		gateDoc.getFeatures().put("spcCode", record.spcCode);
-		gateDoc.getFeatures().put("spcName", record.spcName);
-		gateDoc.getFeatures().put("spcSupp", record.spcSupp);
-
-		corpus.add(gateDoc);
+		Document gateDoc = null;
 		
 		try {
-			controller.execute();
-		} catch (ExecutionException e) {
-			GateUtils.saveGateDocumentToXML(gateDoc, new File(errorDir, filename).getPath());
+			gateDoc = Factory.newDocument(file.toURI().toURL(), "utf8");
 			
-			logger.warn("----------------------- EXECUTION INTERUPTED -------------------");
-			e.printStackTrace();
+			gateDoc.setName(filename);
+			gateDoc.getFeatures().put("spcCode", record.spcCode);
+			gateDoc.getFeatures().put("spcName", record.spcName);
+			gateDoc.getFeatures().put("spcSupp", record.spcSupp);
+
+			corpus.add(gateDoc);
+
+			controller.execute();
+
+			dsWrapper.persistDoc(gateDoc);
+			
+		} catch (GateException e) {
+			
+			if (gateDoc == null)
+				gateDoc = Factory.newDocument(ExceptionUtils.getStackTrace(e));
+			
+			GateUtils.saveGateDocumentToXML(gateDoc, new File(errorDir, filename+".xml").getPath());
+			
+			logger.warn("----------------------- EXECUTION INTERUPTED -------------------", e);
 			initController();
 			logger.warn("----------------------- EXECUTION RESTARTED -------------------");
 		}
 		
 		corpus.clear();
 		
-		dsWrapper.persistDoc(gateDoc);
 		
 		Factory.deleteResource(gateDoc);
 

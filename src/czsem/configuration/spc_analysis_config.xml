@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_16" class="java.beans.XMLDecoder"> 
+ <object class="java.util.HashMap"> 
+  <void method="put"> 
+   <string>gateApplicationFile</string> 
+   <string>C:/Users/dedek/Desktop/DATLOWE/gate_apps/all.gapp</string> 
+  </void> 
+  <void method="put"> 
+   <string>errorFilesDirectory</string> 
+   <string>C:/Users/dedek/Desktop/DATLOWE/SPC_err/</string> 
+  </void> 
+  <void method="put"> 
+   <string>spcCsvFileName</string> 
+   <string>C:/Users/dedek/Desktop/DATLOWE/LP_SPC.csv</string> 
+  </void> 
+  <void method="put"> 
+   <string>spcAllDirectory</string> 
+   <string>C:/Users/dedek/Desktop/DATLOWE/SPC_all/</string> 
+  </void> 
+  <void method="put"> 
+   <string>dataStoreDir</string> 
+   <string>C:/Users/dedek/Desktop/DATLOWE/SPC_store/</string> 
+  </void> 
+ </object> 
+</java> 

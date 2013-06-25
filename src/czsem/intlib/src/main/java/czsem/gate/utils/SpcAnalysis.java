@@ -23,6 +23,11 @@ public class SpcAnalysis {
 	private static ConditionalSerialAnalyserController controller;
 	private static SpcInteractionExport ie;
 	private static Corpus corpus;
+	
+	public static String [] problematicSpcFiles = {
+		"SPC102858.doc",
+		"SPC100622.doc",
+	};
 
 
 	public static void initController() throws PersistenceException, ResourceInstantiationException, IOException {
