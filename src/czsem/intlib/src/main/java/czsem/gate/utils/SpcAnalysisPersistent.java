@@ -23,9 +23,9 @@ import org.slf4j.LoggerFactory;
 import czsem.Utils.StopRequestDetector;
 import czsem.gate.utils.SpcDb.SpcRecord;
 
-public class SpcAnalysisPesistent {
+public class SpcAnalysisPersistent {
 	
-	static Logger logger = LoggerFactory.getLogger(SpcAnalysisPesistent.class);
+	static Logger logger = LoggerFactory.getLogger(SpcAnalysisPersistent.class);
 	
 	protected String inputDir;
 	protected String errorDir;
@@ -43,7 +43,7 @@ public class SpcAnalysisPesistent {
 		GateUtils.initGate(Level.INFO);
 
 		
-		SpcAnalysisPesistent a = new SpcAnalysisPesistent();
+		SpcAnalysisPersistent a = new SpcAnalysisPersistent();
 		
 		
 		try {
@@ -143,7 +143,10 @@ public class SpcAnalysisPesistent {
 		
 		Document gateDoc = null;
 		
+		boolean shouldRestartOnException = false;
+		
 		try {
+			shouldRestartOnException = false;
 			gateDoc = Factory.newDocument(file.toURI().toURL(), "utf8");
 			
 			gateDoc.setName(filename);
@@ -153,8 +156,10 @@ public class SpcAnalysisPesistent {
 
 			corpus.add(gateDoc);
 
+			shouldRestartOnException = true;
 			controller.execute();
 
+			shouldRestartOnException = false;
 			dsWrapper.persistDoc(gateDoc);
 			
 		} catch (GateException e) {
@@ -164,9 +169,11 @@ public class SpcAnalysisPesistent {
 			
 			GateUtils.saveGateDocumentToXML(gateDoc, new File(errorDir, filename+".xml").getPath());
 			
-			logger.warn("----------------------- EXECUTION INTERUPTED -------------------", e);
-			initController();
-			logger.warn("----------------------- EXECUTION RESTARTED -------------------");
+			if (shouldRestartOnException) {			
+				logger.warn("----------------------- EXECUTION INTERUPTED -------------------", e);
+				initController();
+				logger.warn("----------------------- EXECUTION RESTARTED -------------------");
+			}
 		}
 		
 		corpus.clear();
