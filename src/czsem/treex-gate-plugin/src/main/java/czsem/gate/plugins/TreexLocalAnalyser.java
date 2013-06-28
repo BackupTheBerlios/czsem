@@ -21,6 +21,8 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	private int serverPortNumber;
 	private boolean showTreexLogInConsole;
 
+	private TreexServerExecution treexExec;
+
 	
 	
 	@Override
@@ -33,14 +35,14 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	public Resource init() throws ResourceInstantiationException {
 		//debugClassloader();
 		
-		TreexServerExecution exec = new TreexServerExecution();
-		exec.show_treex_output = getShowTreexLogInConsole();
-		exec.setPortNumber(getServerPortNumber());
+		treexExec = new TreexServerExecution();
+		treexExec.show_treex_output = getShowTreexLogInConsole();
+		treexExec.setPortNumber(getServerPortNumber());
 		
-		serverConnection = exec.getConnection();
+		serverConnection = treexExec.getConnection();
 		
 		try {
-			exec.start();
+			treexExec.start();
 			initScenario();
 		} catch (Exception e) {
 			serverConnection.terminateServer();
@@ -112,4 +114,11 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	public void setShowTreexLogInConsole(Boolean showTreexLogInConsole) {
 		this.showTreexLogInConsole = showTreexLogInConsole;
 	}
+
+	@Override
+	protected String getHandshakeCode() {
+		return treexExec.getHandshakeCode();
+	}
+	
+	
 }

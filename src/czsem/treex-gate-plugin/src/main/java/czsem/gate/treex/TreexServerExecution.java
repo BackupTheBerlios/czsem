@@ -204,7 +204,7 @@ public class TreexServerExecution {
 		if (show_treex_output)
 			tmt_proc.startStdoutReaderThreads();
 		else
-			tmt_proc.startReaderThreads(Config.getConfig().getLogFileDirectoryPathExisting() + "/TREEX_" + handshakeCode);
+			tmt_proc.startReaderThreads(TreexAnalyserBase.constructLogPathPrefix(handshakeCode));
 
 		process = tmt_proc;		
 	}

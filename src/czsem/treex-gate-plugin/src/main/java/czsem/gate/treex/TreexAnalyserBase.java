@@ -10,8 +10,11 @@ import gate.util.InvalidOffsetException;
 
 import java.util.List;
 
+import org.apache.xmlrpc.XmlRpcException;
+
 import czsem.gate.AbstractLanguageAnalyserWithInputOutputAS;
 import czsem.gate.utils.Config;
+import czsem.utils.AbstractConfig.ConfigLoadException;
 
 @SuppressWarnings("serial")
 public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInputOutputAS {
@@ -30,13 +33,30 @@ public abstract class TreexAnalyserBase extends AbstractLanguageAnalyserWithInpu
 	}
 
 	
-	public static String getLogPath() {
+	public static String constructLogPathPrefix(String handshakeCode) {
+		String prefix; 
 		try {
-			return Config.getConfig().getLogFileDirectoryPath() + "/TREEX_err.log";
-		} catch (Exception e) {
-			return "<path is not available>";
+			prefix = Config.getConfig().getLogFileDirectoryPathExisting() + "/";
+		} catch (ConfigLoadException e) {
+			prefix = ""; 
+		}
+		
+		return prefix + "TREEX_" + handshakeCode+"_";
+	}
+
+	
+	public String getLogPath() {
+		return constructLogPathPrefix(getHandshakeCode())+"err.log";
+	}
+
+	protected String getHandshakeCode() {
+		try {
+			return serverConnection.handshake();
+		} catch (XmlRpcException e) {
+			return "#default";
 		}
 	}
+
 
 	@Override
 	public void execute() throws ExecutionException {
