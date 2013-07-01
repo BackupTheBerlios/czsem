@@ -405,4 +405,18 @@ public class Utils {
 		return (E[]) runtimeType;
 	}
 
+	public static String collectionToString(Collection<String> codes, char delim) {
+		if (codes == null || codes.size() == 0) return "";
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (Iterator<String> i = codes.iterator();;) {
+			sb.append(i.next());
+			if (! i.hasNext()) break;
+			sb.append(delim);
+		}
+
+		return sb.toString();
+	}
+
 }

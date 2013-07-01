@@ -3,13 +3,17 @@ package czsem.gate.utils;
 import gate.Document;
 import gate.Factory;
 import gate.LanguageResource;
+import gate.Resource;
 import gate.corpora.DocumentImpl;
+import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
 import gate.persist.SerialDataStore;
 import gate.security.SecurityException;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class DataStoreWrapper {
 	
@@ -70,6 +74,53 @@ public class DataStoreWrapper {
 
 	public void close() throws PersistenceException {
 		ds.close();
+	}
+	
+	public class ResourceIterator <T extends Resource> implements Iterator<T> {
+
+		private Iterator<String> lrIdsIterator;
+		private Class<T> cls;
+
+		@SuppressWarnings("unchecked")
+		public ResourceIterator(Class<T> cls) throws PersistenceException {
+			this.cls = cls;
+			lrIdsIterator = ds.getLrIds(cls.getCanonicalName()).iterator();
+		}
+
+		@Override
+		public boolean hasNext() {
+			return lrIdsIterator.hasNext();
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public T next() {
+			try {
+				return (T) GateUtils.loadResourceFormDatastore(ds, cls.getCanonicalName(), lrIdsIterator.next());
+			} catch (ResourceInstantiationException e) {
+				throw new NoSuchElementException(e.toString());
+			}
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException("not implemented");
+		}
+		
+	}
+
+	public Iterable<? extends Document> iterateAllDocuments() {
+		return new Iterable<DocumentImpl>() {
+			
+			@Override
+			public Iterator<DocumentImpl> iterator() {
+				try {
+					return new ResourceIterator<DocumentImpl>(DocumentImpl.class);
+				} catch (PersistenceException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		};
 	}
 
 }

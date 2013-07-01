@@ -61,7 +61,14 @@ public class SpcDb {
 								spcCode, record.spcCode, selectedDoc, record.selectedDoc));
 				}
 			}
-			
+
+			if (! spcName.equals(record.spcName)) {
+/*				throw new RuntimeException(
+						String.format("Cannot merge records %s %s\n slected names don't match %s %s",
+								spcCode, record.spcCode, spcName, record.spcName));
+*/								
+			}
+
 			
 			if (! spcCode.addAll(record.spcCode)) {
 				throw new RuntimeException(
