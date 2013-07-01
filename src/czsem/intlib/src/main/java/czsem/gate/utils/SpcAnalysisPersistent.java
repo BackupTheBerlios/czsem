@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import czsem.Utils.StopRequestDetector;
 import czsem.gate.utils.SpcDb.SpcRecord;
+import czsem.mime.MimeForMicrosoftX;
 
 public class SpcAnalysisPersistent {
 	
@@ -147,7 +148,11 @@ public class SpcAnalysisPersistent {
 		
 		try {
 			shouldRestartOnException = false;
-			gateDoc = Factory.newDocument(file.toURI().toURL(), "utf8");
+			
+			//gateDoc = Factory.newDocument(file.toURI().toURL(), "utf8");
+		    gateDoc = GateUtils.createDoc(file, "utf8", 
+		    		MimeForMicrosoftX.detectMimeWithFileSuffixConfusion(file.getAbsolutePath()));
+
 			
 			gateDoc.setName(filename);
 			gateDoc.getFeatures().put("spcCode", record.spcCode);

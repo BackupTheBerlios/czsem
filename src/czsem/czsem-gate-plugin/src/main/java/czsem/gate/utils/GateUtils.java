@@ -14,6 +14,7 @@ import gate.LanguageResource;
 import gate.ProcessingResource;
 import gate.Resource;
 import gate.Utils;
+import gate.corpora.DocumentImpl;
 import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
 import gate.util.AnnotationDiffer;
@@ -28,6 +29,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
@@ -356,6 +358,14 @@ public class GateUtils
 		if (! isPrCalssRegisteredInCreole(class1)) {
 			Gate.getCreoleRegister().registerComponent(class1);
 		}
+	}
+
+	public static Document createDoc(File file, String encoding, String mimeType) throws ResourceInstantiationException, MalformedURLException {
+		URL url =file.toURI().toURL();
+	    FeatureMap parameterValues = Factory.newFeatureMap();
+	    parameterValues.put(Document.DOCUMENT_URL_PARAMETER_NAME, url);
+	    parameterValues.put(Document.DOCUMENT_MIME_TYPE_PARAMETER_NAME, mimeType);
+	    return (Document) Factory.createResource(DocumentImpl.class.getCanonicalName(), parameterValues);
 	}
 
 
