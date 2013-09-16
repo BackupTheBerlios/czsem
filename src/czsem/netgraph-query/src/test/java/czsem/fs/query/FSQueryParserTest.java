@@ -296,4 +296,12 @@ public class FSQueryParserTest {
 				0, 1, 3, 6, 4});		
 	}
 
+	@Test
+	public static void testInListOperator() throws SyntaxError {
+		evalQuery("[_name=root]([id @=2;7])", new int [] {
+				0, 2,
+				0, 7, 
+				});		
+	}
+
 }

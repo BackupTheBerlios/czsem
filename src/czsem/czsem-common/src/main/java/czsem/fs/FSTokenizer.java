@@ -33,6 +33,7 @@ public class FSTokenizer {
 			case '<':
 			case '>':
 			case '~':	//regexp
+			case '@':	//in list
 				return SpecialChar.EVEN_STRING_COMPARATOR;
 
 			case '[':

@@ -14,6 +14,8 @@ public class Restrictioin {
 			return new RegExpRestrictioin(arg1, arg2);
 		if (comparartor.equals("!="))
 			return new NotEqualRestrictioin(arg1, arg2);
+		if (comparartor.equals("@="))
+			return new InListRestrictioin(arg1, arg2);
 		
 		throw new RuntimeException(String.format("Restricition not supported: %s", comparartor));
 	}
@@ -48,6 +50,30 @@ public class Restrictioin {
 		protected boolean evaluate(Object dataValue) {
 			if (dataValue == null) return false;
 			return value.equals(dataValue.toString());
+		}
+
+	}
+
+	public static class InListRestrictioin extends AttrRestrictioin {
+
+		private String[] values;
+
+		public InListRestrictioin(String attr, String value) {
+			super(attr, value);
+			values = value.split(";");
+		}
+
+		@Override
+		protected boolean evaluate(Object dataValue) {
+			if (dataValue == null) return false;
+			
+			String dvString = dataValue.toString();
+			
+			for (String v : values) {
+				if (v.equals(dvString)) return true;
+			}
+			
+			return false;			
 		}
 
 	}
