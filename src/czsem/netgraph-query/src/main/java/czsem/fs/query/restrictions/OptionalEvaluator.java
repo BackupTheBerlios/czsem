@@ -31,7 +31,8 @@ public class OptionalEvaluator extends ChildrenEvaluator {
 	
 	@Override
 	public Iterable<QueryMatch> getResultsFor(QueryData data, QueryNode queryNode, int dataNodeId) {
-		int parentId = data.getIndex().getParent(dataNodeId);
+		Integer parentId = data.getIndex().getParent(dataNodeId);
+		if (parentId == null) return null;
 
 		Iterable<QueryMatch> ordinaryResult = super.getResultsFor(data, queryNode, dataNodeId);
 		if (ordinaryResult != null)
