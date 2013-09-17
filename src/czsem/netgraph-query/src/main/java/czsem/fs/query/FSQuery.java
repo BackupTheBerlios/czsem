@@ -2,11 +2,11 @@ package czsem.fs.query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.PriorityQueue;
 import java.util.SortedMap;
 import java.util.SortedSet;
 import java.util.TreeMap;
-import java.util.Map.Entry;
-import java.util.PriorityQueue;
 import java.util.TreeSet;
 
 import com.google.common.collect.Iterables;
@@ -108,6 +108,7 @@ public class FSQuery {
 
 	public static class QueryObject {
 		protected QueryNode queryNode;
+		protected String queryName = null; 
 
 		public QueryObject(QueryNode queryNode) {
 			this.queryNode = queryNode;
@@ -132,6 +133,28 @@ public class FSQuery {
 			
 			return Iterables.concat(res.toArray(gt));
 		}
+
+		public boolean isNodeMatching(Integer nodeId, QueryData data) {
+			queryNode.reset();
+			Iterable<QueryMatch> i = queryNode.getResultsFor(data, nodeId);
+			return (i != null && i.iterator().hasNext());
+		}
+
+		public QueryMatch getFirstMatch(Integer nodeId, QueryData data) {
+			queryNode.reset();
+			Iterable<QueryMatch> i = queryNode.getResultsFor(data, nodeId);
+			if (i == null || ! i.iterator().hasNext()) return null;
+			
+			return i.iterator().next();
+		}
+
+		public String getQueryName() {
+			return queryName;
+		}
+
+		public void setQueryName(String queryName) {
+			this.queryName = queryName;
+		}
 		
 	}
 	
@@ -140,6 +163,8 @@ public class FSQuery {
 		FSQueryParser p = new FSQueryParser(b);
 		p.parse(queryString);
 		
-		return new QueryObject(b.getRootNode());		
+		QueryObject qo = new QueryObject(b.getRootNode());
+		qo.setQueryName(queryString);
+		return qo;		
 	}
 }
