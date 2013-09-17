@@ -37,17 +37,43 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		}
 	}
 
-	public static class SubtreeMarkInfo
-	{
-		FeatureMap fm;
+	public static class AnnotationOffsetMerge {
 		public long start_offset;
 		public long end_offset;		
 		
 		
-		public SubtreeMarkInfo(FeatureMap fm, long startOffset, long endOffset) {
-			this.fm = fm;
+		public AnnotationOffsetMerge(long startOffset, long endOffset) {
 			start_offset = startOffset;
 			end_offset = endOffset;
+		}
+
+		public AnnotationOffsetMerge()
+		{
+			this(Long.MAX_VALUE, Long.MIN_VALUE);
+		}
+		
+		public AnnotationOffsetMerge(Annotation annotation)
+		{
+			this(
+					annotation.getStartNode().getOffset(),
+					annotation.getEndNode().getOffset());			
+		}
+
+		public void mergeWith(AnnotationOffsetMerge other)
+		{
+			start_offset = Math.min(start_offset, other.start_offset);
+			end_offset = Math.max(end_offset, other.end_offset);
+		}
+	}
+	
+
+	public static class SubtreeMarkInfo extends AnnotationOffsetMerge
+	{
+		public FeatureMap fm;
+		
+		public SubtreeMarkInfo(long startOffset, long endOffset) {
+			super(startOffset, endOffset);
+			this.fm = Factory.newFeatureMap();
 		}
 
 		public SubtreeMarkInfo(FeatureMap fm)
@@ -58,13 +84,13 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 
 		public SubtreeMarkInfo()
 		{
-			this(Factory.newFeatureMap(), Long.MAX_VALUE, Long.MIN_VALUE);
+			super();
+			this.fm = Factory.newFeatureMap();
 		}
 		
 		public SubtreeMarkInfo(Annotation annotation)
 		{
 			this(
-					Factory.newFeatureMap(),
 					annotation.getStartNode().getOffset(),
 					annotation.getEndNode().getOffset());
 			
@@ -76,8 +102,7 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		public void mergeWith(SubtreeMarkInfo info)
 		{
 			fm.putAll(info.fm);
-			start_offset = Math.min(start_offset, info.start_offset);
-			end_offset = Math.max(end_offset, info.end_offset);
+			super.mergeWith(info);
 		}
 	}
 	
