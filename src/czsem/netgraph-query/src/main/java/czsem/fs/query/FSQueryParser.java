@@ -133,6 +133,7 @@ public class FSQueryParser {
 	}
 
 	protected Character getCurrentChar() {
+		if (charIndex >= chars.size()) return null;
 		Character ch = chars.get(charIndex);
 		if (ch == null) return ch;
 		if (ch == ' ') ch = findNextChar();
