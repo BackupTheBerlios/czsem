@@ -1,16 +1,27 @@
 package czsem.gate.plugins;
 
+import gate.Annotation;
+import gate.AnnotationSet;
+import gate.Corpus;
+import gate.Document;
+import gate.Factory;
 import gate.Gate;
 import gate.Resource;
+import gate.Utils;
 import gate.creole.ResourceInstantiationException;
+import gate.creole.SerialAnalyserController;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 
 import java.net.URL;
 import java.util.List;
 
+import org.apache.log4j.Level;
+
+import czsem.gate.learning.PRSetup;
 import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
+import czsem.gate.utils.GateUtils;
 
 @CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )", 
 	helpURL="https://czsem-suite.atlassian.net/wiki/display/DOC/Treex+GATE+Plugin")
@@ -118,6 +129,37 @@ public class TreexLocalAnalyser extends TreexAnalyserBase {
 	@Override
 	protected String getHandshakeCode() {
 		return treexExec.getHandshakeCode();
+	}
+	
+	public static void main (String [] args) throws Exception {
+		System.err.println("--- Treex TreexLocalAnalyser Test ---");
+		GateUtils.initGate(Level.INFO);
+		GateUtils.registerComponentIfNot(TreexLocalAnalyser.class);
+		
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(		
+			new PRSetup [] {		
+					new PRSetup.SinglePRSetup(TreexLocalAnalyser.class)
+		    		.putFeature("showTreexLogInConsole", true)	
+			},
+			"TreexLocalAnalyser Test");
+		
+		Corpus corpus = Factory.newCorpus("czechNETest");
+		
+		//MainFrame.getInstance().setVisible(true);
+		
+		Document doc = Factory.newDocument("Ahoj světe! Život je krásný, že? 5. listopadu 2012 v Hradci Králové, Česká republika (ČR), Česko");
+		corpus.add(doc);
+		
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		
+		AnnotationSet sents = doc.getAnnotations().get("Sentence");
+		for (Annotation s: sents) {
+			System.err.println(Utils.cleanStringFor(doc, s));
+		}
+		
+		analysis.cleanup();
+
 	}
 	
 	
