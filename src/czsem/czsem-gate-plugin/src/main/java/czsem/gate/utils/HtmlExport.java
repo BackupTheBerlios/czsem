@@ -7,6 +7,7 @@ import gate.DocumentContent;
 import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
+import gate.GateConstants;
 import gate.corpora.DocumentContentImpl;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
@@ -16,10 +17,26 @@ import gate.util.InvalidOffsetException;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.net.URL;
 
 import czsem.gate.learning.PRSetup;
 
 public class HtmlExport {
+	
+	protected String annotationSetName;
+	protected URL outputDirectoryUrl;
+	protected String[] annotationTypes; 
+	protected String[] colorNames;
+	
+	protected SerialAnalyserController pipeline;
+	protected Corpus corpus;
+
+	public HtmlExport(String annotationSetName, URL outputDirectoryUrl,	String[] annotationTypes, String[] colorNames) {
+		this.annotationSetName = annotationSetName;
+		this.outputDirectoryUrl = outputDirectoryUrl;
+		this.annotationTypes = annotationTypes;
+		this.colorNames = colorNames;
+	}
 
 	public static void main(String[] args) throws Exception {
 		GateUtils.initGateInSandBox();
@@ -38,7 +55,7 @@ public class HtmlExport {
 		
 	}
 
-	public static void addExportHeader(Document doc, String[] annotationTypes, String[] colorNames) throws InvalidOffsetException {
+	public void addExportHeader(Document doc) throws InvalidOffsetException {
 		String prefix ="\n\n\n"+"body	{white-space: pre-wrap;}\n";
 		
 		StringBuilder sb = new StringBuilder(prefix);
@@ -54,7 +71,7 @@ public class HtmlExport {
 		DocumentContent replacement = new DocumentContentImpl(docPrefix);
 		doc.edit(0L, 0L, replacement);
 		
-		AnnotationSet markupAs = doc.getAnnotations("Original markups");
+		AnnotationSet markupAs = doc.getAnnotations(GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME);
 		
 		FeatureMap f = Factory.newFeatureMap();
 		markupAs.add(0L, doc.getContent().size(), "html", f);
@@ -64,38 +81,53 @@ public class HtmlExport {
 		
 	}
 
-	public static void doExport(String fileName, String outputDir, String asName, String[] annotationTypes, String[] colorNames) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException, ExecutionException {
-		new File(outputDir).mkdirs();
-		
-		new File(outputDir).mkdirs();
-		
-		System.err.println("reading doc: " + fileName);
-		Document doc = Factory.newDocument(new File(fileName).toURI().toURL(), "utf8");
-		System.err.println("reading finished");
-		
-		addExportHeader(doc, annotationTypes, colorNames);
-		
-		
+	public void init() throws ResourceInstantiationException {
 		PRSetup[] setup = new PRSetup [] {
 				new PRSetup.SinglePRSetup(DumpingPR.class)
 				.putFeature("includeFeatures", true)
 				.putFeature("useStandOffXML", false)
 				.putFeature("useSuffixForDumpFiles", true)
 				.putFeature("suffixForDumpFiles", ".html")
-				.putFeature("outputDirectoryUrl", new File(outputDir).toURI().toURL())
-				.putFeature("annotationSetName", asName)
+				.putFeature("outputDirectoryUrl", outputDirectoryUrl)
+				.putFeature("annotationSetName", annotationSetName)
 				.putFeatureList("annotationTypes", annotationTypes)
 				.putFeatureList("dumpTypes")
 				
 				
 		};
 		
-		SerialAnalyserController pipeline = PRSetup.buildGatePipeline(setup, "export pipeline");
+		pipeline = PRSetup.buildGatePipeline(setup, "HTML export pipeline");
 		
-		Corpus c = Factory.newCorpus("export");
-		c.add(doc);		
-		pipeline.setCorpus(c);
-		pipeline.execute();
+		corpus = Factory.newCorpus("HTML export corpus");
+		pipeline.setCorpus(corpus);
+		
+	}
+	
+	public void doExport(Document doc) throws InvalidOffsetException, ExecutionException {
+		addExportHeader(doc);
+				
+		corpus.clear();
+		corpus.add(doc);		
+		pipeline.execute();		
+	}
+
+	public void doExport(String fileName) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException, ExecutionException {
+		
+		
+		System.err.println("reading doc: " + fileName);
+		Document doc = Factory.newDocument(new File(fileName).toURI().toURL(), "utf8");
+		System.err.println("reading finished");
+		
+		doExport(doc);
+		Factory.deleteResource(doc);
+	}
+
+	public static void doExport(String fileName, String outputDir, String asName, String[] annotationTypes, String[] colorNames) throws ResourceInstantiationException, MalformedURLException, InvalidOffsetException, ExecutionException {
+		new File(outputDir).mkdirs();
+
+		HtmlExport htmlExport = new HtmlExport(asName, new File(outputDir).toURI().toURL(), annotationTypes, colorNames);
+		htmlExport.init();
+		htmlExport.doExport(fileName);
 	}
 
 }
