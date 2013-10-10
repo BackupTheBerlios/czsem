@@ -4,6 +4,7 @@ import gate.Annotation;
 import gate.DataStore;
 import gate.Document;
 import gate.Factory;
+import gate.GateConstants;
 import gate.corpora.DocumentImpl;
 import gate.persist.SerialDataStore;
 import gate.util.GateException;
@@ -46,7 +47,8 @@ public class BasicAnalysis {
 			
 			@Override
 			public void analyzeDoc(Document doc) throws InvalidOffsetException {
-				List<Annotation> paras = gate.Utils.inDocumentOrder(doc.getAnnotations("Original markups").get("paragraph"));
+				List<Annotation> paras = gate.Utils.inDocumentOrder(doc.getAnnotations(
+						GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME).get("paragraph"));
 				
 				
 				int a = 0;

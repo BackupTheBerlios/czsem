@@ -2,6 +2,7 @@ package cuni.mff.intlib.law;
 
 import gate.Annotation;
 import gate.Document;
+import gate.GateConstants;
 import gate.util.GateException;
 
 import java.io.IOException;
@@ -79,7 +80,8 @@ public class LawDatabse {
 			
 			@Override
 			public void analyzeDoc(Document doc) throws Exception {
-				List<Annotation> paras = gate.Utils.inDocumentOrder(doc.getAnnotations("Original markups").get("paragraph"));
+				List<Annotation> paras = gate.Utils.inDocumentOrder(doc.getAnnotations(
+						GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME).get("paragraph"));
 				String orig = GateUtils.getAnnotationContent(paras.get(0), doc).replaceAll("[\\n\\r]", "");
 				logger.debug(orig);
 				try {

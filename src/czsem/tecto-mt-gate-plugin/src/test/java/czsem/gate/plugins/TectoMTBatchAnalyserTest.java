@@ -175,7 +175,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		document.getAnnotations().clear();
 		AnnotationSet as = document.getAnnotations();
 		assertEquals(as.size(), 0);
-		AnnotationSet as_orig = document.getAnnotations("Original markups");
+		AnnotationSet as_orig = document.getAnnotations(GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME);
 		assertEquals(24, as_orig.size());
 		
 		
@@ -200,7 +200,7 @@ public class TectoMTBatchAnalyserTest //extends TestCase
 		document.getAnnotations().clear();
 		AnnotationSet as = document.getAnnotations();
 		assertEquals(as.size(), 0);
-		AnnotationSet as_orig = document.getAnnotations("Original markups");
+		AnnotationSet as_orig = document.getAnnotations(GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME);
 		assertEquals(37, as_orig.size());
 		
 		
