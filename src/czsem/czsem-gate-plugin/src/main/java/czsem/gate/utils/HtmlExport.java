@@ -26,16 +26,24 @@ public class HtmlExport {
 	protected String annotationSetName;
 	protected URL outputDirectoryUrl;
 	protected String[] annotationTypes; 
-	protected String[] colorNames;
+	protected String[] elementStyles = null;
 	
 	protected SerialAnalyserController pipeline;
 	protected Corpus corpus;
+	protected String headerPrefix ="\n\n\n"+"body	{white-space: pre-wrap;}\n";
 
+
+	public HtmlExport(String annotationSetName, URL outputDirectoryUrl,	String[] annotationTypes) {
+		this.annotationSetName = annotationSetName;
+		this.outputDirectoryUrl = outputDirectoryUrl;
+		this.annotationTypes = annotationTypes;
+	}
+	
 	public HtmlExport(String annotationSetName, URL outputDirectoryUrl,	String[] annotationTypes, String[] colorNames) {
 		this.annotationSetName = annotationSetName;
 		this.outputDirectoryUrl = outputDirectoryUrl;
 		this.annotationTypes = annotationTypes;
-		this.colorNames = colorNames;
+		setColorNames(colorNames);
 	}
 
 	public static void main(String[] args) throws Exception {
@@ -54,18 +62,30 @@ public class HtmlExport {
 		doExport(fileName, outputDir, asName, annotationTypes, colorNames);
 		
 	}
+	
+	public void useWhiteSpacePreWrap(boolean useWhiteSpacePreWrap) {
+		headerPrefix ="\n\n\n";
+		if (useWhiteSpacePreWrap) headerPrefix += "body	{white-space: pre-wrap;}\n";
+	}
+	
+	public void setColorNames(String[] colorNames) {
+		elementStyles = new String [annotationTypes.length];
+		
+		for (int c=0; c< colorNames.length; c++) {
+			elementStyles[c] = String.format("{background: %s ; }\n", colorNames[c]);
+		}
+	}
 
 	public void addExportHeader(Document doc) throws InvalidOffsetException {
-		String prefix ="\n\n\n"+"body	{white-space: pre-wrap;}\n";
 		
-		StringBuilder sb = new StringBuilder(prefix);
-		for (int i = 0; i < annotationTypes.length; i++) {
-			sb.append(annotationTypes[i]);
-			sb.append("	{background: ");
-			sb.append(colorNames[i]);
-			sb.append(";}\n");
+		StringBuilder sb = new StringBuilder(headerPrefix);
+		if (elementStyles != null) {
+			for (int i = 0; i < annotationTypes.length; i++) {
+				sb.append(annotationTypes[i]);
+				sb.append(elementStyles[i]);
+			}
+			sb.append("\n");
 		}
-		sb.append("\n");
 		
 		String docPrefix = sb.toString();
 		DocumentContent replacement = new DocumentContentImpl(docPrefix);
@@ -128,6 +148,14 @@ public class HtmlExport {
 		HtmlExport htmlExport = new HtmlExport(asName, new File(outputDir).toURI().toURL(), annotationTypes, colorNames);
 		htmlExport.init();
 		htmlExport.doExport(fileName);
+	}
+
+	public String[] getElementStyles() {
+		return elementStyles;
+	}
+
+	public void setElementStyles(String[] elementStyles) {
+		this.elementStyles = elementStyles;
 	}
 
 }

@@ -8,6 +8,7 @@ import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Factory;
 import gate.FeatureMap;
+import gate.Utils;
 import gate.creole.ExecutionException;
 import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
@@ -52,6 +53,10 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 			this(Long.MAX_VALUE, Long.MIN_VALUE);
 		}
 		
+		public AnnotationOffsetMerge(AnnotationSet as) {
+			this(Utils.start(as), Utils.end(as));
+		}
+
 		public AnnotationOffsetMerge(Annotation annotation)
 		{
 			this(
