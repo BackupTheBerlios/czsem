@@ -23,7 +23,7 @@ import czsem.gate.treex.TreexAnalyserBase;
 import czsem.gate.treex.TreexServerExecution;
 import czsem.gate.utils.GateUtils;
 
-@CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Alyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )", 
+@CreoleResource(name = "czsem TreexLocalAnalyser", comment = "Analyses givem corpus by Treex localy ( see http://ufal.mff.cuni.cz/treex/ )", 
 	helpURL="https://czsem-suite.atlassian.net/wiki/display/DOC/Treex+GATE+Plugin")
 public class TreexLocalAnalyser extends TreexAnalyserBase {
 

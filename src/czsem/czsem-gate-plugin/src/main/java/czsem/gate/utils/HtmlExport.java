@@ -9,7 +9,6 @@ import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
 import gate.GateConstants;
-import gate.Utils;
 import gate.corpora.DocumentContentImpl;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
