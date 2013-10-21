@@ -367,6 +367,27 @@ public class GateUtils
 	    parameterValues.put(Document.DOCUMENT_MIME_TYPE_PARAMETER_NAME, mimeType);
 	    return (Document) Factory.createResource(DocumentImpl.class.getCanonicalName(), parameterValues);
 	}
+	
+	
+	/**
+	 * Changes the span of an existing annotation by creating a new annotation
+	 * with the same ID, type and features but with the new start and end
+	 * offsets.
+	 * 
+	 * @param set
+	 *            the annotation set
+	 * @param oldAnnotation
+	 *            the annotation to be moved
+	 * @param newStartOffset
+	 *            the new start offset
+	 * @param newEndOffset
+	 *            the new end offset
+	 */
+	public static void moveAnnotation(AnnotationSet set, Annotation oldAnnotation, Long newStartOffset, Long newEndOffset)	throws InvalidOffsetException {
+		Integer oldID = oldAnnotation.getId();
+		set.remove(oldAnnotation);
+		set.add(oldID, newStartOffset, newEndOffset, oldAnnotation.getType(), oldAnnotation.getFeatures());
+	}
 
 
 }

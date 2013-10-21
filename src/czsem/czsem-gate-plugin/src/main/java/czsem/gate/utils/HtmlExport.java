@@ -1,5 +1,6 @@
 package czsem.gate.utils;
 
+import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
@@ -8,6 +9,7 @@ import gate.Factory;
 import gate.FeatureMap;
 import gate.Gate;
 import gate.GateConstants;
+import gate.Utils;
 import gate.corpora.DocumentContentImpl;
 import gate.creole.ExecutionException;
 import gate.creole.ResourceInstantiationException;
@@ -18,15 +20,24 @@ import gate.util.InvalidOffsetException;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.log4j.Logger;
 
 import czsem.gate.learning.PRSetup;
 
 public class HtmlExport {
+	private static Logger logger = Logger.getLogger(HtmlExport.class);
+	
 	
 	protected String annotationSetName;
 	protected URL outputDirectoryUrl;
 	protected String[] annotationTypes; 
 	protected String[] elementStyles = null;
+	
+	protected boolean addHeaderWithStyles = true;
+	protected boolean addSafeHtmlEnd = false;
 	
 	protected SerialAnalyserController pipeline;
 	protected Corpus corpus;
@@ -74,6 +85,47 @@ public class HtmlExport {
 		for (int c=0; c< colorNames.length; c++) {
 			elementStyles[c] = String.format("{background: %s ; }\n", colorNames[c]);
 		}
+	}
+
+	public void addSafeHtmlEnd(Document doc) throws InvalidOffsetException {
+		AnnotationSet htmlAS = doc.getAnnotations(GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME).get("html");
+		if (htmlAS.size() != 1) throw new IllegalStateException("Wrong html annot count!");
+
+		Annotation htmlAnn = htmlAS.iterator().next();
+		
+		long htmlOff = htmlAnn.getEndNode().getOffset();
+
+		long size = doc.getContent().size();		
+		
+		if (htmlOff != size) { 
+			logger.warn("Html doesn't end at doc end!");
+			
+			AnnotationSet exportAs = doc.getAnnotations(annotationSetName);
+			AnnotationSet exportAnns = exportAs.get(htmlOff, htmlOff+1).get(czsem.Utils.setFromArray(annotationTypes));
+			
+			for (Annotation a: exportAnns) {
+				GateUtils.moveAnnotation(exportAs, a, a.getStartNode().getOffset(), htmlOff);
+			}						
+		}
+		
+		// add single space at the end of document
+		doc.edit(size, size, new DocumentContentImpl(" "));
+		
+		//move all annotation ends
+		List<AnnotationSet> ass = new ArrayList<AnnotationSet>(doc.getNamedAnnotationSets().size()+1);
+		ass.addAll(doc.getNamedAnnotationSets().values());
+		ass.add(doc.getAnnotations());
+		
+		for (AnnotationSet as : ass) {
+			for (Annotation ann : as.get(size, size+1)) {
+				GateUtils.moveAnnotation(as, ann, ann.getStartNode().getOffset(), size);
+			}
+		}
+		
+		//move html tag
+		GateUtils.moveAnnotation(
+				doc.getAnnotations(GateConstants.ORIGINAL_MARKUPS_ANNOT_SET_NAME),
+				htmlAnn, 0L, size+1);				
 	}
 
 	public void addExportHeader(Document doc) throws InvalidOffsetException {
@@ -124,7 +176,11 @@ public class HtmlExport {
 	}
 	
 	public void doExport(Document doc) throws InvalidOffsetException, ExecutionException {
-		addExportHeader(doc);
+		if (addHeaderWithStyles)
+			addExportHeader(doc);
+		
+		if (addSafeHtmlEnd)
+			addSafeHtmlEnd(doc);
 				
 		corpus.clear();
 		corpus.add(doc);		
@@ -156,6 +212,22 @@ public class HtmlExport {
 
 	public void setElementStyles(String[] elementStyles) {
 		this.elementStyles = elementStyles;
+	}
+
+	public boolean getAddHeaderWithStyles() {
+		return addHeaderWithStyles;
+	}
+
+	public void setAddHeaderWithStyles(boolean addHeaderWithStyles) {
+		this.addHeaderWithStyles = addHeaderWithStyles;
+	}
+
+	public boolean getAddSafeHtmlEnd() {
+		return addSafeHtmlEnd;
+	}
+
+	public void setAddSafeHtmlEnd(boolean addSafeHtmlEnd) {
+		this.addSafeHtmlEnd = addSafeHtmlEnd;
 	}
 
 }
