@@ -213,14 +213,22 @@ public class Utils {
 	}
 
 
-	public static Set<String> setFromArray(String[] array)
+	public static Integer[] intArray2IntegerArray(int[] array, int newLength) {
+		Integer[] ret = new Integer[newLength];
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = array[i];
+		}
+		return ret;
+	}
+
+	public static <E> Set<E> setFromArray(E[] array)
 	{		
 		return setFromList(Arrays.asList(array));
 	}
 
-	public static Set<String> setFromList(List<String> list)
+	public static <E> Set<E> setFromList(List<E> list)
 	{		
-		return new HashSet<String>(list);
+		return new HashSet<E>(list);
 	}
 	
 	public static int[] intArrayFromCollection(Collection<Integer> l)
