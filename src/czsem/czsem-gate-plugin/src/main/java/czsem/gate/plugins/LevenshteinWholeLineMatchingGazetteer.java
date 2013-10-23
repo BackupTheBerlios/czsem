@@ -57,6 +57,7 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	private double minDistance = 0.2; 
 	private boolean removeAllSpaces = false;
 	private boolean removeRedundantSpaces = true;
+	private boolean evaluateOnPrefix = false;
 	
 	@Override
 	protected void readList(LinearNode node, boolean add) throws ResourceInstantiationException {
@@ -206,6 +207,12 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		}
 	}
 	
+	public static  String shortenToLength(String origSrcText, int length) {
+		return origSrcText.substring(0, 
+				Math.min(length, origSrcText.length()));
+	}
+
+	
 	public static String removeRedundantSpaces(String str)
 	{
 		return str.replaceAll("[\\s\\u00a0]+", " "); 
@@ -216,22 +223,26 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		return str.replaceAll("[\\s\\u00a0]", "");
 	}
 	
-	public Distance countDistanceOptimized(String text1, String text2, double minInterstingNormalizedDistance) {
+	public Distance countDistanceOptimized(String srcText, String entryText, double minInterstingNormalizedDistance) {
 		
 		//if( Character.isSpaceChar(currentChar) || Character.isWhitespace(currentChar) )
 		
 		if (removeAllSpaces)
 		{
-			text1 = removeAllSpaces(text1);				
-			text2 = removeAllSpaces(text2);				
+			srcText = removeAllSpaces(srcText);				
+			entryText = removeAllSpaces(entryText);				
 		} else {
 			if (removeRedundantSpaces) {
-				text1 = removeRedundantSpaces(text1);				
-				text2 = removeRedundantSpaces(text2);				
+				srcText = removeRedundantSpaces(srcText);				
+				entryText = removeRedundantSpaces(entryText);				
 			}
 		}
 		
-		int l1 = text1.length(); int l2 = text2.length();
+		if (getEvaluateOnPrefix()) {
+			srcText = shortenToLength(srcText, entryText.length());
+		}
+		
+		int l1 = srcText.length(); int l2 = entryText.length();
 		int lMin, lMax;		
 		if (l1 > l2) {
 			lMin = l2; lMax = l1;
@@ -243,16 +254,16 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 		double minNormDistance = normalizeDistance(minDistance, lMax);
 		
 		if (minNormDistance > minInterstingNormalizedDistance) 
-			return new Distance(minDistance, minNormDistance, text1, text2);
+			return new Distance(minDistance, minNormDistance, srcText, entryText);
 			
 		if (! caseSensitive) {
-			text1 = text1.toLowerCase();
-			text2 = text2.toLowerCase();
+			srcText = srcText.toLowerCase();
+			entryText = entryText.toLowerCase();
 		}
 		
-		int countedDist = StringUtils.getLevenshteinDistance(text1, text2);
+		int countedDist = StringUtils.getLevenshteinDistance(srcText, entryText);
 		return new Distance(countedDist, 
-				normalizeDistance(countedDist, lMax), text1, text2);
+				normalizeDistance(countedDist, lMax), srcText, entryText);
 	}
 
 	@CreoleParameter(defaultValue="0.2")
@@ -283,6 +294,16 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	@RunTime
 	public void setRemoveRedundantSpaces(Boolean removeRedundentSpaces) {
 		this.removeRedundantSpaces = removeRedundentSpaces;
+	}
+
+	public Boolean getEvaluateOnPrefix() {
+		return evaluateOnPrefix;
+	}
+
+	@CreoleParameter(defaultValue="false")
+	@RunTime
+	public void setEvaluateOnPrefix(Boolean evaluateOnPrefix) {
+		this.evaluateOnPrefix = evaluateOnPrefix;
 	}
 
 	public static void main(String[] args) throws Exception {
