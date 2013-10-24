@@ -4,7 +4,6 @@ import gate.AnnotationSet;
 import gate.Corpus;
 import gate.Document;
 import gate.Factory;
-import gate.Gate;
 import gate.creole.ExecutionException;
 import gate.creole.ExecutionInterruptedException;
 import gate.creole.ResourceInstantiationException;
@@ -19,6 +18,7 @@ import gate.creole.metadata.CreoleParameter;
 import gate.creole.metadata.CreoleResource;
 import gate.creole.metadata.HiddenCreoleParameter;
 import gate.creole.metadata.RunTime;
+import gate.gui.GazetteerEditor;
 import gate.gui.MainFrame;
 
 import java.io.File;
@@ -54,7 +54,7 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	protected Map<LinearNode,Map<String,Lookup>> lookups = new HashMap<LinearNode, Map<String,Lookup>>();
 	private Map<String, Lookup> currentlyReadingNodeMap;
 	
-	private double minDistance = 0.2; 
+	private double maxDistance = 0.2; 
 	private boolean removeAllSpaces = false;
 	private boolean removeRedundantSpaces = true;
 	private boolean evaluateOnPrefix = false;
@@ -152,10 +152,10 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 					String entryText = gEntry.getEntry();
 					
 					
-					double currentApplicableMin = Math.min(minDistance, getMinDistance());
-					Distance distance = countDistanceOptimized(srcText, entryText, currentApplicableMin); 							
+					double currentApplicableMax = Math.min(minDistance, getMaxDistance());
+					Distance distance = countDistanceOptimized(srcText, entryText, currentApplicableMax); 							
 					
-					if (distance.normalizeDistance <= currentApplicableMin)
+					if (distance.normalizeDistance <= currentApplicableMax)
 					{					
 						
 						FSMState state = new FSMState(this);
@@ -177,7 +177,7 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 					}
 				}
 				
-				if (minDistance <= getMinDistance())				{
+				if (minDistance <= getMaxDistance())				{
 					createLookups(minState, iter.getLastStrat(), iter.getLastEnd()-1, annotationSet);
 				}
 			}
@@ -268,12 +268,12 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 
 	@CreoleParameter(defaultValue="0.2")
 	@RunTime
-	public void setMinDistance(Double minDistance) {
-		this.minDistance = minDistance;
+	public void setMaxDistance(Double maxDistance) {
+		this.maxDistance = maxDistance;
 	}
 
-	public Double getMinDistance() {
-		return minDistance;
+	public Double getMaxDistance() {
+		return maxDistance;
 	}
 
 	public Boolean getRemoveAllSpaces() {
@@ -309,16 +309,17 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	public static void main(String[] args) throws Exception {
 		GateUtils.initGate();
 		
-		Gate.getCreoleRegister().registerComponent(LevenshteinWholeLineMatchingGazetteer.class);
+		GateUtils.registerComponentIfNot(GazetteerEditor.class);
+		GateUtils.registerComponentIfNot(LevenshteinWholeLineMatchingGazetteer.class);
 		
 		MainFrame.getInstance().setVisible(true);
 		
 		PRSetup [] s = {
 				new SinglePRSetup(LevenshteinWholeLineMatchingGazetteer.class)
-			.putFeature("minDistance", 0.1) 
+			.putFeature("maxDistance", 0.1) 
 			.putFeature(DEF_GAZ_CASE_SENSITIVE_PARAMETER_NAME, false) 
 			.putFeature(DEF_GAZ_LISTS_URL_PARAMETER_NAME, 
-					new File("C:/Users/dedek/Desktop/DATLOWE/gazetteer/datlowe_gaz_nolemma.def").toURI().toURL())
+					new File("C:/workspace/Collite/Datlowe/DocumentProcessing/datlowe/resources/Gate/SPC/gazetteer/datlowe_spc_gaz_nolemma.def").toURI().toURL())
 			.putFeature(DEF_GAZ_FEATURE_SEPARATOR_PARAMETER_NAME, "|"),
 		};
 		

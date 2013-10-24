@@ -345,7 +345,7 @@ public class GateUtils
 		return types.contains(classname);				
 	}
 
-	public static boolean isPrCalssRegisteredInCreole(Class<? extends ProcessingResource> clazz)
+	public static boolean isPrCalssRegisteredInCreole(Class<? extends Resource> clazz)
 	{
 		return isPrCalssRegisteredInCreole(clazz.getCanonicalName());
 	}
@@ -354,7 +354,7 @@ public class GateUtils
 		return doc.getContent().getContent(annotation.getStartNode().getOffset(), annotation.getEndNode().getOffset()).toString();
 	}
 
-	public static void registerComponentIfNot(Class<? extends ProcessingResource> class1) throws GateException {
+	public static void registerComponentIfNot(Class<? extends Resource> class1) throws GateException {
 		if (! isPrCalssRegisteredInCreole(class1)) {
 			Gate.getCreoleRegister().registerComponent(class1);
 		}
