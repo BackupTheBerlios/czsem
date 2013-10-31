@@ -135,50 +135,58 @@ public class LevenshteinWholeLineMatchingGazetteer extends DefaultGazetteer {
 	    fireStatusChanged("Performing look-up in " + document.getName() + "...");
 	    String content = document.getContent().toString();
 	    
-	    StringLineIterator iter = new StringLineIterator(content);
+	    StringLineIterator lineIter = new StringLineIterator(content);
 	    
-	    while (iter.hasNext()) {
-			String srcText = iter.next();
+	    while (lineIter.hasNext()) {
+			String srcText = lineIter.next();
 
 			for (Object objNode : definition) {
 	    		LinearNode curNode = (LinearNode) objNode;
-				GazetteerList list = (GazetteerList) definition.getListsByNode().get(objNode);
+				GazetteerList gazetteerList = (GazetteerList) definition.getListsByNode().get(objNode);
 				
-				double minDistance = Double.MAX_VALUE;
-				FSMState minState = null;
+				double currMinDistance = Double.MAX_VALUE;
+				FSMState minGazFinState = null;
 				
-				for (Object entry : list) {
-					GazetteerNode gEntry = (GazetteerNode) entry;
-					String entryText = gEntry.getEntry();
+				for (Object entry : gazetteerList) {
+					GazetteerNode gazEntry = (GazetteerNode) entry;
+					String gazEntryText = gazEntry.getEntry();
 					
 					
-					double currentApplicableMax = Math.min(minDistance, getMaxDistance());
-					Distance distance = countDistanceOptimized(srcText, entryText, currentApplicableMax); 							
+					double currentApplicableMaxDist = Math.min(currMinDistance, getMaxDistance());
+					Distance distance = countDistanceOptimized(srcText, gazEntryText, currentApplicableMaxDist); 							
 					
-					if (distance.normalizeDistance <= currentApplicableMax)
+					if (distance.normalizeDistance <= currentApplicableMaxDist)
 					{					
 						
-						FSMState state = new FSMState(this);
-						Lookup lookup = lookups.get(curNode).get(gEntry.getEntry());
+						FSMState gazFinState = new FSMState(this);
+						Lookup lookup = lookups.get(curNode).get(gazEntry.getEntry());
 						
 						@SuppressWarnings("unchecked")
 						Map<Object, Object> f = lookup.features;						
 						f.put("distance", distance.diatnce);
 						f.put("normalizedDistance", distance.normalizeDistance);
-						f.put("matchedText", entryText);
+						f.put("matchedText", gazEntryText);
 						/* debug*/
 						f.put("srcText", srcText);
 						/**/
 						
-						state.addLookup(lookup);					
+						gazFinState.addLookup(lookup);					
 
-						minDistance = distance.normalizeDistance;
-						minState = state;
+						currMinDistance = distance.normalizeDistance;
+						minGazFinState = gazFinState;
 					}
 				}
 				
-				if (minDistance <= getMaxDistance())				{
-					createLookups(minState, iter.getLastStrat(), iter.getLastEnd()-1, annotationSet);
+				if (currMinDistance <= getMaxDistance())				{
+					long start = lineIter.getLastStrat();
+					long end = lineIter.getLastEnd()-1;
+					
+					if (evaluateOnPrefix) {						
+						Lookup lookup = (Lookup) minGazFinState.getLookupSet().iterator().next();
+						int matchedLength = lookup.features.get("matchedText").toString().length();
+						end = start + matchedLength-1;  
+					}					
+					createLookups(minGazFinState, start, end, annotationSet);
 				}
 			}
 			if(isInterrupted()) throw new ExecutionInterruptedException(
