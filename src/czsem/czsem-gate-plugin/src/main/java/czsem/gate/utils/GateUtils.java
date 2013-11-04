@@ -388,6 +388,15 @@ public class GateUtils
 		set.remove(oldAnnotation);
 		set.add(oldID, newStartOffset, newEndOffset, oldAnnotation.getType(), oldAnnotation.getFeatures());
 	}
+	
+	public static AnnotationSet getAnnotationsByRefString(String ref, Document doc) {
+		if (ref == null || ref.isEmpty()) return null; 
+			
+		String[] split = ref.split("\\.");
+		AnnotationSet ret = doc.getAnnotations(split[0]).get(split[1]);
+		
+		return ret;
+	}
 
 
 }
