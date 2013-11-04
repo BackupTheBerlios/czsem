@@ -22,5 +22,8 @@ public class AddTokenOrthographyTest {
 		Assert.assertEquals(AddTokenOrthography.getOrthographyValue("Dedek-J"), "mixedCaps");
 		
 		Assert.assertEquals(AddTokenOrthography.getOrthographyValue("123"), null);
+
+		Assert.assertEquals(AddTokenOrthography.getOrthographyValue("jan dedek"), "lowercase");
+		Assert.assertEquals(AddTokenOrthography.getOrthographyValue("jan!dedek"), "lowercase");
 	}
 }

@@ -70,6 +70,12 @@ public class AddTokenOrthography  extends AbstractLanguageAnalyser {
 		    types.add(Character.getType(c));
 		}
 		
+		//we are ignoring spaces 
+		types.remove(Character.getType(' '));
+
+		//we are ignoring CONTROL chars 
+		types.remove(Character.getType(':'));
+		
 		if (Character.getType(content.charAt(0)) == Character.UPPERCASE_LETTER)
 		{
 			if (lowerCaseTypesSet.containsAll(types))
