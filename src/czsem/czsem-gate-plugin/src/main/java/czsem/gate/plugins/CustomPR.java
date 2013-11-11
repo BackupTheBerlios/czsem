@@ -36,13 +36,17 @@ public class CustomPR extends AbstractLanguageAnalyser {
 	
 	public interface AnalyzeDocDelegate
 	{
-		public void analyzeDoc(Document doc);
+		public void analyzeDoc(Document doc) throws Exception;
 	}
 	
 	@Override
 	public void execute() throws ExecutionException
 	{			
-		getExecutionDelegate().analyzeDoc(getDocument());
+		try {
+			getExecutionDelegate().analyzeDoc(getDocument());
+		} catch (Exception e) {
+			throw new ExecutionException(e);
+		}
 	}
 
 	public void executeAnalysis(DataSet data) throws PersistenceException, ResourceInstantiationException, ExecutionException

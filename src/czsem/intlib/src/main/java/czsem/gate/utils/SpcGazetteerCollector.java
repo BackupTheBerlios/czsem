@@ -7,6 +7,8 @@ import gate.DataStore;
 import gate.Document;
 import gate.creole.ResourceInstantiationException;
 import gate.persist.PersistenceException;
+import gate.util.GateException;
+import gate.util.InvalidOffsetException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +48,7 @@ public class SpcGazetteerCollector {
 		CustomPR pr = CustomPR.createInstance(new AnalyzeDocDelegate() {
 			
 			@Override
-			public void analyzeDoc(Document doc) {
+			public void analyzeDoc(Document doc) throws GateException {
 				myAnalyzeDoc(doc);
 			}
 		});
@@ -61,9 +63,7 @@ public class SpcGazetteerCollector {
 	
 	public static Map<String, MultiSet<String>> map = new HashMap<String, MultiSet<String>>();
 	
-	public static void myAnalyzeDoc(Document doc) {
-		try {
-		
+	public static void myAnalyzeDoc(Document doc) throws InvalidOffsetException, ResourceInstantiationException {
 			System.err.println(doc.getParameterValue(Document.DOCUMENT_ENCODING_PARAMETER_NAME));
 			
 			AnnotationSet hs = doc.getAnnotations("Sections").get("Heading");
@@ -88,12 +88,6 @@ public class SpcGazetteerCollector {
 									
 						);
 			}
-
-		
-		} catch (Exception e) {
-			throw new RuntimeException(e); 
-		}
-		
 	}
 
 

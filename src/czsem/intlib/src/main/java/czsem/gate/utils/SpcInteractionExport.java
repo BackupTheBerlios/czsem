@@ -71,12 +71,8 @@ public class SpcInteractionExport {
 		.putFeature("executionDelegate", new CustomPR.AnalyzeDocDelegate() {
 
 			@Override
-			public void analyzeDoc(Document doc) {
-				try {
-					exportDoc(doc);
-				} catch (IOException e) {
-					throw new RuntimeException(e);
-				}
+			public void analyzeDoc(Document doc) throws IOException {
+				exportDoc(doc);
 			}
 			
 		}).createPR();
