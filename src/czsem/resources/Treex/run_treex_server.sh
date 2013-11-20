@@ -13,7 +13,7 @@ then
   TREEX_ONLINE="$CURRENT_PREFIX/treex_online.pl"
 fi
 
-PERL5LIB=$CURRENT_PREFIX:$PERL5LIB
+export PERL5LIB=$CURRENT_PREFIX:$PERL5LIB
  
 echo "Running perl $TREEX_ONLINE $@"
 echo "in directory: $TREEX_ROOT"
