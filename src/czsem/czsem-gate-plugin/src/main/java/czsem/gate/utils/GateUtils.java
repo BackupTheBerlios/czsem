@@ -314,14 +314,21 @@ public class GateUtils
 		initGate(Level.OFF);
 	}
 
-	public static void initGate(Level logLevel) throws GateException, IOException, URISyntaxException {
+	public static void initGateKeepLog() throws GateException, IOException, URISyntaxException {
 		if (Gate.isInitialised()) return;
-		
-		czsem.Utils.loggerSetup(logLevel);		
 		
 		Config.getConfig().setGateHome();
 
 		Gate.init();						
+		
+	}
+
+	public static void initGate(Level logLevel) throws GateException, IOException, URISyntaxException {
+		if (Gate.isInitialised()) return;
+		
+		czsem.Utils.loggerSetup(logLevel);
+		
+		initGateKeepLog();		
 	}
 
 	
