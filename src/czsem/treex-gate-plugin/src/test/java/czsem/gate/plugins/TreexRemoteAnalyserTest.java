@@ -25,15 +25,14 @@ public class TreexRemoteAnalyserTest {
 	    System.err.println("Testing remote server at: " + sever_addr);
 
 	    GateUtils.initGateInSandBox();
+	    
+	    GateUtils.registerComponentIfNot(TreexRemoteAnalyser.class);
     
-	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
-	    {
-			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
-	    }
 	    
 		PRSetup[] prs= {
 	    		new SinglePRSetup(TreexRemoteAnalyser.class)
 	    			.putFeature("treexServerUrl", new URL(sever_addr))
+	    			.putFeature("languageCode", "en")
 	    			.putFeature("resetServerScenario", true)
 	    			.putFeature("terminateServerOnCleanup", true)
 	    			.putFeatureList("scenarioSetup", 
@@ -63,10 +62,7 @@ public class TreexRemoteAnalyserTest {
 
 	    GateUtils.initGateInSandBox();
     
-	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
-	    {
-			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
-	    }
+	    GateUtils.registerComponentIfNot(TreexRemoteAnalyser.class);
 	    
 		PRSetup[] prs= {
 	    		new SinglePRSetup(TreexRemoteAnalyser.class)
@@ -101,10 +97,7 @@ public class TreexRemoteAnalyserTest {
 
 	    GateUtils.initGateInSandBox();
 
-	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
-	    {
-			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
-	    }
+	    GateUtils.registerComponentIfNot(TreexRemoteAnalyser.class);
 	    
 		PRSetup[] prs= {
 	    		new SinglePRSetup(TreexRemoteAnalyser.class)
@@ -143,14 +136,12 @@ public class TreexRemoteAnalyserTest {
 
 	    GateUtils.initGateInSandBox();
     
-	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexRemoteAnalyser.class))
-	    {
-			Gate.getCreoleRegister().registerComponent(TreexRemoteAnalyser.class);
-	    }
+	    GateUtils.registerComponentIfNot(TreexRemoteAnalyser.class);
 	    
 		PRSetup[] prs= {
 	    		new SinglePRSetup(TreexRemoteAnalyser.class)
 	    			.putFeature("treexServerUrl", new URL(sever_addr))
+	    			.putFeature("languageCode", "en")
 	    			.putFeature("resetServerScenario", true)
 	    			.putFeature("terminateServerOnCleanup", true)
 	    			.putFeatureList("scenarioSetup", 
