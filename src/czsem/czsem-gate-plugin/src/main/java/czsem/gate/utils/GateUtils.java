@@ -405,5 +405,9 @@ public class GateUtils
 		return ret;
 	}
 
+	public static long spaceBetweenAnnotations(Annotation firstAnn, Annotation secondAnn) {
+		return secondAnn.getStartNode().getOffset() - firstAnn.getEndNode().getOffset();
+	}
+
 
 }
