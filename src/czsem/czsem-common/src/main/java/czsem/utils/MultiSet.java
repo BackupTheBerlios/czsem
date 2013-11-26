@@ -119,6 +119,10 @@ public class MultiSet<T> implements Iterable<T>
 		}
 	}
 
+	public void addAll(T[] data) {
+		addAll(data, data.length);
+	}
+
 	public void addAll(T[] data, int count)
 	{
 		for (int i = 0; (i < data.length) && (i < count) ; i++)
