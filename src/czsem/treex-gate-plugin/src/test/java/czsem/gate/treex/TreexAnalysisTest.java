@@ -22,6 +22,33 @@ public class TreexAnalysisTest {
 		
 	}
 	
+	@Test( groups="slow" )
+	public void unicodeSOHTest() throws Exception {
+		TreexServerExecution tse = new TreexServerExecution();
+		tse.show_treex_output = false;
+		tse.start();
+				
+		TreexServerConnection conn = tse.getConnection();
+		conn.initScenario("en", "W2A::Segment", "W2A::Tokenize");
+		
+		for (int i=0; i<= 255; i++) {
+			String str = i+" "+Character.toString((char) i);
+
+			try {
+				conn.analyzeText(str);
+			} catch (Exception e) {	
+				System.err.format("case %d: break;\n", i);
+				/**/
+				conn.terminateServer();			
+				throw e;
+				/**/
+			}
+		}
+
+		conn.terminateServer();				
+	}
+
+	
 	@Test
 	public void segmentAndTokenizeTest() throws Exception {
 		TreexServerExecution tse = new TreexServerExecution();

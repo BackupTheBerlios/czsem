@@ -13,6 +13,9 @@ import org.apache.log4j.Logger;
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
+import org.apache.xmlrpc.serializer.XmlWriterFactory;
+
+import czsem.gate.treex.xmlwriter.TreexXmlWriterFactory;
 
 public class TreexServerConnection {
 	static Logger logger = Logger.getLogger(TreexServerConnection.class); 
@@ -30,6 +33,9 @@ public class TreexServerConnection {
 			
 			rpcClient = new XmlRpcClient();
 			rpcClient.setConfig(config);
+			
+			XmlWriterFactory factory = new TreexXmlWriterFactory();			
+			rpcClient.setXmlWriterFactory(factory);
 		} 
 		catch (IncompatibleClassChangeError e) {
 			throw new ResourceInstantiationException( String.format(

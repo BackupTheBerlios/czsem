@@ -135,6 +135,40 @@ public class TreexLocalAnalyserTest {
 	}
 
 	@Test
+	public void unicodeSOHTest() throws Exception {
+    	GateUtils.initGateInSandBox();
+        
+	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
+	    {
+			Gate.getCreoleRegister().registerComponent(TreexLocalAnalyser.class);
+	    }
+	    
+	    PRSetup[] prs= {
+	    		new SinglePRSetup(TreexLocalAnalyser.class)
+	    		.putFeature("serverPortNumber", 7999)	
+	    		.putFeature("languageCode", "en")	
+	    		.putFeatureList("scenarioSetup", 
+	    					"W2A::EN::Segment",
+	    					"W2A::EN::Tokenize")//,
+	    };
+	    
+		SerialAnalyserController analysis = PRSetup.buildGatePipeline(prs, "unicodeSOHTest");
+		Corpus corpus = Factory.newCorpus("unicodeSOHTest");
+		Document doc = Factory.newDocument("Hallo world! Li\u0001fe is great, isn't it?");
+		corpus.add(doc);
+		analysis.setCorpus(corpus);
+		analysis.execute();
+		analysis.cleanup();
+		
+		AnnotationSet a = doc.getAnnotations().get("Token").get(13l);
+		
+		Assert.assertEquals((long) gate.Utils.start(a), 13l);
+		Assert.assertEquals((long) gate.Utils.end(a), 15l);
+		
+	}
+
+	
+	@Test
 	public static void englishSimpleTest() throws Exception {
     	GateUtils.initGateInSandBox();
     
@@ -146,6 +180,7 @@ public class TreexLocalAnalyserTest {
 	    PRSetup[] prs= {
 	    		new SinglePRSetup(TreexLocalAnalyser.class)
 	    		.putFeature("serverPortNumber", 9999)	
+	    		.putFeature("languageCode", "en")	
 	    		.putFeatureList("scenarioSetup", 
 	    					"W2A::EN::Segment",
 	    					"W2A::EN::Tokenize")//,
