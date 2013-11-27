@@ -129,6 +129,11 @@ public class SequenceAnnotator
 					
 					if (loc_ch != toc_ch)
 					{
+						//loc_ch < 32 encoded as space, caused by czsem.gate.treex.xmlwriter.FilteringCharSetXMLWriter
+						if (toc_ch == ' ' && loc_ch < 32) {
+							continue;							
+						}
+						
 						//multiple hyphens
 						if (
 								(loc_ch == '-')

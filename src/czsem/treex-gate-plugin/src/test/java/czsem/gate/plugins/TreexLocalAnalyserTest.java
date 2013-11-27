@@ -136,7 +136,7 @@ public class TreexLocalAnalyserTest {
 
 	@Test
 	public void unicodeSOHTest() throws Exception {
-    	GateUtils.initGateInSandBox();
+    	GateUtils.initGate(Level.WARN);
         
 	    if (! GateUtils.isPrCalssRegisteredInCreole(TreexLocalAnalyser.class))
 	    {
@@ -164,6 +164,8 @@ public class TreexLocalAnalyserTest {
 		
 		Assert.assertEquals((long) gate.Utils.start(a), 13l);
 		Assert.assertEquals((long) gate.Utils.end(a), 15l);
+		
+		Assert.assertEquals(doc.getAnnotations().get("Sentence").size(), 2);
 		
 	}
 
