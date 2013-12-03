@@ -37,16 +37,20 @@ public class MultiSet<T> implements Iterable<T>
 		
 		for (Entry<T, Integer> e : set)
 		{
-			String outstr = "null";
-			T key = e.getKey();
-			if (key != null) outstr = key.toString();
-			sb.append(outstr);
-			sb.append(": ");
-			sb.append(e.getValue());
-			sb.append(separator);
+			toFormatedString(e.getKey(), e.getValue(), sb, separator);
 		}
 		
 		return sb.toString();
+	}
+
+	public void toFormatedString(T key, Integer count, StringBuilder sb, String separator)
+	{
+			String outstr = "null";
+			if (key != null) outstr = key.toString();
+			sb.append(outstr);
+			sb.append(": ");
+			sb.append(count);
+			sb.append(separator);
 	}
 
 	public void print(PrintStream out)
@@ -58,9 +62,27 @@ public class MultiSet<T> implements Iterable<T>
 		out.print(toOrderedFormatedString(separator));
 	}
 
+	public void printTopN(PrintStream out, String separator, int n) {
+		List<T> topKeys = getTopKeys(n);
+		
+		StringBuilder sb = new StringBuilder();
+		
+		for (T key : topKeys) {
+			toFormatedString(key, get(key), sb, separator);
+		}
+		
+		out.print(sb.toString());
+	}
+
 
 	public int size() {
 		return map.keySet().size();
+	}
+
+	public int sum() {
+		int ret = 0;
+		for (int count : map.values()) ret += count;
+		return ret;
 	}
 
 	public boolean isEmpty() {
@@ -80,10 +102,15 @@ public class MultiSet<T> implements Iterable<T>
 
 
 	public int add(T e) {
-		Integer i = get(e);		
-		map.put(e, ++i);
+		return add(e, 1);
+	}
+	
+	public int add(T e, int count) {
+		Integer i = get(e) + count;		
+		map.put(e, i);
 		return i;
 	}
+
 
 	public int remove(T o) {
 		Integer i = map.get(o);
@@ -221,7 +248,5 @@ public class MultiSet<T> implements Iterable<T>
 		{
 			System.err.println(k.get(i));			
 		}
-		
-		
 	}
 }
