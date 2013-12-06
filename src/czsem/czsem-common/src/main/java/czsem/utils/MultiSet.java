@@ -149,6 +149,17 @@ public class MultiSet<T> implements Iterable<T>
 	public void addAll(T[] data) {
 		addAll(data, data.length);
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void addAllFiltered(String[] data, int minLength) {
+		for (int i = 0; (i < data.length); i++)
+		{
+			if (data[i] == null || data[i].length() < minLength)
+				continue;
+			add((T) data[i]);			
+		}
+	}
+
 
 	public void addAll(T[] data, int count)
 	{
