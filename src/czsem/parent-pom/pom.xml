@@ -36,24 +36,24 @@
 
 
 	<modules>
-		<module>czsem-common</module>
-		<module>netgraph-tree-viewer</module>
-		<module>netgraph-client</module>
-		<module>czsem-gate-plugin</module>
-		<module>netgraph-query</module>
-		<module>gate-applet</module>
-		<module>mimir-client-tools</module>
-		<module>tecto-mt-gate-plugin</module>
-		<module>fuzzy-ilp-classifier</module>
-		<module>ie-experiments</module>
-		<module>gate-plugins</module>
-		<module>javacsv</module>
-		<module>czsem-ontologies</module>
-		<module>installer</module>
-		<module>intlib</module>
-		<module>custom-properties-maven-plugin</module>
-		<module>detect-content</module>
-		<module>treex-gate-plugin</module>
+		<module>../czsem-common</module>
+		<module>../netgraph-tree-viewer</module>
+		<module>../netgraph-client</module>
+		<module>../czsem-gate-plugin</module>
+		<module>../netgraph-query</module>
+		<module>../gate-applet</module>
+		<module>../mimir-client-tools</module>
+		<module>../tecto-mt-gate-plugin</module>
+		<module>../fuzzy-ilp-classifier</module>
+		<module>../ie-experiments</module>
+		<module>../gate-plugins</module>
+		<module>../javacsv</module>
+		<module>../czsem-ontologies</module>
+		<module>../installer</module>
+		<module>../intlib</module>
+		<module>../custom-properties-maven-plugin</module>
+		<module>../detect-content</module>
+		<module>../treex-gate-plugin</module>
 	</modules>
 
 	<build>
