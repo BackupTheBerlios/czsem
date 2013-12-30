@@ -260,4 +260,8 @@ public class MultiSet<T> implements Iterable<T>
 			System.err.println(k.get(i));			
 		}
 	}
+
+	public Map<T, Integer> asMap() {
+		return map;
+	}
 }
