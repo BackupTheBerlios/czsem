@@ -309,7 +309,7 @@ public class NetgraphServerComunication extends NetgraphProtocolConnection {
 		char[] chars = getString(SepartorCahrs.EOM).toCharArray();
 		int pos = res.tree_head.readTreeHead(chars, 0);
 		
-        DefaultListModel model_list_actual_head = getGlobalHead().getModel();
+        DefaultListModel<Attribute> model_list_actual_head = getGlobalHead().getModel();
 
         //read tree
         res.tree = new CzsemTree();        

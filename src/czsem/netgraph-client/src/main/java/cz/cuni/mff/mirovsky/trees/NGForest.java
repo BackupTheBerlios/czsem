@@ -37,7 +37,7 @@ public class NGForest {
 
     private ShowMessagesAble mess; // objekt pro výpis hlášek
 
-    private DefaultListModel vybrane_atributy; // vybrané atributy
+    private DefaultListModel<String> vybrane_atributy; // vybrané atributy
 
     /**
      * Creates a new empty forest.
@@ -217,7 +217,7 @@ public class NGForest {
      * Returns a list of selected attributes. Selected attributes are displayed at nodes in the tree.
      * @return a list of selected attributes
      */
-    public DefaultListModel getVybraneAtributy() { // vrátí seznam vybraných atributů
+    public DefaultListModel<String> getVybraneAtributy() { // vrátí seznam vybraných atributů
         return vybrane_atributy;
     }
 

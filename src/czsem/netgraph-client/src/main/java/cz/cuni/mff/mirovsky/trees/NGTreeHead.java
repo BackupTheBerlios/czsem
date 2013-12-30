@@ -57,7 +57,7 @@ public class NGTreeHead extends Object {
      */
     public final static String NODE_REFERENCE_CHARACTER_ORDER_DELIMITER = ".";
     
-    private DefaultListModel attributes; // list of attributes
+    private DefaultListModel<Attribute> attributes; // list of attributes
 
     /**
      * an index of numerical attribute in the head (counted from zero). This attribute controls the order of nodes in each tree from left to right.
@@ -149,7 +149,7 @@ public class NGTreeHead extends Object {
      * Returns a list of attributes in the head.
      * @return a list of attributes in the head
      */
-	public DefaultListModel getModel() {
+	public DefaultListModel<Attribute> getModel() {
 	    return attributes;
 	}
 

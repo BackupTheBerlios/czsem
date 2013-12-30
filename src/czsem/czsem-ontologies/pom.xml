@@ -4,6 +4,7 @@
 		<artifactId>czsem</artifactId>
 		<groupId>czsem</groupId>
 		<version>2.5-SNAPSHOT</version>
+		<relativePath>../parent-pom</relativePath>
 	</parent>
 	<artifactId>czsem-ontologies</artifactId>
 
