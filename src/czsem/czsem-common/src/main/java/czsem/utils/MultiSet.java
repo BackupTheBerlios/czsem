@@ -18,8 +18,8 @@ public class MultiSet<T> implements Iterable<T>
 	public String toFormatedString(String separator) {
 		return toFormatedString(map.entrySet(), separator);
 	}
-
-	public String toOrderedFormatedString(String separator) {
+	
+	public List<Entry<T,Integer>> getSorted() {
 		ArrayList<Entry<T, Integer>> sortedEntries = new ArrayList<Entry<T,Integer>>(map.entrySet());
 		Collections.sort(sortedEntries, new Comparator<Entry<T, Integer>>() {
 			@Override
@@ -28,6 +28,11 @@ public class MultiSet<T> implements Iterable<T>
 			}
 		});
 		
+		return sortedEntries;
+	}
+
+	public String toOrderedFormatedString(String separator) {		
+		List<Entry<T, Integer>> sortedEntries = getSorted();
 		return toFormatedString(sortedEntries, separator);
 	}
 
