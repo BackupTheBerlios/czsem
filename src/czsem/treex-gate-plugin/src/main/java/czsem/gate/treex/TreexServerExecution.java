@@ -182,6 +182,7 @@ public class TreexServerExecution {
 		eh.append("PERL5LIB", path_sep + cfg.getCzsemResourcesDir()+"/Treex"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/lib"); 
 		eh.append("PERL5LIB", path_sep + cfg.getTreexDir() + "/oldlib");
+		eh.append("PERL5LIB", path_sep + cfg.getTmtRoot() + "/libs/other");
 		eh.append("PERL5LIB", path_sep + System.getProperty("user.home") + "/perl5/lib/perl5");
 		eh.append("PERL5LIB", path_sep + System.getProperty("user.home") + "/perl5/lib/site_perl");
 		//The architecture specific directories are being searched by perl automatically
