@@ -18,7 +18,7 @@ public class AbstractConfig {
 	
 	protected static String config_filename = "czsem_config.xml";
 	protected static String config_dir = "configuration";
-	protected static String config_envp = "CZSEM_CONFIG";
+	//protected static String config_envp = "CZSEM_CONFIG";
 	
 	public String getLoadedFrom() {
 		return get("loadedFrom");
@@ -108,8 +108,9 @@ public class AbstractConfig {
 		
 		//first: try env
 		try {
-			String env = System.getenv(config_envp);
-			if (env == null) throw new FileNotFoundException(String.format("Environment property  '%s' not set.", config_envp));
+			String env_key = getConfigKey().toUpperCase();
+			String env = System.getenv(env_key);
+			if (env == null) throw new FileNotFoundException(String.format("Environment property  '%s' not set.", env_key));
 			loadConfig(env, classLoader);
 			return;
 		}
@@ -146,11 +147,14 @@ public class AbstractConfig {
 
 		@Override
 		public String getMessage() {
-			StringBuilder sb = new StringBuilder(String.format("Configuration file could not be loaded for following (%d) reasons:\n", causes.size()));
+			StringBuilder sb = new StringBuilder(String.format("Configuration file could not be loaded for one of following (%d) reasons:\n", causes.size()));
 			for (int a=0; a<causes.size(); a++)
 			{
 				sb.append(String.format("%d: %s\n", a+1, causes.get(a).toString()));
 			}
+			
+			sb.append(String.format("Current working direcotry is: %s",  System.getProperty("user.dir")));
+			
 			return sb.toString();
 		}
 		
