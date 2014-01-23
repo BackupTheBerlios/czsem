@@ -1,5 +1,6 @@
 package czsem.fs;
 
+import gate.Annotation;
 import gate.AnnotationSet;
 import gate.FeatureMap;
 
@@ -27,6 +28,10 @@ public class GateAnnotationsNodeAttributes implements NodeAttributes {
 
 	@Override
 	public Object getValue(int node_id, String attrName) {
-		return annotations.get(node_id).getFeatures().get(attrName);
+		return getAnnotation(node_id).getFeatures().get(attrName);
+	}
+	
+	public Annotation getAnnotation(int node_id) {
+		return annotations.get(node_id);
 	}
 }
