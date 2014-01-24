@@ -3,7 +3,6 @@ package czsem.gate.plugins;
 import java.util.HashSet;
 
 import czsem.gate.AbstractAnnotationDependencyMarker;
-
 import gate.Annotation;
 import gate.AnnotationSet;
 import gate.Factory;
@@ -112,29 +111,16 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 	}
 	
 	protected void markAnnotationDependencySubtree(Annotation annotation) throws InvalidOffsetException
-	{
-		AnnotationSet tokens = inputTokensAS.getContained(
-				annotation.getStartNode().getOffset(),
-				annotation.getEndNode().getOffset());
-		
-		if (tokens.isEmpty()) return;
-		
-		SubtreeMarkInfo info = new SubtreeMarkInfo(annotation.getFeatures());
-		for (Annotation token : tokens)
-		{
-			info.mergeWith(markAnnotationDependencySubtreeForSingleToken(token.getId(), 0));			
-		}
-		
-		info.fm.put("origSubTrID", annotation.getId());
-		info.fm.put("origSubTrType", annotation.getType());
+	{		
+		SubtreeMarkInfo info = findAnnotationDependencySubtree(annotation);
+		if (info == null) return;
 		
 		String orig_type_name = annotation.getType();
 		
 		String new_type_name = orig_type_name.endsWith("_root")	?
 								orig_type_name.substring(0, orig_type_name.length() - 5)
 								: orig_type_name + "_subtree";
-		
-		
+				
 		outputAS.add(
 				info.start_offset,
 				info.end_offset,
@@ -144,7 +130,31 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		
 	}
 
-	protected SubtreeMarkInfo markAnnotationDependencySubtreeForSingleToken(Integer tokenID, int depth)
+	public SubtreeMarkInfo findAnnotationDependencySubtree(Annotation annotation) throws InvalidOffsetException
+	{
+		AnnotationSet tokens = inputTokensAS.getContained(
+				annotation.getStartNode().getOffset(),
+				annotation.getEndNode().getOffset());
+		
+		if (tokens.isEmpty()) return null;
+		
+		SubtreeMarkInfo info = new SubtreeMarkInfo(annotation.getFeatures());
+		for (Annotation token : tokens)
+		{
+			info.mergeWith(findAnnotationDependencySubtreeForSingleToken(token.getId(), 0));			
+		}
+		
+		info.fm.put("origSubTrID", annotation.getId());
+		info.fm.put("origSubTrType", annotation.getType());
+		
+		return info;
+	}
+
+	public SubtreeMarkInfo findAnnotationDependencySubtreeForSingleToken(Integer tokenID) {
+		return findAnnotationDependencySubtreeForSingleToken(tokenID, 0);
+	}
+
+	protected SubtreeMarkInfo findAnnotationDependencySubtreeForSingleToken(Integer tokenID, int depth)
 	{
 		SubtreeMarkInfo this_token_info = new SubtreeMarkInfo(inputTokensAS.get(tokenID));
 		
@@ -154,7 +164,7 @@ public class AnnotationDependencySubtreeMarker extends AbstractAnnotationDepende
 		for (Integer childID : children)
 		{
 			this_token_info.mergeWith(
-					markAnnotationDependencySubtreeForSingleToken(childID, depth+1));
+					findAnnotationDependencySubtreeForSingleToken(childID, depth+1));
 					//recursive call
 		}
 		

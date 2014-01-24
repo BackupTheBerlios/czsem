@@ -17,10 +17,18 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 	
 	protected AnnotationSet inputTokensAS = null;
 	protected AnnotationSet inputDependenciesAS = null;
-	protected String tokenAnnotationTypeName;
-	protected String dependencyAnnotationTypeName;
+	protected String tokenAnnotationTypeName = "Token";
+	protected String dependencyAnnotationTypeName = "aDependency";
 	protected GateAwareTreeIndex treeIndex;
 
+	public GateAwareTreeIndex getTreeIndex() {
+		return treeIndex;
+	}
+	
+	public void setTreeIndex(GateAwareTreeIndex treeIndex) {
+		this.treeIndex = treeIndex;
+	}
+	
 	public String getTokenAnnotationTypeName() {
 		return tokenAnnotationTypeName;
 	}
@@ -38,6 +46,14 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 		this.dependencyAnnotationTypeName = dependencyAnnotationTypeName;
 	}
 	
+	public void initIndex(AnnotationSet tokensAndDependenciesAS) {
+		
+		inputTokensAS = tokensAndDependenciesAS.get(tokenAnnotationTypeName);
+		inputDependenciesAS = tokensAndDependenciesAS.get(dependencyAnnotationTypeName);
+		treeIndex = new GateAwareTreeIndex(inputDependenciesAS);
+		
+	}
+	
 	@Override
 	protected void initBeforeExecute()
 	{
@@ -46,10 +62,9 @@ public abstract class AbstractAnnotationDependencyMarker extends AbstractLanguag
 		if (getTokensAndDependenciesASName() == null) setTokensAndDependenciesASName(getInputASName());
 		
 		AnnotationSet tocDepAS = document.getAnnotations(getTokensAndDependenciesASName());
+
+		initIndex(tocDepAS);
 		
-		inputTokensAS = tocDepAS.get(tokenAnnotationTypeName);
-		inputDependenciesAS = tocDepAS.get(dependencyAnnotationTypeName);
-		treeIndex = new GateAwareTreeIndex(inputDependenciesAS);
 	}
 
 	public String getTokensAndDependenciesASName() {
