@@ -97,6 +97,8 @@ public class DataStoreWrapper {
 
 
 	public void close() throws PersistenceException {
+		if (ds == null) return;
+		
 		ds.close();
 	}
 	
