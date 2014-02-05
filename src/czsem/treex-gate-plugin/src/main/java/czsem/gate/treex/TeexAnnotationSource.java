@@ -213,7 +213,10 @@ public class TeexAnnotationSource implements AnnotationSource {
 
 		@Override
 		public Integer getChildGateId() {
-			return (Integer) nodeMap.get(childId).get("gateAnnId");
+			Map<String, Object> childNode = nodeMap.get(childId);
+			if (childNode == null) return null;
+			
+			return (Integer) childNode.get("gateAnnId");
 		}
 		
 	}

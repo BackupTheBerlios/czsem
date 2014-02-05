@@ -133,6 +133,10 @@ public class SequenceAnnotator
 						if (toc_ch == ' ' && loc_ch < 32) {
 							continue;							
 						}
+
+						if (toc_ch == '\'' && loc_ch == '’') {
+							continue;							
+						}
 						
 						//multiple hyphens
 						if (
